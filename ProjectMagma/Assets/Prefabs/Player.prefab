@@ -51,7 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2324110343507679693}
   health: 100
-  speed: 7
+  walkSpeed: 3
+  sprintSpeed: 10
   jumpMaxNumber: 2
   jumpStrength: 7
   gravityStrength: -12
