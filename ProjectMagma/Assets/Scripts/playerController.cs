@@ -9,6 +9,8 @@ public class playerController : MonoBehaviour
     [SerializeField] CharacterController controller;
 
     [SerializeField] int health;
+
+    [Header("Walking & Running")]
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
 
@@ -35,10 +37,10 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessMovement();
+        processMovement();
     }
 
-    void ProcessMovement()
+    void processMovement()
     {
         isGrounded = controller.isGrounded;
         if (isGrounded)
@@ -58,7 +60,7 @@ public class playerController : MonoBehaviour
 
         // Handle jumping
         if (Input.GetButtonDown("Jump") & jumpCount < jumpMaxNumber)
-            Jump();
+            jump();
 
         // Apply gravity
         verticalVelocity.y += gravityStrength * Time.deltaTime;
@@ -77,7 +79,7 @@ public class playerController : MonoBehaviour
         }
     }
 
-    void Jump()
+    void jump()
     {
         verticalVelocity.y = jumpStrength;
         jumpCount++;

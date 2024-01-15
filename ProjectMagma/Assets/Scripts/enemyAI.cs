@@ -9,8 +9,9 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] NavMeshAgent agent;
     
     [SerializeField] int HP;
+    [Tooltip("For how long the enemy flashes red upon receiving damage.")]
+    [SerializeField] float damageFlashLength;
     [SerializeField] int speed;
-
 
 
     // Start is called before the first frame update
@@ -41,9 +42,13 @@ public class enemyAI : MonoBehaviour, IDamage
 
     IEnumerator flashRed()
     {
-        model.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        model.material.color = Color.white;
+        // Remember the old color
+        Color oldColor = model.material.color;
 
+        // Flash red for some time
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(damageFlashLength);
+
+        model.material.color = oldColor;
     }
 }

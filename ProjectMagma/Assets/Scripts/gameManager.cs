@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class gameManager : MonoBehaviour
 {
-    //this may not work till the GameManager is in the scene. in class we did it through the ui
-    //if you need to test->i added a UI prefab with a GameManager to add to your scene
+    //this may not work till the GameManager is in the scene. in class we did it by including it in the UI
+    //if you need to test, use the UI prefab with a GameManager in it for your scene
     public static gameManager instance;
 
     public GameObject player;

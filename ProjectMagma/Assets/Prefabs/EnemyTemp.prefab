@@ -51,6 +51,7 @@ MonoBehaviour:
   model: {fileID: 3294878202004255085}
   agent: {fileID: 5928567417781276368}
   HP: 3
+  damageFlashLength: 0.1
   speed: 3
 --- !u!195 &5928567417781276368
 NavMeshAgent:
