@@ -26,12 +26,12 @@ public class gameManager : MonoBehaviour
         // If ESC button is pressed and nothing is currently in the active menu
         if (Input.GetButtonDown("Cancel") && menuActive == null)
         {
+            // call pause function
+            statePaused();
             // set pause menu as the active menu
             menuActive = menuPause;
             // toggle the menu on
             menuActive.SetActive(isPaused);
-            // call pause function
-            statePaused();
         }
     }
     public void statePaused()
