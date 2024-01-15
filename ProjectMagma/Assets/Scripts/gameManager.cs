@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class gameManager : MonoBehaviour
 {
-    //this may not work till the GameManager is in the scene. in class we did it by including it in the UI
-    //if you need to test, use the UI prefab with a GameManager in it for your scene. 
     public static gameManager instance;
 
     [SerializeField] GameObject menuActive;
@@ -16,7 +14,6 @@ public class gameManager : MonoBehaviour
 
     public bool isPaused;
 
-    // Start is called before the first frame update
     void Awake()
     {
         instance = this;
@@ -29,20 +26,19 @@ public class gameManager : MonoBehaviour
         // If ESC button is pressed and nothing is currently in the active menu
         if (Input.GetButtonDown("Cancel") && menuActive == null)
         {
-            // call pause function
-            statePaused();
             // set pause menu as the active menu
             menuActive = menuPause;
-            // toggel the menu on
+            // toggle the menu on
             menuActive.SetActive(isPaused);
+            // call pause function
+            statePaused();
         }
     }
     public void statePaused()
     {
-        // Toggel the isPaused Bool
-        isPaused = !isPaused;
+        isPaused = true;
         // Stop all time based Actions from happening in the background
-        Time.timeScale = 0;
+        Time.timeScale = 0.0f;
         // Make Cursor Visible
         Cursor.visible = true;
         // Confine Cursor to Pause window boundaries
@@ -51,10 +47,9 @@ public class gameManager : MonoBehaviour
     }
     public void stateUnpaused()
     {
-        // Toggel the isPaused Bool
-        isPaused = !isPaused;
+        isPaused = false;
         // Resumes time based actions 
-        Time.timeScale = 1;
+        Time.timeScale = 1.0f;
         // Hides Cursor
         Cursor.visible = false;
         // Locks Cursor

@@ -26,13 +26,7 @@ public class enemyAI : MonoBehaviour, IDamage
         //this will not work till the GameManager is in the scene. in class we did it within the UI 
         agent.SetDestination(gameManager.instance.player.transform.position);
         
-        float distanceToPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
-        
-        //stoping distance in unity has to be set above 1 for this to work atm.
-        if (distanceToPlayer < agent.stoppingDistance)
-        {
-            agent.SetDestination(transform.position);
-        }
+        //float distanceToPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
     }
 
     public void takeDamage(int amount)
