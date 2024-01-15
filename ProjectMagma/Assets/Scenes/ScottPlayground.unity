@@ -1076,7 +1076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4756643858253000288, guid: d49a5e61c2282564a8ed2ef60b4fbb81, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4756643858253000288, guid: d49a5e61c2282564a8ed2ef60b4fbb81, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1105,6 +1105,10 @@ PrefabInstance:
     - target: {fileID: 4756643858253000288, guid: d49a5e61c2282564a8ed2ef60b4fbb81, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770688324060024256, guid: d49a5e61c2282564a8ed2ef60b4fbb81, type: 3}
+      propertyPath: sensitivity
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1191,6 +1195,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5928567417781276368, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
+      propertyPath: m_Speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928567417781276368, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928567417781276368, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928567417781276368, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1202,6 +1222,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 3498527669758242589}
   - {fileID: 3126088935467536459}
+  - {fileID: 2409405857112104901}
   - {fileID: 705507995}
   - {fileID: 2001145962}
   - {fileID: 702866481}
@@ -1210,4 +1231,3 @@ SceneRoots:
   - {fileID: 2008136275}
   - {fileID: 756028382}
   - {fileID: 1295480360}
-  - {fileID: 2409405857112104901}
