@@ -9,7 +9,10 @@ public class playerController : MonoBehaviour
     [SerializeField] CharacterController controller;
 
     [SerializeField] int health;
-    [SerializeField] float speed;
+
+    [Header("Walking & Running")]
+    [SerializeField] float walkSpeed;
+    [SerializeField] float sprintSpeed;
 
     [Header("Jumps & Gravity")]
     [Tooltip("The maximum number of jumps the player can perform before hitting the ground.")]
@@ -22,20 +25,22 @@ public class playerController : MonoBehaviour
     private Vector3 verticalVelocity;
     private bool isGrounded;
     private int jumpCount;
+    private bool sprinting;
+    private float currentSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        currentSpeed = walkSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        ProcessMovement();
+        processMovement();
     }
 
-    void ProcessMovement()
+    void processMovement()
     {
         isGrounded = controller.isGrounded;
         if (isGrounded)
@@ -48,14 +53,14 @@ public class playerController : MonoBehaviour
             + Input.GetAxis("Vertical") * transform.forward;
 
         // Calculate horizontal motion
-        Vector3 horMotion = horMotionDirection * speed * Time.deltaTime;
+        Vector3 horMotion = horMotionDirection * currentSpeed * Time.deltaTime;
 
         // Apply horizontal motion
         controller.Move(horMotion);
 
         // Handle jumping
         if (Input.GetButtonDown("Jump") & jumpCount < jumpMaxNumber)
-            Jump();
+            jump();
 
         // Apply gravity
         verticalVelocity.y += gravityStrength * Time.deltaTime;
@@ -63,11 +68,31 @@ public class playerController : MonoBehaviour
 
         // Apply vertical motion.
         controller.Move(verticalVelocity * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            sprint(true);
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            sprint(false);
+        }
     }
 
-    void Jump()
+    void jump()
     {
         verticalVelocity.y = jumpStrength;
         jumpCount++;
     }
+
+    void sprint(bool enable)
+    {
+        sprinting = !sprinting;
+        if (enable && isGrounded)
+            currentSpeed = sprintSpeed;
+        else
+            currentSpeed = walkSpeed;
+    }
+
+   
 }
