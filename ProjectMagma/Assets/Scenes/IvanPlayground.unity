@@ -637,11 +637,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1866283269 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4383626193967391401, guid: f06790d6a86a63b448f8dcf68c7be496, type: 3}
-  m_PrefabInstance: {fileID: 2123768614}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1924622216
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,75 +1012,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7528121846073217404, guid: f06790d6a86a63b448f8dcf68c7be496, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2123768618}
-    - targetCorrespondingSourceObject: {fileID: 7528121846073217404, guid: f06790d6a86a63b448f8dcf68c7be496, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2123768616}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f06790d6a86a63b448f8dcf68c7be496, type: 3}
---- !u!1 &2123768615 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7528121846073217404, guid: f06790d6a86a63b448f8dcf68c7be496, type: 3}
-  m_PrefabInstance: {fileID: 2123768614}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &2123768616
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123768615}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 8, y: 8, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2123768617 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6401724235487862881, guid: f06790d6a86a63b448f8dcf68c7be496, type: 3}
-  m_PrefabInstance: {fileID: 2123768614}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2123768618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123768615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf3b099ace3af54e8c23232b0d6e501, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barrierCollider: {fileID: 2123768616}
-  textMesh: {fileID: 2123768617}
-  panel: {fileID: 1866283269}
-  messageLocked: 'ACCESS DENIED
-
-
-    FIND CARD'
-  messageUnlocked: ACCESS GRANTED
-  textColorLocked: {r: 1, g: 0.1764706, b: 0, a: 1}
-  textColorUnlocked: {r: 0, g: 1, b: 0.050980393, a: 1}
-  panelColorLocked: {r: 0.5176471, g: 0.08235294, b: 0, a: 0.2901961}
-  panelColorUnlocked: {r: 0.09019608, g: 0.5176471, b: 0, a: 0.2901961}
 --- !u!1001 &3126088935467536459
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -324,6 +324,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8540154124682598850}
+  - component: {fileID: 6577207696178923214}
+  - component: {fileID: 4283951085495163319}
   m_Layer: 0
   m_Name: Barrier
   m_TagString: Untagged
@@ -347,3 +349,48 @@ Transform:
   - {fileID: 3897558813310186270}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6577207696178923214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7528121846073217404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3b099ace3af54e8c23232b0d6e501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrierCollider: {fileID: 4283951085495163319}
+  textMesh: {fileID: 6401724235487862881}
+  panel: {fileID: 4383626193967391401}
+  messageLocked: 'ACCESS DENIED
+
+
+    FIND CARD'
+  messageUnlocked: ACCESS GRANTED
+  textColorLocked: {r: 1, g: 0.1764706, b: 0, a: 1}
+  textColorUnlocked: {r: 0, g: 1, b: 0.050980393, a: 1}
+  panelColorLocked: {r: 0.5176471, g: 0.08235294, b: 0, a: 0.2901961}
+  panelColorUnlocked: {r: 0.09019608, g: 0.5176471, b: 0, a: 0.2901961}
+--- !u!65 &4283951085495163319
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7528121846073217404}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8, y: 8, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
