@@ -1781,7 +1781,7 @@ MonoBehaviour:
   menuActive: {fileID: 0}
   menuPause: {fileID: 3547998767948727541}
   menuWin: {fileID: 9042903173868157522}
-  menuLose: {fileID: 0}
+  menuLose: {fileID: 1558998955403038695}
   playerHealthbar: {fileID: 3485526451889417748}
   playerEnergybar: {fileID: 8395521046521427636}
   playerScript: {fileID: 0}
