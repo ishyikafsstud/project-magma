@@ -8,25 +8,31 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
     
+
+    
     [SerializeField] int HP;
     [Tooltip("For how long the enemy flashes red upon receiving damage.")]
     [SerializeField] float damageFlashLength;
     [SerializeField] int speed;
+    [SerializeField] float AttackRadius;
+    [SerializeField] float chaseTime;
 
+    public bool canSeePlayer;
+    public RaycastHit hitData;
+
+    Ray enemyEyes;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        enemyEyes = new Ray(transform.position, transform.forward);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //this will not work till the GameManager is in the scene. in class we did it within the UI 
-        agent.SetDestination(gameManager.instance.player.transform.position);
-        
-        //float distanceToPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
+        Lurk();
+        Debug.DrawRay(enemyEyes.origin, enemyEyes.direction * AttackRadius * 2, Color.green); 
     }
 
     public void takeDamage(int amount)
@@ -37,6 +43,40 @@ public class enemyAI : MonoBehaviour, IDamage
         if(HP <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    void Lurk()
+    {
+        if (Physics.Raycast(enemyEyes, out hitData, AttackRadius * 2) && hitData.collider.CompareTag("Player"))
+        {
+            canSeePlayer = true;
+            ChasePlayer(); 
+        }
+        else
+        {
+            canSeePlayer= false;
+        }
+        
+    }
+
+    void ChasePlayer()
+    {
+        enemyEyes = new Ray(transform.position, transform.forward);
+        StartCoroutine(ChaseTime());
+        canSeePlayer = true;
+        transform.LookAt(gameManager.instance.player.transform.position);
+        agent.SetDestination(gameManager.instance.player.transform.position);
+
+    }
+
+    IEnumerator ChaseTime()
+    {
+        yield return new WaitForSeconds(chaseTime);
+        enemyEyes = new Ray(transform.position, transform.forward);
+        if (!Physics.Raycast(enemyEyes, out hitData, AttackRadius * 2))
+        {
+            canSeePlayer = false;
         }
     }
 
@@ -52,4 +92,6 @@ public class enemyAI : MonoBehaviour, IDamage
 
         model.material.color = oldColor;
     }
+
+    
 }

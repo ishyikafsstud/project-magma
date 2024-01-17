@@ -179,6 +179,22 @@ PrefabInstance:
       propertyPath: HP
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
+      propertyPath: castPoint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
+      propertyPath: chaseTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
+      propertyPath: visionAngle
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
+      propertyPath: AttackRadius
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5928567417781276368, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
       propertyPath: m_Speed
       value: 3
@@ -501,6 +517,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1070186805885632638, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
+      propertyPath: chaseTime
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1070186805885632638, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
+      propertyPath: AttackRadius
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4754884905247820340, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.5
@@ -597,6 +621,14 @@ PrefabInstance:
     - target: {fileID: 3870288838080975247, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
+      propertyPath: chaseTime
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
+      propertyPath: AttackRadius
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8931111809424262872, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
       propertyPath: m_Name
