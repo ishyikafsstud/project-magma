@@ -43,6 +43,7 @@ public class playerController : MonoBehaviour, IDamage
         currentSpeed = walkSpeed;
 
         updatePlayerUI();
+        respawn();
     }
 
     // Update is called once per frame
@@ -147,6 +148,16 @@ public class playerController : MonoBehaviour, IDamage
     void die()
     {
         gameManager.instance.scenarioPlayerLoses();
+    }
+
+    public void respawn()
+    {
+        health = healthOriginal;
+        updatePlayerUI();
+
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPosition.transform.position;
+        controller.enabled = true;
     }
 
     void updatePlayerUI()

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - LevelBarrier
+  - Player Spawn Position
   layers:
   - Default
   - TransparentFX
