@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class levelBarrier : MonoBehaviour
+public class levelBarrier : MonoBehaviour, ILockable
 {
     [SerializeField] BoxCollider barrierCollider;
     [SerializeField] TMP_Text textMesh;
@@ -35,7 +35,7 @@ public class levelBarrier : MonoBehaviour
 
     }
 
-    void ToggleLock()
+    public void ToggleLock()
     {
         isLocked = !isLocked;
         if (isLocked)
@@ -44,7 +44,7 @@ public class levelBarrier : MonoBehaviour
             Unlock();
     }
 
-    void Lock()
+    public void Lock()
     {
         barrierCollider.enabled = true;
         textMesh.text = messageLocked;
@@ -52,7 +52,7 @@ public class levelBarrier : MonoBehaviour
         panel.GetComponent<Image>().color = panelColorLocked;
     }
 
-    void Unlock()
+    public void Unlock()
     {
         barrierCollider.enabled = false;
         textMesh.text = messageUnlocked;

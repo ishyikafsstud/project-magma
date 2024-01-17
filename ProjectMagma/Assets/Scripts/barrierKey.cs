@@ -21,6 +21,7 @@ public class barrierKey : MonoBehaviour
 
     void pickup()
     {
+        gameManager.instance.keyPicked();
         Destroy(gameObject);
     }
 

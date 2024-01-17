@@ -10,7 +10,11 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
 
+    [SerializeField] GameObject barrier;
+
     public GameObject player;
+
+    bool isKeyPicked;
 
     public bool isPaused;
 
@@ -58,5 +62,11 @@ public class gameManager : MonoBehaviour
         menuActive.SetActive(false);
         // resets and removes pause menu from active Menu
         menuActive = null;
+    }
+
+    public void keyPicked()
+    {
+        isKeyPicked = true;
+        barrier.GetComponent<levelBarrier>().Unlock();
     }
 }
