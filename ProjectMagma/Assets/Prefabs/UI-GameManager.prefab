@@ -944,6 +944,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuActive: {fileID: 0}
   menuPause: {fileID: 3547998767948727541}
+  menuWin: {fileID: 9042903173868157522}
+  menuLose: {fileID: 3189355854122102093}
+  barrier: {fileID: 0}
   player: {fileID: 0}
   isPaused: 0
 --- !u!114 &2665246074342212890

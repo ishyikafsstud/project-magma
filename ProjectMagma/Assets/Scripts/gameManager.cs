@@ -9,6 +9,8 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
+    [SerializeField] GameObject menuWin;
+    [SerializeField] GameObject menuLose;
 
     [SerializeField] GameObject barrier;
 
@@ -62,6 +64,13 @@ public class gameManager : MonoBehaviour
         menuActive.SetActive(false);
         // resets and removes pause menu from active Menu
         menuActive = null;
+    }
+
+    public void scenarioPlayerWins()
+    {
+        statePaused();
+        menuActive = menuWin;
+        menuActive.SetActive(true);
     }
 
     public void keyPicked()
