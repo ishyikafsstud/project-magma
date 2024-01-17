@@ -63,7 +63,7 @@ public class playerController : MonoBehaviour, IDamage
         if (isGrounded)
         {
             jumpCount = 0;
-            verticalVelocity.y = -0.5f; // ensure the player stays grounded
+            verticalVelocity.y = -0.0f; // ensure the player stays grounded
         }
         else
         {
@@ -75,7 +75,7 @@ public class playerController : MonoBehaviour, IDamage
 
         // Get horizontal movement direction
         horMotionDirection = Input.GetAxis("Horizontal") * transform.right
-        + Input.GetAxis("Vertical") * transform.forward;
+             + Input.GetAxis("Vertical") * transform.forward;
 
         // Calculate horizontal motion
         Vector3 horMotion = horMotionDirection * currentSpeed * Time.deltaTime;
@@ -88,9 +88,6 @@ public class playerController : MonoBehaviour, IDamage
             jump();
 
         // Apply vertical motion
-        controller.Move(verticalVelocity * Time.deltaTime);
-
-        // Apply vertical motion.
         controller.Move(verticalVelocity * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
