@@ -20,22 +20,20 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float jumpStrength;
     [SerializeField] float gravityStrength;
     [SerializeField] float maxVerticalSpeed;
-    
+
     [Header("Shooting")]
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
-    [SerializeField] float energyCost;
-    [SerializeField] int energy;
-    [SerializeField] float regenRate;
-    [SerializeField] float energyFillSpeed;
+    [SerializeField] float energy;
+    [SerializeField] float energyCostPerShot;
+    [SerializeField] float energyRegenRate;
 
     [Header("UI")]
     [Tooltip("The duration of screen flash upon receiving damage.")]
     [SerializeField] float damageFlashDuration;
 
-    private float currentEnergy;
-    private int energyOriganal;
+    private float energyOriginal;
     private int healthOriginal;
     private Vector3 horMotionDirection;
     private Vector3 verticalVelocity;
@@ -49,7 +47,7 @@ public class playerController : MonoBehaviour, IDamage
     void Start()
     {
         healthOriginal = health;
-        energyOriganal = energy;
+        energyOriginal = energy;
         currentSpeed = walkSpeed;
 
         updatePlayerUI();
@@ -62,16 +60,15 @@ public class playerController : MonoBehaviour, IDamage
         processMovement();
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.green);
 
-        if (Input.GetButton("Shoot") && !isShooting && currentEnergy > 0)
+        if (Input.GetButton("Shoot") && !isShooting && energy > energyCostPerShot)
         {
             StartCoroutine(Shoot());
-            useEnergy();
         }
         else
         {
             RegenEnergy();
         }
-        
+
     }
 
     void processMovement()
@@ -147,6 +144,7 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator Shoot()
     {
         isShooting = true;
+        useEnergy(energyCostPerShot);
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
@@ -161,27 +159,18 @@ public class playerController : MonoBehaviour, IDamage
         isShooting = false;
     }
 
-    void useEnergy()
+    void useEnergy(float amount)
     {
-        if (isShooting && currentEnergy > 0)
-        {
-            currentEnergy -= energyCost;
-            if (currentEnergy < 0)
-            {
-                currentEnergy = 0;
-                isShooting = false;
-            }
-            updatePlayerUI();
-        }
+        energy -= amount;
+        updatePlayerUI();
     }
 
     void RegenEnergy()
     {
-        if (currentSpeed > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") !=0))
+        if (currentSpeed > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
         {
-            currentEnergy += regenRate * Time.deltaTime;
-            currentEnergy = Mathf.Clamp(currentEnergy, 0, energyOriganal);
-            
+            energy += energyRegenRate * Time.deltaTime;
+            energy = Mathf.Clamp(energy, 0, energyOriginal);
         }
         updatePlayerUI();
 
@@ -194,7 +183,7 @@ public class playerController : MonoBehaviour, IDamage
     public void respawn()
     {
         health = healthOriginal;
-        energy = energyOriganal;
+        energy = energyOriginal;
         updatePlayerUI();
 
         controller.enabled = false;
@@ -207,9 +196,9 @@ public class playerController : MonoBehaviour, IDamage
     {
         //health bar update
         gameManager.instance.playerHealthbar.fillAmount = (float)health / healthOriginal;
-        //energy bar update
-        float energyFillAmount = Mathf.Lerp(gameManager.instance.playerEnergybar.fillAmount, (float)currentEnergy / energyOriganal, Time.deltaTime * energyFillSpeed);
-        gameManager.instance.playerEnergybar.fillAmount = energyFillAmount;
+        if (energyOriginal > 0.0f)
+            //energy bar update
+            gameManager.instance.playerEnergybar.fillAmount = (float)energy / energyOriginal;
     }
 
     IEnumerator flashDamageOnScreen()
