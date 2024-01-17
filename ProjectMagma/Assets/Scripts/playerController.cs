@@ -20,6 +20,11 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float jumpStrength;
     [SerializeField] float gravityStrength;
     [SerializeField] float maxVerticalSpeed;
+    
+    [Header("Damage")]
+    [SerializeField] int shootDamage;
+    [SerializeField] float shootRate;
+    [SerializeField] int shootDist;
 
     private int healthOriginal;
     private Vector3 horMotionDirection;
@@ -28,6 +33,7 @@ public class playerController : MonoBehaviour, IDamage
     private int jumpCount;
     private bool sprinting;
     private float currentSpeed;
+    private bool isShooting;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +48,13 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         processMovement();
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.green);
+
+        if (Input.GetButton("Shoot") && !isShooting)
+        {
+            StartCoroutine(Shoot());
+        }
+        
     }
 
     void processMovement()
@@ -115,7 +128,22 @@ public class playerController : MonoBehaviour, IDamage
             die();
         }
     }
+    IEnumerator Shoot()
+    {
+        isShooting = true;
 
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+        {
+            IDamage damagedBody = hit.collider.GetComponent<IDamage>();
+            if (damagedBody != null)
+                damagedBody.takeDamage(shootDamage);
+        }
+
+        yield return new WaitForSeconds(shootRate); // Unity Timer
+
+        isShooting = false;
+    }
     void die()
     {
         gameManager.instance.scenarioPlayerLoses();
