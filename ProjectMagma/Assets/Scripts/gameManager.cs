@@ -8,30 +8,30 @@ public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
 
+    [Header("UI")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
 
+    public TextMeshProUGUI enemyCountText;
     public Image playerHealthbar;
     public Image playerEnergybar;
-    public playerController playerScript;
-    public GameObject playerSpawnPosition;
-
     public GameObject playerDamageScreenFlash;
 
+
     [Header("Non-children")]
+    public GameObject playerSpawnPosition;
     public GameObject player;
+    public playerController playerScript;
     [SerializeField] GameObject barrier;
 
     [Header("Functional settings")]
     public bool isPaused;
+    public int enemyCount;
 
-    [Header("UI")]
-    public TextMeshProUGUI enemyCountText;
 
     bool isKeyPicked;
-    public int enemyCount;
 
     void Awake()
     {
@@ -39,6 +39,10 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
+    }
+
+    void Start()
+    {
         UpdateEnemyCountText();
     }
 
@@ -107,22 +111,14 @@ public class gameManager : MonoBehaviour
         enemyCount--;
         UpdateEnemyCountText();
 
-        if (enemyCount <= 0)
-        {
-            AllEnemiesDefeated();
-        }
-    }
-
-    public void AllEnemiesDefeated()
-    {
-        scenarioPlayerWins();
+        //if (enemyCount <= 0)
+        //{
+        //    
+        //}
     }
 
     public void UpdateEnemyCountText()
     {
-        if (enemyCount != null)
-        {
-            enemyCountText.text = "Enemies Left: " + enemyCount.ToString();
-        }
+        enemyCountText.SetText("Enemies Left: " + enemyCount.ToString());
     }
 }
