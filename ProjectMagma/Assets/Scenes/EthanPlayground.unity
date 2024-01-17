@@ -1045,26 +1045,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI-GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8151666403568927593, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
-      propertyPath: playerEnergybar
-      value: 
-      objectReference: {fileID: 822280102865090668}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
---- !u!114 &822280102865090668 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8395521046521427636, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
-  m_PrefabInstance: {fileID: 822280102865090667}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3126088935467536459
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1132,7 +1117,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 972145195232053779, guid: b43b3bf738d383b4f8891d4b040b9eab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.9
+      value: -2.38
       objectReference: {fileID: 0}
     - target: {fileID: 972145195232053779, guid: b43b3bf738d383b4f8891d4b040b9eab, type: 3}
       propertyPath: m_LocalPosition.y
