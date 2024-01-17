@@ -12,6 +12,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     public Image playerHealthbar;
+    public Image playerEnergybar;
 
     public GameObject playerDamageScreenFlash;
 

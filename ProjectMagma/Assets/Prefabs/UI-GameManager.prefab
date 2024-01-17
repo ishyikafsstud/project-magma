@@ -1248,6 +1248,7 @@ MonoBehaviour:
   menuWin: {fileID: 9042903173868157522}
   menuLose: {fileID: 3189355854122102093}
   playerHealthbar: {fileID: 3485526451889417748}
+  playerEnergybar: {fileID: 8395521046521427636}
   playerDamageScreenFlash: {fileID: 3331555979164700209}
   player: {fileID: 0}
   barrier: {fileID: 0}

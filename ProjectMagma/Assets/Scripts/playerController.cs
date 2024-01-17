@@ -26,6 +26,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
 
+    private int energyOriganal;
     private int healthOriginal;
     private Vector3 horMotionDirection;
     private Vector3 verticalVelocity;
