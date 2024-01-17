@@ -25,6 +25,7 @@ public class enemyAI : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
+        gameManager.instance.enemyCount++;
         enemyEyes = new Ray(transform.position, transform.forward);
     }
 
@@ -42,6 +43,7 @@ public class enemyAI : MonoBehaviour, IDamage
         
         if(HP <= 0)
         {
+            gameManager.instance.DecreaseEnemyCount();
             Destroy(gameObject);
         }
     }

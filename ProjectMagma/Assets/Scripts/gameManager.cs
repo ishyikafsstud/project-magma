@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +27,11 @@ public class gameManager : MonoBehaviour
     [Header("Functional settings")]
     public bool isPaused;
 
+    [Header("UI")]
+    public TextMeshProUGUI enemyCountText;
+
     bool isKeyPicked;
+    public int enemyCount;
 
     void Awake()
     {
@@ -34,6 +39,7 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
+        UpdateEnemyCountText();
     }
 
     // Update is called once per frame
@@ -94,5 +100,29 @@ public class gameManager : MonoBehaviour
     {
         isKeyPicked = true;
         barrier.GetComponent<levelBarrier>().Unlock();
+    }
+
+    public void DecreaseEnemyCount()
+    {
+        enemyCount--;
+        UpdateEnemyCountText();
+
+        if (enemyCount <= 0)
+        {
+            AllEnemiesDefeated();
+        }
+    }
+
+    public void AllEnemiesDefeated()
+    {
+        scenarioPlayerWins();
+    }
+
+    public void UpdateEnemyCountText()
+    {
+        if (enemyCount != null)
+        {
+            enemyCountText.text = "Enemies Left: " + enemyCount.ToString();
+        }
     }
 }
