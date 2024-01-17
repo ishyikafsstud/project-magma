@@ -46,11 +46,19 @@ public class playerController : MonoBehaviour
         if (isGrounded)
         {
             jumpCount = 0;
+            verticalVelocity.y = -0.5f; // ensure the player stays grounded
         }
+        else
+        {
+            // apply gravity only when not grounded
+            verticalVelocity.y += gravityStrength * Time.deltaTime;
+            verticalVelocity.y = Mathf.Clamp(verticalVelocity.y, -maxVerticalSpeed, maxVerticalSpeed);
+        }
+
 
         // Get horizontal movement direction
         horMotionDirection = Input.GetAxis("Horizontal") * transform.right
-            + Input.GetAxis("Vertical") * transform.forward;
+        + Input.GetAxis("Vertical") * transform.forward;
 
         // Calculate horizontal motion
         Vector3 horMotion = horMotionDirection * currentSpeed * Time.deltaTime;
@@ -62,9 +70,8 @@ public class playerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") & jumpCount < jumpMaxNumber)
             jump();
 
-        // Apply gravity
-        verticalVelocity.y += gravityStrength * Time.deltaTime;
-        verticalVelocity.y = Mathf.Clamp(verticalVelocity.y, -maxVerticalSpeed, maxVerticalSpeed);
+        // Apply vertical motion
+        controller.Move(verticalVelocity * Time.deltaTime);
 
         // Apply vertical motion.
         controller.Move(verticalVelocity * Time.deltaTime);
@@ -93,6 +100,4 @@ public class playerController : MonoBehaviour
         else
             currentSpeed = walkSpeed;
     }
-
-   
 }
