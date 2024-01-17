@@ -120,6 +120,8 @@ public class playerController : MonoBehaviour, IDamage
 
         updatePlayerUI();
 
+        StartCoroutine(flashDamageOnScreen());
+
         if (health <= 0)
         {
             die();
@@ -149,5 +151,12 @@ public class playerController : MonoBehaviour, IDamage
     void updatePlayerUI()
     {
         gameManager.instance.playerHealthbar.fillAmount = (float)health / healthOriginal;
+    }
+
+    IEnumerator flashDamageOnScreen()
+    {
+        gameManager.instance.playerDamageScreenFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gameManager.instance.playerDamageScreenFlash.SetActive(false);
     }
 }

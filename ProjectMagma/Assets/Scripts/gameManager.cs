@@ -13,6 +13,8 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     public Image playerHealthbar;
 
+    public GameObject playerDamageScreenFlash;
+
     [Header("Non-children")]
     public GameObject player;
     [SerializeField] GameObject barrier;
