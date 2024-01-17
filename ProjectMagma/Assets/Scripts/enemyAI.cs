@@ -14,12 +14,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [Tooltip("For how long the enemy flashes red upon receiving damage.")]
     [SerializeField] float damageFlashLength;
     [SerializeField] int speed;
-    
-
-    
-
-    
-
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +49,14 @@ public class enemyAI : MonoBehaviour, IDamage
         transform.LookAt(gameManager.instance.player.transform.position);
         agent.SetDestination(gameManager.instance.player.transform.position);
 
+    }
+
+    void CheckIfLastEnemy()
+    {
+        if(gameManager.instance.enemyCount <= 1)
+        {
+            gameManager.instance.LastEnemyDefeated();
+        }
     }
 
 

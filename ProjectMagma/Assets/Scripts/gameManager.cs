@@ -39,6 +39,7 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
+        isKeyPicked = false;
     }
 
     void Start()
@@ -111,14 +112,29 @@ public class gameManager : MonoBehaviour
         enemyCount--;
         UpdateEnemyCountText();
 
-        //if (enemyCount <= 0)
-        //{
-        //    
-        //}
+        if (enemyCount <= 0)
+        {
+            LastEnemyDefeated();
+        }
+    }
+    public void LastEnemyDefeated()
+    {
+        if (!isKeyPicked)
+        {
+            keyPicked();
+        }
     }
 
     public void UpdateEnemyCountText()
     {
-        enemyCountText.SetText("Enemies Left: " + enemyCount.ToString());
+        if (enemyCount <= 0)
+        {
+            enemyCountText.SetText("No eneimies left. You Have the key!!");
+        }
+        else
+        {
+            enemyCountText.SetText("Enemies Left: " + enemyCount.ToString());
+        }
+        
     }
 }
