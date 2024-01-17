@@ -21,10 +21,14 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float gravityStrength;
     [SerializeField] float maxVerticalSpeed;
     
-    [Header("Damage")]
+    [Header("Shooting")]
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
+
+    [Header("UI")]
+    [Tooltip("The duration of screen flash upon receiving damage.")]
+    [SerializeField] float damageFlashDuration;
 
     private int energyOriganal;
     private int healthOriginal;
@@ -169,7 +173,7 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator flashDamageOnScreen()
     {
         gameManager.instance.playerDamageScreenFlash.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(damageFlashDuration);
         gameManager.instance.playerDamageScreenFlash.SetActive(false);
     }
 }

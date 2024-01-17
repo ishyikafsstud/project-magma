@@ -57,6 +57,7 @@ MonoBehaviour:
   jumpStrength: 7
   gravityStrength: -15
   maxVerticalSpeed: 140
+  damageFlashDuration: 0.1
 --- !u!143 &2324110343507679693
 CharacterController:
   m_ObjectHideFlags: 0
