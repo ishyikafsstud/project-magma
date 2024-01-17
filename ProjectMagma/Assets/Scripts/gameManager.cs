@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
@@ -11,14 +11,16 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    public Image playerHealthbar;
 
+    [Header("Non-children")]
+    public GameObject player;
     [SerializeField] GameObject barrier;
 
-    public GameObject player;
+    [Header("Functional settings")]
+    public bool isPaused;
 
     bool isKeyPicked;
-
-    public bool isPaused;
 
     void Awake()
     {
@@ -70,6 +72,13 @@ public class gameManager : MonoBehaviour
     {
         statePaused();
         menuActive = menuWin;
+        menuActive.SetActive(true);
+    }
+
+    public void scenarioPlayerLoses()
+    {
+        statePaused();
+        menuActive = menuLose;
         menuActive.SetActive(true);
     }
 

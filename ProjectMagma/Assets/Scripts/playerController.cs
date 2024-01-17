@@ -4,7 +4,7 @@ using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class playerController : MonoBehaviour
+public class playerController : MonoBehaviour, IDamage
 {
     [SerializeField] CharacterController controller;
 
@@ -21,6 +21,7 @@ public class playerController : MonoBehaviour
     [SerializeField] float gravityStrength;
     [SerializeField] float maxVerticalSpeed;
 
+    private int healthOriginal;
     private Vector3 horMotionDirection;
     private Vector3 verticalVelocity;
     private bool isGrounded;
@@ -31,7 +32,10 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        healthOriginal = health;
         currentSpeed = walkSpeed;
+
+        updatePlayerUI();
     }
 
     // Update is called once per frame
@@ -99,5 +103,26 @@ public class playerController : MonoBehaviour
             currentSpeed = sprintSpeed;
         else
             currentSpeed = walkSpeed;
+    }
+    public void takeDamage(int amount)
+    {
+        health -= amount;
+
+        updatePlayerUI();
+
+        if (health <= 0)
+        {
+            die();
+        }
+    }
+
+    void die()
+    {
+        gameManager.instance.scenarioPlayerLoses();
+    }
+
+    void updatePlayerUI()
+    {
+        gameManager.instance.playerHealthbar.fillAmount = (float)health / healthOriginal;
     }
 }
