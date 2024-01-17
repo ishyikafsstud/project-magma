@@ -156,7 +156,8 @@ public class playerController : MonoBehaviour, IDamage
         updatePlayerUI();
 
         controller.enabled = false;
-        transform.position = gameManager.instance.playerSpawnPosition.transform.position;
+        if (gameManager.instance.playerSpawnPosition != null)
+            transform.position = gameManager.instance.playerSpawnPosition.transform.position;
         controller.enabled = true;
     }
 
