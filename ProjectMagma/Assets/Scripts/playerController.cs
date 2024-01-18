@@ -87,6 +87,11 @@ public class playerController : MonoBehaviour, IDamage
             verticalVelocity.y = Mathf.Clamp(verticalVelocity.y, -maxVerticalSpeed, maxVerticalSpeed);
         }
 
+        // Check for sprint
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            enableSprint(true);
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+            enableSprint(false);
 
         // Get horizontal movement direction
         horMotionDirection = Input.GetAxis("Horizontal") * transform.right
@@ -105,15 +110,6 @@ public class playerController : MonoBehaviour, IDamage
 
         // Apply vertical motion
         controller.Move(verticalVelocity * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            sprint(true);
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            sprint(false);
-        }
     }
 
     void jump()
@@ -122,10 +118,10 @@ public class playerController : MonoBehaviour, IDamage
         jumpCount++;
     }
 
-    void sprint(bool enable)
+    void enableSprint(bool enable)
     {
-        sprinting = !sprinting;
-        if (enable && isGrounded)
+        sprinting = enable;
+        if (enable)
             currentSpeed = sprintSpeed;
         else
             currentSpeed = walkSpeed;
@@ -171,7 +167,7 @@ public class playerController : MonoBehaviour, IDamage
 
     void healthRegen()
     {
-        if(health > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
+        if (health > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
         {
             health += healthRegenRate * Time.deltaTime;
             health = Mathf.Clamp(health, 0, healthOriginal);
