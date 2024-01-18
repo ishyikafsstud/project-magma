@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2787021856121398639}
   - component: {fileID: 6801336748138204287}
   - component: {fileID: 836060587718013549}
+  - component: {fileID: 1456517043570882070}
   m_Layer: 0
   m_Name: EnemyTemp(cube)
   m_TagString: Enemy
@@ -86,6 +87,7 @@ MonoBehaviour:
   HP: 60
   damageFlashLength: 0.1
   speed: 10
+  detectionRange: 14
   shootRate: 1
   bullet: {fileID: 752510304586747584, guid: bd7b0d73c891e3c4a82ae20f83aada5d, type: 3}
   keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
@@ -181,4 +183,25 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &1456517043570882070
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8931111809424262872}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 14
   m_Center: {x: 0, y: 0, z: 0}

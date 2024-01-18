@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5248101100952498216}
   - component: {fileID: 3294878202004255085}
   - component: {fileID: 7534764570622540862}
+  - component: {fileID: 9049557403782024362}
   m_Layer: 0
   m_Name: EnemyTemp(Cylinder)
   m_TagString: Enemy
@@ -55,6 +56,7 @@ MonoBehaviour:
   HP: 90
   damageFlashLength: 0.1
   speed: 3
+  detectionRange: 14
   shootRate: 1
   bullet: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
   keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
@@ -152,6 +154,27 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &9049557403782024362
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2414826539348384603}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 14
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6305117491551338796
 GameObject:

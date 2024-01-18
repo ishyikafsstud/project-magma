@@ -13,6 +13,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [Tooltip("For how long the enemy flashes red upon receiving damage.")]
     [SerializeField] float damageFlashLength;
     [SerializeField] int speed;
+    [SerializeField] float detectionRange;
 
     [Header("Damage")]
     //[SerializeField] int shootDamage;
@@ -24,6 +25,8 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] GameObject keyPrefab;
 
     bool isShooting;
+    bool playerIsNearby;
+    bool playerSpotted;
 
 
     // Start is called before the first frame update
@@ -35,18 +38,56 @@ public class enemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-         ChasePlayer();
+        // Pursue player if he has been spotted, try to spot him otherwise.
+        // * If the player is nearby but not spotted yet, try to spot him using a raycast.
+        // * If the player has been spotted, pursue player even if he left the detection zone.
+        if (playerIsNearby || playerSpotted)
+        {
+            if (playerSpotted)
+                ChasePlayer();
+            else
+            {
+                Vector3 dirToPlayer = (gameManager.instance.player.transform.position - transform.position).normalized;
+                //Debug.DrawRay(transform.position, dirToPlayer * detectionRange, Color.red);
+
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, dirToPlayer, out hit, detectionRange))
+                {
+                    if (hit.collider.CompareTag("Player"))
+                        spotPlayer();
+                }
+            }
+        }
+    }
+
+    void ChasePlayer()
+    {
+        transform.LookAt(gameManager.instance.player.transform.position);
+        agent.SetDestination(gameManager.instance.player.transform.position);
+        if (!isShooting)
+        {
+            StartCoroutine(Shoot());
+        }
     }
 
     public void takeDamage(int amount)
     {
         HP -= amount;
         StartCoroutine(flashRed());
-        
-        if(HP <= 0)
+
+        // Trigger the enemy to follow player.
+        // It is safe because the only way for the enemy to receive damage right now is to be hit by the player.
+        spotPlayer();
+
+        if (HP <= 0)
         {
             die();
         }
+    }
+
+    private void spotPlayer()
+    {
+        playerSpotted = true;
     }
 
     private void die()
@@ -60,16 +101,6 @@ public class enemyAI : MonoBehaviour, IDamage
         }
 
         Destroy(gameObject);
-    }
-
-    void ChasePlayer()
-    {
-        transform.LookAt(gameManager.instance.player.transform.position);
-        agent.SetDestination(gameManager.instance.player.transform.position);
-        if(!isShooting)
-        {
-            StartCoroutine(Shoot());
-        }
     }
 
     //this is going to change. this is for test feedback for the player.
@@ -94,5 +125,21 @@ public class enemyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(shootRate); // Unity Timer
 
         isShooting = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerIsNearby = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerIsNearby = false;
+        }
     }
 }
