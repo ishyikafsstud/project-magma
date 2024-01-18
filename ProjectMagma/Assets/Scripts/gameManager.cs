@@ -124,18 +124,6 @@ public class gameManager : MonoBehaviour
     {
         enemyCount--;
         UpdateEnemyCountText();
-
-        if (enemyCount <= 0)
-        {
-            LastEnemyDefeated();
-        }
-    }
-    public void LastEnemyDefeated()
-    {
-        if (!isKeyPicked)
-        {
-            keyPicked();
-        }
     }
 
     public void UpdateEnemyCountText()

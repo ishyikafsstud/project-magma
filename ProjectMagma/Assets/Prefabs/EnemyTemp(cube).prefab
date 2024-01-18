@@ -88,6 +88,7 @@ MonoBehaviour:
   speed: 10
   shootRate: 1
   bullet: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
+  keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
 --- !u!195 &187963395844884206
 NavMeshAgent:
   m_ObjectHideFlags: 0

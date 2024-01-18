@@ -20,6 +20,9 @@ public class enemyAI : MonoBehaviour, IDamage
     //[SerializeField] int shootDist;
     [SerializeField] GameObject bullet;
 
+    [Header("Other")]
+    [SerializeField] GameObject keyPrefab;
+
     bool isShooting;
 
 
@@ -42,9 +45,20 @@ public class enemyAI : MonoBehaviour, IDamage
         
         if(HP <= 0)
         {
-            gameManager.instance.DecreaseEnemyCount();
-            Destroy(gameObject);
+            die();
         }
+    }
+
+    private void die()
+    {
+        gameManager.instance.DecreaseEnemyCount();
+
+        if (gameManager.instance.EnemyCount == 0)
+        { 
+            Instantiate(keyPrefab, transform.position, transform.rotation);
+        }
+
+        Destroy(gameObject);
     }
 
     void ChasePlayer()
@@ -56,15 +70,6 @@ public class enemyAI : MonoBehaviour, IDamage
             StartCoroutine(Shoot());
         }
     }
-
-    void CheckIfLastEnemy()
-    {
-        if(gameManager.instance.EnemyCount <= 1)
-        {
-            gameManager.instance.LastEnemyDefeated();
-        }
-    }
-
 
     //this is going to change. this is for test feedback for the player.
     IEnumerator flashRed()
