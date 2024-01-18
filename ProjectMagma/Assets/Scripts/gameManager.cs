@@ -53,7 +53,7 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         isKeyPicked = false;
-        ShowHint("Good Luck!");
+        ShowHint("Objective:\n- Kill All Enemies\n- Find Key Card\n- Escape");
 
         enemyCount = 0;
     }
