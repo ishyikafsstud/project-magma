@@ -120,7 +120,10 @@ public class gameManager : MonoBehaviour
     public void keyPicked()
     {
         isKeyPicked = true;
-        barrier.GetComponent<levelBarrier>().Unlock();
+
+        if (barrier != null)
+            barrier.GetComponent<levelBarrier>().Unlock();
+
         ShowHint("Key Card Picked Up \nEscape");
     }
 
