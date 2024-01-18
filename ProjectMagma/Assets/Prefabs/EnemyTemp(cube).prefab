@@ -87,7 +87,7 @@ MonoBehaviour:
   HP: 60
   damageFlashLength: 0.1
   speed: 10
-  detectionRange: 30
+  detectionRange: 14
   shootRate: 1
   bullet: {fileID: 752510304586747584, guid: bd7b0d73c891e3c4a82ae20f83aada5d, type: 3}
   keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
@@ -203,5 +203,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 30
+  m_Radius: 14
   m_Center: {x: 0, y: 0, z: 0}
