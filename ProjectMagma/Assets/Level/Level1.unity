@@ -189,7 +189,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6372654364066226605, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
       propertyPath: m_Radius
-      value: 1
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644659709704409185, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
+      propertyPath: avoidancePriority
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
