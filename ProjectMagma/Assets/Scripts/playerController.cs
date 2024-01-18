@@ -91,6 +91,7 @@ public class playerController : MonoBehaviour, IDamage
         // Get horizontal movement direction
         horMotionDirection = Input.GetAxis("Horizontal") * transform.right
              + Input.GetAxis("Vertical") * transform.forward;
+        horMotionDirection.Normalize(); // so that diagonal motion is not faster than straight motion
 
         // Calculate horizontal motion
         Vector3 horMotion = horMotionDirection * currentSpeed * Time.deltaTime;
