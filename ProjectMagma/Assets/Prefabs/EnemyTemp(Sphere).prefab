@@ -57,7 +57,7 @@ MonoBehaviour:
   damageFlashLength: 0.1
   speed: 1
   detectionRange: 40
-  shootRate: 2
+  shootRate: 3
   bullet: {fileID: 752510304586747584, guid: c77471653e4dabb4e996c5708831efad, type: 3}
   keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
 --- !u!195 &7644659709704409185
