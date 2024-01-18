@@ -59,4 +59,20 @@ public class levelBarrier : MonoBehaviour, ILockable
         textMesh.color = textColorUnlocked;
         panel.GetComponent<Image>().color = panelColorUnlocked;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !gameManager.instance.isKeyPicked)
+        {
+            gameManager.instance.ShowHint("Can't proceed: Find Key Card");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            gameManager.instance.HideHint();
+        }
+    }
 }

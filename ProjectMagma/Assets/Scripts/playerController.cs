@@ -147,6 +147,14 @@ public class playerController : MonoBehaviour, IDamage
         isShooting = true;
         useEnergy(energyCostPerShot);
 
+        if (energy < energyCostPerShot)
+        {
+            gameManager.instance.ShowHint("Not enough energy to shoot \nKeep Moving!");
+            isShooting = false;
+            yield break;
+        }
+
+
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
         {

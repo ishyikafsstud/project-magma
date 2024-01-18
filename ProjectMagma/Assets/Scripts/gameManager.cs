@@ -14,6 +14,8 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
 
+    public TextMeshProUGUI hintText;
+    public float hintDuration;
     public TextMeshProUGUI enemyCountText;
     public Image playerHealthbar;
     public Image playerEnergybar;
@@ -30,7 +32,7 @@ public class gameManager : MonoBehaviour
     public bool isPaused;
 
     private int enemyCount;
-    bool isKeyPicked;
+    public bool isKeyPicked;
 
     public int EnemyCount
     {
@@ -51,6 +53,7 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         isKeyPicked = false;
+        ShowHint("Good Luck!");
 
         enemyCount = 0;
     }
@@ -118,6 +121,7 @@ public class gameManager : MonoBehaviour
     {
         isKeyPicked = true;
         barrier.GetComponent<levelBarrier>().Unlock();
+        ShowHint("Key Card Picked Up \nEscape");
     }
 
     public void DecreaseEnemyCount()
@@ -129,5 +133,22 @@ public class gameManager : MonoBehaviour
     public void UpdateEnemyCountText()
     {
         enemyCountText.SetText("Enemies Left: " + EnemyCount.ToString());
+    }
+    IEnumerator ShowHint(string message, float duration)
+    {
+        hintText.text = message;
+        hintText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        HideHint();
+    }
+
+    public void ShowHint(string message)
+    {
+        StartCoroutine(ShowHint(message, hintDuration));
+    }
+
+    public void HideHint()
+    {
+        hintText.gameObject.SetActive(false);
     }
 }
