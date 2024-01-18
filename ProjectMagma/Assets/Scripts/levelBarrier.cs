@@ -62,7 +62,7 @@ public class levelBarrier : MonoBehaviour, ILockable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !gameManager.instance.isKeyPicked)
+        if (other.CompareTag("Player") && !gameManager.instance.IsKeyPicked)
         {
             StartCoroutine(gameManager.instance.ShowHint("Can't proceed: Find Key Card", 10.0f));
         }

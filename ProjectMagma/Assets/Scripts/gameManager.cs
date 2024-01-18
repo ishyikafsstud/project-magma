@@ -32,7 +32,9 @@ public class gameManager : MonoBehaviour
     public bool isPaused;
 
     private int enemyCount;
-    public bool isKeyPicked;
+    bool isKeyPicked;
+
+    public bool IsKeyPicked { get; private set; }
 
     public int EnemyCount
     {
@@ -49,11 +51,11 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
-        isKeyPicked = false;
-        ShowHint("Objective:\n- Kill All Enemies\n- Find Key Card\n- Escape");
+        barrier = GameObject.FindGameObjectWithTag("LevelBarrier");
 
         enemyCount = 0;
     }
@@ -61,6 +63,7 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         UpdateEnemyCountText();
+        ShowHint("Objective:\n- Kill All Enemies\n- Find Key Card\n- Escape");
     }
 
     // Update is called once per frame

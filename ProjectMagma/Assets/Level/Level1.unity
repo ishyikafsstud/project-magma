@@ -388,11 +388,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &270622663 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7528121846073217404, guid: f06790d6a86a63b448f8dcf68c7be496, type: 3}
-  m_PrefabInstance: {fileID: 2109428587}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &289310721
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3089,10 +3084,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 8151666403568927593, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
-      propertyPath: barrier
-      value: 
-      objectReference: {fileID: 270622663}
     - target: {fileID: 9042903173868157522, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
       propertyPath: m_IsActive
       value: 0
