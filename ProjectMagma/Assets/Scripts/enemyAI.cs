@@ -7,14 +7,22 @@ public class enemyAI : MonoBehaviour, IDamage
 {
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
-    
+    [SerializeField] Transform shootPos;
 
-    
     [SerializeField] int HP;
     [Tooltip("For how long the enemy flashes red upon receiving damage.")]
     [SerializeField] float damageFlashLength;
     [SerializeField] int speed;
-   
+
+    [Header("Damage")]
+    //[SerializeField] int shootDamage;
+    [SerializeField] float shootRate;
+    //[SerializeField] int shootDist;
+    [SerializeField] GameObject bullet;
+
+    bool isShooting;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,10 +49,12 @@ public class enemyAI : MonoBehaviour, IDamage
 
     void ChasePlayer()
     {
-        
         transform.LookAt(gameManager.instance.player.transform.position);
         agent.SetDestination(gameManager.instance.player.transform.position);
-
+        if(!isShooting)
+        {
+            StartCoroutine(Shoot());
+        }
     }
 
     void CheckIfLastEnemy()
@@ -69,5 +79,14 @@ public class enemyAI : MonoBehaviour, IDamage
         model.material.color = oldColor;
     }
 
-    
+    IEnumerator Shoot()
+    {
+        isShooting = true;
+
+        Instantiate(bullet, shootPos.position, transform.rotation);
+
+        yield return new WaitForSeconds(shootRate); // Unity Timer
+
+        isShooting = false;
+    }
 }
