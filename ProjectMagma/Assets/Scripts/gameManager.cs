@@ -28,10 +28,21 @@ public class gameManager : MonoBehaviour
 
     [Header("Functional settings")]
     public bool isPaused;
-    public int enemyCount;
 
-
+    private int enemyCount;
     bool isKeyPicked;
+
+    public int EnemyCount
+    {
+        get => enemyCount;
+        set
+        {
+            if (enemyCount == value) return;
+
+            enemyCount = value;
+            UpdateEnemyCountText();
+        }
+    }
 
     void Awake()
     {
@@ -40,6 +51,8 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         isKeyPicked = false;
+
+        enemyCount = 0;
     }
 
     void Start()
@@ -127,14 +140,6 @@ public class gameManager : MonoBehaviour
 
     public void UpdateEnemyCountText()
     {
-        if (enemyCount <= 0)
-        {
-            enemyCountText.SetText("No eneimies left. You Have the key!!");
-        }
-        else
-        {
-            enemyCountText.SetText("Enemies Left: " + enemyCount.ToString());
-        }
-        
+        enemyCountText.SetText("Enemies Left: " + EnemyCount.ToString());
     }
 }

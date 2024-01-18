@@ -18,17 +18,13 @@ public class enemyAI : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
-        gameManager.instance.enemyCount++;
-        
+        gameManager.instance.EnemyCount++;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
          ChasePlayer();
-        
-        
     }
 
     public void takeDamage(int amount)
@@ -53,7 +49,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
     void CheckIfLastEnemy()
     {
-        if(gameManager.instance.enemyCount <= 1)
+        if(gameManager.instance.EnemyCount <= 1)
         {
             gameManager.instance.LastEnemyDefeated();
         }
