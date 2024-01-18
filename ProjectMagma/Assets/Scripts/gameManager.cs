@@ -14,9 +14,9 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
 
-    public TextMeshProUGUI hintText;
-    public float hintDuration;
-    public TextMeshProUGUI enemyCountText;
+    [SerializeField] TextMeshProUGUI hintText;
+    [SerializeField] float hintDuration;
+    [SerializeField] TextMeshProUGUI enemyCountText;
     public Image playerHealthbar;
     public Image playerEnergybar;
     public GameObject playerDamageScreenFlash;
@@ -134,7 +134,7 @@ public class gameManager : MonoBehaviour
     {
         enemyCountText.SetText("Enemies Left: " + EnemyCount.ToString());
     }
-    IEnumerator ShowHint(string message, float duration)
+    public IEnumerator ShowHint(string message, float duration)
     {
         hintText.text = message;
         hintText.gameObject.SetActive(true);
