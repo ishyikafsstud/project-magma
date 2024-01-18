@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6372654364066226605}
   m_Layer: 0
   m_Name: EnemyTemp(Sphere)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,9 +55,7 @@ MonoBehaviour:
   HP: 10
   damageFlashLength: 0.1
   speed: 1
-  shootDamage: 0
-  shootRate: 0
-  shootDist: 0
+  shootRate: 1
   bullet: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
 --- !u!195 &7644659709704409185
 NavMeshAgent:

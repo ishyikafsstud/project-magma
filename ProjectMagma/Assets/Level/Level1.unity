@@ -386,11 +386,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8464463697787043779, guid: 67025597b0fb2d541b0c822842d81928, type: 3}
   m_PrefabInstance: {fileID: 629262460}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &351054216 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4433222618600376418, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
-  m_PrefabInstance: {fileID: 1996044739}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &466787305
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,20 +603,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
-    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-      propertyPath: shootPos
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
       propertyPath: shootDist
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-      propertyPath: shootRate
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
       propertyPath: shootDamage
@@ -690,20 +673,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
-    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-      propertyPath: shootPos
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
       propertyPath: shootDist
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-      propertyPath: shootRate
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
       propertyPath: shootDamage
@@ -840,20 +811,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
-    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-      propertyPath: shootPos
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
       propertyPath: shootDist
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-      propertyPath: shootRate
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
       propertyPath: shootDamage
@@ -1221,20 +1180,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1070186805885632638, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
-    - target: {fileID: 1070186805885632638, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
-      propertyPath: shootPos
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1070186805885632638, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
       propertyPath: shootDist
       value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1070186805885632638, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
-      propertyPath: shootRate
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1070186805885632638, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
       propertyPath: shootDamage
@@ -1869,20 +1816,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
-    - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
-      propertyPath: shootPos
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
       propertyPath: shootDist
       value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
-      propertyPath: shootRate
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
       propertyPath: shootDamage
@@ -1893,11 +1828,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
---- !u!4 &1710668527 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1128823897098673877, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-  m_PrefabInstance: {fileID: 1787094606}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1761981250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2041,20 +1971,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
-    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-      propertyPath: shootPos
-      value: 
-      objectReference: {fileID: 1710668527}
-    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
       propertyPath: shootDist
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
-      propertyPath: shootRate
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4397775452012771654, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
       propertyPath: shootDamage
@@ -2069,11 +1987,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
---- !u!4 &1821493276 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8909026298586589118, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
-  m_PrefabInstance: {fileID: 1886540089}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1886540089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2083,20 +1996,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1070186805885632638, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
-    - target: {fileID: 1070186805885632638, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
-      propertyPath: shootPos
-      value: 
-      objectReference: {fileID: 1821493276}
-    - target: {fileID: 1070186805885632638, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
       propertyPath: shootDist
       value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1070186805885632638, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
-      propertyPath: shootRate
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1070186805885632638, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
       propertyPath: shootDamage
@@ -2392,20 +2293,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
-    - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
-      propertyPath: shootPos
-      value: 
-      objectReference: {fileID: 351054216}
-    - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
       propertyPath: shootDist
       value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
-      propertyPath: shootRate
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
       propertyPath: shootDamage

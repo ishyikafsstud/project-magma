@@ -32,7 +32,7 @@ public class bullet : MonoBehaviour
         // if collided object has IDamage, it takes damage
         IDamage dmg = other.GetComponent<IDamage>();
 
-        if (dmg != null)
+        if (dmg != null && !other.CompareTag("Enemy"))
         {
             dmg.takeDamage(damageAmount);
         }

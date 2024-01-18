@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LevelBarrier
   - Player Spawn Position
+  - Enemy
   layers:
   - Default
   - TransparentFX
