@@ -457,14 +457,6 @@ PrefabInstance:
       propertyPath: sensitivity
       value: 200
       objectReference: {fileID: 0}
-    - target: {fileID: 7058744712777680588, guid: d49a5e61c2282564a8ed2ef60b4fbb81, type: 3}
-      propertyPath: m_Height
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7058744712777680588, guid: d49a5e61c2282564a8ed2ef60b4fbb81, type: 3}
-      propertyPath: m_Radius
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2473,7 +2465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2521794203628002674, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -38.75
+      value: -36.5
       objectReference: {fileID: 0}
     - target: {fileID: 2521794203628002674, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2481,7 +2473,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2521794203628002674, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.5
+      value: 27.75
       objectReference: {fileID: 0}
     - target: {fileID: 2521794203628002674, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
       propertyPath: m_LocalRotation.w
