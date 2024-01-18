@@ -54,7 +54,8 @@ public class enemyAI : MonoBehaviour, IDamage
         gameManager.instance.DecreaseEnemyCount();
 
         if (gameManager.instance.EnemyCount == 0)
-        { 
+        {
+            gameManager.instance.ShowHint("Enemy Dropped Key Card");
             Instantiate(keyPrefab, transform.position, transform.rotation);
         }
 
