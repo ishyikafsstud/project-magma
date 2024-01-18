@@ -52,6 +52,7 @@ MonoBehaviour:
   controller: {fileID: 2324110343507679693}
   health: 100
   healthRegenRate: 2
+  isInvincible: 0
   walkSpeed: 10
   sprintSpeed: 20
   jumpMaxNumber: 2

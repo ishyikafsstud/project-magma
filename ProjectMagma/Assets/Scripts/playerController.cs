@@ -9,6 +9,7 @@ public class playerController : MonoBehaviour, IDamage
     [Header("Player Health")]
     [SerializeField] float health;
     [SerializeField] float healthRegenRate;
+    [SerializeField] bool isInvincible;
 
     [Header("Walking & Running")]
     [SerializeField] float walkSpeed;
@@ -126,7 +127,8 @@ public class playerController : MonoBehaviour, IDamage
     }
     public void takeDamage(int amount)
     {
-        health -= amount;
+        if (!isInvincible)
+            health -= amount;
 
         updatePlayerUI();
 
