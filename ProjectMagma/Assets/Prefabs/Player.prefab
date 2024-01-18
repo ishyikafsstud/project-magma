@@ -51,12 +51,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2324110343507679693}
   health: 100
-  walkSpeed: 7
-  sprintSpeed: 10
+  healthRegenRate: 2
+  isInvincible: 0
+  walkSpeed: 10
+  sprintSpeed: 20
   jumpMaxNumber: 2
   jumpStrength: 7
   gravityStrength: -15
   maxVerticalSpeed: 140
+  shootDamage: 20
+  shootRate: 0.15
+  shootDist: 50
+  energy: 100
+  energyCostPerShot: 5
+  energyRegenRate: 15
+  damageFlashDuration: 0.1
 --- !u!143 &2324110343507679693
 CharacterController:
   m_ObjectHideFlags: 0
@@ -152,8 +161,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.1
+  m_Height: 0.1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8654237444469196953
