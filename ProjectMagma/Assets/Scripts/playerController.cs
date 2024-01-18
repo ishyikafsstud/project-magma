@@ -58,18 +58,16 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         processMovement();
+
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.green);
 
         if (Input.GetButton("Shoot") && !isShooting && energy > energyCostPerShot && !gameManager.instance.isPaused)
         {
             StartCoroutine(Shoot());
         }
-        else
-        {
-            RegenEnergy();
-            healthRegen();
-        }
 
+        RegenEnergy();
+        healthRegen();
     }
 
     void processMovement()
