@@ -124,7 +124,7 @@ public class gameManager : MonoBehaviour
         if (barrier != null)
             barrier.GetComponent<levelBarrier>().Unlock();
 
-        ShowHint("Key Card Picked Up \nEscape");
+        ShowHint("Key Card Picked Up\nEscape");
     }
 
     public void DecreaseEnemyCount()
@@ -137,6 +137,14 @@ public class gameManager : MonoBehaviour
     {
         enemyCountText.SetText("Enemies Left: " + EnemyCount.ToString());
     }
+
+    /// <summary>
+    /// Shows a specified hint for a specified time.
+    /// Make sure to call this method using StartCoroutine(), as it won't be executed otherwise.
+    /// </summary>
+    /// <param name="message">The hint to show.</param>
+    /// <param name="duration">The duration of the message.</param>
+    /// <returns></returns>
     public IEnumerator ShowHint(string message, float duration)
     {
         hintText.text = message;
@@ -145,6 +153,10 @@ public class gameManager : MonoBehaviour
         HideHint();
     }
 
+    /// <summary>
+    /// Shows a specified hint for a default hint time.
+    /// </summary>
+    /// <param name="message">The hint to show.</param>
     public void ShowHint(string message)
     {
         StartCoroutine(ShowHint(message, hintDuration));

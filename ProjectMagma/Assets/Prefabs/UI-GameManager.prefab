@@ -1783,7 +1783,7 @@ MonoBehaviour:
   menuWin: {fileID: 9042903173868157522}
   menuLose: {fileID: 1558998955403038695}
   hintText: {fileID: 2789595514321511433}
-  hintDuration: 5
+  hintDuration: 10
   enemyCountText: {fileID: 7569036431406977521}
   playerHealthbar: {fileID: 3485526451889417748}
   playerEnergybar: {fileID: 8395521046521427636}
