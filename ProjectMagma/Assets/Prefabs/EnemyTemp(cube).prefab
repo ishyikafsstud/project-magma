@@ -83,11 +83,11 @@ MonoBehaviour:
   model: {fileID: 6801336748138204287}
   agent: {fileID: 187963395844884206}
   shootPos: {fileID: 1128823897098673877}
-  HP: 3
+  HP: 60
   damageFlashLength: 0.1
   speed: 10
   shootRate: 1
-  bullet: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
+  bullet: {fileID: 752510304586747584, guid: bd7b0d73c891e3c4a82ae20f83aada5d, type: 3}
   keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
 --- !u!195 &187963395844884206
 NavMeshAgent:
@@ -98,7 +98,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8931111809424262872}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 2
   m_Speed: 10
   m_Acceleration: 15
   avoidancePriority: 50

@@ -6,8 +6,9 @@ using UnityEngine.EventSystems;
 public class playerController : MonoBehaviour, IDamage
 {
     [SerializeField] CharacterController controller;
-
-    [SerializeField] int health;
+    [Header("Player Health")]
+    [SerializeField] float health;
+    [SerializeField] float healthRegenRate;
 
     [Header("Walking & Running")]
     [SerializeField] float walkSpeed;
@@ -33,7 +34,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float damageFlashDuration;
 
     private float energyOriginal;
-    private int healthOriginal;
+    private float healthOriginal;
     private Vector3 horMotionDirection;
     private Vector3 verticalVelocity;
     private bool isGrounded;
@@ -66,6 +67,7 @@ public class playerController : MonoBehaviour, IDamage
         else
         {
             RegenEnergy();
+            healthRegen();
         }
 
     }
@@ -156,6 +158,16 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(shootRate); // Unity Timer
 
         isShooting = false;
+    }
+
+    void healthRegen()
+    {
+        if(health > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
+        {
+            health += healthRegenRate * Time.deltaTime;
+            health = Mathf.Clamp(health, 0, healthOriginal);
+        }
+        updatePlayerUI();
     }
 
     void useEnergy(float amount)

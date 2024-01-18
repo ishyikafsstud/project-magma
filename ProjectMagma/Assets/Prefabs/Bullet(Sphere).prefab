@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6211665760206481880}
   - component: {fileID: 5570001330950858941}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Bullet(Sphere)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5570001330950858941}
-  damageAmount: 10
+  damageAmount: 20
   speed: 60
   destroyTime: 10
 --- !u!96 &9056730131370770645

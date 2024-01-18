@@ -51,8 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2324110343507679693}
   health: 100
-  walkSpeed: 7
-  sprintSpeed: 10
+  healthRegenRate: 2
+  walkSpeed: 10
+  sprintSpeed: 20
   jumpMaxNumber: 2
   jumpStrength: 7
   gravityStrength: -15
@@ -61,7 +62,7 @@ MonoBehaviour:
   shootRate: 0.15
   shootDist: 50
   energy: 100
-  energyCostPerShot: 10
+  energyCostPerShot: 5
   energyRegenRate: 15
   damageFlashDuration: 0.1
 --- !u!143 &2324110343507679693
