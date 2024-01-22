@@ -47,15 +47,7 @@ public class enemyAI : MonoBehaviour, IDamage
                 ChasePlayer();
             else
             {
-                Vector3 dirToPlayer = (gameManager.instance.player.transform.position - transform.position).normalized;
-                //Debug.DrawRay(transform.position, dirToPlayer * detectionRange, Color.red);
-
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, dirToPlayer, out hit, detectionRange))
-                {
-                    if (hit.collider.CompareTag("Player"))
-                        spotPlayer();
-                }
+                lookForPlayer();
             }
         }
     }
@@ -67,6 +59,23 @@ public class enemyAI : MonoBehaviour, IDamage
         if (!isShooting)
         {
             StartCoroutine(Shoot());
+        }
+    }
+
+    /// <summary>
+    /// Look for player within the detection range. Spot him if visible.
+    /// Supported by a raycast.
+    /// </summary>
+    private void lookForPlayer()
+    {
+        Vector3 dirToPlayer = (gameManager.instance.player.transform.position - transform.position).normalized;
+        //Debug.DrawRay(transform.position, dirToPlayer * detectionRange, Color.red);
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, dirToPlayer, out hit, detectionRange))
+        {
+            if (hit.collider.CompareTag("Player"))
+                spotPlayer();
         }
     }
 
