@@ -30,9 +30,17 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float energyCostPerShot;
     [SerializeField] float energyRegenRate;
 
+    [Header("Melee")]
+    [SerializeField] float meleeRange;
+    [SerializeField] int meleeDamage;
+    [SerializeField] float meleeRate;
+    [SerializeField] float particleDuration;
+    public GameObject hitParticlesPrefab;
+
     [Header("UI")]
     [Tooltip("The duration of screen flash upon receiving damage.")]
     [SerializeField] float damageFlashDuration;
+
 
     private float energyOriginal;
     private float healthOriginal;
@@ -65,6 +73,11 @@ public class playerController : MonoBehaviour, IDamage
         if (Input.GetButton("Shoot") && !isShooting && energy > energyCostPerShot && !gameManager.instance.isPaused)
         {
             StartCoroutine(Shoot());
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            MeleeAttack();
         }
 
         RegenEnergy();
@@ -163,6 +176,27 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(shootRate); // Unity Timer
 
         isShooting = false;
+    }
+
+    void MeleeAttack()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, meleeRange))
+        {
+            IDamage damagedBody = hit.collider.GetComponent<IDamage>();
+            if (damagedBody != null && hit.collider.CompareTag("Enemy"))
+            {
+                damagedBody.takeDamage(meleeDamage);
+            }
+            SpawnHitParticles(hit.point);
+        }
+    }
+
+    void SpawnHitParticles(Vector3 position)
+    {
+        GameObject hitParticles = Instantiate(hitParticlesPrefab, position, Quaternion.identity);
+
+        Destroy(hitParticles, particleDuration);
     }
 
     void healthRegen()
