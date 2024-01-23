@@ -65,6 +65,11 @@ MonoBehaviour:
   energy: 100
   energyCostPerShot: 5
   energyRegenRate: 15
+  meleeRange: 0
+  meleeDamage: 0
+  meleeRate: 0
+  particleDuration: 0
+  hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
   damageFlashDuration: 0.1
 --- !u!143 &2324110343507679693
 CharacterController:
