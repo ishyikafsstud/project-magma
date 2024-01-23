@@ -89,7 +89,13 @@ MonoBehaviour:
   speed: 10
   detectionRange: 40
   shootRate: 1
+  meleeRange: 4
+  meleeDamage: 2
+  meleeRate: 0.5
+  particaleDuration: 0.1
+  hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
   bullet: {fileID: 752510304586747584, guid: bd7b0d73c891e3c4a82ae20f83aada5d, type: 3}
+  isMeleeEnemy: 1
   keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
 --- !u!195 &187963395844884206
 NavMeshAgent:
@@ -100,7 +106,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8931111809424262872}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.2
+  m_Radius: 2
   m_Speed: 10
   m_Acceleration: 15
   avoidancePriority: 50

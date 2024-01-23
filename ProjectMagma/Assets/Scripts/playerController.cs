@@ -77,7 +77,7 @@ public class playerController : MonoBehaviour, IDamage
 
         if (Input.GetMouseButtonDown(1))
         {
-            MeleeAttack();
+            StartCoroutine(MeleeAttack());
         }
 
         RegenEnergy();
@@ -178,7 +178,7 @@ public class playerController : MonoBehaviour, IDamage
         isShooting = false;
     }
 
-    void MeleeAttack()
+    IEnumerator MeleeAttack()
     {
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, meleeRange))
@@ -190,6 +190,7 @@ public class playerController : MonoBehaviour, IDamage
             }
             SpawnHitParticles(hit.point);
         }
+        yield return new WaitForSeconds(meleeRate);
     }
 
     void SpawnHitParticles(Vector3 position)

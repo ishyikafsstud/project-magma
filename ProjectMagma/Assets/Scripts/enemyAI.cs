@@ -18,12 +18,21 @@ public class enemyAI : MonoBehaviour, IDamage
     [Header("Damage")]
     //[SerializeField] int shootDamage;
     [SerializeField] float shootRate;
+    [SerializeField] float meleeRange;
+    [SerializeField] int meleeDamage;
+    [SerializeField] float meleeRate;
+    [SerializeField] float particaleDuration;
+    [SerializeField] GameObject hitParticlesPrefab;
     //[SerializeField] int shootDist;
     [SerializeField] GameObject bullet;
 
+
     [Header("Other")]
+    [SerializeField] bool isMeleeEnemy;
     [SerializeField] GameObject keyPrefab;
 
+   
+    bool isMeleeAttacking;
     bool isShooting;
     bool playerIsNearby;
     bool playerSpotted;
@@ -56,9 +65,19 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         transform.LookAt(gameManager.instance.player.transform.position);
         agent.SetDestination(gameManager.instance.player.transform.position);
-        if (!isShooting)
+
+        
+
+        if (isMeleeEnemy && !isMeleeAttacking)
         {
+            // If player is within melee range, perform melee attack
+            StartCoroutine(MeleeAttack());
+        }
+        else if (!isMeleeEnemy && !isShooting)
+        {
+            // If not melee enemy, start shooting
             StartCoroutine(Shoot());
+            
         }
     }
 
@@ -134,6 +153,41 @@ public class enemyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(shootRate); // Unity Timer
 
         isShooting = false;
+    }
+
+    IEnumerator MeleeAttack()
+    {
+       if (isMeleeAttacking)
+        {
+            yield break;
+        }
+
+        isMeleeAttacking = true;
+        
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, meleeRange))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                IDamage playerDamageable = hit.collider.GetComponent<IDamage>();
+                if (playerDamageable != null)
+                {
+                    playerDamageable.takeDamage(meleeDamage);
+                }
+                SpawnHitParticles(hit.point);
+            }
+        }
+        yield return new WaitForSeconds(meleeRate);
+        isMeleeAttacking = false;
+
+        yield break;
+
+    }
+    void SpawnHitParticles(Vector3 position)
+    {
+        GameObject hitParticles = Instantiate(hitParticlesPrefab, position, Quaternion.identity);
+
+        Destroy(hitParticles, particaleDuration);
     }
 
     private void OnTriggerEnter(Collider other)

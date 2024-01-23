@@ -89,6 +89,8 @@ public class gameManager : MonoBehaviour
         Cursor.visible = true;
         // Confine Cursor to Pause window boundaries
         Cursor.lockState = CursorLockMode.Confined;
+        //stop all coroutines
+        StopAllCoroutines();
 
     }
     public void stateUnpaused()
