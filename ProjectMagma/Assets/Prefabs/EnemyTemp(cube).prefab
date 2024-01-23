@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3870288838080975247}
-  - component: {fileID: 4397775452012771654}
+  - component: {fileID: 7910022597827475155}
   - component: {fileID: 187963395844884206}
   - component: {fileID: 2787021856121398639}
   - component: {fileID: 6801336748138204287}
@@ -69,7 +69,7 @@ Transform:
   - {fileID: 1128823897098673877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4397775452012771654
+--- !u!114 &7910022597827475155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,25 +78,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 8931111809424262872}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cf06de9cf2e20849911fb39a73977ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 854031a5bb144e243828df2406710221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 6801336748138204287}
   agent: {fileID: 187963395844884206}
-  shootPos: {fileID: 1128823897098673877}
+  shootPos: {fileID: 0}
   HP: 60
   damageFlashLength: 0.1
   speed: 10
   detectionRange: 40
   shootRate: 1
-  meleeRange: 4
+  attackRange: 4
+  bullet: {fileID: 752510304586747584, guid: bd7b0d73c891e3c4a82ae20f83aada5d, type: 3}
+  keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
+  isAttacking: 0
   meleeDamage: 2
   meleeRate: 0.5
   particaleDuration: 0.1
   hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
-  bullet: {fileID: 752510304586747584, guid: bd7b0d73c891e3c4a82ae20f83aada5d, type: 3}
-  isMeleeEnemy: 1
-  keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
 --- !u!195 &187963395844884206
 NavMeshAgent:
   m_ObjectHideFlags: 0

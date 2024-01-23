@@ -18,22 +18,16 @@ public class enemyAI : MonoBehaviour, IDamage
     [Header("Damage")]
     //[SerializeField] int shootDamage;
     [SerializeField] float shootRate;
-    [SerializeField] float meleeRange;
-    [SerializeField] int meleeDamage;
-    [SerializeField] float meleeRate;
-    [SerializeField] float particaleDuration;
-    [SerializeField] GameObject hitParticlesPrefab;
+    [SerializeField] public float attackRange;
     //[SerializeField] int shootDist;
     [SerializeField] GameObject bullet;
 
 
     [Header("Other")]
-    [SerializeField] bool isMeleeEnemy;
     [SerializeField] GameObject keyPrefab;
+    
 
-   
-    bool isMeleeAttacking;
-    bool isShooting;
+    public bool isAttacking;
     bool playerIsNearby;
     bool playerSpotted;
 
@@ -47,13 +41,22 @@ public class enemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
+        Vector3 distanceToPlayer = (gameManager.instance.player.transform.position - transform.position);
         // Pursue player if he has been spotted, try to spot him otherwise.
         // * If the player is nearby but not spotted yet, try to spot him using a raycast.
         // * If the player has been spotted, pursue player even if he left the detection zone.
         if (playerIsNearby || playerSpotted)
         {
             if (playerSpotted)
+            {
                 ChasePlayer();
+                //check distance.start attacking
+                if (distanceToPlayer.magnitude <= attackRange)
+                {
+                    StartCoroutine(Attack());
+                }
+                   
+            }
             else
             {
                 lookForPlayer();
@@ -65,19 +68,11 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         transform.LookAt(gameManager.instance.player.transform.position);
         agent.SetDestination(gameManager.instance.player.transform.position);
-
         
-
-        if (isMeleeEnemy && !isMeleeAttacking)
+        //set for shooting enemys
+        if (!isAttacking)
         {
-            // If player is within melee range, perform melee attack
-            StartCoroutine(MeleeAttack());
-        }
-        else if (!isMeleeEnemy && !isShooting)
-        {
-            // If not melee enemy, start shooting
-            StartCoroutine(Shoot());
-            
+            StartCoroutine(Attack());
         }
     }
 
@@ -144,50 +139,16 @@ public class enemyAI : MonoBehaviour, IDamage
         model.material.color = oldColor;
     }
 
-    IEnumerator Shoot()
+    // can be overridden for melee enemys in the enemyAIMelee script
+    protected virtual IEnumerator Attack()
     {
-        isShooting = true;
+        isAttacking = true;
 
         Instantiate(bullet, shootPos.position, transform.rotation);
 
         yield return new WaitForSeconds(shootRate); // Unity Timer
 
-        isShooting = false;
-    }
-
-    IEnumerator MeleeAttack()
-    {
-       if (isMeleeAttacking)
-        {
-            yield break;
-        }
-
-        isMeleeAttacking = true;
-        
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, meleeRange))
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                IDamage playerDamageable = hit.collider.GetComponent<IDamage>();
-                if (playerDamageable != null)
-                {
-                    playerDamageable.takeDamage(meleeDamage);
-                }
-                SpawnHitParticles(hit.point);
-            }
-        }
-        yield return new WaitForSeconds(meleeRate);
-        isMeleeAttacking = false;
-
-        yield break;
-
-    }
-    void SpawnHitParticles(Vector3 position)
-    {
-        GameObject hitParticles = Instantiate(hitParticlesPrefab, position, Quaternion.identity);
-
-        Destroy(hitParticles, particaleDuration);
+        isAttacking = false;
     }
 
     private void OnTriggerEnter(Collider other)
