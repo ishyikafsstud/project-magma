@@ -42,6 +42,8 @@ public class enemyAI : MonoBehaviour, IDamage
         set { isMinion = value; }
     }
 
+    public bool IsAlerted { get => playerSpotted; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -120,7 +122,14 @@ public class enemyAI : MonoBehaviour, IDamage
 
     private void spotPlayer()
     {
+        BecomeAlerted(gameManager.instance.player.transform.position);
+        enemyManager.instance.AlertEnemiesWithinRange(transform.position, detectionRange); // Alert nearby enemies
+    }
+
+    public void BecomeAlerted(Vector3 disturbancePos)
+    {
         playerSpotted = true;
+        //model.material.color = Color.red; // DEBUG PURPOSES - to see who got alerted
     }
 
     private void die()

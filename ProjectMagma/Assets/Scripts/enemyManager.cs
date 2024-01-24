@@ -24,7 +24,7 @@ public class enemyManager : MonoBehaviour
         set
         {
             if (enemyCount == value) return;
-            
+
             enemyCount = Mathf.Max(value, 0);
             if (gameManager.instance != null)
             {
@@ -50,8 +50,32 @@ public class enemyManager : MonoBehaviour
         enemies = new List<GameObject>();
     }
 
-
-
+    /// <summary>
+    /// Alerts enemies around a certain area. Alerts only if there are no obstructions between them
+    /// and the object of attention.
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="range"></param>
+    public void AlertEnemiesWithinRange(Vector3 pos, float range)
+    {
+        foreach (GameObject enemy in enemies)
+        {
+            // If the enemy is not alerted yet and within the alert range
+            if (!enemy.GetComponent<enemyAI>().IsAlerted
+                && Vector3.Distance(pos, enemy.transform.position) < range)
+            {
+                Vector3 raycastDirection = enemy.transform.position - pos;
+                RaycastHit hit;
+                // Check for any obstructions between the source and the enemy.
+                // If there are none, alert them.
+                if (Physics.Raycast(pos, raycastDirection, out hit))
+                {
+                    if (hit.collider.gameObject == enemy)
+                        enemy.GetComponent<enemyAI>().BecomeAlerted(pos);
+                }
+            }
+        }
+    }
     public void EnemySpawned(GameObject enemy, bool isMinion)
     {
         enemies.Add(enemy);

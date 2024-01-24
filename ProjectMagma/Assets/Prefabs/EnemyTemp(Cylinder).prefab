@@ -54,9 +54,10 @@ MonoBehaviour:
   agent: {fileID: 5928567417781276368}
   shootPos: {fileID: 4433222618600376418}
   HP: 90
-  damageFlashLength: 0.1
   speed: 3
   detectionRange: 40
+  isMinion: 0
+  damageFlashLength: 0.1
   attackDamage: 0
   attackRate: 1
   attackRange: 40
@@ -176,7 +177,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 40
+  m_Radius: 25
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6305117491551338796
 GameObject:
