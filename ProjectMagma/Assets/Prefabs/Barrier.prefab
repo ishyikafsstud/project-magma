@@ -363,6 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barrierCollider: {fileID: 4283951085495163319}
+  reminderTriggerCollider: {fileID: 2447463684945784215}
   textMesh: {fileID: 6401724235487862881}
   panel: {fileID: 4383626193967391401}
   messageLocked: 'ACCESS DENIED
