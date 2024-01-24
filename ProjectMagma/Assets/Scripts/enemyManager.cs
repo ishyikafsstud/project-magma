@@ -6,8 +6,14 @@ public class enemyManager : MonoBehaviour
 {
     public static enemyManager instance;
 
+    /// <summary>
+    /// The count of significant enemies (non-minions).
+    /// </summary>
     int enemyCount;
-    int totalEnemies;
+    /// <summary>
+    /// A list of all enemies (including minions).
+    /// </summary>
+    List<GameObject> enemies;
 
     /// <summary>
     /// The count of significant enemies (i.e. non-minions).
@@ -32,8 +38,7 @@ public class enemyManager : MonoBehaviour
     /// </summary>
     public int TotalEnemies
     {
-        get => totalEnemies;
-        set { totalEnemies = Mathf.Max(value, 0); }
+        get => enemies.Count;
     }
 
     void Awake()
@@ -41,25 +46,22 @@ public class enemyManager : MonoBehaviour
         instance = this;
 
         enemyCount = 0;
-        totalEnemies = 0;
+
+        enemies = new List<GameObject>();
     }
 
 
-    public void IncrementEnemyCount(bool isMinion)
+
+    public void EnemySpawned(GameObject enemy, bool isMinion)
     {
+        enemies.Add(enemy);
         EnemyCount += !isMinion ? 1 : 0; // Increase significant enemy count if not a minion
-        TotalEnemies++;
     }
 
-    public void DecrementEnemyCount(bool isMinion)
+    public void EnemyDied(GameObject enemy, bool isMinion)
     {
+        enemies.Remove(enemy);
         EnemyCount -= !isMinion ? 1 : 0; // Decrease significant enemy count if not a minion
-        TotalEnemies++;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

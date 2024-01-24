@@ -45,7 +45,7 @@ public class enemyAI : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
-        enemyManager.instance.IncrementEnemyCount(isMinion);
+        enemyManager.instance.EnemySpawned(gameObject, isMinion);
     }
 
     // Update is called once per frame
@@ -125,7 +125,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
     private void die()
     {
-        enemyManager.instance.DecrementEnemyCount(isMinion);
+        enemyManager.instance.EnemyDied(gameObject, isMinion);
 
         if (enemyManager.instance.EnemyCount == 0)
         {
