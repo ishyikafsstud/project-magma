@@ -10,12 +10,15 @@ public class enemyAI : MonoBehaviour, IDamage
     [Tooltip("The position for projectile spawning.")]
     [SerializeField] Transform shootPos;
 
+    [Header("Stats")]
     [SerializeField] protected int HP;
-    [Tooltip("For how long the enemy flashes red upon receiving damage, in seconds.")]
-    [SerializeField] float damageFlashLength;
     [SerializeField] int speed;
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
+    [Tooltip("Whether the character is summoned by a spawner enemy.\nMinions do not count toward kills.")]
+    [SerializeField] bool isMinion;
+    [Tooltip("For how long the enemy flashes red upon receiving damage, in seconds.")]
+    [SerializeField] float damageFlashLength;
 
     [Header("Attacking")]
     [Tooltip("The damage this enemy's attack deals to the target.")]
@@ -33,11 +36,16 @@ public class enemyAI : MonoBehaviour, IDamage
     bool playerIsNearby;
     bool playerSpotted;
 
+    public bool IsMinion
+    {
+        get { return isMinion; }
+        set { isMinion = value; }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager.instance.EnemyCount++;
+        enemyManager.instance.IncrementEnemyCount(isMinion);
     }
 
     // Update is called once per frame
@@ -52,7 +60,7 @@ public class enemyAI : MonoBehaviour, IDamage
             if (playerSpotted)
             {
                 ChasePlayer();
-                
+
                 // If player is within the attack range and unless already attacking, attack him
                 if (distanceToPlayer.magnitude <= attackRange && !isAttacking)
                 {
@@ -70,7 +78,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         transform.LookAt(gameManager.instance.player.transform.position);
         agent.SetDestination(gameManager.instance.player.transform.position);
-        
+
         //set for shooting enemys
         if (!isAttacking)
         {
@@ -117,9 +125,9 @@ public class enemyAI : MonoBehaviour, IDamage
 
     private void die()
     {
-        gameManager.instance.DecreaseEnemyCount();
+        enemyManager.instance.DecrementEnemyCount(isMinion);
 
-        if (gameManager.instance.EnemyCount == 0)
+        if (enemyManager.instance.EnemyCount == 0)
         {
             gameManager.instance.ShowHint("Enemy Dropped Key Card");
             Instantiate(keyPrefab, transform.position, transform.rotation);

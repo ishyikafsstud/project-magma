@@ -31,22 +31,9 @@ public class gameManager : MonoBehaviour
     [Header("Functional settings")]
     public bool isPaused;
 
-    private int enemyCount;
     bool isKeyPicked;
 
     public bool IsKeyPicked { get; private set; }
-
-    public int EnemyCount
-    {
-        get => enemyCount;
-        set
-        {
-            if (enemyCount == value) return;
-
-            enemyCount = value;
-            UpdateEnemyCountText();
-        }
-    }
 
     void Awake()
     {
@@ -56,8 +43,6 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         barrier = GameObject.FindGameObjectWithTag("LevelBarrier");
-
-        enemyCount = 0;
     }
 
     void Start()
@@ -132,15 +117,9 @@ public class gameManager : MonoBehaviour
         ShowHint("Key Card Picked Up\nEscape");
     }
 
-    public void DecreaseEnemyCount()
-    {
-        enemyCount--;
-        UpdateEnemyCountText();
-    }
-
     public void UpdateEnemyCountText()
     {
-        enemyCountText.SetText("Enemies Left: " + EnemyCount.ToString());
+        enemyCountText.SetText("Enemies Left: " + enemyManager.instance.EnemyCount.ToString());
     }
 
     /// <summary>

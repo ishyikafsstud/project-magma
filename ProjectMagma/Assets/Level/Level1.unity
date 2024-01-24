@@ -191,10 +191,6 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7644659709704409185, guid: 11c466aaa8ec47345a2001c5349f802f, type: 3}
-      propertyPath: avoidancePriority
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -400,6 +396,10 @@ PrefabInstance:
       propertyPath: bullet
       value: 
       objectReference: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}
+    - target: {fileID: 182108713419861810, guid: d49a5e61c2282564a8ed2ef60b4fbb81, type: 3}
+      propertyPath: minion
+      value: 
+      objectReference: {fileID: 8931111809424262872, guid: 6f96a3b04777fc94bbfb3c061f2cf330, type: 3}
     - target: {fileID: 182108713419861810, guid: d49a5e61c2282564a8ed2ef60b4fbb81, type: 3}
       propertyPath: shootPos
       value: 

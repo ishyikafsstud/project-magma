@@ -1739,6 +1739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7902401456203666052}
   - component: {fileID: 8151666403568927593}
+  - component: {fileID: 2689396903524032928}
   - component: {fileID: 2665246074342212890}
   m_Layer: 5
   m_Name: GameManager
@@ -1793,7 +1794,18 @@ MonoBehaviour:
   playerScript: {fileID: 0}
   barrier: {fileID: 0}
   isPaused: 0
-  isKeyPicked: 0
+--- !u!114 &2689396903524032928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4217557209907180305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7528b0a7d52109845ac55ff603379fc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2665246074342212890
 MonoBehaviour:
   m_ObjectHideFlags: 0
