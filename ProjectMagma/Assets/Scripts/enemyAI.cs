@@ -7,27 +7,29 @@ public class enemyAI : MonoBehaviour, IDamage
 {
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
+    [Tooltip("The position for projectile spawning.")]
     [SerializeField] Transform shootPos;
 
-    [SerializeField] int HP;
-    [Tooltip("For how long the enemy flashes red upon receiving damage.")]
+    [SerializeField] protected int HP;
+    [Tooltip("For how long the enemy flashes red upon receiving damage, in seconds.")]
     [SerializeField] float damageFlashLength;
     [SerializeField] int speed;
-    [SerializeField] float detectionRange;
+    [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
+    [SerializeField] protected float detectionRange;
 
-    [Header("Damage")]
-    //[SerializeField] int shootDamage;
-    [SerializeField] float shootRate;
-    [SerializeField] public float attackRange;
-    //[SerializeField] int shootDist;
-    [SerializeField] GameObject bullet;
-
+    [Header("Attacking")]
+    [Tooltip("The damage this enemy's attack deals to the target.")]
+    [SerializeField] protected int attackDamage;
+    [Tooltip("The minimum duration between two attacks in seconds (for example, the value of 0.5 would mean up to 2 attacks per second).")]
+    [SerializeField] protected float attackRate;
+    [Tooltip("The maximum distance from which this enemy can attack.")]
+    [SerializeField] protected float attackRange;
+    [SerializeField] protected GameObject bullet; // TODO: rename to `projectile`. Make sure to update the value correctly.
 
     [Header("Other")]
     [SerializeField] GameObject keyPrefab;
-    
 
-    public bool isAttacking;
+    protected bool isAttacking;
     bool playerIsNearby;
     bool playerSpotted;
 
@@ -50,12 +52,12 @@ public class enemyAI : MonoBehaviour, IDamage
             if (playerSpotted)
             {
                 ChasePlayer();
-                //check distance.start attacking
-                if (distanceToPlayer.magnitude <= attackRange)
+                
+                // If player is within the attack range and unless already attacking, attack him
+                if (distanceToPlayer.magnitude <= attackRange && !isAttacking)
                 {
                     StartCoroutine(Attack());
                 }
-                   
             }
             else
             {
@@ -139,6 +141,10 @@ public class enemyAI : MonoBehaviour, IDamage
         model.material.color = oldColor;
     }
 
+    /// <summary>
+    /// Attack the target by shooting a projectile at it.
+    /// </summary>
+    /// <returns></returns>
     // can be overridden for melee enemys in the enemyAIMelee script
     protected virtual IEnumerator Attack()
     {
@@ -146,7 +152,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
         Instantiate(bullet, shootPos.position, transform.rotation);
 
-        yield return new WaitForSeconds(shootRate); // Unity Timer
+        yield return new WaitForSeconds(attackRate); // Unity Timer
 
         isAttacking = false;
     }

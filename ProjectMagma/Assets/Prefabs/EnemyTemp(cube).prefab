@@ -88,14 +88,15 @@ MonoBehaviour:
   damageFlashLength: 0.1
   speed: 10
   detectionRange: 40
-  shootRate: 1
+  attackDamage: 2
+  attackRate: 0.5
   attackRange: 4
   bullet: {fileID: 752510304586747584, guid: bd7b0d73c891e3c4a82ae20f83aada5d, type: 3}
   keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
   isAttacking: 0
   meleeDamage: 2
   meleeRate: 0.5
-  particaleDuration: 0.1
+  particleDuration: 0.1
   hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
 --- !u!195 &187963395844884206
 NavMeshAgent:

@@ -5,12 +5,13 @@ using UnityEngine;
 public class enemyAIMelee : enemyAI
 {
     [Header("Melee")]
-    [SerializeField] int meleeDamage;
-    [SerializeField] float meleeRate;
-    [SerializeField] float particaleDuration;
+    [SerializeField] float particleDuration;
     [SerializeField] GameObject hitParticlesPrefab;
      
-
+    /// <summary>
+    /// Attack the target in melee.
+    /// </summary>
+    /// <returns></returns>
     protected override IEnumerator Attack()
     {
         if (isAttacking)
@@ -28,20 +29,21 @@ public class enemyAIMelee : enemyAI
                 IDamage playerDamageable = hit.collider.GetComponent<IDamage>();
                 if (playerDamageable != null)
                 {
-                    playerDamageable.takeDamage(meleeDamage);
+                    playerDamageable.takeDamage(attackDamage);
                 }
                 SpawnHitParticles(hit.point);
             }
         }
-        yield return new WaitForSeconds(meleeRate);
+        yield return new WaitForSeconds(attackRate);
         isAttacking = false;
 
         yield break;
     }
+
     void SpawnHitParticles(Vector3 position)
     {
         GameObject hitParticles = Instantiate(hitParticlesPrefab, position, Quaternion.identity);
 
-        Destroy(hitParticles, particaleDuration);
+        Destroy(hitParticles, particleDuration);
     }
 }
