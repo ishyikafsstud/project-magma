@@ -51,7 +51,7 @@ public class playerController : MonoBehaviour, IDamage
     private bool sprinting;
     private float currentSpeed;
     private bool isShooting;
-    bool isMeleeActive;
+    private bool isMeleeActive;
 
     // Start is called before the first frame update
     void Start()
@@ -70,15 +70,19 @@ public class playerController : MonoBehaviour, IDamage
         processMovement();
 
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.green);
-        // Left Click
-        if (Input.GetButton("Shoot") && !isShooting && energy > energyCostPerShot && !gameManager.instance.isPaused)
+
+        if (!gameManager.instance.isPaused)
         {
-            StartCoroutine(Shoot());
-        }
-        // Right click 
-        if (Input.GetButton("Hit") && !isMeleeActive && !Input.GetButton("Shoot"))
-        {
-            StartCoroutine(MeleeAttack());
+            // Left Click - ranged attack
+            if (Input.GetButton("Shoot") && !isShooting && energy > energyCostPerShot)
+            {
+                StartCoroutine(Shoot());
+            }
+            // Right click - melee attack
+            else if (Input.GetButton("Hit") && !isMeleeActive && !isShooting)
+            {
+                StartCoroutine(MeleeAttack());
+            }
         }
 
         RegenEnergy();
@@ -195,17 +199,23 @@ public class playerController : MonoBehaviour, IDamage
         }
         // Delay between melee hits
         yield return new WaitForSeconds(meleeRate);
-        
+
         isMeleeActive = false;
     }
-    // Melee Feedback
+    /// <summary>
+    /// Melee Feedback
+    /// </summary>
+    /// <param name="position">Position of the hit particles.</param>
     void SpawnHitParticles(Vector3 position)
     {
         GameObject hitParticles = Instantiate(hitParticlesPrefab, position, Quaternion.identity);
 
         Destroy(hitParticles, particleDuration);
     }
-    // Health Regen when moving
+
+    /// <summary>
+    /// Health Regen when moving
+    /// </summary>
     void healthRegen()
     {
         if (health > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
@@ -221,7 +231,10 @@ public class playerController : MonoBehaviour, IDamage
         energy -= amount;
         updatePlayerUI();
     }
-    // Energy Regen when moving 
+
+    /// <summary>
+    /// Energy Regen when moving 
+    /// </summary>
     void RegenEnergy()
     {
         if (currentSpeed > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
