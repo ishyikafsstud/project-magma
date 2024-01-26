@@ -67,7 +67,7 @@ MonoBehaviour:
   energyRegenRate: 15
   meleeRange: 3
   meleeDamage: 5
-  meleeRate: 2
+  meleeRate: 0.5
   particleDuration: 0.1
   hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
   damageFlashDuration: 0.1

@@ -51,6 +51,7 @@ public class playerController : MonoBehaviour, IDamage
     private bool sprinting;
     private float currentSpeed;
     private bool isShooting;
+    bool isMeleeActive;
 
     // Start is called before the first frame update
     void Start()
@@ -69,13 +70,13 @@ public class playerController : MonoBehaviour, IDamage
         processMovement();
 
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.green);
-
+        // Left Click
         if (Input.GetButton("Shoot") && !isShooting && energy > energyCostPerShot && !gameManager.instance.isPaused)
         {
             StartCoroutine(Shoot());
         }
-
-        if (Input.GetMouseButtonDown(1))
+        // Right click 
+        if (Input.GetButton("Hit") && !isMeleeActive && !Input.GetButton("Shoot"))
         {
             StartCoroutine(MeleeAttack());
         }
@@ -180,6 +181,8 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator MeleeAttack()
     {
+        isMeleeActive = true;
+
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, meleeRange))
         {
@@ -190,16 +193,19 @@ public class playerController : MonoBehaviour, IDamage
             }
             SpawnHitParticles(hit.point);
         }
+        // Delay between melee hits
         yield return new WaitForSeconds(meleeRate);
+        
+        isMeleeActive = false;
     }
-
+    // Melee Feedback
     void SpawnHitParticles(Vector3 position)
     {
         GameObject hitParticles = Instantiate(hitParticlesPrefab, position, Quaternion.identity);
 
         Destroy(hitParticles, particleDuration);
     }
-
+    // Health Regen when moving
     void healthRegen()
     {
         if (health > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
@@ -215,7 +221,7 @@ public class playerController : MonoBehaviour, IDamage
         energy -= amount;
         updatePlayerUI();
     }
-
+    // Energy Regen when moving 
     void RegenEnergy()
     {
         if (currentSpeed > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
