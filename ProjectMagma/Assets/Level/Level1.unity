@@ -2501,6 +2501,10 @@ PrefabInstance:
       propertyPath: shootDamage
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3397566626643661668, guid: 924ac3c4abd331240b2b78bf7c08b160, type: 3}
+      propertyPath: fieldOfViewAttack
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

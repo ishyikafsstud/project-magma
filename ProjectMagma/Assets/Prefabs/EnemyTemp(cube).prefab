@@ -87,6 +87,9 @@ MonoBehaviour:
   HP: 60
   speed: 10
   detectionRange: 40
+  fieldOfView: 45
+  fieldOfViewAttack: 25
+  faceTargetSpeed: 6
   isMinion: 0
   damageFlashLength: 0.1
   attackDamage: 2

@@ -15,6 +15,11 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] int speed;
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
+    [Tooltip("The angle that sets enemy field of view (not attacking).")]
+    [Range(0,90)][SerializeField] protected float fieldOfView;
+    [Tooltip("The angle that sets enemy field of view (for attacking).")]
+    [Range(0, 90)][SerializeField] protected float fieldOfViewAttack;
+    [SerializeField] float faceTargetSpeed;
     [Tooltip("Whether the character is summoned by a spawner enemy.\nMinions do not count toward kills.")]
     [SerializeField] bool isMinion;
     [Tooltip("For how long the enemy flashes red upon receiving damage, in seconds.")]
@@ -35,6 +40,8 @@ public class enemyAI : MonoBehaviour, IDamage
     protected bool isAttacking;
     bool playerIsNearby;
     bool playerSpotted;
+    Vector3 distanceToPlayer;
+    float angleToPlayer;
 
     public bool IsMinion
     {
@@ -53,7 +60,8 @@ public class enemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        Vector3 distanceToPlayer = (gameManager.instance.player.transform.position - transform.position);
+        distanceToPlayer = (gameManager.instance.player.transform.position - transform.position);
+        angleToPlayer = Vector3.Angle(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z), new Vector3(transform.forward.x, 0, transform.forward.z));
         // Pursue player if he has been spotted, try to spot him otherwise.
         // * If the player is nearby but not spotted yet, try to spot him using a raycast.
         // * If the player has been spotted, pursue player even if he left the detection zone.
@@ -64,7 +72,7 @@ public class enemyAI : MonoBehaviour, IDamage
                 ChasePlayer();
 
                 // If player is within the attack range and unless already attacking, attack him
-                if (distanceToPlayer.magnitude <= attackRange && !isAttacking)
+                if (distanceToPlayer.magnitude <= attackRange && !isAttacking && angleToPlayer < fieldOfViewAttack)
                 {
                     StartCoroutine(Attack());
                 }
@@ -78,14 +86,15 @@ public class enemyAI : MonoBehaviour, IDamage
 
     void ChasePlayer()
     {
-        transform.LookAt(gameManager.instance.player.transform.position);
         agent.SetDestination(gameManager.instance.player.transform.position);
+        if(agent.remainingDistance < agent.stoppingDistance)
+            faceTarget();
+    }
 
-        //set for shooting enemys
-        if (!isAttacking)
-        {
-            StartCoroutine(Attack());
-        }
+    void faceTarget()
+    {
+        Quaternion rot = Quaternion.LookRotation(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z));
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, faceTargetSpeed * Time.deltaTime);
     }
 
     /// <summary>
@@ -94,13 +103,14 @@ public class enemyAI : MonoBehaviour, IDamage
     /// </summary>
     private void lookForPlayer()
     {
-        Vector3 dirToPlayer = (gameManager.instance.player.transform.position - transform.position).normalized;
+
         //Debug.DrawRay(transform.position, dirToPlayer * detectionRange, Color.red);
+        //Debug.Log(angleToPlayer);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, dirToPlayer, out hit, detectionRange))
+        if (Physics.Raycast(transform.position, distanceToPlayer, out hit, detectionRange))
         {
-            if (hit.collider.CompareTag("Player"))
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= fieldOfView)
                 spotPlayer();
         }
     }
