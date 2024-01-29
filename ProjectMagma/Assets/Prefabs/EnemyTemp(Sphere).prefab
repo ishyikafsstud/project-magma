@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1257835528486438047}
   - component: {fileID: 6372654364066226605}
   - component: {fileID: 7897733135006048013}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyTemp(Sphere)
   m_TagString: Enemy
   m_Icon: {fileID: 0}

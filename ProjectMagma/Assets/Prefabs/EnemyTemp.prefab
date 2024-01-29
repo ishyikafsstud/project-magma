@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5248101100952498216}
   - component: {fileID: 3294878202004255085}
   - component: {fileID: 7534764570622540862}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyTemp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,9 +50,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 3294878202004255085}
   agent: {fileID: 5928567417781276368}
+  shootPos: {fileID: 0}
   HP: 3
-  damageFlashLength: 0.1
   speed: 3
+  detectionRange: 0
+  fieldOfView: 0
+  fieldOfViewAttack: 0
+  faceTargetSpeed: 0
+  isMinion: 0
+  damageFlashLength: 0.1
+  attackDamage: 0
+  attackRate: 0
+  attackRange: 0
+  bullet: {fileID: 0}
+  keyPrefab: {fileID: 0}
 --- !u!195 &5928567417781276368
 NavMeshAgent:
   m_ObjectHideFlags: 0

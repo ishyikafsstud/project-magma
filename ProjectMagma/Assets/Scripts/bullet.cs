@@ -16,7 +16,9 @@ public class bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = transform.forward * speed;
+        //rb.velocity = transform.forward * speed;
+        // bullet flies towards player
+        rb.velocity = (gameManager.instance.player.transform.position - transform.position).normalized * speed;
         // bullet is destroyed after an amount of time
         Destroy(gameObject, destroyTime);
     }

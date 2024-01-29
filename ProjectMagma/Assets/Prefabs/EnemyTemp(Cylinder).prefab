@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3294878202004255085}
   - component: {fileID: 7534764570622540862}
   - component: {fileID: 9049557403782024362}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyTemp(Cylinder)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
