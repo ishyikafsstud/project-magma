@@ -335,9 +335,9 @@ GameObject:
   - component: {fileID: 8468652042664824877}
   - component: {fileID: 7760328312414012987}
   - component: {fileID: 3535314521956099815}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySlime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
