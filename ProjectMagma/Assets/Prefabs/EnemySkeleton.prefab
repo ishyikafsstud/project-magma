@@ -550,7 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854031a5bb144e243828df2406710221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  model: {fileID: 430443201119338661}
   agent: {fileID: 2029370887770342471}
   animator: {fileID: 2040736154835555191}
   shootPos: {fileID: 0}
@@ -600,7 +600,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2719968998503626013}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 2
+  m_Radius: 2.5
   m_Speed: 4
   m_Acceleration: 4
   avoidancePriority: 50
