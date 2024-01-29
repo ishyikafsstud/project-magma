@@ -38,10 +38,10 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] GameObject keyPrefab;
 
     protected bool isAttacking;
-    bool playerIsNearby;
-    bool playerSpotted;
-    Vector3 distanceToPlayer;
-    float angleToPlayer;
+    protected bool playerIsNearby;
+    protected bool playerSpotted;
+    protected Vector3 distanceToPlayer;
+    protected float angleToPlayer;
 
     public bool IsMinion
     {

@@ -18,11 +18,13 @@ public class enemyAIMelee : enemyAI
         {
             yield break;
         }
+        //Debug.Log("Attack attempt, t = " + Time.fixedTime.ToString()); // 
 
         isAttacking = true;
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, attackRange))
+        int layerMask = (1 << 0) | (1 << 3);
+        if (Physics.Raycast(transform.position, distanceToPlayer.normalized, out hit, attackRange, layerMask))
         {
             if (hit.collider.CompareTag("Player"))
             {
