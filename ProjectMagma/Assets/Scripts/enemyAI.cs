@@ -177,9 +177,12 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         isAttacking = true;
 
-        Instantiate(bullet, shootPos.position, transform.rotation);
+        Vector3 distanceToPlayerFromShootPos = (gameManager.instance.player.transform.position - shootPos.transform.position);
+        Quaternion bulletRot = Quaternion.LookRotation(distanceToPlayerFromShootPos);
 
-        yield return new WaitForSeconds(attackRate); // Unity Timer
+        Instantiate(bullet, shootPos.position, bulletRot);
+
+        yield return new WaitForSeconds(attackRate);
 
         isAttacking = false;
     }
