@@ -105,7 +105,7 @@ public class playerController : MonoBehaviour, IDamage
         }
 
         // Check for sprint
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && isGrounded)
             enableSprint(true);
         else if (Input.GetKeyUp(KeyCode.LeftShift))
             enableSprint(false);
@@ -282,5 +282,15 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.playerDamageScreenFlash.SetActive(true);
         yield return new WaitForSeconds(damageFlashDuration);
         gameManager.instance.playerDamageScreenFlash.SetActive(false);
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public float GetOriginalHealth()
+    {
+        return healthOriginal;
     }
 }

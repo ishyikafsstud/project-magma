@@ -58,20 +58,32 @@ public class enemyManager : MonoBehaviour
     /// <param name="range"></param>
     public void AlertEnemiesWithinRange(Vector3 pos, float range)
     {
+        
         foreach (GameObject enemy in enemies)
         {
-            // If the enemy is not alerted yet and within the alert range
-            if (!enemy.GetComponent<enemyAI>().IsAlerted
-                && Vector3.Distance(pos, enemy.transform.position) < range)
+            if (enemy != null)
             {
-                Vector3 raycastDirection = enemy.transform.position - pos;
-                RaycastHit hit;
-                // Check for any obstructions between the source and the enemy.
-                // If there are none, alert them.
-                if (Physics.Raycast(pos, raycastDirection, out hit))
+                enemyAI enemyAIComponent = enemy.GetComponent<enemyAI>();
+
+                if (enemyAIComponent != null && !enemyAIComponent.IsAlerted)
                 {
-                    if (hit.collider.gameObject == enemy)
-                        enemy.GetComponent<enemyAI>().BecomeAlerted(pos);
+                    float distanceToEnemy = Vector3.Distance(pos, enemy.transform.position);
+
+                    if (distanceToEnemy < range)
+                    {
+                        Vector3 raycastDirection = enemy.transform.position - pos;
+                        RaycastHit hit;
+
+                        // Check for any obstructions between the source and the enemy.
+                        // If there are none, alert them.
+                        if (Physics.Raycast(pos, raycastDirection, out hit))
+                        {
+                            if (hit.collider.gameObject == enemy)
+                            {
+                                enemyAIComponent.BecomeAlerted(pos);
+                            }
+                        }
+                    }
                 }
             }
         }

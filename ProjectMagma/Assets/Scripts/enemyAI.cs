@@ -10,6 +10,8 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Animator animator;
     [Tooltip("The position for projectile spawning. Ignore for melee enemies.")]
     [SerializeField] Transform shootPos;
+    [SerializeField] enemyUI enemyUI;
+   
 
     [Header("Stats")]
     [SerializeField] protected int HP;
@@ -41,6 +43,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [Header("Other")]
     [SerializeField] GameObject keyPrefab;
 
+    protected float origHP;
     protected bool isAttacking;
     protected bool playerIsNearby;
     protected bool playerSpotted;
@@ -58,6 +61,7 @@ public class enemyAI : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
+        origHP = HP;
         enemyManager.instance.EnemySpawned(gameObject, isMinion);
     }
 
@@ -129,23 +133,31 @@ public class enemyAI : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)
     {
-        HP -= amount;
-        StartCoroutine(flashRed());
-
-        // Trigger the enemy to follow player.
-        // It is safe because the only way for the enemy to receive damage right now is to be hit by the player.
-        spotPlayer();
-
-        if (HP <= 0)
+        if (this != null)
         {
-            die();
+            HP -= amount;
+            StartCoroutine(flashRed());
+            // Trigger the enemy to follow player.
+            // It is safe because the only way for the enemy to receive damage right now is to be hit by the player.
+            spotPlayer();
+
+            if (enemyUI != null)
+            {
+                enemyUI.UpdateUI();
+            }
+
+            if (HP <= 0)
+            {
+                die();
+            }
         }
     }
 
     private void spotPlayer()
     {
         BecomeAlerted(gameManager.instance.player.transform.position);
-        enemyManager.instance.AlertEnemiesWithinRange(transform.position, detectionRange); // Alert nearby enemies
+        enemyManager.instance.AlertEnemiesWithinRange(transform.position, detectionRange);// Alert nearby enemies
+        
     }
 
     public void BecomeAlerted(Vector3 disturbancePos)
@@ -219,4 +231,16 @@ public class enemyAI : MonoBehaviour, IDamage
             playerIsNearby = false;
         }
     }
+
+    public float GetHealth()
+    {
+        return HP;
+    }
+
+    public float GetOriginalHealth()
+    {
+        return origHP;
+    }
 }
+
+
