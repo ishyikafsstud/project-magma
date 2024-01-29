@@ -7,7 +7,8 @@ public class enemyAI : MonoBehaviour, IDamage
 {
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
-    [Tooltip("The position for projectile spawning.")]
+    [SerializeField] Animator animator;
+    [Tooltip("The position for projectile spawning. Ignore for melee enemies.")]
     [SerializeField] Transform shootPos;
 
     [Header("Stats")]
@@ -16,7 +17,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
     [Tooltip("The angle that sets enemy field of view (not attacking).")]
-    [Range(0,90)][SerializeField] protected float fieldOfView;
+    [Range(0, 90)][SerializeField] protected float fieldOfView;
     [Tooltip("The angle that sets enemy field of view (for attacking).")]
     [Range(0, 90)][SerializeField] protected float fieldOfViewAttack;
     [SerializeField] float faceTargetSpeed;
@@ -24,6 +25,8 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] bool isMinion;
     [Tooltip("For how long the enemy flashes red upon receiving damage, in seconds.")]
     [SerializeField] float damageFlashLength;
+    [Tooltip("The speed of transitioning in blend animations.")]
+    [SerializeField] float animSpeedTransition;
 
     [Header("Attacking")]
     [Tooltip("The damage this enemy's attack deals to the target.")]
@@ -32,6 +35,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] protected float attackRate;
     [Tooltip("The maximum distance from which this enemy can attack.")]
     [SerializeField] protected float attackRange;
+    [Tooltip("The projectile prefab. Ignore for melee enemies.")]
     [SerializeField] protected GameObject bullet; // TODO: rename to `projectile`. Make sure to update the value correctly.
 
     [Header("Other")]
@@ -63,6 +67,7 @@ public class enemyAI : MonoBehaviour, IDamage
         distanceToPlayer = (gameManager.instance.player.transform.position - transform.position);
         angleToPlayer = Vector3.Angle(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z),
             new Vector3(transform.forward.x, 0, transform.forward.z));
+
         // Pursue player if he has been spotted, try to spot him otherwise.
         // * If the player is nearby but not spotted yet, try to spot him using a raycast.
         // * If the player has been spotted, pursue player even if he left the detection zone.
@@ -83,12 +88,18 @@ public class enemyAI : MonoBehaviour, IDamage
                 lookForPlayer();
             }
         }
+
+        if (animator != null)
+        {
+            float targetAnimSpeed = agent.velocity.normalized.magnitude;
+            animator.SetFloat("Speed", Mathf.Lerp(animator.GetFloat("Speed"), targetAnimSpeed, animSpeedTransition * Time.deltaTime));
+        }
     }
 
     void ChasePlayer()
     {
         agent.SetDestination(gameManager.instance.player.transform.position);
-        if(agent.remainingDistance < agent.stoppingDistance)
+        if (agent.remainingDistance < agent.stoppingDistance)
             faceTarget();
     }
 
@@ -159,6 +170,9 @@ public class enemyAI : MonoBehaviour, IDamage
     //this is going to change. this is for test feedback for the player.
     IEnumerator flashRed()
     {
+        if (model == null)
+            yield break;
+
         // Remember the old color
         Color oldColor = model.material.color;
 
