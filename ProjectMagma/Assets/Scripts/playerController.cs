@@ -171,7 +171,10 @@ public class playerController : MonoBehaviour, IDamage
 
 
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+        // The layer masks of the collision layers we want the raycast to hit: Default, Enemy.
+        // Using it specifies the layers we want the raycast to collide with.
+        int layerMask = (1 << 0) | (1 << 6);
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist, layerMask))
         {
             IDamage damagedBody = hit.collider.GetComponent<IDamage>();
             if (damagedBody != null && !hit.collider.CompareTag("Player"))
@@ -188,7 +191,10 @@ public class playerController : MonoBehaviour, IDamage
         isMeleeActive = true;
 
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, meleeRange))
+        // The layer masks of the collision layers we want the raycast to hit: Default, Enemy.
+        // Using it specifies the layers we want the raycast to collide with.
+        int layerMask = (1 << 0) | (1 << 6);
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, meleeRange, layerMask))
         {
             IDamage damagedBody = hit.collider.GetComponent<IDamage>();
             if (damagedBody != null && hit.collider.CompareTag("Enemy"))
