@@ -11,7 +11,11 @@ public class bullet : MonoBehaviour
     [SerializeField] int speed;
     [SerializeField] int destroyTime;
 
-    public int DamageAmount { get; set; }
+    public int DamageValue
+    {
+        get => damageAmount;
+        set => damageAmount = value;
+    }
 
     // Start is called before the first frame update
     void Start()

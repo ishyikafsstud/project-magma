@@ -61,7 +61,7 @@ MonoBehaviour:
   faceTargetSpeed: 6
   isMinion: 0
   damageFlashLength: 0.1
-  attackDamage: 0
+  attackDamage: 10
   attackRate: 1
   attackRange: 40
   bullet: {fileID: 752510304586747584, guid: 7760ee67a0ed5fc40b5b23c470cbf8ff, type: 3}

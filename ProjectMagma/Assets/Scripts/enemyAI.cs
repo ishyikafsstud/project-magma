@@ -61,7 +61,8 @@ public class enemyAI : MonoBehaviour, IDamage
     void Update()
     {
         distanceToPlayer = (gameManager.instance.player.transform.position - transform.position);
-        angleToPlayer = Vector3.Angle(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z), new Vector3(transform.forward.x, 0, transform.forward.z));
+        angleToPlayer = Vector3.Angle(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z),
+            new Vector3(transform.forward.x, 0, transform.forward.z));
         // Pursue player if he has been spotted, try to spot him otherwise.
         // * If the player is nearby but not spotted yet, try to spot him using a raycast.
         // * If the player has been spotted, pursue player even if he left the detection zone.
@@ -180,7 +181,8 @@ public class enemyAI : MonoBehaviour, IDamage
         Vector3 distanceToPlayerFromShootPos = (gameManager.instance.player.transform.position - shootPos.transform.position);
         Quaternion bulletRot = Quaternion.LookRotation(distanceToPlayerFromShootPos);
 
-        Instantiate(bullet, shootPos.position, bulletRot);
+        GameObject bulletInstance = Instantiate(bullet, shootPos.position, bulletRot);
+        bulletInstance.GetComponent<bullet>().DamageValue = attackDamage;
 
         yield return new WaitForSeconds(attackRate);
 
