@@ -13,7 +13,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
     [Header("Stats")]
     [SerializeField] protected int HP;
-    [SerializeField] int speed;
+    [SerializeField] float speed;
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
     [Tooltip("The angle that sets enemy field of view (not attacking).")]
