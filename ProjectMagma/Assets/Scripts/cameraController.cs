@@ -38,9 +38,10 @@ public class cameraController : MonoBehaviour
         }
         // clamp xRot to the x axis
         xRot = Mathf.Clamp(xRot, lockVertMin, lockVertMax);
-        // rotate on x axis
+        // rotate on x axis using the camera rotation
         transform.localRotation = Quaternion.Euler(xRot, 0, 0);
-        // rotate on y axis
-        transform.parent.Rotate(Vector3.up * mouseX);
+        // rotate on y axis using the player rotation
+        // The parent of the camera is camera handle, so get the parent of the parent to access player
+        transform.parent.parent.Rotate(Vector3.up * mouseX);
     }
 }
