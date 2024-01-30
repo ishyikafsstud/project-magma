@@ -15,6 +15,11 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
 
+    [Header("Camera Tilting")]
+    [SerializeField] Transform cameraTiltAnchor;
+    [SerializeField] float maxCameraTilt;
+    [SerializeField] float tiltCameraSpeed;
+
     [Header("Jumps & Gravity")]
     [Tooltip("The maximum number of jumps the player can perform before hitting the ground.")]
     [SerializeField] int jumpMaxNumber;
@@ -46,6 +51,7 @@ public class playerController : MonoBehaviour, IDamage
     private float healthOriginal;
     private Vector3 horMotionDirection;
     private Vector3 verticalVelocity;
+    private float currentTiltAngle;
     private bool isGrounded;
     private int jumpCount;
     private bool sprinting;
@@ -121,12 +127,34 @@ public class playerController : MonoBehaviour, IDamage
         // Apply horizontal motion
         controller.Move(horMotion);
 
+        // Call tiltCamera to handle camera tilt based on horizontal motion
+        tiltCamera(horMotionDirection);
+
         // Handle jumping
         if (Input.GetButtonDown("Jump") & jumpCount < jumpMaxNumber)
             jump();
 
         // Apply vertical motion
         controller.Move(verticalVelocity * Time.deltaTime);
+    }
+
+    void tiltCamera(Vector3 motion)
+    {
+        // Calculate lateral velocity
+        float lateralVelocity = Vector3.Dot(motion, transform.right);
+
+        // Calculate expectedTiltAngle based on lateral velocity
+        float expectedTiltAngle = Mathf.Clamp(lateralVelocity * maxCameraTilt, -maxCameraTilt, maxCameraTilt);
+
+        // Tilt camera angle towards expected camera angle over desired period of time
+        currentTiltAngle = Mathf.Lerp(currentTiltAngle, -expectedTiltAngle, Time.deltaTime * tiltCameraSpeed);
+
+        // Apply to cameraTiltAnchor
+        cameraTiltAnchor.localRotation = Quaternion.Euler(0f, 0f, currentTiltAngle);
+
+        // Debug.Log("Lateral Velocity: " + lateralVelocity);
+        // Debug.Log("Expected Tilt Angle: " + expectedTiltAngle);
+        // Debug.Log("Current Tilt Angle: " + currentTiltAngle);
     }
 
     void jump()

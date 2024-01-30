@@ -24,6 +24,9 @@ public class cameraController : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity;
         float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity;
 
+        //Debug.Log("Mouse X: " + mouseX);
+        //Debug.Log("Mouse Y: " + mouseY);
+
         if (invertY)
         {
             xRot += mouseY;
