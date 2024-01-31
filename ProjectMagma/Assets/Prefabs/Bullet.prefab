@@ -50,9 +50,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5570001330950858941}
-  damageAmount: 10
+  damageAmount: 3
   speed: 50
-  destroyTime: 10
+  destroyTime: 5
 --- !u!96 &9056730131370770645
 TrailRenderer:
   serializedVersion: 3
