@@ -56,6 +56,7 @@ public class playerController : MonoBehaviour, IDamage
     private int jumpCount;
     private bool sprinting;
     private float currentSpeed;
+    private float walkToSprintSpeedRatio;
     private bool isShooting;
     private bool isMeleeActive;
 
@@ -65,6 +66,7 @@ public class playerController : MonoBehaviour, IDamage
         healthOriginal = health;
         energyOriginal = energy;
         currentSpeed = walkSpeed;
+        walkToSprintSpeedRatio = walkSpeed / sprintSpeed;
 
         updatePlayerUI();
         respawn();
@@ -138,10 +140,18 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(verticalVelocity * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Tilt camera based on the lateral (sideways) velocity.
+    /// </summary>
+    /// <param name="motion">Horizontal motion.</param>
     void tiltCamera(Vector3 motion)
     {
         // Calculate lateral velocity
         float lateralVelocity = Vector3.Dot(motion, transform.right);
+        
+        // Camera tilt for running should be more significant than for walking
+        if (currentSpeed == walkSpeed)
+            lateralVelocity *= walkToSprintSpeedRatio;
 
         // Calculate expectedTiltAngle based on lateral velocity
         float expectedTiltAngle = Mathf.Clamp(lateralVelocity * maxCameraTilt, -maxCameraTilt, maxCameraTilt);
