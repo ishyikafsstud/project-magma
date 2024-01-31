@@ -386,6 +386,8 @@ MonoBehaviour:
   isMinion: 0
   damageFlashLength: 0.1
   animSpeedTransition: 8
+  roamDist: 55
+  roamPauseTimer: 5
   attackDamage: 1
   attackRate: 0.5
   attackRange: 3

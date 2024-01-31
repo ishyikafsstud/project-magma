@@ -28,6 +28,8 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] float damageFlashLength;
     [Tooltip("The speed of transitioning in blend animations.")]
     [SerializeField] float animSpeedTransition;
+    [SerializeField] int roamDist;
+    [SerializeField] int roamPauseTimer;
 
     [Header("---- Attacking ----")]
     [Tooltip("The damage this enemy's attack deals to the target.")]
@@ -48,6 +50,9 @@ public class enemyAI : MonoBehaviour, IDamage
     protected bool playerSpotted;
     protected Vector3 distanceToPlayer;
     protected float angleToPlayer;
+    bool destChosen;
+    Vector3 startingPos;
+    float stoppingDistOrig;
 
     public bool IsMinion
     {
@@ -71,6 +76,11 @@ public class enemyAI : MonoBehaviour, IDamage
         angleToPlayer = Vector3.Angle(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z),
             new Vector3(transform.forward.x, 0, transform.forward.z));
 
+        if (playerIsNearby && !playerSpotted)
+            StartCoroutine(roam());
+        else if (!playerIsNearby)
+            StartCoroutine(roam());
+        
         // Pursue player if he has been spotted, try to spot him otherwise.
         // * If the player is nearby but not spotted yet, try to spot him using a raycast.
         // * If the player has been spotted, pursue player even if he left the detection zone.
@@ -99,8 +109,27 @@ public class enemyAI : MonoBehaviour, IDamage
         }
     }
 
+    IEnumerator roam()
+    {
+        destChosen = true;
+        agent.stoppingDistance = 0;
+        yield return new WaitForSeconds(roamPauseTimer);
+
+        // new position is inside the sphere
+        Vector3 randomPos = Random.insideUnitSphere * roamDist;
+        randomPos += startingPos;
+
+        // check if chosen position is on navmesh
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
+        agent.SetDestination(hit.position);
+
+        destChosen = false;
+    }
+
     void ChasePlayer()
     {
+        StopCoroutine(roam());
         agent.SetDestination(gameManager.instance.player.transform.position);
         if (agent.remainingDistance < agent.stoppingDistance)
             faceTarget();
