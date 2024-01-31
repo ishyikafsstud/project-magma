@@ -114,6 +114,8 @@ public class gameManager : MonoBehaviour
         if (barrier != null)
             barrier.GetComponent<levelBarrier>().Unlock();
 
+        // TODO: enemyManager.instance.ambushSpawner.SetActive(true);
+
         ShowHint("Key Card Picked Up\nEscape");
     }
 

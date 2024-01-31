@@ -50,6 +50,11 @@ public class enemyManager : MonoBehaviour
         enemies = new List<GameObject>();
     }
 
+    void Start()
+    {
+        // TODO: Get and save the ambush enemy spawner + disable it using SetActive(false)
+    }
+
     /// <summary>
     /// Alerts enemies around a certain area. Alerts only if there are no obstructions between them
     /// and the object of attention.
