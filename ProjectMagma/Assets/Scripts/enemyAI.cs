@@ -13,7 +13,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] GameObject enemyUI;
 
     [Header("---- Stats ----")]
-    [Range(1,20)][SerializeField] protected int HP;
+    [Range(1, 20)][SerializeField] protected int HP;
     [SerializeField] float speed;
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
@@ -28,8 +28,12 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] float damageFlashLength;
     [Tooltip("The speed of transitioning in blend animations.")]
     [SerializeField] float animSpeedTransition;
+    [SerializeField] bool canRoam;
     [SerializeField] int roamDist;
-    [SerializeField] int roamPauseTimer;
+    [Tooltip("The minimum time before starting to roam again.")]
+    [Range(0.0f, 60.0f)][SerializeField] int roamPauseTimeMin;
+    [Tooltip("The maximum time before starting to roam again.")]
+    [Range(0.0f, 60.0f)][SerializeField] int roamPauseTimeMax;
 
     [Header("---- Attacking ----")]
     [Tooltip("The damage this enemy's attack deals to the target.")]
@@ -50,7 +54,7 @@ public class enemyAI : MonoBehaviour, IDamage
     protected bool playerSpotted;
     protected Vector3 distanceToPlayer;
     protected float angleToPlayer;
-    bool destChosen;
+    bool destinationChosen;
     Vector3 startingPos;
     float stoppingDistOrig;
 
@@ -67,6 +71,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         origHP = HP;
         enemyManager.instance.EnemySpawned(gameObject, isMinion);
+        stoppingDistOrig = agent.stoppingDistance;
     }
 
     // Update is called once per frame
@@ -76,11 +81,6 @@ public class enemyAI : MonoBehaviour, IDamage
         angleToPlayer = Vector3.Angle(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z),
             new Vector3(transform.forward.x, 0, transform.forward.z));
 
-        if (playerIsNearby && !playerSpotted)
-            StartCoroutine(roam());
-        else if (!playerIsNearby)
-            StartCoroutine(roam());
-        
         // Pursue player if he has been spotted, try to spot him otherwise.
         // * If the player is nearby but not spotted yet, try to spot him using a raycast.
         // * If the player has been spotted, pursue player even if he left the detection zone.
@@ -98,6 +98,8 @@ public class enemyAI : MonoBehaviour, IDamage
             }
             else
             {
+                if (canRoam)
+                    StartCoroutine(roam());
                 lookForPlayer();
             }
         }
@@ -111,25 +113,27 @@ public class enemyAI : MonoBehaviour, IDamage
 
     IEnumerator roam()
     {
-        destChosen = true;
+        if (agent.remainingDistance > 0.05f || destinationChosen)
+            yield break;
+
+        destinationChosen = true;
         agent.stoppingDistance = 0;
-        yield return new WaitForSeconds(roamPauseTimer);
+        yield return new WaitForSeconds(Random.Range(roamPauseTimeMin, roamPauseTimeMax));
 
         // new position is inside the sphere
-        Vector3 randomPos = Random.insideUnitSphere * roamDist;
-        randomPos += startingPos;
+        Vector3 roamPos = Random.insideUnitSphere * roamDist;
+        roamPos += startingPos;
 
-        // check if chosen position is on navmesh
+        // check if chosen position is on navmesh, adjust if needed
         NavMeshHit hit;
-        NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
+        NavMesh.SamplePosition(roamPos, out hit, roamDist, 1);
         agent.SetDestination(hit.position);
 
-        destChosen = false;
+        destinationChosen = false;
     }
 
     void ChasePlayer()
     {
-        StopCoroutine(roam());
         agent.SetDestination(gameManager.instance.player.transform.position);
         if (agent.remainingDistance < agent.stoppingDistance)
             faceTarget();
@@ -147,7 +151,6 @@ public class enemyAI : MonoBehaviour, IDamage
     /// </summary>
     private void lookForPlayer()
     {
-
         //Debug.DrawRay(transform.position, dirToPlayer * detectionRange, Color.red);
         //Debug.Log(angleToPlayer);
 
@@ -180,9 +183,12 @@ public class enemyAI : MonoBehaviour, IDamage
 
     private void spotPlayer()
     {
+        StopCoroutine(roam());
+
+        agent.stoppingDistance = stoppingDistOrig;
+
         BecomeAlerted(gameManager.instance.player.transform.position);
         enemyManager.instance.AlertEnemiesWithinRange(transform.position, detectionRange);// Alert nearby enemies
-
     }
 
     public void BecomeAlerted(Vector3 disturbancePos)
