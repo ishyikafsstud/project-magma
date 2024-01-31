@@ -14,7 +14,14 @@ public class enemyManager : MonoBehaviour
     /// A list of all enemies (including minions).
     /// </summary>
     List<GameObject> enemies;
-
+    /// <summary>
+    /// Ambush spawner game object
+    /// </summary>
+    public GameObject ambushSpawnerObject;
+   /// <summary>
+   /// AmbushSpawner script
+   /// </summary>
+    public AmbushSpawner ambushSpawner;
     /// <summary>
     /// The count of significant enemies (i.e. non-minions).
     /// </summary>
@@ -52,7 +59,19 @@ public class enemyManager : MonoBehaviour
 
     void Start()
     {
-        // TODO: Get and save the ambush enemy spawner + disable it using SetActive(false)
+        // Finds the GameObject with the tag "Ambush Spawner"
+        ambushSpawnerObject = GameObject.FindGameObjectWithTag("Ambush Spawner");
+
+        // Checks if the GameObject is found before trying to get the AmbushSpawner component
+        if (ambushSpawnerObject != null)
+        {
+            // Gets the AmbushSpawner component
+            ambushSpawner = ambushSpawnerObject.GetComponent<AmbushSpawner>();
+
+            // Checks if the AmbushSpawner component is found before setting it to inactive
+            if (ambushSpawner != null)
+                ambushSpawner.gameObject.SetActive(false);
+        }
     }
 
     /// <summary>

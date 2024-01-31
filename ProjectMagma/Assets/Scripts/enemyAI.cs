@@ -166,7 +166,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         enemyManager.instance.EnemyDied(gameObject, isMinion);
 
-        if (enemyManager.instance.EnemyCount == 0)
+        if (enemyManager.instance.EnemyCount == 0 && !gameManager.instance.IsKeyPicked)
         {
             gameManager.instance.ShowHint("Enemy Dropped Key Card");
             if (keyPrefab != null)

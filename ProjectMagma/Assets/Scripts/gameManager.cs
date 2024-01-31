@@ -115,6 +115,12 @@ public class gameManager : MonoBehaviour
         if (OnKeyPicked != null)
             OnKeyPicked();
 
+        if (enemyManager.instance.ambushSpawner != null)
+        {
+            enemyManager.instance.ambushSpawner.gameObject.SetActive(true);
+            enemyManager.instance.ambushSpawner.StartAmbush();
+        }
+
         ShowHint("Key Card Picked Up\nEscape");
     }
 
