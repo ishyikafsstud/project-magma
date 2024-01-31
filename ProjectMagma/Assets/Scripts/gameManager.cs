@@ -26,14 +26,15 @@ public class gameManager : MonoBehaviour
     public GameObject playerSpawnPosition;
     public GameObject player;
     public playerController playerScript;
-    [SerializeField] GameObject barrier;
+    GameObject barrier; // TODO: delete this. Obsolete because we are using an event system to unlock barrier on key pickup
 
     [Header("Functional settings")]
     public bool isPaused;
 
-    bool isKeyPicked;
-
     public bool IsKeyPicked { get; private set; }
+    public delegate void KeyPickedAction();
+    public static event KeyPickedAction OnKeyPicked;
+
 
     void Awake()
     {
@@ -109,12 +110,10 @@ public class gameManager : MonoBehaviour
 
     public void keyPicked()
     {
-        isKeyPicked = true;
+        IsKeyPicked = true;
 
-        if (barrier != null)
-            barrier.GetComponent<levelBarrier>().Unlock();
-
-        // TODO: enemyManager.instance.ambushSpawner.SetActive(true);
+        if (OnKeyPicked != null)
+            OnKeyPicked();
 
         ShowHint("Key Card Picked Up\nEscape");
     }

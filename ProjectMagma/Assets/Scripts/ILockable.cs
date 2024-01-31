@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ILockable
 {
-    void ToggleLock();
+    void SetLock(bool lockValue);
 
     void Lock();
 

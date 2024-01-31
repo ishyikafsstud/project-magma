@@ -29,6 +29,13 @@ public class levelBarrier : MonoBehaviour, ILockable
     void Start()
     {
         isLocked = true;
+
+        gameManager.OnKeyPicked += Unlock;
+    }
+
+    private void OnDisable()
+    {
+        gameManager.OnKeyPicked -= Unlock;
     }
 
     // Update is called once per frame
@@ -37,9 +44,9 @@ public class levelBarrier : MonoBehaviour, ILockable
 
     }
 
-    public void ToggleLock()
+    public void SetLock(bool lockValue)
     {
-        isLocked = !isLocked;
+        isLocked = lockValue;
         if (isLocked)
             Lock();
         else
