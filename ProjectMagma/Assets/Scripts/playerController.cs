@@ -28,6 +28,8 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float maxVerticalSpeed;
 
     [Header("Shooting")]
+    [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
+    [SerializeField] GameObject weaponPosition;
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
@@ -57,6 +59,7 @@ public class playerController : MonoBehaviour, IDamage
     private bool sprinting;
     private float currentSpeed;
     private float walkToSprintSpeedRatio;
+    public int selectedWeapon;
     private bool isShooting;
     private bool isMeleeActive;
 
@@ -81,6 +84,10 @@ public class playerController : MonoBehaviour, IDamage
 
         if (!gameManager.instance.isPaused)
         {
+            if (weaponList.Count > 0)
+            {
+                selectWeapon();
+            }
             // Left Click - ranged attack
             if (Input.GetButton("Shoot") && !isShooting && energy > energyCostPerShot)
             {
@@ -217,6 +224,8 @@ public class playerController : MonoBehaviour, IDamage
             IDamage damagedBody = hit.collider.GetComponent<IDamage>();
             if (damagedBody != null && !hit.collider.CompareTag("Player"))
                 damagedBody.takeDamage(shootDamage);
+
+            Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
         }
 
         yield return new WaitForSeconds(shootRate); // Unity Timer
@@ -330,5 +339,45 @@ public class playerController : MonoBehaviour, IDamage
     public float GetOriginalHealth()
     {
         return healthOriginal;
+    }
+
+    void selectWeapon()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < weaponList.Count - 1)
+        {
+            selectedWeapon++;
+            changeWeapon();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 & selectedWeapon > 0)
+        {
+            selectedWeapon--;
+            changeWeapon();
+        }
+    }
+
+    void changeWeapon()
+    {
+        shootDamage = weaponList[selectedWeapon].shootDamage;
+        shootDist = weaponList[selectedWeapon].shootDist;
+        shootRate = weaponList[selectedWeapon].shootRate;
+        energyCostPerShot = weaponList[selectedWeapon].energyCostPerShot;
+
+        weaponPosition.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+        weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    public void getWeaponStats(weaponStats weapon)
+    {
+        weaponList.Add(weapon);
+
+        shootDamage = weapon.shootDamage;
+        shootDist = weapon.shootDist;
+        shootRate = weapon.shootRate;
+        energyCostPerShot = weaponList[selectedWeapon].energyCostPerShot;
+
+        weaponPosition.GetComponent<MeshFilter>().sharedMesh = weapon.model.GetComponent<MeshFilter>().sharedMesh;
+        weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weapon.model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        selectedWeapon = weaponList.Count - 1;
     }
 }
