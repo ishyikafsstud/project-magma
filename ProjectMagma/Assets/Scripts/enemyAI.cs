@@ -10,11 +10,10 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Animator animator;
     [Tooltip("The position for projectile spawning. Ignore for melee enemies.")]
     [SerializeField] Transform shootPos;
-    [SerializeField] enemyUI enemyUI;
-   
+    [SerializeField] GameObject enemyUI;
 
-    [Header("Stats")]
-    [SerializeField] protected int HP;
+    [Header("---- Stats ----")]
+    [Range(1,20)][SerializeField] protected int HP;
     [SerializeField] float speed;
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
@@ -30,7 +29,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [Tooltip("The speed of transitioning in blend animations.")]
     [SerializeField] float animSpeedTransition;
 
-    [Header("Attacking")]
+    [Header("---- Attacking ----")]
     [Tooltip("The damage this enemy's attack deals to the target.")]
     [SerializeField] protected int attackDamage;
     [Tooltip("The minimum duration between two attacks in seconds (for example, the value of 0.5 would mean up to 2 attacks per second).")]
@@ -40,10 +39,10 @@ public class enemyAI : MonoBehaviour, IDamage
     [Tooltip("The projectile prefab. Ignore for melee enemies.")]
     [SerializeField] protected GameObject bullet; // TODO: rename to `projectile`. Make sure to update the value correctly.
 
-    [Header("Other")]
+    [Header("---- Other ----")]
     [SerializeField] GameObject keyPrefab;
 
-    protected float origHP;
+    protected int origHP;
     protected bool isAttacking;
     protected bool playerIsNearby;
     protected bool playerSpotted;
@@ -133,23 +132,20 @@ public class enemyAI : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)
     {
-        if (this != null)
+        HP -= amount;
+        StartCoroutine(flashRed());
+        // Trigger the enemy to follow player.
+        // It is safe because the only way for the enemy to receive damage right now is to be hit by the player.
+        spotPlayer();
+
+        if (enemyUI != null)
         {
-            HP -= amount;
-            StartCoroutine(flashRed());
-            // Trigger the enemy to follow player.
-            // It is safe because the only way for the enemy to receive damage right now is to be hit by the player.
-            spotPlayer();
+            enemyUI.GetComponent<enemyUI>().UpdateHealthbar(HP, origHP);
+        }
 
-            if (enemyUI != null)
-            {
-                enemyUI.UpdateUI();
-            }
-
-            if (HP <= 0)
-            {
-                die();
-            }
+        if (HP <= 0)
+        {
+            die();
         }
     }
 
@@ -157,7 +153,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         BecomeAlerted(gameManager.instance.player.transform.position);
         enemyManager.instance.AlertEnemiesWithinRange(transform.position, detectionRange);// Alert nearby enemies
-        
+
     }
 
     public void BecomeAlerted(Vector3 disturbancePos)

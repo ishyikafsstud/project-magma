@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2324110343507679693}
-  health: 100
+  health: 20
   healthRegenRate: 2
   isInvincible: 0
   walkSpeed: 10
@@ -62,7 +62,7 @@ MonoBehaviour:
   jumpStrength: 7
   gravityStrength: -15
   maxVerticalSpeed: 140
-  shootDamage: 20
+  shootDamage: 5
   shootRate: 0.15
   shootDist: 50
   energy: 100
