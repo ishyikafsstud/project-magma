@@ -373,7 +373,7 @@ public class playerController : MonoBehaviour, IDamage
         shootDamage = weapon.shootDamage;
         shootDist = weapon.shootDist;
         shootRate = weapon.shootRate;
-        energyCostPerShot = weaponList[selectedWeapon].energyCostPerShot;
+        energyCostPerShot = weapon.energyCostPerShot;
 
         weaponPosition.GetComponent<MeshFilter>().sharedMesh = weapon.model.GetComponent<MeshFilter>().sharedMesh;
         weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weapon.model.GetComponent<MeshRenderer>().sharedMaterial;
