@@ -703,7 +703,7 @@ MonoBehaviour:
   isMinion: 0
   damageFlashLength: 0.1
   animSpeedTransition: 9
-  canRoam: 0
+  canRoam: 1
   roamDist: 15
   roamPauseTimeMin: 3
   roamPauseTimeMax: 6
