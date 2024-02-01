@@ -53,8 +53,8 @@ MonoBehaviour:
   health: 20
   healthRegenRate: 2
   isInvincible: 0
-  walkSpeed: 10
-  sprintSpeed: 20
+  walkSpeed: 7
+  sprintSpeed: 10
   cameraTiltAnchor: {fileID: 7953032253958257473}
   maxCameraTilt: 6
   tiltCameraSpeed: 4
@@ -69,14 +69,13 @@ MonoBehaviour:
   shootDist: 0
   energy: 100
   energyCostPerShot: 0
-  energyRegenRate: 15
+  energyRegenRate: 27
   meleeRange: 3
   meleeDamage: 5
   meleeRate: 0.5
   particleDuration: 0.1
   hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
   damageFlashDuration: 0.1
-  selectedWeapon: 0
 --- !u!143 &2324110343507679693
 CharacterController:
   m_ObjectHideFlags: 0
