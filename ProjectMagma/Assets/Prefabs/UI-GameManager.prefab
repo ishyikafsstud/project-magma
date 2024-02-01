@@ -1789,10 +1789,10 @@ MonoBehaviour:
   playerHealthbar: {fileID: 3485526451889417748}
   playerEnergybar: {fileID: 8395521046521427636}
   playerDamageScreenFlash: {fileID: 3331555979164700209}
+  keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
   playerSpawnPosition: {fileID: 0}
   player: {fileID: 0}
   playerScript: {fileID: 0}
-  barrier: {fileID: 0}
   isPaused: 0
 --- !u!114 &2689396903524032928
 MonoBehaviour:
@@ -1806,6 +1806,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7528b0a7d52109845ac55ff603379fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ambushSpawnerObject: {fileID: 0}
+  ambushSpawner: {fileID: 0}
 --- !u!114 &2665246074342212890
 MonoBehaviour:
   m_ObjectHideFlags: 0

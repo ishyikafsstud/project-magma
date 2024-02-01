@@ -51,7 +51,6 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] protected GameObject bullet; // TODO: rename to `projectile`. Make sure to update the value correctly.
 
     [Header("---- Other ----")]
-    [SerializeField] GameObject keyPrefab;
 
     protected int origHP;
     protected bool isAttacking;
@@ -207,14 +206,12 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         enemyManager.instance.EnemyDied(gameObject, isMinion);
 
-        if (enemyManager.instance.TotalEnemies == 0 && !gameManager.instance.IsKeyPicked)
+        // If it's the last enemy and it's not an ambush, drop the key
+        if (enemyManager.instance.TotalEnemies == 0 && !gameManager.instance.IsKeyDropped)
         {
-            gameManager.instance.ShowHint("Enemy Dropped Key Card");
-
             Vector3 lootPos = lootPosition != null ? lootPosition.transform.position : transform.position;
 
-            if (keyPrefab != null)
-                Instantiate(keyPrefab, lootPos, Quaternion.identity);
+            gameManager.instance.SpawnKey(lootPos);
         }
 
         Destroy(gameObject);

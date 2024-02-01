@@ -8,7 +8,7 @@ public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
 
-    [Header("UI")]
+    [Header("---- UI ----")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
@@ -21,16 +21,19 @@ public class gameManager : MonoBehaviour
     public Image playerEnergybar;
     public GameObject playerDamageScreenFlash;
 
+    [Header("---- Prefabs ----")]
+    [SerializeField] GameObject keyPrefab;
 
-    [Header("Non-children")]
+    [Header("---- Automatic set ----")]
     public GameObject playerSpawnPosition;
     public GameObject player;
     public playerController playerScript;
-    GameObject barrier; // TODO: delete this. Obsolete because we are using an event system to unlock barrier on key pickup
+
 
     [Header("Functional settings")]
     public bool isPaused;
 
+    public bool IsKeyDropped { get; private set; }
     public bool IsKeyPicked { get; private set; }
     public delegate void KeyPickedAction();
     public static event KeyPickedAction OnKeyPicked;
@@ -43,7 +46,6 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
-        barrier = GameObject.FindGameObjectWithTag("LevelBarrier");
     }
 
     void Start()
@@ -108,6 +110,19 @@ public class gameManager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
+    /// <summary>
+    /// Spawn the activator stone and inform the player about it.
+    /// </summary>
+    /// <param name="pos">Stone spawn position.</param>
+    public void SpawnKey(Vector3 pos)
+    {
+        IsKeyDropped = true;
+
+        if (keyPrefab != null)
+            Instantiate(keyPrefab, pos, Quaternion.identity);
+
+        gameManager.instance.ShowHint("Enemy Dropped Activator Stone");
+    }
     public void keyPicked()
     {
         IsKeyPicked = true;
