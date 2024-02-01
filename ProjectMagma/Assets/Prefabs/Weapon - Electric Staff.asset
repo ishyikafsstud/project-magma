@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb8fe04bec90c1468c6f2485591ae7d, type: 3}
   m_Name: Weapon - Electric Staff
   m_EditorClassIdentifier: 
-  shootDamage: 10
+  shootDamage: 5
   shootRate: 0.1
   shootDist: 25
   energyCostPerShot: 7

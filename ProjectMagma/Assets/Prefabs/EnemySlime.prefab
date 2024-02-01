@@ -379,7 +379,7 @@ MonoBehaviour:
   enemyUI: {fileID: 6287914579173553829}
   HP: 20
   speed: 12
-  detectionRange: 40
+  detectionRange: 20
   fieldOfView: 45
   fieldOfViewAttack: 25
   faceTargetSpeed: 8
