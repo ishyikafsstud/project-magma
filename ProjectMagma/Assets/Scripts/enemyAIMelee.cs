@@ -7,24 +7,20 @@ public class enemyAIMelee : enemyAI
     [Header("Melee")]
     [SerializeField] float particleDuration;
     [SerializeField] GameObject hitParticlesPrefab;
-     
-    /// <summary>
-    /// Attack the target in melee.
-    /// </summary>
-    /// <returns></returns>
-    protected override IEnumerator Attack()
-    {
-        if (isAttacking)
-        {
-            yield break;
-        }
-        //Debug.Log("Attack attempt, t = " + Time.fixedTime.ToString()); // 
 
-        isAttacking = true;
+
+    protected override void Attack()
+    {
+        base.Attack();
+    }
+
+    protected override void AttackAnimationEvent()
+    {
+        Vector3 distanceToPlayerFromAttackOrigin = (gameManager.instance.player.transform.position - attackOrigin.transform.position);
 
         RaycastHit hit;
         int layerMask = (1 << 0) | (1 << 3);
-        if (Physics.Raycast(transform.position, distanceToPlayer.normalized, out hit, attackRange, layerMask))
+        if (Physics.Raycast(attackOrigin.transform.position, distanceToPlayerFromAttackOrigin.normalized, out hit, attackRange, layerMask))
         {
             if (hit.collider.CompareTag("Player"))
             {
@@ -36,10 +32,12 @@ public class enemyAIMelee : enemyAI
                 SpawnHitParticles(hit.point);
             }
         }
-        yield return new WaitForSeconds(attackRate);
-        isAttacking = false;
+    }
 
-        yield break;
+
+    protected override void AttackAnimationEnd()
+    {
+        base.AttackAnimationEnd();
     }
 
     void SpawnHitParticles(Vector3 position)

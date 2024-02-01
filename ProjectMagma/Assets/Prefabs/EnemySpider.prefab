@@ -689,7 +689,7 @@ MonoBehaviour:
   model: {fileID: 2501283252414703372}
   agent: {fileID: 4899822722782799620}
   animator: {fileID: 3805333075135422017}
-  shootPos: {fileID: 5734435343760918896}
+  attackOrigin: {fileID: 5734435343760918896}
   enemyUI: {fileID: 1080955287580700214}
   HP: 20
   speed: 7.5
@@ -706,7 +706,7 @@ MonoBehaviour:
   roamPauseTimeMax: 6
   attackDamage: 3
   attackRate: 1
-  attackRange: 40
+  attackRange: 16
   bullet: {fileID: 752510304586747584, guid: 5d165a330d22a4b429efb1fd67eeb24d, type: 3}
   keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
 --- !u!95 &3805333075135422017

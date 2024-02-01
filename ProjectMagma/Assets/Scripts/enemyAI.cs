@@ -8,8 +8,8 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator animator;
-    [Tooltip("The position for projectile spawning. Ignore for melee enemies.")]
-    [SerializeField] Transform shootPos;
+    [Tooltip("The position for projectile spawning or melee attack raycast origin.")]
+    [SerializeField] protected Transform attackOrigin;
     [SerializeField] GameObject enemyUI;
 
     [Header("---- Stats ----")]
@@ -93,7 +93,7 @@ public class enemyAI : MonoBehaviour, IDamage
                 // If player is within the attack range and unless already attacking, attack him
                 if (distanceToPlayer.magnitude <= attackRange && !isAttacking && angleToPlayer < fieldOfViewAttack)
                 {
-                    StartCoroutine(Attack());
+                    Attack();
                 }
             }
             else
@@ -228,23 +228,37 @@ public class enemyAI : MonoBehaviour, IDamage
     }
 
     /// <summary>
-    /// Attack the target by shooting a projectile at it.
+    /// Start the attack.
     /// </summary>
     /// <returns></returns>
-    // can be overridden for melee enemys in the enemyAIMelee script
-    protected virtual IEnumerator Attack()
+    protected virtual void Attack()
     {
         isAttacking = true;
 
-        Vector3 distanceToPlayerFromShootPos = (gameManager.instance.player.transform.position - shootPos.transform.position);
+        animator.SetTrigger("AttackTrigger");
+    }
+
+    /// <summary>
+    /// Is called inside of the animation to execute the key attack action.
+    /// (e.g., instantiate a bullet, shoot a raycast and do damage, etc.)
+    /// <br>This is the method expected to be overriden.</br>
+    /// </summary>
+    protected virtual void AttackAnimationEvent()
+    {
+        Vector3 distanceToPlayerFromShootPos = (gameManager.instance.player.transform.position - attackOrigin.transform.position);
         Quaternion bulletRot = Quaternion.LookRotation(distanceToPlayerFromShootPos);
 
-        GameObject bulletInstance = Instantiate(bullet, shootPos.position, bulletRot);
+        GameObject bulletInstance = Instantiate(bullet, attackOrigin.position, bulletRot);
         bulletInstance.GetComponent<bullet>().DamageValue = attackDamage;
+    }
 
-        yield return new WaitForSeconds(attackRate);
 
+    protected virtual void AttackAnimationEnd()
+    {
         isAttacking = false;
+        animator.ResetTrigger("AttackTrigger");
+
+        //yield return new WaitForSeconds(attackRate);
     }
 
     private void OnTriggerEnter(Collider other)
