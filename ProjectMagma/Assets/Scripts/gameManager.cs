@@ -8,7 +8,7 @@ public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
 
-    [Header("UI")]
+    [Header("---- UI ----")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
@@ -21,32 +21,23 @@ public class gameManager : MonoBehaviour
     public Image playerEnergybar;
     public GameObject playerDamageScreenFlash;
 
+    [Header("---- Prefabs ----")]
+    [SerializeField] GameObject keyPrefab;
 
-    [Header("Non-children")]
+    [Header("---- Automatic set ----")]
     public GameObject playerSpawnPosition;
     public GameObject player;
     public playerController playerScript;
-    [SerializeField] GameObject barrier;
+
 
     [Header("Functional settings")]
     public bool isPaused;
 
-    private int enemyCount;
-    bool isKeyPicked;
-
+    public bool IsKeyDropped { get; private set; }
     public bool IsKeyPicked { get; private set; }
+    public delegate void KeyPickedAction();
+    public static event KeyPickedAction OnKeyPicked;
 
-    public int EnemyCount
-    {
-        get => enemyCount;
-        set
-        {
-            if (enemyCount == value) return;
-
-            enemyCount = value;
-            UpdateEnemyCountText();
-        }
-    }
 
     void Awake()
     {
@@ -55,15 +46,12 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
-        barrier = GameObject.FindGameObjectWithTag("LevelBarrier");
-
-        enemyCount = 0;
     }
 
     void Start()
     {
         UpdateEnemyCountText();
-        ShowHint("Objective:\n- Kill All Enemies\n- Find Key Card\n- Escape");
+        ShowHint("Objective:\n- Grab Your Staff -\n- Kill All Enemies -\n- Find The Key -\n- Escape -");
     }
 
     // Update is called once per frame
@@ -89,6 +77,8 @@ public class gameManager : MonoBehaviour
         Cursor.visible = true;
         // Confine Cursor to Pause window boundaries
         Cursor.lockState = CursorLockMode.Confined;
+        //stop all coroutines
+        StopAllCoroutines();
 
     }
     public void stateUnpaused()
@@ -120,25 +110,38 @@ public class gameManager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
+    /// <summary>
+    /// Spawn the activator stone and inform the player about it.
+    /// </summary>
+    /// <param name="pos">Stone spawn position.</param>
+    public void SpawnKey(Vector3 pos)
+    {
+        IsKeyDropped = true;
+
+        if (keyPrefab != null)
+            Instantiate(keyPrefab, pos, Quaternion.identity);
+
+        gameManager.instance.ShowHint("Enemy Dropped Activator Stone");
+    }
     public void keyPicked()
     {
-        isKeyPicked = true;
+        IsKeyPicked = true;
 
-        if (barrier != null)
-            barrier.GetComponent<levelBarrier>().Unlock();
+        if (OnKeyPicked != null)
+            OnKeyPicked();
 
-        ShowHint("Key Card Picked Up\nEscape");
-    }
+        //ShowHint("Key Collected\nEscape");
 
-    public void DecreaseEnemyCount()
-    {
-        enemyCount--;
-        UpdateEnemyCountText();
+        if (enemyManager.instance.ambushSpawner != null)
+        {
+            enemyManager.instance.ambushSpawner.gameObject.SetActive(true);
+            enemyManager.instance.ambushSpawner.StartAmbush();
+        }
     }
 
     public void UpdateEnemyCountText()
     {
-        enemyCountText.SetText("Enemies Left: " + EnemyCount.ToString());
+        enemyCountText.SetText("Enemies Left: " + enemyManager.instance.EnemyCount.ToString());
     }
 
     /// <summary>

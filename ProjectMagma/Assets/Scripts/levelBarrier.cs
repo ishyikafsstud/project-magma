@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class levelBarrier : MonoBehaviour, ILockable
 {
     [SerializeField] BoxCollider barrierCollider;
+    [Tooltip("The collider of the \"go find a key\" reminder.")]
+    [SerializeField] BoxCollider reminderTriggerCollider;
     [SerializeField] TMP_Text textMesh;
     [SerializeField] GameObject panel;
 
@@ -27,6 +29,13 @@ public class levelBarrier : MonoBehaviour, ILockable
     void Start()
     {
         isLocked = true;
+
+        gameManager.OnKeyPicked += Unlock;
+    }
+
+    private void OnDisable()
+    {
+        gameManager.OnKeyPicked -= Unlock;
     }
 
     // Update is called once per frame
@@ -35,9 +44,9 @@ public class levelBarrier : MonoBehaviour, ILockable
 
     }
 
-    public void ToggleLock()
+    public void SetLock(bool lockValue)
     {
-        isLocked = !isLocked;
+        isLocked = lockValue;
         if (isLocked)
             Lock();
         else
@@ -47,6 +56,7 @@ public class levelBarrier : MonoBehaviour, ILockable
     public void Lock()
     {
         barrierCollider.enabled = true;
+        reminderTriggerCollider.enabled = true;
         textMesh.text = messageLocked;
         textMesh.color = textColorLocked;
         panel.GetComponent<Image>().color = panelColorLocked;
@@ -55,6 +65,7 @@ public class levelBarrier : MonoBehaviour, ILockable
     public void Unlock()
     {
         barrierCollider.enabled = false;
+        reminderTriggerCollider.enabled = false;
         textMesh.text = messageUnlocked;
         textMesh.color = textColorUnlocked;
         panel.GetComponent<Image>().color = panelColorUnlocked;

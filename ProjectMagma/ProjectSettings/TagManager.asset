@@ -7,16 +7,17 @@ TagManager:
   - LevelBarrier
   - Player Spawn Position
   - Enemy
+  - Ambush Spawner
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - player
   - Water
   - UI
-  - 
-  - 
-  - 
+  - enemy
+  - enemyAttack
+  - playerAttack
   - 
   - 
   - 

@@ -10,10 +10,16 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float health;
     [SerializeField] float healthRegenRate;
     [SerializeField] bool isInvincible;
+    [SerializeField] bool hasInfiniteEnergy;
 
     [Header("Walking & Running")]
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
+
+    [Header("Camera Tilting")]
+    [SerializeField] Transform cameraTiltAnchor;
+    [SerializeField] float maxCameraTilt;
+    [SerializeField] float tiltCameraSpeed;
 
     [Header("Jumps & Gravity")]
     [Tooltip("The maximum number of jumps the player can perform before hitting the ground.")]
@@ -23,6 +29,8 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float maxVerticalSpeed;
 
     [Header("Shooting")]
+    [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
+    [SerializeField] GameObject weaponPosition;
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
@@ -30,19 +38,31 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float energyCostPerShot;
     [SerializeField] float energyRegenRate;
 
+    [Header("Melee")]
+    [SerializeField] float meleeRange;
+    [SerializeField] int meleeDamage;
+    [SerializeField] float meleeRate;
+    [SerializeField] float particleDuration;
+    public GameObject hitParticlesPrefab;
+
     [Header("UI")]
     [Tooltip("The duration of screen flash upon receiving damage.")]
     [SerializeField] float damageFlashDuration;
+
 
     private float energyOriginal;
     private float healthOriginal;
     private Vector3 horMotionDirection;
     private Vector3 verticalVelocity;
+    private float currentTiltAngle;
     private bool isGrounded;
     private int jumpCount;
     private bool sprinting;
     private float currentSpeed;
+    private float walkToSprintSpeedRatio;
+    private int selectedWeapon;
     private bool isShooting;
+    private bool isMeleeActive;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +70,7 @@ public class playerController : MonoBehaviour, IDamage
         healthOriginal = health;
         energyOriginal = energy;
         currentSpeed = walkSpeed;
+        walkToSprintSpeedRatio = walkSpeed / sprintSpeed;
 
         updatePlayerUI();
         respawn();
@@ -62,9 +83,27 @@ public class playerController : MonoBehaviour, IDamage
 
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.green);
 
-        if (Input.GetButton("Shoot") && !isShooting && energy > energyCostPerShot && !gameManager.instance.isPaused)
+        if (!gameManager.instance.isPaused)
         {
-            StartCoroutine(Shoot());
+            if (weaponList.Count > 0)
+            {
+                selectWeapon();
+            }
+            // Left Click - ranged attack
+            if (Input.GetButton("Shoot") && weaponList.Count > 0 && !isShooting)
+            {
+                if (energy >= energyCostPerShot)
+                    StartCoroutine(Shoot());
+                else
+                {
+                    gameManager.instance.ShowHint("Not enough energy to shoot \nKeep Moving!");
+                }
+            }
+            // Right click - melee attack
+            else if (Input.GetButton("Hit") && !isMeleeActive && !isShooting)
+            {
+                StartCoroutine(MeleeAttack());
+            }
         }
 
         RegenEnergy();
@@ -87,7 +126,7 @@ public class playerController : MonoBehaviour, IDamage
         }
 
         // Check for sprint
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && isGrounded)
             enableSprint(true);
         else if (Input.GetKeyUp(KeyCode.LeftShift))
             enableSprint(false);
@@ -103,12 +142,42 @@ public class playerController : MonoBehaviour, IDamage
         // Apply horizontal motion
         controller.Move(horMotion);
 
+        // Call tiltCamera to handle camera tilt based on horizontal motion
+        tiltCamera(horMotionDirection);
+
         // Handle jumping
         if (Input.GetButtonDown("Jump") & jumpCount < jumpMaxNumber)
             jump();
 
         // Apply vertical motion
         controller.Move(verticalVelocity * Time.deltaTime);
+    }
+
+    /// <summary>
+    /// Tilt camera based on the lateral (sideways) velocity.
+    /// </summary>
+    /// <param name="motion">Horizontal motion.</param>
+    void tiltCamera(Vector3 motion)
+    {
+        // Calculate lateral velocity
+        float lateralVelocity = Vector3.Dot(motion, transform.right);
+
+        // Camera tilt for running should be more significant than for walking
+        if (currentSpeed == walkSpeed)
+            lateralVelocity *= walkToSprintSpeedRatio;
+
+        // Calculate expectedTiltAngle based on lateral velocity
+        float expectedTiltAngle = Mathf.Clamp(lateralVelocity * maxCameraTilt, -maxCameraTilt, maxCameraTilt);
+
+        // Tilt camera angle towards expected camera angle over desired period of time
+        currentTiltAngle = Mathf.Lerp(currentTiltAngle, -expectedTiltAngle, Time.deltaTime * tiltCameraSpeed);
+
+        // Apply to cameraTiltAnchor
+        cameraTiltAnchor.localRotation = Quaternion.Euler(0f, 0f, currentTiltAngle);
+
+        // Debug.Log("Lateral Velocity: " + lateralVelocity);
+        // Debug.Log("Expected Tilt Angle: " + expectedTiltAngle);
+        // Debug.Log("Current Tilt Angle: " + currentTiltAngle);
     }
 
     void jump()
@@ -142,22 +211,21 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator Shoot()
     {
         isShooting = true;
-        useEnergy(energyCostPerShot);
 
-        if (energy < energyCostPerShot)
-        {
-            gameManager.instance.ShowHint("Not enough energy to shoot \nKeep Moving!");
-            isShooting = false;
-            yield break;
-        }
-
+        if (!hasInfiniteEnergy)
+            useEnergy(energyCostPerShot);
 
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+        // The layer masks of the collision layers we want the raycast to hit: Default, Enemy.
+        // Using it specifies the layers we want the raycast to collide with.
+        int layerMask = (1 << 0) | (1 << 6);
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist, layerMask))
         {
             IDamage damagedBody = hit.collider.GetComponent<IDamage>();
             if (damagedBody != null && !hit.collider.CompareTag("Player"))
                 damagedBody.takeDamage(shootDamage);
+
+            Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
         }
 
         yield return new WaitForSeconds(shootRate); // Unity Timer
@@ -165,6 +233,42 @@ public class playerController : MonoBehaviour, IDamage
         isShooting = false;
     }
 
+    IEnumerator MeleeAttack()
+    {
+        isMeleeActive = true;
+
+        RaycastHit hit;
+        // The layer masks of the collision layers we want the raycast to hit: Default, Enemy.
+        // Using it specifies the layers we want the raycast to collide with.
+        int layerMask = (1 << 0) | (1 << 6);
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, meleeRange, layerMask))
+        {
+            IDamage damagedBody = hit.collider.GetComponent<IDamage>();
+            if (damagedBody != null && hit.collider.CompareTag("Enemy"))
+            {
+                damagedBody.takeDamage(meleeDamage);
+            }
+            SpawnHitParticles(hit.point);
+        }
+        // Delay between melee hits
+        yield return new WaitForSeconds(meleeRate);
+
+        isMeleeActive = false;
+    }
+    /// <summary>
+    /// Melee Feedback
+    /// </summary>
+    /// <param name="position">Position of the hit particles.</param>
+    void SpawnHitParticles(Vector3 position)
+    {
+        GameObject hitParticles = Instantiate(hitParticlesPrefab, position, Quaternion.identity);
+
+        Destroy(hitParticles, particleDuration);
+    }
+
+    /// <summary>
+    /// Health Regen when moving
+    /// </summary>
     void healthRegen()
     {
         if (health > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
@@ -181,6 +285,9 @@ public class playerController : MonoBehaviour, IDamage
         updatePlayerUI();
     }
 
+    /// <summary>
+    /// Energy Regen when moving 
+    /// </summary>
     void RegenEnergy()
     {
         if (currentSpeed > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
@@ -222,5 +329,55 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.playerDamageScreenFlash.SetActive(true);
         yield return new WaitForSeconds(damageFlashDuration);
         gameManager.instance.playerDamageScreenFlash.SetActive(false);
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public float GetOriginalHealth()
+    {
+        return healthOriginal;
+    }
+
+    void selectWeapon()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < weaponList.Count - 1)
+        {
+            selectedWeapon++;
+            changeWeapon();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 & selectedWeapon > 0)
+        {
+            selectedWeapon--;
+            changeWeapon();
+        }
+    }
+
+    void changeWeapon()
+    {
+        shootDamage = weaponList[selectedWeapon].shootDamage;
+        shootDist = weaponList[selectedWeapon].shootDist;
+        shootRate = weaponList[selectedWeapon].shootRate;
+        energyCostPerShot = weaponList[selectedWeapon].energyCostPerShot;
+
+        weaponPosition.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+        weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    public void getWeaponStats(weaponStats weapon)
+    {
+        weaponList.Add(weapon);
+
+        shootDamage = weapon.shootDamage;
+        shootDist = weapon.shootDist;
+        shootRate = weapon.shootRate;
+        energyCostPerShot = weapon.energyCostPerShot;
+
+        weaponPosition.GetComponent<MeshFilter>().sharedMesh = weapon.model.GetComponent<MeshFilter>().sharedMesh;
+        weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weapon.model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        selectedWeapon = weaponList.Count - 1;
     }
 }
