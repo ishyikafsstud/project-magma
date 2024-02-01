@@ -59,7 +59,7 @@ public class playerController : MonoBehaviour, IDamage
     private bool sprinting;
     private float currentSpeed;
     private float walkToSprintSpeedRatio;
-    public int selectedWeapon;
+    private int selectedWeapon;
     private bool isShooting;
     private bool isMeleeActive;
 
