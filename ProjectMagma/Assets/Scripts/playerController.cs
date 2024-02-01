@@ -10,6 +10,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float health;
     [SerializeField] float healthRegenRate;
     [SerializeField] bool isInvincible;
+    [SerializeField] bool hasInfiniteEnergy;
 
     [Header("Walking & Running")]
     [SerializeField] float walkSpeed;
@@ -210,7 +211,9 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator Shoot()
     {
         isShooting = true;
-        useEnergy(energyCostPerShot);
+
+        if (!hasInfiniteEnergy)
+            useEnergy(energyCostPerShot);
 
         RaycastHit hit;
         // The layer masks of the collision layers we want the raycast to hit: Default, Enemy.
