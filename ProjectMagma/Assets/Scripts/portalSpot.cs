@@ -8,6 +8,7 @@ public class portalSpot : MonoBehaviour, ILockable
     [SerializeField] GameObject portal;
     [Tooltip("The collider of the \"go find the activator stone\" reminder.")]
     [SerializeField] BoxCollider reminderTriggerCollider;
+    [SerializeField] Light spotLight;
 
     [Header("---- Settings ----")]
     [Tooltip("Whether the portal should be activated on start (false by default).")]
@@ -42,12 +43,14 @@ public class portalSpot : MonoBehaviour, ILockable
     {
         portal.SetActive(false);
         reminderTriggerCollider.enabled = true;
+        spotLight.enabled = false;
     }
 
     public void Unlock()
     {
         portal.SetActive(true);
         reminderTriggerCollider.enabled = false;
+        spotLight.enabled = true;
     }
 
     private void OnTriggerEnter(Collider other)
