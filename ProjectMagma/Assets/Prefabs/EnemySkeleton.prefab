@@ -586,6 +586,7 @@ MonoBehaviour:
   agent: {fileID: 2029370887770342471}
   animator: {fileID: 2040736154835555191}
   attackOrigin: {fileID: 8765020890692318376}
+  alertOrigin: {fileID: 7531611583023985041}
   lootPosition: {fileID: 258622139287210325}
   enemyUI: {fileID: 403827842799962499}
   HP: 20

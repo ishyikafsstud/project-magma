@@ -10,6 +10,9 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Animator animator;
     [Tooltip("The position for projectile spawning or melee attack raycast origin.")]
     [SerializeField] protected Transform attackOrigin;
+    [Tooltip("The origin of an outgoing alert and where an incoming alert will be received. " +
+        "Does not require its own object, any object with a fitting position can be used for it.")]
+    [SerializeField] protected Transform alertOrigin;
     [Tooltip("Where this enemy's loot spawns.")]
     [SerializeField] protected Transform lootPosition;
     [SerializeField] GameObject enemyUI;
@@ -67,6 +70,7 @@ public class enemyAI : MonoBehaviour, IDamage
     }
 
     public bool IsAlerted { get => playerSpotted; }
+    public Vector3 GetAlertPosition() { return alertOrigin.transform.position; }
 
     // Start is called before the first frame update
     void Start()
@@ -190,7 +194,7 @@ public class enemyAI : MonoBehaviour, IDamage
         agent.stoppingDistance = stoppingDistOrig;
 
         BecomeAlerted(gameManager.instance.player.transform.position);
-        enemyManager.instance.AlertEnemiesWithinRange(transform.position, detectionRange);// Alert nearby enemies
+        enemyManager.instance.AlertEnemiesWithinRange(GetAlertPosition(), detectionRange);
     }
 
     public void BecomeAlerted(Vector3 disturbancePos)
