@@ -10,6 +10,8 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Animator animator;
     [Tooltip("The position for projectile spawning or melee attack raycast origin.")]
     [SerializeField] protected Transform attackOrigin;
+    [Tooltip("Where this enemy's loot spawns.")]
+    [SerializeField] protected Transform lootPosition;
     [SerializeField] GameObject enemyUI;
 
     [Header("---- Stats ----")]
@@ -204,8 +206,11 @@ public class enemyAI : MonoBehaviour, IDamage
         if (enemyManager.instance.EnemyCount == 0 && !gameManager.instance.IsKeyPicked)
         {
             gameManager.instance.ShowHint("Enemy Dropped Key Card");
+
+            Vector3 lootPos = lootPosition != null ? lootPosition.transform.position : transform.position;
+
             if (keyPrefab != null)
-                Instantiate(keyPrefab, transform.position, transform.rotation);
+                Instantiate(keyPrefab, lootPos, Quaternion.identity);
         }
 
         Destroy(gameObject);

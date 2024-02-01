@@ -601,6 +601,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5904733940570286809}
+  - {fileID: 3868849315978963299}
   m_Father: {fileID: 4254097870087045042}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3254859837331349986
@@ -690,6 +691,7 @@ MonoBehaviour:
   agent: {fileID: 4899822722782799620}
   animator: {fileID: 3805333075135422017}
   attackOrigin: {fileID: 5734435343760918896}
+  lootPosition: {fileID: 3868849315978963299}
   enemyUI: {fileID: 1080955287580700214}
   HP: 20
   speed: 7.5
@@ -1368,6 +1370,37 @@ Transform:
   m_Children:
   - {fileID: 836598966621540059}
   m_Father: {fileID: 716812520417559752}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5590170411495764311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3868849315978963299}
+  m_Layer: 1
+  m_Name: LootPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3868849315978963299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590170411495764311}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3381430055458351686}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5676671223868028927
 GameObject:

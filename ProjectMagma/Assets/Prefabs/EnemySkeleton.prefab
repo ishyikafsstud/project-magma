@@ -404,6 +404,37 @@ Transform:
   - {fileID: 6337758543901127261}
   m_Father: {fileID: 7273154977564427051}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2303889640641366061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 258622139287210325}
+  m_Layer: 1
+  m_Name: LootPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &258622139287210325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2303889640641366061}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.50000036, y: -0.49999967, z: -0.49999967, w: 0.50000036}
+  m_LocalPosition: {x: 0, y: 0, z: -0.09016037}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 5791851513655380889}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2307671643580843971
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +586,7 @@ MonoBehaviour:
   agent: {fileID: 2029370887770342471}
   animator: {fileID: 2040736154835555191}
   attackOrigin: {fileID: 8765020890692318376}
+  lootPosition: {fileID: 258622139287210325}
   enemyUI: {fileID: 403827842799962499}
   HP: 20
   speed: 10
@@ -1489,6 +1521,7 @@ Transform:
   m_Children:
   - {fileID: 7140488896831382312}
   - {fileID: 4431646946163762129}
+  - {fileID: 258622139287210325}
   m_Father: {fileID: 4111236185231863965}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6406997532873110496
