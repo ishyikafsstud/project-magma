@@ -49,7 +49,7 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         UpdateEnemyCountText();
-        ShowHint("Objective:\n- Kill All Enemies\n- Find Key Card\n- Escape");
+        ShowHint("Objective:\n- Grab Your Staff -\n- Kill All Enemies -\n- Find The Key -\n- Escape -");
     }
 
     // Update is called once per frame
@@ -115,13 +115,13 @@ public class gameManager : MonoBehaviour
         if (OnKeyPicked != null)
             OnKeyPicked();
 
+        //ShowHint("Key Collected\nEscape");
+
         if (enemyManager.instance.ambushSpawner != null)
         {
             enemyManager.instance.ambushSpawner.gameObject.SetActive(true);
             enemyManager.instance.ambushSpawner.StartAmbush();
         }
-
-        ShowHint("Key Card Picked Up\nEscape");
     }
 
     public void UpdateEnemyCountText()

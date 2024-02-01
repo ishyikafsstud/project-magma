@@ -23,6 +23,7 @@ public class AmbushSpawner : MonoBehaviour
     // Method to start the ambush spawning
     public void StartAmbush()
     {
+        gameManager.instance.ShowHint("Ambush!\nYou Collected The Key\nEscape though the portal\n or kill them all");
         StartCoroutine(Spawn());
     }
 
