@@ -89,9 +89,14 @@ public class playerController : MonoBehaviour, IDamage
                 selectWeapon();
             }
             // Left Click - ranged attack
-            if (Input.GetButton("Shoot") && !isShooting && energy > energyCostPerShot)
+            if (Input.GetButton("Shoot") && weaponList.Count > 0 && !isShooting)
             {
-                StartCoroutine(Shoot());
+                if (energy >= energyCostPerShot)
+                    StartCoroutine(Shoot());
+                else
+                {
+                    gameManager.instance.ShowHint("Not enough energy to shoot \nKeep Moving!");
+                }
             }
             // Right click - melee attack
             else if (Input.GetButton("Hit") && !isMeleeActive && !isShooting)
@@ -155,7 +160,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         // Calculate lateral velocity
         float lateralVelocity = Vector3.Dot(motion, transform.right);
-        
+
         // Camera tilt for running should be more significant than for walking
         if (currentSpeed == walkSpeed)
             lateralVelocity *= walkToSprintSpeedRatio;
@@ -206,14 +211,6 @@ public class playerController : MonoBehaviour, IDamage
     {
         isShooting = true;
         useEnergy(energyCostPerShot);
-
-        if (energy < energyCostPerShot)
-        {
-            gameManager.instance.ShowHint("Not enough energy to shoot \nKeep Moving!");
-            isShooting = false;
-            yield break;
-        }
-
 
         RaycastHit hit;
         // The layer masks of the collision layers we want the raycast to hit: Default, Enemy.
