@@ -76,7 +76,7 @@ public class enemyAI : MonoBehaviour, IDamage
     void Start()
     {
         origHP = HP;
-        enemyManager.instance.EnemySpawned(gameObject, isMinion);
+        //enemyManager.instance.EnemySpawned(gameObject, isMinion); // spawners should be responsible for reporting enemies
         stoppingDistOrig = agent.stoppingDistance;
     }
 
@@ -207,7 +207,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         enemyManager.instance.EnemyDied(gameObject, isMinion);
 
-        if (enemyManager.instance.EnemyCount == 0 && !gameManager.instance.IsKeyPicked)
+        if (enemyManager.instance.TotalEnemies == 0 && !gameManager.instance.IsKeyPicked)
         {
             gameManager.instance.ShowHint("Enemy Dropped Key Card");
 

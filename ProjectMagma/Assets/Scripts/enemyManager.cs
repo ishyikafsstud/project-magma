@@ -104,7 +104,7 @@ public class enemyManager : MonoBehaviour
     public void EnemySpawned(GameObject enemy, bool isMinion)
     {
         enemies.Add(enemy);
-        EnemyCount += !isMinion ? 1 : 0; // Increase significant enemy count if not a minion
+        //EnemyCount += !isMinion ? 1 : 0; // Increase significant enemy count if not a minion
     }
 
     public void EnemyDied(GameObject enemy, bool isMinion)

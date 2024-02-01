@@ -25,6 +25,11 @@ public class AmbushSpawner : MonoBehaviour
     {
         gameManager.instance.ShowHint("Ambush!\nYou Collected The Key\nEscape though the portal\n or kill them all");
         StartCoroutine(Spawn());
+
+        foreach (EnemySpawnInfo enemySpawnInfo in enemiesToSpawn)
+        {
+            enemyManager.instance.EnemyCount += enemySpawnInfo.spawnCount;
+        }
     }
 
     IEnumerator Spawn()
@@ -42,7 +47,8 @@ public class AmbushSpawner : MonoBehaviour
                 int arrayPos = Random.Range(0, spawnPos.Length);
 
                 // Instantiates the current enemy in the list
-                Instantiate(enemyInfo.enemyPrefab, spawnPos[arrayPos].position, spawnPos[arrayPos].rotation);
+                GameObject enemy = Instantiate(enemyInfo.enemyPrefab, spawnPos[arrayPos].position, spawnPos[arrayPos].rotation);
+                enemyManager.instance.EnemySpawned(enemy, false); // Report about enemy spawning
 
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }

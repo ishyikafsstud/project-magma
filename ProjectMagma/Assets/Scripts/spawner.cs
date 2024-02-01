@@ -17,7 +17,7 @@ public class spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        enemyManager.instance.EnemyCount += numToSpawn;
     }
 
     // Update is called once per frame
@@ -33,8 +33,11 @@ public class spawner : MonoBehaviour
     {
         isSpawning = true;
         int arrayPos = Random.Range(0, spawnPos.Length);
-        Instantiate(objectToSpawn, spawnPos[arrayPos].transform.position, spawnPos[arrayPos].transform.rotation);
+        
+        GameObject enemy = Instantiate(objectToSpawn, spawnPos[arrayPos].transform.position, spawnPos[arrayPos].transform.rotation);
+        enemyManager.instance.EnemySpawned(enemy, false); // Report about enemy spawning
         spawnCount++;
+        
         yield return new WaitForSeconds(timeBetweenSpawns);
         isSpawning = false;
     }
