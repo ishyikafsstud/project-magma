@@ -53,11 +53,12 @@ MonoBehaviour:
   health: 20
   healthRegenRate: 2
   isInvincible: 0
-  walkSpeed: 7
-  sprintSpeed: 10
+  hasInfiniteEnergy: 0
+  walkSpeed: 8
+  sprintSpeed: 13
   cameraTiltAnchor: {fileID: 7953032253958257473}
-  maxCameraTilt: 6
-  tiltCameraSpeed: 4
+  maxCameraTilt: 5
+  tiltCameraSpeed: 3
   jumpMaxNumber: 2
   jumpStrength: 7
   gravityStrength: -15
@@ -254,7 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d831ceeba6b934ea8b7b6124fa53e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 300
+  sensitivity: 400
   lockVertMin: -90
   lockVertMax: 90
   invertY: 0
