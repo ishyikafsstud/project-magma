@@ -421,14 +421,13 @@ MonoBehaviour:
   damageFlashLength: 0.1
   animSpeedTransition: 8
   canRoam: 1
-  roamDist: 15
+  roamDist: 1
   roamPauseTimeMin: 3
   roamPauseTimeMax: 6
   attackDamage: 1
   attackRate: 0.5
   attackRange: 3
   bullet: {fileID: 0}
-  keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
   particleDuration: 0.1
   hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
 --- !u!95 &5141618466626957924
@@ -649,6 +648,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7036350958980362217}
     m_Modifications:
+    - target: {fileID: 1704217385196173746, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6991153564324993710, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551212439206765574, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.201
+      objectReference: {fileID: 0}
     - target: {fileID: 7607849548870679746, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1

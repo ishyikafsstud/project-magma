@@ -8,6 +8,9 @@ public class enemyUI : MonoBehaviour
 {
     [SerializeField] Image healthBG;
     [SerializeField] Image healthBar;
+    [SerializeField] Image exclamationTop;
+    [SerializeField] Image exclamationBottom;
+    [SerializeField] Animator animator;
 
     private enemyAI parentEnemy;
 
@@ -50,5 +53,26 @@ public class enemyUI : MonoBehaviour
 
         if (healthBar != null)
             healthBar.gameObject.SetActive(isEnabled);
+    }
+
+    public void Alerted()
+    {
+        if (!exclamationBottom.IsActive())
+            EnableExclamationMark(true);
+
+        if (animator != null)
+        {
+            animator.SetTrigger("AlertTrigger");
+        }
+
+    }
+    
+    void EnableExclamationMark(bool isEnabled)
+    {
+        if (exclamationTop != null)
+            exclamationTop.gameObject.SetActive(isEnabled);
+        
+        if (exclamationBottom != null)
+            exclamationBottom.gameObject.SetActive(isEnabled);
     }
 }

@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class enemyAI : MonoBehaviour, IDamage
 {
+    [Header("----- Componets -----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator animator;
@@ -61,7 +63,9 @@ public class enemyAI : MonoBehaviour, IDamage
     bool destinationChosen;
     Vector3 startingPos;
     float stoppingDistOrig;
-    bool canRotate = true; // For locking enemy rotation
+    bool canRotate = true; //For locking enemy rotation 
+    bool hasBeenAlerted;
+    
 
     public bool IsMinion
     {
@@ -199,7 +203,17 @@ public class enemyAI : MonoBehaviour, IDamage
 
     public void BecomeAlerted(Vector3 disturbancePos)
     {
-        playerSpotted = true;
+        if (!hasBeenAlerted)
+        {
+            playerSpotted = true;
+
+            if (enemyUI != null)
+            {
+                enemyUI.GetComponent<enemyUI>().Alerted();
+            }
+
+            hasBeenAlerted = true;
+        }
         //model.material.color = Color.red; // DEBUG PURPOSES - to see who got alerted
     }
 
@@ -241,6 +255,7 @@ public class enemyAI : MonoBehaviour, IDamage
     protected virtual void Attack()
     {
         isAttacking = true;
+
         canRotate = false; // lock rotation when attacking
 
         animator.SetTrigger("AttackTrigger");

@@ -711,7 +711,6 @@ MonoBehaviour:
   attackRate: 1
   attackRange: 16
   bullet: {fileID: 752510304586747584, guid: 5d165a330d22a4b429efb1fd67eeb24d, type: 3}
-  keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
 --- !u!95 &3805333075135422017
 Animator:
   serializedVersion: 5
@@ -2613,6 +2612,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4254097870087045042}
     m_Modifications:
+    - target: {fileID: 1704217385196173746, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4599023807389639559, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.164
+      objectReference: {fileID: 0}
+    - target: {fileID: 6991153564324993710, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551212439206765574, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.616
+      objectReference: {fileID: 0}
     - target: {fileID: 7607849548870679746, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
