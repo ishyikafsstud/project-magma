@@ -17,6 +17,13 @@ public class spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Find all child objects of this spawner and assign them as spawn positions
+        spawnPos = new Transform[transform.childCount];
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            spawnPos[i] = transform.GetChild(i);
+        }
+
         enemyManager.instance.EnemyCount += numToSpawn;
     }
 

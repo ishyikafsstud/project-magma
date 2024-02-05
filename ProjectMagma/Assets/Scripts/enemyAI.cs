@@ -61,6 +61,7 @@ public class enemyAI : MonoBehaviour, IDamage
     bool destinationChosen;
     Vector3 startingPos;
     float stoppingDistOrig;
+    bool canRotate = true; // For locking enemy rotation
 
     public bool IsMinion
     {
@@ -240,6 +241,7 @@ public class enemyAI : MonoBehaviour, IDamage
     protected virtual void Attack()
     {
         isAttacking = true;
+        canRotate = false; // lock rotation when attacking
 
         animator.SetTrigger("AttackTrigger");
     }
@@ -263,7 +265,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         isAttacking = false;
         animator.ResetTrigger("AttackTrigger");
-
+        canRotate = true; // Reenable rotation after attack
         //yield return new WaitForSeconds(attackRate);
     }
 
