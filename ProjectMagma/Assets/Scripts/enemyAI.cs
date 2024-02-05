@@ -91,6 +91,8 @@ public class enemyAI : MonoBehaviour, IDamage
         angleToPlayer = Vector3.Angle(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z),
             new Vector3(transform.forward.x, 0, transform.forward.z));
 
+                
+
         // Pursue player if he has been spotted, try to spot him otherwise.
         // * If the player is nearby but not spotted yet, try to spot him using a raycast.
         // * If the player has been spotted, pursue player even if he left the detection zone.
@@ -112,6 +114,16 @@ public class enemyAI : MonoBehaviour, IDamage
                     StartCoroutine(roam());
                 lookForPlayer();
             }
+        }
+
+        if (isAttacking && !canRotate)
+        {
+            // Lock the enemy's rotation during attack
+            agent.updateRotation = false;
+        }
+        else
+        {
+            agent.updateRotation = true;
         }
 
         if (animator != null)
@@ -145,7 +157,7 @@ public class enemyAI : MonoBehaviour, IDamage
     void ChasePlayer()
     {
         agent.SetDestination(gameManager.instance.player.transform.position);
-        if (agent.remainingDistance < agent.stoppingDistance)
+        if (agent.remainingDistance < agent.stoppingDistance && canRotate)
             faceTarget();
     }
 
@@ -255,7 +267,6 @@ public class enemyAI : MonoBehaviour, IDamage
     protected virtual void Attack()
     {
         isAttacking = true;
-
         canRotate = false; // lock rotation when attacking
 
         animator.SetTrigger("AttackTrigger");
@@ -280,7 +291,6 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         isAttacking = false;
         animator.ResetTrigger("AttackTrigger");
-        canRotate = true; // Reenable rotation after attack
         //yield return new WaitForSeconds(attackRate);
     }
 
