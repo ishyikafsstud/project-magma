@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,7 +52,7 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         UpdateEnemyCountText();
-        ShowHint("Objective:\n- Grab Your Staff -\n- Kill All Enemies -\n- Find The Key -\n- Escape -");
+        ShowHint("Good Luck!");
     }
 
     // Update is called once per frame
