@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -63,6 +64,7 @@ public class playerController : MonoBehaviour, IDamage
     private int selectedWeapon;
     private bool isShooting;
     private bool isMeleeActive;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -212,25 +214,27 @@ public class playerController : MonoBehaviour, IDamage
     {
         isShooting = true;
 
-        if (!hasInfiniteEnergy)
-            useEnergy(energyCostPerShot);
-
-        RaycastHit hit;
-        // The layer masks of the collision layers we want the raycast to hit: Default, Enemy.
-        // Using it specifies the layers we want the raycast to collide with.
-        int layerMask = (1 << 0) | (1 << 6);
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist, layerMask))
+        try
         {
-            IDamage damagedBody = hit.collider.GetComponent<IDamage>();
-            if (damagedBody != null && !hit.collider.CompareTag("Player"))
-                damagedBody.takeDamage(shootDamage);
-
-            Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
+            switch (weaponList[selectedWeapon].weaponType)
+            {
+                case weaponStats.WeaponTypes.Projectile:
+                    StartCoroutine(ShootProjectile());
+                    yield return new WaitForSeconds(shootRate);
+                    break;
+                
+                case weaponStats.WeaponTypes.Raycast:
+                    StartCoroutine(ShootRaycast());
+                    yield return new WaitForSeconds(shootRate);
+                    break;
+            }
+        }
+        finally
+        { 
+            isShooting = false;
         }
 
-        yield return new WaitForSeconds(shootRate); // Unity Timer
-
-        isShooting = false;
+        yield return new WaitForSeconds(shootRate);
     }
 
     IEnumerator MeleeAttack()
@@ -341,6 +345,58 @@ public class playerController : MonoBehaviour, IDamage
         return healthOriginal;
     }
 
+    IEnumerator ShootRaycast()
+    {
+        isShooting = true;
+
+        if (!hasInfiniteEnergy)
+            useEnergy(energyCostPerShot);
+
+        RaycastHit hit;
+        // The layer masks of the collision layers we want the raycast to hit: Default, Enemy.
+        // Using it specifies the layers we want the raycast to collide with.
+        int layerMask = (1 << 0) | (1 << 6);
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist, layerMask))
+        {
+            IDamage damagedBody = hit.collider.GetComponent<IDamage>();
+            if (damagedBody != null && !hit.collider.CompareTag("Player"))
+                damagedBody.takeDamage(shootDamage);
+
+            Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
+        }
+
+        yield return new WaitForSeconds(shootRate);
+
+        isShooting = false;
+    }
+
+    // will possibly need aditional setup. not in use yet.
+    IEnumerator ShootProjectile()
+    {
+        isShooting = true;
+
+        if (!hasInfiniteEnergy)
+            useEnergy(energyCostPerShot);
+
+        // Instantiate Projectile
+        GameObject projectileInstance = Instantiate(weaponList[selectedWeapon].projectilePrefab, weaponPosition.transform.position, weaponPosition.transform.rotation);
+
+        // Access the Projectile script attached to the instantiated projectile GameObject
+        projectile projectileScript = projectileInstance.GetComponent<projectile>();
+
+        // Check if the Projectile script is attached
+        if (projectileScript != null)
+        {
+            // Set projectile properties
+            projectileScript.DamageValue = weaponList[selectedWeapon].projectileDamage;
+            
+        }
+
+        yield return new WaitForSeconds(shootRate);
+
+        isShooting = false;
+    }
+
     void selectWeapon()
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < weaponList.Count - 1)
@@ -357,6 +413,8 @@ public class playerController : MonoBehaviour, IDamage
 
     void changeWeapon()
     {
+        weaponStats currentWeapon = weaponList[selectedWeapon];
+
         shootDamage = weaponList[selectedWeapon].shootDamage;
         shootDist = weaponList[selectedWeapon].shootDist;
         shootRate = weaponList[selectedWeapon].shootRate;

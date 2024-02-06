@@ -710,7 +710,7 @@ MonoBehaviour:
   attackDamage: 3
   attackRate: 1
   attackRange: 16
-  bullet: {fileID: 752510304586747584, guid: 5d165a330d22a4b429efb1fd67eeb24d, type: 3}
+  projectile: {fileID: 752510304586747584, guid: 5d165a330d22a4b429efb1fd67eeb24d, type: 3}
 --- !u!95 &3805333075135422017
 Animator:
   serializedVersion: 5

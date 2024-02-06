@@ -50,7 +50,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [Tooltip("The maximum distance from which this enemy can attack.")]
     [SerializeField] protected float attackRange;
     [Tooltip("The projectile prefab. Ignore for melee enemies.")]
-    [SerializeField] protected GameObject bullet; // TODO: rename to `projectile`. Make sure to update the value correctly.
+    [SerializeField] protected GameObject projectile; // TODO: rename to `projectile`. Make sure to update the value correctly.
 
     [Header("---- Other ----")]
 
@@ -282,8 +282,8 @@ public class enemyAI : MonoBehaviour, IDamage
         Vector3 distanceToPlayerFromShootPos = (gameManager.instance.player.transform.position - attackOrigin.transform.position);
         Quaternion bulletRot = Quaternion.LookRotation(distanceToPlayerFromShootPos);
 
-        GameObject bulletInstance = Instantiate(bullet, attackOrigin.position, bulletRot);
-        bulletInstance.GetComponent<bullet>().DamageValue = attackDamage;
+        GameObject projectileInstance = Instantiate(projectile, attackOrigin.position, bulletRot);
+        projectileInstance.GetComponent<projectile>().DamageValue = attackDamage;
     }
 
 
