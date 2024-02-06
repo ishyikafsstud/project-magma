@@ -588,7 +588,7 @@ MonoBehaviour:
   attackOrigin: {fileID: 8765020890692318376}
   alertOrigin: {fileID: 7531611583023985041}
   lootPosition: {fileID: 258622139287210325}
-  enemyUI: {fileID: 0}
+  enemyUI: {fileID: 8712444347826274216, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
   HP: 20
   speed: 10
   detectionRange: 40
@@ -605,7 +605,7 @@ MonoBehaviour:
   attackDamage: 5
   attackRate: 0.5
   attackRange: 3
-  bullet: {fileID: 0}
+  projectile: {fileID: 0}
   particleDuration: 0.1
   hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
 --- !u!95 &2040736154835555191
@@ -1953,7 +1953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4599023807389639559, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 10.241
+      value: -0.14
       objectReference: {fileID: 0}
     - target: {fileID: 6991153564324993710, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
       propertyPath: m_IsActive
@@ -1961,7 +1961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7551212439206765574, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 10.67
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 7657388439080755789, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
       propertyPath: m_Pivot.x
@@ -2029,7 +2029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7657388439080755789, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.64
+      value: 9.66
       objectReference: {fileID: 0}
     - target: {fileID: 7657388439080755789, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
