@@ -44,6 +44,7 @@ public class menuManager : MonoBehaviour
         if (levelOne != null)
         {
             SceneManager.LoadScene(levelOne.name);
+            Time.timeScale = 1.0f;
         }
         else
         {
@@ -60,6 +61,7 @@ public class menuManager : MonoBehaviour
         if (mainMenu != null)
         {
             SceneManager.LoadScene(mainMenu.name);
+            Time.timeScale = 1.0f;
         }
         else
         {
