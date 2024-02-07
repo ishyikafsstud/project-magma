@@ -9,7 +9,18 @@ public class projectile : MonoBehaviour
 
     [SerializeField] int damageAmount;
     [SerializeField] int speed;
+    /// <summary>
+    /// After what time the projectile automatically gets destroyed if encountered no obstacle.
+    /// </summary>
     [SerializeField] int destroyTime;
+    [SerializeField] Types type;
+
+    enum Types
+    {
+        Basic,
+        Ice,
+        Fire,
+    }
 
     public int DamageValue
     {
