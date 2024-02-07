@@ -59,7 +59,7 @@ MonoBehaviour:
   cameraTiltAnchor: {fileID: 7953032253958257473}
   maxCameraTilt: 5
   tiltCameraSpeed: 3
-  jumpMaxNumber: 2
+  jumpMaxNumber: 1
   jumpStrength: 7
   gravityStrength: -15
   maxVerticalSpeed: 140
