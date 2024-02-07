@@ -50,7 +50,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [Tooltip("The maximum distance from which this enemy can attack.")]
     [SerializeField] protected float attackRange;
     [Tooltip("The projectile prefab. Ignore for melee enemies.")]
-    [SerializeField] protected GameObject projectile; // TODO: rename to `projectile`. Make sure to update the value correctly.
+    [SerializeField] protected GameObject projectile;
 
     [Header("---- Combat Effects ---")]
     [SerializeField] protected int maxFreezeStack = 5;
@@ -107,6 +107,9 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         return Mathf.Max(1.0f - GetSlowdownEffectStrength(), 0);
     }
+
+    public delegate void DiedAction(GameObject enemy);
+    public static event DiedAction OnDied;
 
     // Start is called before the first frame update
     void Start()
@@ -292,6 +295,9 @@ public class enemyAI : MonoBehaviour, IDamage
 
             gameManager.instance.SpawnKey(lootPos);
         }
+
+        if (OnDied != null)
+            OnDied(this.gameObject);
 
         Destroy(gameObject);
     }
