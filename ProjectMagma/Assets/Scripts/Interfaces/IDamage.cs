@@ -8,4 +8,10 @@ public interface IDamage
     float GetOriginalHealth();
 
     void takeDamage(int amount);
+
+    /// <summary>
+    /// Apply a number of Freeze effect stacks.
+    /// </summary>
+    /// <param name="stacks">The number of Freeze effect stacks.</param>
+    IEnumerator ApplyFreeze(int stacks);
 }

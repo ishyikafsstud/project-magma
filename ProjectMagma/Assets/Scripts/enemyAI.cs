@@ -52,6 +52,14 @@ public class enemyAI : MonoBehaviour, IDamage
     [Tooltip("The projectile prefab. Ignore for melee enemies.")]
     [SerializeField] protected GameObject projectile; // TODO: rename to `projectile`. Make sure to update the value correctly.
 
+    [Header("---- Combat Effects ---")]
+    [SerializeField] protected int maxFreezeStack = 5;
+    [SerializeField] protected float freezeStackStrength = 0.08f;
+    /// <summary>
+    /// Do not access/set this value directly, use CurrentFreezeStack setter.
+    /// </summary>
+    protected int currentFreezeStack = 0;
+
     [Header("---- Other ----")]
 
     protected int origHP;
@@ -62,10 +70,11 @@ public class enemyAI : MonoBehaviour, IDamage
     protected float angleToPlayer;
     bool destinationChosen;
     Vector3 startingPos;
+    float origSpeed;
     float stoppingDistOrig;
     bool canRotate = true; //For locking enemy rotation 
     bool hasBeenAlerted;
-    
+
 
     public bool IsMinion
     {
@@ -76,12 +85,37 @@ public class enemyAI : MonoBehaviour, IDamage
     public bool IsAlerted { get => playerSpotted; }
     public Vector3 GetAlertPosition() { return alertOrigin.transform.position; }
 
+    public int CurrentFreezeStack
+    {
+        get => currentFreezeStack;
+        set
+        {
+            int actualValue = Mathf.Clamp(value, 0, maxFreezeStack);
+            if (currentFreezeStack == actualValue)
+                return;
+
+            currentFreezeStack = actualValue;
+
+            UpdateSpeed();
+        }
+    }
+    public float GetSlowdownEffectStrength()
+    {
+        return currentFreezeStack * freezeStackStrength;
+    }
+    public float GetSpeedModifier()
+    {
+        return Mathf.Max(1.0f - GetSlowdownEffectStrength(), 0);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         origHP = HP;
+        origSpeed = agent.speed;
         //enemyManager.instance.EnemySpawned(gameObject, isMinion); // spawners should be responsible for reporting enemies
         stoppingDistOrig = agent.stoppingDistance;
+
     }
 
     // Update is called once per frame
@@ -90,8 +124,6 @@ public class enemyAI : MonoBehaviour, IDamage
         distanceToPlayer = (gameManager.instance.player.transform.position - transform.position);
         angleToPlayer = Vector3.Angle(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z),
             new Vector3(transform.forward.x, 0, transform.forward.z));
-
-                
 
         // Pursue player if he has been spotted, try to spot him otherwise.
         // * If the player is nearby but not spotted yet, try to spot him using a raycast.
@@ -133,6 +165,16 @@ public class enemyAI : MonoBehaviour, IDamage
         }
     }
 
+    /// <summary>
+    /// Calculate navigation and animation speed 
+    /// </summary>
+    void UpdateSpeed()
+    {
+        float speedModifier = GetSpeedModifier();
+
+        agent.speed = origSpeed * speedModifier;
+        animator.speed = speedModifier;
+    }
     IEnumerator roam()
     {
         if (agent.remainingDistance > 0.05f || destinationChosen)
@@ -201,6 +243,16 @@ public class enemyAI : MonoBehaviour, IDamage
         {
             die();
         }
+    }
+
+    public IEnumerator ApplyFreeze(int stacks)
+    {
+        int appliedStacks = Mathf.Min(stacks, maxFreezeStack - CurrentFreezeStack);
+        CurrentFreezeStack += appliedStacks;
+
+        yield return new WaitForSeconds(5.0f);
+
+        CurrentFreezeStack -= appliedStacks;
     }
 
     private void spotPlayer()

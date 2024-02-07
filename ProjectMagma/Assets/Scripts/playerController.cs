@@ -210,6 +210,12 @@ public class playerController : MonoBehaviour, IDamage
             die();
         }
     }
+
+    public IEnumerator ApplyFreeze(int stacks)
+    {
+        yield break;
+    }
+
     IEnumerator Shoot()
     {
         isShooting = true;
@@ -360,7 +366,9 @@ public class playerController : MonoBehaviour, IDamage
         {
             IDamage damagedBody = hit.collider.GetComponent<IDamage>();
             if (damagedBody != null && !hit.collider.CompareTag("Player"))
+            {
                 damagedBody.takeDamage(shootDamage);
+            }
 
             Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
         }

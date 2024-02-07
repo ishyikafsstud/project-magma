@@ -1688,8 +1688,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9003118281020319490, guid: 49257f16235463a41a020e13fa26bfb5, type: 3}
+      propertyPath: HP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 9003118281020319490, guid: 49257f16235463a41a020e13fa26bfb5, type: 3}
       propertyPath: attackRange
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 9003118281020319490, guid: 49257f16235463a41a020e13fa26bfb5, type: 3}
+      propertyPath: maxFreezeStack
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
