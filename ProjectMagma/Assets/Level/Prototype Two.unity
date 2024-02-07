@@ -17633,6 +17633,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5424585799700234795, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: levelOne
+      value: Prototype Two
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424585799700234795, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: mainMenu
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 7382668422092228460, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
       propertyPath: m_Name
       value: UI-GameManager

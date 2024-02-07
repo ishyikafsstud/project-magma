@@ -278,8 +278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b8c9b7cd41e67499f3c34fa4586efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelOne: {fileID: 102900000, guid: b48ad85d421939a48a182776ddee311e, type: 3}
-  mainMenu: {fileID: 102900000, guid: 7588b338d5e210941b8dc2cd35fb414d, type: 3}
+  levelOne: Prototype Two
+  mainMenu: MainMenu
   ControlsWindow: {fileID: 760046486}
   CreditsWindow: {fileID: 1329237171}
 --- !u!1001 &203064011

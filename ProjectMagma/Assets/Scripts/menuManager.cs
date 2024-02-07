@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,8 +9,8 @@ public class menuManager : MonoBehaviour
     public static menuManager instance;
 
     [Header("- Load Scene -")]
-    [SerializeField] SceneAsset levelOne;
-    [SerializeField] SceneAsset mainMenu;
+    [SerializeField] string levelOne;
+    [SerializeField] string mainMenu;
 
     [Header("- Sub Windows -")]
     [SerializeField] GameObject ControlsWindow;
@@ -43,7 +42,7 @@ public class menuManager : MonoBehaviour
     {
         if (levelOne != null)
         {
-            SceneManager.LoadScene(levelOne.name);
+            SceneManager.LoadScene(levelOne);
             Time.timeScale = 1.0f;
         }
         else
@@ -60,7 +59,7 @@ public class menuManager : MonoBehaviour
     {
         if (mainMenu != null)
         {
-            SceneManager.LoadScene(mainMenu.name);
+            SceneManager.LoadScene(mainMenu);
             Time.timeScale = 1.0f;
         }
         else
