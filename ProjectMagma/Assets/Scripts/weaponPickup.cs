@@ -9,12 +9,13 @@ public class weaponPickup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
         gameManager.instance.playerScript.getWeaponStats(weapon);
+        gameManager.instance.playerEnergybar.gameObject.SetActive(true);
         Destroy(gameObject);
     }
 }

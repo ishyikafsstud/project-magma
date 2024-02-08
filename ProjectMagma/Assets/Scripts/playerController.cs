@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -52,6 +53,7 @@ public class playerController : MonoBehaviour, IDamage
 
 
     private float energyOriginal;
+    private float energyRegenerated;
     private float healthOriginal;
     private Vector3 horMotionDirection;
     private Vector3 verticalVelocity;
@@ -74,6 +76,7 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
+        gameManager.instance.playerEnergybar.gameObject.SetActive(false);
         healthOriginal = health;
         energyOriginal = energy;
         currentSpeed = walkSpeed;
@@ -335,9 +338,11 @@ public class playerController : MonoBehaviour, IDamage
     /// </summary>
     void RegenEnergy()
     {
+        // Calculate the energy regenerated based on speed
+        energyRegenerated = Mathf.Clamp(((currentSpeed / sprintSpeed) + (verticalVelocity.y / jumpStrength)) * energyRegenRate, energyRegenRate, 0) * Time.deltaTime;
         if (currentSpeed > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
         {
-            energy += energyRegenRate * Time.deltaTime;
+            energy += energyRegenerated;
             energy = Mathf.Clamp(energy, 0, energyOriginal);
         }
         updatePlayerUI();
