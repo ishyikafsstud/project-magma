@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb8fe04bec90c1468c6f2485591ae7d, type: 3}
+  m_Name: Weapon - Rock Staff
+  m_EditorClassIdentifier: 
+  shootDamage: 25
+  shootRate: 0.75
+  shootDist: 20
+  energyCostPerShot: 15
+  weaponType: 0
+  projectilePrefab: {fileID: 0}
+  projectileDamage: 0
+  model: {fileID: 1212406257651636249, guid: 39a57ca25aa9ac9418129236bb0b7e10, type: 3}
+  hitEffect: {fileID: 484368387861551534, guid: 9b21333b068a5084ba09535839bee3c8, type: 3}
+  shootSound: {fileID: 0}
+  shootSoundVolume: 0

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb8fe04bec90c1468c6f2485591ae7d, type: 3}
+  m_Name: Weapon - Ice Staff
+  m_EditorClassIdentifier: 
+  shootDamage: 1
+  shootRate: 0.05
+  shootDist: 15
+  energyCostPerShot: 4
+  weaponType: 0
+  projectilePrefab: {fileID: 0}
+  projectileDamage: 0
+  model: {fileID: 7611433729629226177, guid: 15e58ef5cf689404e8d9977909939b91, type: 3}
+  hitEffect: {fileID: 6523699520211762466, guid: 0edef91621bb6b34384ccc9dbb98729c, type: 3}
+  shootSound: {fileID: 0}
+  shootSoundVolume: 0
