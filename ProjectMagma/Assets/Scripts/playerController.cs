@@ -65,6 +65,11 @@ public class playerController : MonoBehaviour, IDamage
     private bool isShooting;
     private bool isMeleeActive;
 
+    public float Health
+    {
+        get => health;
+        set => health = Mathf.Clamp(value, 0, healthOriginal);
+    }
 
     // Start is called before the first frame update
     void Start()
