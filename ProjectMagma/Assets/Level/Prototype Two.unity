@@ -17553,6 +17553,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1627665120554158774, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373356650496922097, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373356650496922097, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373356650496922097, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1440831997}
+    - target: {fileID: 2373356650496922097, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664168189836844758, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 138
+      objectReference: {fileID: 0}
+    - target: {fileID: 2668480161596001567, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -355
+      objectReference: {fileID: 0}
+    - target: {fileID: 2699763187405845302, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3223793094632435500, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443363630302966496, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -355
+      objectReference: {fileID: 0}
     - target: {fileID: 5121182750270922756, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -17633,6 +17673,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5132226633492001088, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -355
+      objectReference: {fileID: 0}
     - target: {fileID: 5424585799700234795, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
       propertyPath: levelOne
       value: Prototype Two
@@ -17641,15 +17685,32 @@ PrefabInstance:
       propertyPath: mainMenu
       value: MainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 5859526319869115955, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -355
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402646536368342905, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -355
+      objectReference: {fileID: 0}
     - target: {fileID: 7382668422092228460, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
       propertyPath: m_Name
       value: UI-GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042903173868157522, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+--- !u!1 &1440831997 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8769368898542418775, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+  m_PrefabInstance: {fileID: 1440831996}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1443542409
 PrefabInstance:
   m_ObjectHideFlags: 0
