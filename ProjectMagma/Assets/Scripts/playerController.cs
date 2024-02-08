@@ -75,7 +75,7 @@ public class playerController : MonoBehaviour, IDamage
         walkToSprintSpeedRatio = walkSpeed / sprintSpeed;
 
         updatePlayerUI();
-        respawn();
+        //respawn();
     }
 
     // Update is called once per frame
@@ -343,17 +343,17 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.scenarioPlayerLoses();
     }
 
-    public void respawn()
-    {
-        health = healthOriginal;
-        energy = energyOriginal;
-        updatePlayerUI();
+    //public void respawn()
+    //{
+    //    health = healthOriginal;
+    //    energy = energyOriginal;
+    //    updatePlayerUI();
 
-        controller.enabled = false;
-        if (gameManager.instance.playerSpawnPosition != null)
-            transform.position = gameManager.instance.playerSpawnPosition.transform.position;
-        controller.enabled = true;
-    }
+    //    controller.enabled = false;
+    //    if (gameManager.instance.playerSpawnPosition != null)
+    //        transform.position = gameManager.instance.playerSpawnPosition.transform.position;
+    //    controller.enabled = true;
+    //}
 
     void updatePlayerUI()
     {
