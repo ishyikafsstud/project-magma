@@ -427,7 +427,9 @@ MonoBehaviour:
   attackDamage: 1
   attackRate: 0.5
   attackRange: 3
-  bullet: {fileID: 0}
+  projectile: {fileID: 0}
+  maxFreezeStack: 5
+  freezeStackStrength: 0.08
   particleDuration: 0.1
   hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
 --- !u!95 &5141618466626957924
@@ -492,7 +494,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.55
   m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!135 &3535314521956099815
 SphereCollider:

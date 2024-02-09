@@ -711,6 +711,8 @@ MonoBehaviour:
   attackRate: 1
   attackRange: 16
   projectile: {fileID: 752510304586747584, guid: 5d165a330d22a4b429efb1fd67eeb24d, type: 3}
+  maxFreezeStack: 5
+  freezeStackStrength: 0.08
 --- !u!95 &3805333075135422017
 Animator:
   serializedVersion: 5
@@ -773,10 +775,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.45
+  m_Radius: 0.55
   m_Height: 1.5
   m_Direction: 2
-  m_Center: {x: 0, y: 0.85, z: 0}
+  m_Center: {x: 0, y: 0.65, z: 0}
 --- !u!135 &8650759274405970107
 SphereCollider:
   m_ObjectHideFlags: 0
