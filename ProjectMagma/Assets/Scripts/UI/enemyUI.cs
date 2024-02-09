@@ -25,12 +25,6 @@ public class enemyUI : MonoBehaviour
         EnableHealthBar(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void UpdateHealthbar(int health, int origHealth)
     {
         // Enable the health bar only when the enemy takes damage for the first time
