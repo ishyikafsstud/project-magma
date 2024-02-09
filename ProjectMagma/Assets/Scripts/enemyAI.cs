@@ -284,7 +284,7 @@ public class enemyAI : MonoBehaviour, IDamage
         //model.material.color = Color.red; // DEBUG PURPOSES - to see who got alerted
     }
 
-    private void die()
+    public void die()
     {
         enemyManager.instance.EnemyDied(gameObject, isMinion);
 
