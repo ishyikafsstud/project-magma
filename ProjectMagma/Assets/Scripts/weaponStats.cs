@@ -14,7 +14,6 @@ public class weaponStats : ScriptableObject
     public WeaponTypes weaponType;
     [Tooltip("Prefab of the projectile shot by this weapon. Ignore for raycast-based weapons.")]
     public GameObject projectilePrefab;
-    public int projectileDamage;
 
     public GameObject model;
     public ParticleSystem hitEffect;

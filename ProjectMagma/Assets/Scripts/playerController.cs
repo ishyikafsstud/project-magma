@@ -278,7 +278,7 @@ public class playerController : MonoBehaviour, IDamage
         projectile projectileScript = projectileInstance.GetComponent<projectile>();
 
         // Set projectile properties
-        projectileScript.DamageValue = weaponList[selectedWeapon].projectileDamage;
+        projectileScript.DamageValue = weaponList[selectedWeapon].shootDamage;
     }
 
     IEnumerator MeleeAttack()
