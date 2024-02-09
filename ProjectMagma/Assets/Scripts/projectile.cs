@@ -47,9 +47,14 @@ public class projectile : MonoBehaviour
         // if collided object has IDamage, it takes damage
         IDamage dmg = other.GetComponent<IDamage>();
 
-        if (dmg != null && !other.CompareTag("Enemy"))
+        if (dmg != null)
         {
             dmg.takeDamage(damageAmount);
+
+            if (type == Types.Ice)
+            {
+                StartCoroutine(dmg.ApplyFreeze(1));
+            }
         }
 
         // bullet is destroyed after colliding
