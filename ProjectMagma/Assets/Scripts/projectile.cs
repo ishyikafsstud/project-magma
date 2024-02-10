@@ -6,6 +6,11 @@ public class projectile : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
 
+    // Reference to the WeaponType enum in weaponStats.cs so we can check if its a projectile
+    // based weapon. If yes, we can create the appropriate hit effect.
+    [SerializeField] weaponStats.WeaponTypes weaponType;
+    [Tooltip("Add hit effect for projectile based weapons here.")]
+    [SerializeField] GameObject projectileHitEffect;
 
     [SerializeField] int damageAmount;
     [SerializeField] int speed;
@@ -57,7 +62,18 @@ public class projectile : MonoBehaviour
             }
         }
 
+        if (weaponType == weaponStats.WeaponTypes.Projectile && projectileHitEffect != null)
+        {
+            CreateProjectileHitEffect(transform.position);
+        }
+
         // bullet is destroyed after colliding
         Destroy(gameObject);
+    }
+
+    // Creates Hit effect for projectile based weapons
+    private void CreateProjectileHitEffect(Vector3 position)
+    {
+        Instantiate(projectileHitEffect, position, Quaternion.identity);
     }
 }
