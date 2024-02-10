@@ -33,6 +33,7 @@ public class playerController : MonoBehaviour, IDamage
     [Header("Shooting")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
     [SerializeField] GameObject weaponPosition;
+    [SerializeField] GameObject shootPosition;
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
@@ -272,7 +273,7 @@ public class playerController : MonoBehaviour, IDamage
             return;
 
         // Instantiate Projectile
-        GameObject projectileInstance = Instantiate(weaponList[selectedWeapon].projectilePrefab, weaponPosition.transform.position, Camera.main.transform.rotation);
+        GameObject projectileInstance = Instantiate(weaponList[selectedWeapon].projectilePrefab, shootPosition.transform.position, Camera.main.transform.rotation);
 
         // Access the Projectile script attached to the instantiated projectile GameObject
         projectile projectileScript = projectileInstance.GetComponent<projectile>();
