@@ -109,7 +109,7 @@ public class enemyAI : MonoBehaviour, IDamage
     }
 
     public delegate void DiedAction(GameObject enemy);
-    public static event DiedAction OnDied;
+    public event DiedAction OnDied;
 
     // Start is called before the first frame update
     void Start()
@@ -118,7 +118,6 @@ public class enemyAI : MonoBehaviour, IDamage
         origSpeed = agent.speed;
         //enemyManager.instance.EnemySpawned(gameObject, isMinion); // spawners should be responsible for reporting enemies
         stoppingDistOrig = agent.stoppingDistance;
-
     }
 
     // Update is called once per frame
