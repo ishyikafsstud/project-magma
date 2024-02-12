@@ -21,26 +21,25 @@ public class enemyAI : MonoBehaviour, IDamage
 
     [Header("---- Stats ----")]
     [Range(1, 20)][SerializeField] protected int HP;
-    [SerializeField] float speed;
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
     [Tooltip("The angle that sets enemy field of view (not attacking).")]
-    [Range(0, 90)][SerializeField] protected float fieldOfView;
+    [Range(0, 90)][SerializeField] protected float fieldOfView = 45;
     [Tooltip("The angle that sets enemy field of view (for attacking).")]
-    [Range(0, 90)][SerializeField] protected float fieldOfViewAttack;
-    [SerializeField] float faceTargetSpeed;
+    [Range(0, 90)][SerializeField] protected float fieldOfViewAttack = 25;
+    [SerializeField] float faceTargetSpeed = 6;
     [Tooltip("Whether the character is summoned by a spawner enemy.\nMinions do not count toward kills.")]
     [SerializeField] bool isMinion;
     [Tooltip("For how long the enemy flashes red upon receiving damage, in seconds.")]
-    [SerializeField] float damageFlashLength;
+    [SerializeField] float damageFlashLength = 0.1f;
     [Tooltip("The speed of transitioning in blend animations.")]
-    [SerializeField] float animSpeedTransition;
-    [SerializeField] bool canRoam;
-    [SerializeField] int roamDist;
+    [SerializeField] float animSpeedTransition = 9;
+    [SerializeField] bool canRoam = true;
+    [SerializeField] int roamDist = 10;
     [Tooltip("The minimum time before starting to roam again.")]
-    [Range(0.0f, 60.0f)][SerializeField] int roamPauseTimeMin;
+    [Range(0, 60)][SerializeField] int roamPauseTimeMin = 3;
     [Tooltip("The maximum time before starting to roam again.")]
-    [Range(0.0f, 60.0f)][SerializeField] int roamPauseTimeMax;
+    [Range(0, 60)][SerializeField] int roamPauseTimeMax = 6;
 
     [Header("---- Attacking ----")]
     [Tooltip("The damage this enemy's attack deals to the target.")]
