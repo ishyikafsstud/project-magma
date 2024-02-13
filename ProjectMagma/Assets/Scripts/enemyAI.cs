@@ -74,6 +74,10 @@ public class enemyAI : MonoBehaviour, IDamage
     bool canRotate = true; //For locking enemy rotation 
     bool hasBeenAlerted;
 
+    public delegate void EnemyAction(GameObject enemy);
+
+    public event EnemyAction OnAttack;
+    public event EnemyAction OnDied;
 
     public bool IsMinion
     {
@@ -107,8 +111,6 @@ public class enemyAI : MonoBehaviour, IDamage
         return Mathf.Max(1.0f - GetSlowdownEffectStrength(), 0);
     }
 
-    public delegate void DiedAction(GameObject enemy);
-    public event DiedAction OnDied;
 
     // Start is called before the first frame update
     void Start()
@@ -294,8 +296,7 @@ public class enemyAI : MonoBehaviour, IDamage
             gameManager.instance.SpawnKey(lootPos);
         }
 
-        if (OnDied != null)
-            OnDied(this.gameObject);
+        OnDied?.Invoke(this.gameObject);
 
         Destroy(gameObject);
     }
@@ -340,6 +341,8 @@ public class enemyAI : MonoBehaviour, IDamage
 
         GameObject projectileInstance = Instantiate(projectile, attackOrigin.position, bulletRot);
         projectileInstance.GetComponent<projectile>().DamageValue = attackDamage;
+
+        OnAttack?.Invoke(this.gameObject);
     }
 
 

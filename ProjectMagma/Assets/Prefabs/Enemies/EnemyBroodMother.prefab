@@ -2121,7 +2121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 72288419570795938}
   - component: {fileID: 2062517292711689769}
-  - component: {fileID: 5234873311951619177}
+  - component: {fileID: 6083887465724258238}
   - component: {fileID: 5419979265419903573}
   - component: {fileID: 938128767474468129}
   - component: {fileID: 3762471424270734250}
@@ -2191,7 +2191,7 @@ MonoBehaviour:
   freezeStackStrength: 0.08
   particleDuration: 0.1
   hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
---- !u!114 &5234873311951619177
+--- !u!114 &6083887465724258238
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2200,7 +2200,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1619444224881450977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 927ac7b4ed0cb034ebb64e3077ce7eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: ef2b15502ca2cd64ca68ff138fa76c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spawnedEnemyPrefab: {fileID: 6469188073297186863, guid: 39723793ad110c041aa158b7a8ae6edf, type: 3}
@@ -2208,6 +2208,8 @@ MonoBehaviour:
   - {fileID: 3437441690394309799}
   - {fileID: 8132034651732602846}
   - {fileID: 6666417760096191856}
+  spawnOnDeath: 1
+  spawnOnAttack: 0
 --- !u!95 &5419979265419903573
 Animator:
   serializedVersion: 5

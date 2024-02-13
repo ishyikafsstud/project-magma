@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class spawnObjectsOnDeath : MonoBehaviour
+public class spawnOnEnemyEvent : MonoBehaviour
 {
 
     [Tooltip("The enemy to spawn.")]
@@ -10,13 +11,21 @@ public class spawnObjectsOnDeath : MonoBehaviour
     [Tooltip("The spawn positions for the object. The specified object will be spawned at each of them.")]
     [SerializeField] List<GameObject> spawnPositions = new List<GameObject>();
 
+    [Header("---- Spawn Triggering ----")]
+    [SerializeField] bool spawnOnDeath;
+    [SerializeField] bool spawnOnAttack;
+
     enemyAI enemyAIComponent;
 
     // Start is called before the first frame update
     void Start()
     {
         enemyAIComponent = GetComponent<enemyAI>();
-        enemyAIComponent.OnDied += SpawnObjectsOnDeath;
+
+        if (spawnOnDeath)
+            enemyAIComponent.OnDied += SpawnObjectsOnDeath;
+        if (spawnOnAttack)
+            enemyAIComponent.OnAttack += SpawnObjectsOnDeath;
     }
 
     void SpawnObjectsOnDeath(GameObject diedEnemy)
