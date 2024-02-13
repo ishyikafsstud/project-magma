@@ -23,6 +23,14 @@ public class enemyManager : MonoBehaviour
    /// </summary>
     public AmbushSpawner ambushSpawner;
     /// <summary>
+    /// Queue to hold attacking enemies
+    /// </summary>
+    Queue<GameObject> attackQueue = new Queue<GameObject>();
+    [SerializeField] public int maxAttackingEnemies = 6;
+    public int attackingEnemiesCount;
+    
+    bool isAttacking = false;
+    /// <summary>
     /// The count of significant enemies (i.e. non-minions).
     /// </summary>
     public int EnemyCount
@@ -104,6 +112,7 @@ public class enemyManager : MonoBehaviour
     public void EnemySpawned(GameObject enemy, bool isMinion)
     {
         enemies.Add(enemy);
+        StartCoroutine(EnqueueAttack(enemy));
         //EnemyCount += !isMinion ? 1 : 0; // Increase significant enemy count if not a minion
     }
 
@@ -111,6 +120,31 @@ public class enemyManager : MonoBehaviour
     {
         enemies.Remove(enemy);
         EnemyCount -= !isMinion ? 1 : 0; // Decrease significant enemy count if not a minion
+    }
+
+    IEnumerator EnqueueAttack(GameObject enemy)
+    {
+        attackQueue.Enqueue(enemy);
+        //Debug.Log("Enemy " + enemy.name + " added to attack queue. Queue count: " + attackQueue.Count);
+
+        if (!isAttacking)
+        {
+            isAttacking = true;
+            while (attackQueue.Count > 0)
+            {
+                if(attackQueue.Count <= maxAttackingEnemies)
+                {
+                    GameObject nextEnemy = attackQueue.Dequeue();
+                    //Debug.Log("Enemy " + nextEnemy.name + " attacking.");
+
+                    yield return new WaitForSeconds(1f);
+                    //Debug.Log("Enemy " + nextEnemy.name + " finished attacking.");
+                }
+                yield return null;
+            }
+            isAttacking = false;
+            Debug.Log("All enemies finished attacking.");
+        }
     }
 
 }

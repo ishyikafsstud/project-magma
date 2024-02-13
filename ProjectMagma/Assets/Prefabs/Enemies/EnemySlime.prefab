@@ -412,11 +412,10 @@ MonoBehaviour:
   lootPosition: {fileID: 4446764086274478458}
   enemyUI: {fileID: 6287914579173553829}
   HP: 20
-  speed: 12
   detectionRange: 20
   fieldOfView: 45
   fieldOfViewAttack: 25
-  faceTargetSpeed: 8
+  faceTargetSpeed: 10
   isMinion: 0
   damageFlashLength: 0.1
   animSpeedTransition: 8
@@ -463,10 +462,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 4
+  m_Speed: 5
   m_Acceleration: 4
   avoidancePriority: 50
-  m_AngularSpeed: 600
+  m_AngularSpeed: 800
   m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0

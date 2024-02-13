@@ -175,6 +175,9 @@ public class enemyAI : MonoBehaviour, IDamage
             float targetAnimSpeed = agent.velocity.normalized.magnitude;
             animator.SetFloat("Speed", Mathf.Lerp(animator.GetFloat("Speed"), targetAnimSpeed, animSpeedTransition * Time.deltaTime));
         }
+
+
+        
     }
 
     /// <summary>
@@ -328,7 +331,10 @@ public class enemyAI : MonoBehaviour, IDamage
 
     protected virtual bool CanAttack()
     {
-        return distanceToPlayer.magnitude <= attackRange && !isAttacking && angleToPlayer < fieldOfViewAttack;
+        return distanceToPlayer.magnitude <= attackRange
+            && !isAttacking
+            && angleToPlayer < fieldOfViewAttack
+            && enemyManager.instance.attackingEnemiesCount <= enemyManager.instance.maxAttackingEnemies;
     }
 
     /// <summary>
@@ -341,6 +347,7 @@ public class enemyAI : MonoBehaviour, IDamage
         canRotate = false; // lock rotation when attacking
 
         animator.SetTrigger("AttackTrigger");
+        enemyManager.instance.attackingEnemiesCount++;
     }
 
     /// <summary>
@@ -364,6 +371,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         isAttacking = false;
         animator.ResetTrigger("AttackTrigger");
+        enemyManager.instance.attackingEnemiesCount--;
         //yield return new WaitForSeconds(attackRate);
     }
 
