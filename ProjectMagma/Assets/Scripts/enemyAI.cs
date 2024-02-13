@@ -76,8 +76,17 @@ public class enemyAI : MonoBehaviour, IDamage
 
     public delegate void EnemyAction(GameObject enemy);
 
-    public event EnemyAction OnAttack;
-    public event EnemyAction OnDied;
+    public event EnemyAction AttackEvent;
+    public event EnemyAction DeathEvent;
+
+    protected virtual void OnAttack()
+    {
+        AttackEvent?.Invoke(this.gameObject);
+    }
+    protected virtual void OnDeath()
+    {
+        DeathEvent?.Invoke(this.gameObject);
+    }
 
     public bool IsMinion
     {
@@ -296,7 +305,7 @@ public class enemyAI : MonoBehaviour, IDamage
             gameManager.instance.SpawnKey(lootPos);
         }
 
-        OnDied?.Invoke(this.gameObject);
+        OnDeath();
 
         Destroy(gameObject);
     }
@@ -342,7 +351,7 @@ public class enemyAI : MonoBehaviour, IDamage
         GameObject projectileInstance = Instantiate(projectile, attackOrigin.position, bulletRot);
         projectileInstance.GetComponent<projectile>().DamageValue = attackDamage;
 
-        OnAttack?.Invoke(this.gameObject);
+        OnAttack();
     }
 
 

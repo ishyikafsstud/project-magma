@@ -23,9 +23,9 @@ public class spawnOnEnemyEvent : MonoBehaviour
         enemyAIComponent = GetComponent<enemyAI>();
 
         if (spawnOnDeath)
-            enemyAIComponent.OnDied += SpawnObjectsOnDeath;
+            enemyAIComponent.DeathEvent += SpawnObjectsOnDeath;
         if (spawnOnAttack)
-            enemyAIComponent.OnAttack += SpawnObjectsOnDeath;
+            enemyAIComponent.AttackEvent += SpawnObjectsOnDeath;
     }
 
     void SpawnObjectsOnDeath(GameObject diedEnemy)

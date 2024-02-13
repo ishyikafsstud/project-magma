@@ -51,7 +51,7 @@ public class roomController : MonoBehaviour
         {
             enemyCount++;
 
-            other.GetComponent<enemyAI>().OnDied += DecreaseEnemyCount;
+            other.GetComponent<enemyAI>().DeathEvent += DecreaseEnemyCount;
         }
     }
 

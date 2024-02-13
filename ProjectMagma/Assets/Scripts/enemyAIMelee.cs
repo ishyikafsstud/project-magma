@@ -16,6 +16,8 @@ public class enemyAIMelee : enemyAI
 
     protected override void AttackAnimationEvent()
     {
+        OnAttack();
+
         Vector3 distanceToPlayerFromAttackOrigin = (gameManager.instance.player.transform.position - attackOrigin.transform.position);
 
         RaycastHit hit;
