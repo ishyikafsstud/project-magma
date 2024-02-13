@@ -16,6 +16,8 @@ MonoBehaviour:
   shootRate: 1
   shootDist: 25
   energyCostPerShot: 30
+  weaponType: 1
+  projectilePrefab: {fileID: 4149411821200158021, guid: ab7bb328d3cb1b2439c062e536dc247e, type: 3}
   model: {fileID: 4314592414121106614, guid: 882fc892a36378a499792e3188085912, type: 3}
   hitEffect: {fileID: 4596544553357837919, guid: 8eb503696b886e04faff8fc0f480d473, type: 3}
   shootSound: {fileID: 0}
