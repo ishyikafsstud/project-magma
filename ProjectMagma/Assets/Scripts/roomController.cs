@@ -6,24 +6,22 @@ using UnityEngine;
 public class roomController : MonoBehaviour
 {
     public GameObject[] barriers;
-  
-    private int enemyCount;
+
+    [SerializeField] private int enemyCount;
     private bool doorsLocked;
 
-    public void DecreaseEnemyCount(GameObject enemy)
+    public void DecrementEnemyCount(GameObject enemy)
     {
         enemyCount--;
-        
-        if(enemyCount <= 0)
-        {
+
+        if (enemyCount <= 0)
             UnlockDoors();
-            doorsLocked = false;
-        }
     }
 
     public void LockDoors()
     {
-        foreach(GameObject barrier in barriers)
+        doorsLocked = true;
+        foreach (GameObject barrier in barriers)
         {
             barrier.GetComponent<Animator>().SetTrigger("Door Locked");
         }
@@ -31,6 +29,7 @@ public class roomController : MonoBehaviour
 
     public void UnlockDoors()
     {
+        doorsLocked = false;
         foreach (GameObject barrier in barriers)
         {
             barrier.GetComponent<Animator>().SetTrigger("Door Open");
@@ -39,28 +38,23 @@ public class roomController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name + " entered " + gameObject.name); // Print out the collider's name and the identifier of the room controller
         if (other.CompareTag("Player"))
         {
             if (!doorsLocked)
-            {
                 LockDoors();
-                doorsLocked = true;
-            }
         }
-        if(other.CompareTag("Enemy"))
+        else if (other.CompareTag("Enemy"))
         {
             enemyCount++;
 
-            other.GetComponent<enemyAI>().DeathEvent += DecreaseEnemyCount;
+            other.GetComponent<enemyAI>().DeathEvent += DecrementEnemyCount;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player")) 
-        {
+        if (other.CompareTag("Player"))
             UnlockDoors();
-            doorsLocked = false;
-        }
     }
 }
