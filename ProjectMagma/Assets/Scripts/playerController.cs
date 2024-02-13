@@ -77,7 +77,6 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
-        gameManager.instance.playerEnergybar.gameObject.SetActive(false);
         healthOriginal = health;
         energyOriginal = energy;
         currentSpeed = walkSpeed;
@@ -91,7 +90,6 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         processMovement();
-
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.green);
 
         if (!gameManager.instance.isPaused)
@@ -99,6 +97,11 @@ public class playerController : MonoBehaviour, IDamage
             if (weaponList.Count > 0)
             {
                 selectWeapon();
+                gameManager.instance.playerEnergybar.gameObject.SetActive(true);
+            }
+            else
+            {
+                gameManager.instance.playerEnergybar.gameObject.SetActive(false);
             }
             // Left Click - ranged attack
             if (Input.GetButton("Shoot") && weaponList.Count > 0 && !isShooting)
@@ -399,7 +402,7 @@ public class playerController : MonoBehaviour, IDamage
             selectedWeapon++;
             changeWeapon();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 & selectedWeapon > 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
         {
             selectedWeapon--;
             changeWeapon();

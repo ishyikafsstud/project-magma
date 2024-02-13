@@ -15,7 +15,6 @@ public class weaponPickup : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         gameManager.instance.playerScript.getWeaponStats(weapon);
-        gameManager.instance.playerEnergybar.gameObject.SetActive(true);
         Destroy(gameObject);
     }
 }
