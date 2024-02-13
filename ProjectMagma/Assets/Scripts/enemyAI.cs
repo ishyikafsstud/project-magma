@@ -147,7 +147,7 @@ public class enemyAI : MonoBehaviour, IDamage
                 ChasePlayer();
 
                 // If player is within the attack range and unless already attacking, attack him
-                if (distanceToPlayer.magnitude <= attackRange && !isAttacking && angleToPlayer < fieldOfViewAttack)
+                if (CanAttack())
                 {
                     Attack();
                 }
@@ -324,6 +324,11 @@ public class enemyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(damageFlashLength);
 
         model.material.color = oldColor;
+    }
+
+    protected virtual bool CanAttack()
+    {
+        return distanceToPlayer.magnitude <= attackRange && !isAttacking && angleToPlayer < fieldOfViewAttack;
     }
 
     /// <summary>
