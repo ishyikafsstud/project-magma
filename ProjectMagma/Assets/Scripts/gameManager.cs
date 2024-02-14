@@ -15,6 +15,7 @@ public class gameManager : MonoBehaviour
         Level3,
         Level4,
         Level5,
+        LAST_LEVEL = Level5
     }
 
     public static gameManager instance;
@@ -63,12 +64,25 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
 
+        LoadGeneralSettings();
+
         if (levelId != LevelIdEnum.Other)
             LoadLevelStartData();
     }
 
+    void LoadGeneralSettings()
+    {
+        GeneralSettingsData generalSettingsData = saveSystem.LoadGeneralSettings();
+
+        // TODO: implement camera tilt update on player
+        //playerScript.SetTilt(generalSettingsData.tiltEnabled);
+
+        // TODO: implement bus volume change
+    }
+
     void LoadLevelStartData()
     {
+        saveSystem.ResetLevelProgression();
         LevelSaveData levelData = saveSystem.LoadLevelData(levelId);
 
         weaponStats firstWeapon = levelData.startWeapons[0] != -1 ? helper.weaponList[(levelData.startWeapons[0])] : null;
@@ -76,7 +90,10 @@ public class gameManager : MonoBehaviour
 
         playerScript.pickupWeapon(firstWeapon);
         playerScript.pickupWeapon(secondWeapon);
+
+        int ambushesDefeated = saveSystem.CountAmbushesDefeated(levelId);
         // TODO: increase player's max energy based on the total number of ambushes won
+        // player.ApplyAmbushDefeatReward(ambushesDefeated);
     }
 
     void Start()

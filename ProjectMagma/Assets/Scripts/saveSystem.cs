@@ -42,9 +42,28 @@ public abstract class saveSystem : MonoBehaviour
     private static string levelEndWeapon1KeySuffix = "_ENDWEAPON_1";
     private static string levelEndWeapon2KeySuffix = "_ENDWEAPON_2";
 
-    public static void LoadGeneralSettings()
+    public static void SaveGeneralSettings(GeneralSettingsData generalSettingsData)
     {
+        PlayerPrefs.SetInt(masterVolumeKey, generalSettingsData.masterVolume);
+        PlayerPrefs.SetInt(sfxVolumeKey, generalSettingsData.sfxVolume);
+        PlayerPrefs.SetInt(musicVolumeKey, generalSettingsData.musicVolume);
+        PlayerPrefs.SetInt(uiVolumeKey, generalSettingsData.uiVolume);
+        PlayerPrefs.SetInt(tiltEnabledKey, generalSettingsData.tiltEnabled == true ? 1 : 0);
 
+        PlayerPrefs.Save();
+    }
+
+    public static GeneralSettingsData LoadGeneralSettings()
+    {
+        GeneralSettingsData generalSettingsData = new GeneralSettingsData();
+
+        generalSettingsData.masterVolume = PlayerPrefs.GetInt(masterVolumeKey, 100);
+        generalSettingsData.sfxVolume = PlayerPrefs.GetInt(sfxVolumeKey, 100);
+        generalSettingsData.musicVolume = PlayerPrefs.GetInt(musicVolumeKey, 100);
+        generalSettingsData.uiVolume = PlayerPrefs.GetInt(uiVolumeKey, 100);
+        generalSettingsData.tiltEnabled = PlayerPrefs.GetInt(tiltEnabledKey, 1) == 1 ? true : false;
+
+        return generalSettingsData;
     }
 
     /// <summary>
@@ -89,6 +108,8 @@ public abstract class saveSystem : MonoBehaviour
             PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeapon1KeySuffix, (int)playerWeapons[0].wandType);
             PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeapon2KeySuffix, (int)playerWeapons[1].wandType);
         }
+
+        PlayerPrefs.Save();
     }
 
     public static LevelSaveData LoadLevelData(LevelIdEnum levelId)
@@ -110,22 +131,73 @@ public abstract class saveSystem : MonoBehaviour
         return levelData;
     }
 
-    public void SetSettingsToDefault()
+    public void ResetGeneralSettings()
     {
         PlayerPrefs.SetInt(masterVolumeKey, 100);
         PlayerPrefs.SetInt(sfxVolumeKey, 100);
         PlayerPrefs.SetInt(musicVolumeKey, 100);
         PlayerPrefs.SetInt(uiVolumeKey, 100);
         PlayerPrefs.SetInt(tiltEnabledKey, 1);
+
+        PlayerPrefs.Save();
     }
 
-    public static void EraseLevelProgression()
+    /// <summary>
+    /// Resets level progression.
+    /// <para>Currently, it just locks all levels past Level1.</para>
+    /// </summary>
+    public static void ResetLevelProgression()
     {
-        // Remember general settings
+        // Lock all levels after Level1
+        for (LevelIdEnum levelId = LevelIdEnum.Level2; levelId <= LevelIdEnum.LAST_LEVEL; levelId++)
+        {
+            PlayerPrefs.SetInt(GetLevelPrefix(levelId) + levelUnlockedKeySuffix, 0);
+        }
 
-        // Clear the entire PlayerPrefs for ease
+        PlayerPrefs.Save();
+    }
 
-        // Reassign general settings
+    /// <summary>
+    /// Count ambushes defeated.
+    /// <para>By default, counts the total number of ambushes defeated. Use the parameter to count
+    /// defeated ambushes up to a specified level.</para>
+    /// </summary>
+    /// <param name="upToLevel">Up to which level to count the defeated ambushes.</param>
+    /// <returns></returns>
+    public static int CountAmbushesDefeated(LevelIdEnum upToLevel = LevelIdEnum.LAST_LEVEL + 1)
+    {
+        int ambushesDefeated = 0;
+
+        for (LevelIdEnum levelId = LevelIdEnum.Level1; levelId < upToLevel; levelId++)
+        {
+            ambushesDefeated += PlayerPrefs.GetInt(GetLevelPrefix(levelId) + levelAmbushDefeatedKeySuffix, 0);
+        }
+
+        return ambushesDefeated;
+    }
+
+    public static bool IsLevelUnlocked(LevelIdEnum levelId)
+    {
+        return PlayerPrefs.GetInt(GetLevelPrefix(levelId) + levelUnlockedKeySuffix) == 1;
+    }
+
+    public static List<LevelIdEnum> GetUnlockedLevels()
+    {
+        List<LevelIdEnum> unlockedLevels = new List<LevelIdEnum>();
+
+        // Get the unlocked levels
+        for (LevelIdEnum levelId = LevelIdEnum.Level1; levelId < LevelIdEnum.LAST_LEVEL; levelId++)
+        {
+            bool levelUnlocked = PlayerPrefs.GetInt(GetLevelPrefix(levelId) + levelUnlockedKeySuffix, 0) == 1;
+
+            if (levelUnlocked)
+                unlockedLevels.Add(levelId);
+            // If a level is locked, assume all the consequent levels are locked too and stop checking early
+            else
+                break;
+        }
+
+        return unlockedLevels;
     }
 }
 
@@ -138,4 +210,14 @@ public struct LevelSaveData
     public bool isCompleted;
     public List<int> endWeapons;
     public bool isAmbushDefeated;
+}
+
+public struct GeneralSettingsData
+{
+    public int masterVolume;
+    public int sfxVolume;
+    public int musicVolume;
+    public int uiVolume;
+
+    public bool tiltEnabled;
 }
