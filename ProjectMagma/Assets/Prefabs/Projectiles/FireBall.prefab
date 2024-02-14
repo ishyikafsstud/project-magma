@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 3838228031201860378}
   weaponType: 1
-  projectileHitEffect: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473, type: 3}
+  projectileHitEffect: {fileID: 358637981425055526, guid: 5be642e3607948d41b7934a4b599c807, type: 3}
   damageAmount: 0
   speed: 50
   destroyTime: 5
@@ -198,7 +198,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 745b04538c7c0a740b168e1c106307ac, type: 2}
+  - {fileID: 2100000, guid: 48bd3a0185510fa4e83cd44c87dc6679, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

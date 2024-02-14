@@ -50,8 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4602145754778906980}
-  projectileHitEffect: {fileID: 4924508274929071776, guid: 0edef91621bb6b34384ccc9dbb98729c, type: 3}
   weaponType: 1
+  projectileHitEffect: {fileID: 4924508274929071776, guid: 3710cc30f9fafbb4c85d745dd7bff2b6, type: 3}
   damageAmount: 0
   speed: 25
   destroyTime: 5
