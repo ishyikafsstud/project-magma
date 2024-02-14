@@ -427,7 +427,7 @@ public class playerController : MonoBehaviour, IDamage
         weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
-    public void getWeaponStats(weaponStats weapon)
+    public void pickupWeapon(weaponStats weapon)
     {
         weaponList.Add(weapon);
 
