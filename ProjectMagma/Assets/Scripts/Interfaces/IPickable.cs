@@ -5,6 +5,5 @@ using UnityEngine;
 public interface IPickable
 {
     void OnTriggerEnter(Collider other);
-
-    void Pick();
+    void Pickup();
 }
