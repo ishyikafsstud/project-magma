@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -15,7 +16,18 @@ public class roomController : MonoBehaviour
         enemyCount--;
 
         if (enemyCount <= 0)
+        {
             UnlockDoors();
+
+            if (gameObject.CompareTag("Room Controller 1"))
+            {
+                gameObject.SetActive(false); // Deactivate Room Controller 1
+            }
+            else if (gameObject.CompareTag("Room Controller 2"))
+            {
+                gameObject.SetActive(false); // Deactivate Room Controller 2
+            }
+        }
     }
 
     public void LockDoors()
@@ -38,7 +50,7 @@ public class roomController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name + " entered " + gameObject.name); // Print out the collider's name and the identifier of the room controller
+        //Debug.Log(other.name + " entered " + gameObject.name); // Print out the collider's name and the identifier of the room controller
         if (other.CompareTag("Player"))
         {
             if (!doorsLocked)
@@ -49,7 +61,9 @@ public class roomController : MonoBehaviour
             enemyCount++;
 
             other.GetComponent<enemyAI>().DeathEvent += DecrementEnemyCount;
+
         }
+  
     }
 
     private void OnTriggerExit(Collider other)

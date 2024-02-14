@@ -23,12 +23,20 @@ public class enemyManager : MonoBehaviour
    /// </summary>
     public AmbushSpawner ambushSpawner;
     /// <summary>
-    /// Queue to hold attacking enemies
+    /// Queue to hold enemies currently attacking.
     /// </summary>
     Queue<GameObject> attackQueue = new Queue<GameObject>();
+    /// <summary>
+    /// Maximum number of enemies allowed to attack simultaneously.
+    /// </summary>
     [SerializeField] public int maxAttackingEnemies = 6;
+    /// <summary>
+    /// Number of enemies currently attacking.
+    /// </summary>
     public int attackingEnemiesCount;
-    
+    /// <summary>
+    /// Indicates whether enemies are currently attacking.
+    /// </summary>
     bool isAttacking = false;
     /// <summary>
     /// The count of significant enemies (i.e. non-minions).
