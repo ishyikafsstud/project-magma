@@ -7177,13 +7177,14 @@ GameObject:
   - component: {fileID: 558029487}
   - component: {fileID: 558029485}
   - component: {fileID: 558029486}
+  - component: {fileID: 558029488}
   m_Layer: 0
   m_Name: Room 1 Controller
-  m_TagString: Untagged
+  m_TagString: Room Controller 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &558029485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7199,6 +7200,7 @@ MonoBehaviour:
   barriers:
   - {fileID: 50074528}
   - {fileID: 1679605968}
+  enemyCount: 0
 --- !u!65 &558029486
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7218,7 +7220,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 24, y: 5, z: 30}
+  m_Size: {x: 24, y: 5, z: 32}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &558029487
 Transform:
@@ -7229,12 +7231,39 @@ Transform:
   m_GameObject: {fileID: 558029484}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.2900009, y: 2.4300003, z: 48.55}
+  m_LocalPosition: {x: 1.2900009, y: 2.51, z: 48.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &558029488
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558029484}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &564161452
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11311,11 +11340,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6775968851346238395, guid: ae52b2235be8b364b95d5284132f8c3c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.96
+      value: -0.96000004
       objectReference: {fileID: 0}
     - target: {fileID: 6775968851346238395, guid: ae52b2235be8b364b95d5284132f8c3c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.386
+      value: -6.3859997
       objectReference: {fileID: 0}
     - target: {fileID: 6775968851346238395, guid: ae52b2235be8b364b95d5284132f8c3c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11411,13 +11440,14 @@ GameObject:
   - component: {fileID: 1005092237}
   - component: {fileID: 1005092236}
   - component: {fileID: 1005092235}
+  - component: {fileID: 1005092238}
   m_Layer: 0
   m_Name: Room 2 Controller
-  m_TagString: Untagged
+  m_TagString: Room Controller 2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1005092235
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11437,7 +11467,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 48, y: 10, z: 43}
+  m_Size: {x: 50, y: 10, z: 45}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1005092236
 MonoBehaviour:
@@ -11453,6 +11483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barriers:
   - {fileID: 981232134}
+  enemyCount: 0
 --- !u!4 &1005092237
 Transform:
   m_ObjectHideFlags: 0
@@ -11462,12 +11493,39 @@ Transform:
   m_GameObject: {fileID: 1005092234}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.8600006, y: 7.5, z: -13.06}
+  m_LocalPosition: {x: 1.43, y: 7.5, z: -13.097}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1005092238
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005092234}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1008594690
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21038,6 +21096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barriers: []
+  enemyCount: 0
 --- !u!1 &1681158298
 GameObject:
   m_ObjectHideFlags: 0
@@ -27470,8 +27529,8 @@ SceneRoots:
   - {fileID: 967124974}
   - {fileID: 1396345837}
   - {fileID: 1440831996}
-  - {fileID: 1913181992}
   - {fileID: 988964942}
+  - {fileID: 1913181992}
   - {fileID: 544523560}
   - {fileID: 1132234315}
   - {fileID: 32936085}
