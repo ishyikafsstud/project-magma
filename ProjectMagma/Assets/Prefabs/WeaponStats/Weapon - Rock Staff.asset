@@ -17,6 +17,7 @@ MonoBehaviour:
   shootDist: 20
   energyCostPerShot: 25
   weaponType: 1
+  wandType: 1
   projectilePrefab: {fileID: 2072507092477366156, guid: 41f1e435029b87a4b82839ae05af9366, type: 3}
   model: {fileID: 8405929037854289750, guid: cbafcf6263d95194cbf0605a59a97b2f, type: 3}
   hitEffect: {fileID: 484368387861551534, guid: f02eb3dcb10b97040b70a834b701461a, type: 3}

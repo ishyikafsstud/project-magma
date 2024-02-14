@@ -11,7 +11,14 @@ public class weaponStats : ScriptableObject
     public int shootDist;
     public float energyCostPerShot;
 
+    /// <summary>
+    /// Describes the underlying implementation of the weapon.
+    /// </summary>
     public WeaponTypes weaponType;
+    /// <summary>
+    /// The specific kind of wand it is.
+    /// </summary>
+    public WandType wandType;
     [Tooltip("Prefab of the projectile shot by this weapon. Ignore for raycast-based weapons.")]
     public GameObject projectilePrefab;
 
@@ -24,5 +31,15 @@ public class weaponStats : ScriptableObject
     {
         Raycast,
         Projectile,
+    }
+
+    public enum WandType
+    {
+        Electric,
+        Rock,
+        Ice,
+        Fire,
+        Poison,
+        Undefined,
     }
 }
