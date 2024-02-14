@@ -2884,6 +2884,7 @@ GameObject:
   - component: {fileID: 5424585799700234795}
   - component: {fileID: 2689396903524032928}
   - component: {fileID: 2665246074342212890}
+  - component: {fileID: 4177884333347954359}
   m_Layer: 5
   m_Name: GameManager
   m_TagString: Untagged
@@ -2922,6 +2923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ad37ce4005f21748a893718441e3f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelId: 0
   menuActive: {fileID: 0}
   menuPause: {fileID: 3223793094632435500}
   menuWin: {fileID: 9042903173868157522}
@@ -2969,6 +2971,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ambushSpawnerObject: {fileID: 0}
   ambushSpawner: {fileID: 0}
+  maxAttackingEnemies: 6
+  attackingEnemiesCount: 0
 --- !u!114 &2665246074342212890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2981,6 +2985,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd81481c298260e4baceb6511492f6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4177884333347954359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4217557209907180305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745e2a96a4693f34bb235d137aaa0463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponList:
+  - {fileID: 11400000, guid: db0821c9aeaf395448665233bbbcbf3c, type: 2}
+  - {fileID: 11400000, guid: 7fa4b58851c4b6e46bcf8ef0277a2700, type: 2}
+  - {fileID: 11400000, guid: 76e01bf8dc4ac044c896672548c983c8, type: 2}
+  - {fileID: 11400000, guid: 4fd9b4fca0cac9a4e98c8862e295143d, type: 2}
+  - {fileID: 11400000, guid: 00d4c2be82dff4c4b8e76a1159c1b70f, type: 2}
 --- !u!1 &4461194632917616269
 GameObject:
   m_ObjectHideFlags: 0

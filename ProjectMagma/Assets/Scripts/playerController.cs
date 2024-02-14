@@ -429,6 +429,9 @@ public class playerController : MonoBehaviour, IDamage
 
     public void pickupWeapon(weaponStats weapon)
     {
+        if (weapon == null)
+            return;
+
         weaponList.Add(weapon);
 
         shootDamage = weapon.shootDamage;

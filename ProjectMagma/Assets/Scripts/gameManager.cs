@@ -43,6 +43,7 @@ public class gameManager : MonoBehaviour
     public GameObject playerSpawnPosition;
     public GameObject player;
     public playerController playerScript;
+    helperClass helper;
 
     [Header("Functional settings")]
     public bool isPaused;
@@ -56,10 +57,26 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        helper = GetComponent<helperClass>();
 
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
+
+        if (levelId != LevelIdEnum.Other)
+            LoadLevelStartData();
+    }
+
+    void LoadLevelStartData()
+    {
+        LevelSaveData levelData = saveSystem.LoadLevelData(levelId);
+
+        weaponStats firstWeapon = levelData.startWeapons[0] != -1 ? helper.weaponList[(levelData.startWeapons[0])] : null;
+        weaponStats secondWeapon = levelData.startWeapons[1] != -1 ? helper.weaponList[(levelData.startWeapons[1])] : null;
+
+        playerScript.pickupWeapon(firstWeapon);
+        playerScript.pickupWeapon(secondWeapon);
+        // TODO: increase player's max energy based on the total number of ambushes won
     }
 
     void Start()
@@ -115,6 +132,12 @@ public class gameManager : MonoBehaviour
         statePaused();
         menuActive = menuWin;
         menuActive.SetActive(true);
+
+        // Save data if playing on a regular level
+        if (levelId != LevelIdEnum.Other)
+        {
+            saveSystem.SaveLevelData(levelId, this);
+        }
     }
 
     public void scenarioPlayerLoses()
