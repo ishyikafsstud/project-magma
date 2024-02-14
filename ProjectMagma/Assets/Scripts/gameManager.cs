@@ -7,7 +7,21 @@ using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
+    public enum LevelIdEnum
+    {
+        Other = 0,
+        Level1 = 1,
+        Level2,
+        Level3,
+        Level4,
+        Level5,
+    }
+
     public static gameManager instance;
+
+    [Header("---- Level Data ----")]
+    [SerializeField] LevelIdEnum levelId = LevelIdEnum.Other;
+    public LevelIdEnum LevelId { get => levelId; }
 
     [Header("---- UI ----")]
     [SerializeField] GameObject menuActive;
@@ -29,7 +43,6 @@ public class gameManager : MonoBehaviour
     public GameObject playerSpawnPosition;
     public GameObject player;
     public playerController playerScript;
-
 
     [Header("Functional settings")]
     public bool isPaused;
