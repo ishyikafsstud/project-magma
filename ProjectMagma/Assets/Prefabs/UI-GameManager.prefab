@@ -2934,7 +2934,7 @@ MonoBehaviour:
   playerHealthbar: {fileID: 3485526451889417748}
   playerEnergybar: {fileID: 8395521046521427636}
   playerDamageScreenFlash: {fileID: 3331555979164700209}
-  keyPrefab: {fileID: 2510333753149592051, guid: 6cc98c555488d0b43808b5004143c9be, type: 3}
+  keyPrefab: {fileID: 7516420828584535120, guid: a63f9ed5ef581544ba657aef03d9d8ee, type: 3}
   playerSpawnPosition: {fileID: 0}
   player: {fileID: 0}
   playerScript: {fileID: 0}
