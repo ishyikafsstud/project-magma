@@ -18,7 +18,7 @@ MonoBehaviour:
   energyCostPerShot: 4
   weaponType: 1
   projectilePrefab: {fileID: 4118894386160214544, guid: 3c1b5ab9ecbdd1440bbc8901c7fe1f14, type: 3}
-  model: {fileID: 7611433729629226177, guid: 15e58ef5cf689404e8d9977909939b91, type: 3}
-  hitEffect: {fileID: 6523699520211762466, guid: 0edef91621bb6b34384ccc9dbb98729c, type: 3}
+  model: {fileID: 3460309768193795681, guid: d793f96bdc4bd5d4db096181a7ce803a, type: 3}
+  hitEffect: {fileID: 6523699520211762466, guid: 3710cc30f9fafbb4c85d745dd7bff2b6, type: 3}
   shootSound: {fileID: 0}
   shootSoundVolume: 0
