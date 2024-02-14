@@ -32,6 +32,11 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("Shooting")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
+    /// <summary>
+    /// Return read-only version of the weapon list.
+    /// </summary>
+    public System.Collections.ObjectModel.ReadOnlyCollection<weaponStats> GetWeaponList() { return weaponList.AsReadOnly(); }
+
     [SerializeField] GameObject weaponPosition;
     [SerializeField] GameObject shootPosition;
     [SerializeField] int shootDamage;
