@@ -53,7 +53,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
     [Header("---- Combat Effects ---")]
     [SerializeField] protected int maxFreezeStack = 5;
-    [SerializeField] protected float freezeStackStrength = 0.08f;
+    [SerializeField] protected float freezeStackStrength = 1f;
     /// <summary>
     /// Do not access/set this value directly, use CurrentFreezeStack setter.
     /// </summary>
@@ -73,6 +73,7 @@ public class enemyAI : MonoBehaviour, IDamage
     float stoppingDistOrig;
     bool canRotate = true; //For locking enemy rotation 
     bool hasBeenAlerted;
+    Color origColor;
 
     public delegate void EnemyAction(GameObject enemy);
 
@@ -109,6 +110,12 @@ public class enemyAI : MonoBehaviour, IDamage
             currentFreezeStack = actualValue;
 
             UpdateSpeed();
+
+            // Change color to indicate freeze effect
+            model.material.color = Color.Lerp(origColor, Color.cyan, GetSlowdownEffectStrength());
+
+            // Start a coroutine to revert the color after 5 seconds
+            StartCoroutine(RevertColorAfterDelay(5.0f));
         }
     }
     public float GetSlowdownEffectStrength()
@@ -119,12 +126,20 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         return Mathf.Max(1.0f - GetSlowdownEffectStrength(), 0);
     }
+    private IEnumerator RevertColorAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // Revert back to original color
+        model.material.color = origColor;
+    }
 
 
     // Start is called before the first frame update
     void Start()
     {
         origHP = HP;
+        origColor = model.material.color;
         origSpeed = agent.speed;
         //enemyManager.instance.EnemySpawned(gameObject, isMinion); // spawners should be responsible for reporting enemies
         stoppingDistOrig = agent.stoppingDistance;
@@ -214,12 +229,13 @@ public class enemyAI : MonoBehaviour, IDamage
     void ChasePlayer()
     {
         agent.SetDestination(gameManager.instance.player.transform.position);
-        if (agent.remainingDistance < agent.stoppingDistance && canRotate)
+        if (agent.remainingDistance < agent.stoppingDistance)
             faceTarget();
     }
 
     void faceTarget()
     {
+        if(!canRotate) return;
         Quaternion rot = Quaternion.LookRotation(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, faceTargetSpeed * Time.deltaTime);
     }
@@ -319,14 +335,11 @@ public class enemyAI : MonoBehaviour, IDamage
         if (model == null)
             yield break;
 
-        // Remember the old color
-        Color oldColor = model.material.color;
-
         // Flash red for some time
         model.material.color = Color.red;
         yield return new WaitForSeconds(damageFlashLength);
 
-        model.material.color = oldColor;
+        model.material.color = origColor;
     }
 
     protected virtual bool CanAttack()
