@@ -31,27 +31,33 @@ public class menuManager : MonoBehaviour
     public void Continue()
     {
         //Add save system code here to resume where player left off
+        Debug.Log("Button Test: Continue Button Presssed.");
     }
 
     // Settings
     public void MasterVolumeChanged()
     {
+        Debug.Log("Slider Test: Master Volume Changed.");
         // Controls Master Volume
     }
     public void SFXVolumeChanged()
     {
+        Debug.Log("Slider Test: SFX Volume Changed.");
         // Controls Sound Effect Volume
     }
     public void MusicVolumeChanged()
     {
+        Debug.Log("Slider Test: Music Volume Changed.");
         // Controls Music Volume
     }
     public void UIVolumeChanged()
     {
+        Debug.Log("Slider Test: UI Volume Changed.");
         // Controls UI Volume. Menus/Button sounds
     }
     public void TiltCameraChanged()
     {
+        Debug.Log("Toggle Test: Camera Tilt Changed.");
         // Calls/Toggles Tilt Camera off/on
     }
 
