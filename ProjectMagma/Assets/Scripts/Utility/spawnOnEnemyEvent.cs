@@ -30,6 +30,8 @@ public class spawnOnEnemyEvent : MonoBehaviour
 
     void SpawnObjectsOnDeath(GameObject diedEnemy)
     {
+        if (spawnedObjectPrefab == null) return;
+
         foreach (GameObject spawnPos in spawnPositions)
         {
             GameObject objectInst = Instantiate(spawnedObjectPrefab, spawnPos.transform.position, spawnPos.transform.rotation);

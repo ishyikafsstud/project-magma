@@ -2203,7 +2203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef2b15502ca2cd64ca68ff138fa76c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnedEnemyPrefab: {fileID: 6469188073297186863, guid: 39723793ad110c041aa158b7a8ae6edf, type: 3}
+  spawnedObjectPrefab: {fileID: 6469188073297186863, guid: 39723793ad110c041aa158b7a8ae6edf, type: 3}
   spawnPositions:
   - {fileID: 3437441690394309799}
   - {fileID: 8132034651732602846}
