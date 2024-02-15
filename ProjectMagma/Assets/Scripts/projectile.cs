@@ -65,17 +65,16 @@ public class projectile : MonoBehaviour
         {
             dmg.takeDamage(damageAmount);
 
-            if (type == Types.Poison)
-            {
-                StickToObject(other);
-                StartCoroutine(ExplosionDelay());
-                return;
-            }
-
             if (type == Types.Ice)
             {
                 StartCoroutine(dmg.ApplyFreeze(1));
             }
+        }
+        if (type == Types.Poison)
+        {
+            StickToObject(other);
+            StartCoroutine(ExplosionDelay());
+            return;
         }
 
         if (weaponType == weaponStats.WeaponTypes.Projectile && projectileHitEffect != null)
