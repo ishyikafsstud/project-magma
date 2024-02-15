@@ -15,7 +15,7 @@ MonoBehaviour:
   altRange: 5
   altDamage: 1
   altRate: 0.5
-  pushForce: 30
+  pushForce: 100
   hitParticlePrefab: {fileID: 1171201465392465800, guid: 4aa9f30a28a77224ba84b2a2c334c71b, type: 3}
   particleDuration: 1
   shootDamage: 5
