@@ -10,6 +10,7 @@ public class weaponStats : ScriptableObject
     [SerializeField] public float altRange;
     [SerializeField] public int altDamage;
     [SerializeField] public float altRate;
+    [SerializeField] public float pushForce;
     [SerializeField] public GameObject hitParticlePrefab;
     [SerializeField] public float particleDuration;
     [Header("----- Shooting ----")]

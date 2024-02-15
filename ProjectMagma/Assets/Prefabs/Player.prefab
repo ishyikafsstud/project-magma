@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 464703011730294382}
   - component: {fileID: 8352702161187108253}
   - component: {fileID: 7058744712777680588}
+  - component: {fileID: 4527473754651348832}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -50,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2324110343507679693}
+  altAttackCollider: {fileID: 4527473754651348832}
   health: 20
   healthRegenRate: 2
   isInvincible: 0
@@ -73,11 +75,6 @@ MonoBehaviour:
   energyCostPerShot: 0
   energyRegenRate: 27
   energyIncreasePerAmbush: 20
-  meleeRange: 3
-  meleeDamage: 5
-  meleeRate: 0.5
-  particleDuration: 0.1
-  hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
   damageFlashDuration: 0.1
 --- !u!143 &2324110343507679693
 CharacterController:
@@ -178,6 +175,29 @@ CapsuleCollider:
   m_Height: 0.1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &4527473754651348832
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338917909320548506}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 3.5
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 2}
 --- !u!1 &617650917779180378
 GameObject:
   m_ObjectHideFlags: 0

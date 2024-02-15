@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class enemyAI : MonoBehaviour, IDamage
+public class enemyAI : MonoBehaviour, IDamage, IPushable
 {
     [Header("----- Componets -----")]
     [SerializeField] Renderer model;
@@ -240,6 +240,11 @@ public class enemyAI : MonoBehaviour, IDamage
             if (hit.collider.CompareTag("Player") && angleToPlayer <= fieldOfView)
                 spotPlayer();
         }
+    }
+
+    public void Push(Vector3 direction, float force)
+    {
+        transform.Translate(direction * force * Time.deltaTime, Space.World);
     }
 
     public void takeDamage(int amount)

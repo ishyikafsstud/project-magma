@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb8fe04bec90c1468c6f2485591ae7d, type: 3}
   m_Name: Weapon - Electric Staff
   m_EditorClassIdentifier: 
-  altRange: 3
-  altDamage: 3
+  altRange: 5
+  altDamage: 1
   altRate: 0.5
+  pushForce: 30
   hitParticlePrefab: {fileID: 1171201465392465800, guid: 4aa9f30a28a77224ba84b2a2c334c71b, type: 3}
   particleDuration: 1
   shootDamage: 5

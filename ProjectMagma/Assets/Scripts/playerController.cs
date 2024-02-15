@@ -7,31 +7,34 @@ using UnityEngine.EventSystems;
 
 public class playerController : MonoBehaviour, IDamage
 {
+    [Header("----- Components -----")]
     [SerializeField] CharacterController controller;
-    [Header("Player Health")]
+    public Collider altAttackCollider;
+    
+    [Header("----- Player Health -----")]
     [SerializeField] float health;
     [SerializeField] float healthRegenRate;
     [SerializeField] bool isInvincible;
     [SerializeField] bool hasInfiniteEnergy;
 
-    [Header("Walking & Running")]
+    [Header("----- Walking & Running -----")]
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
 
-    [Header("Camera Tilting")]
+    [Header("----- Camera Tilting -----")]
     [SerializeField] Transform cameraTiltAnchor;
     [SerializeField] float maxCameraTilt;
     [SerializeField] float tiltCameraSpeed;
     [SerializeField] private bool canTilt = true;
 
-    [Header("Jumps & Gravity")]
+    [Header("----- Jumps & Gravity -----")]
     [Tooltip("The maximum number of jumps the player can perform before hitting the ground.")]
     [SerializeField] int jumpMaxNumber;
     [SerializeField] float jumpStrength;
     [SerializeField] float gravityStrength;
     [SerializeField] float maxVerticalSpeed;
 
-    [Header("Shooting")]
+    [Header("----- Shooting -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
     /// <summary>
     /// Return read-only version of the weapon list.
@@ -48,7 +51,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float energyRegenRate;
     [SerializeField] float energyIncreasePerAmbush;
 
-    [Header("UI")]
+    [Header("----- UI -----")]
     [Tooltip("The duration of screen flash upon receiving damage.")]
     [SerializeField] float damageFlashDuration;
 
@@ -314,7 +317,7 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator AltAttack()
     {
         isAltActive = true;
-
+        altAttackCollider.enabled = true;
         RaycastHit hit;
         // The layer masks of the collision layers we want the raycast to hit: Default, Enemy.
         // Using it specifies the layers we want the raycast to collide with.
@@ -325,6 +328,15 @@ public class playerController : MonoBehaviour, IDamage
             if (damagedBody != null && hit.collider.CompareTag("Enemy"))
             {
                 damagedBody.takeDamage(weaponList[selectedWeapon].altDamage);
+
+                // Calculates the direction from the player to the enemy
+                Vector3 direction = (hit.collider.transform.position - transform.position).normalized;
+
+                // Accesses the push force from the WeaponStats of the selected weapon
+                float force = weaponList[selectedWeapon].pushForce;
+
+                // Calls the Push method on the enemy object
+                hit.collider.GetComponent<IPushable>()?.Push(direction, force);
             }
             SpawnHitParticles(hit.point);
         }
@@ -332,6 +344,7 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(weaponList[selectedWeapon].altRate);
         
         isAltActive = false;
+        altAttackCollider.enabled = false;
     }
     /// <summary>
     /// Melee Feedback
