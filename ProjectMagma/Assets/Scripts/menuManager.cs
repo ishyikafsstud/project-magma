@@ -34,23 +34,23 @@ public class menuManager : MonoBehaviour
     }
 
     // Settings
-    public void MasterVolume()
+    public void MasterVolumeChanged()
     {
         // Controls Master Volume
     }
-    public void SFXVolume()
+    public void SFXVolumeChanged()
     {
         // Controls Sound Effect Volume
     }
-    public void MusicVolume()
+    public void MusicVolumeChanged()
     {
         // Controls Music Volume
     }
-    public void UIVolume()
+    public void UIVolumeChanged()
     {
         // Controls UI Volume. Menus/Button sounds
     }
-    public void TiltCamera()
+    public void TiltCameraChanged()
     {
         // Calls/Toggles Tilt Camera off/on
     }
