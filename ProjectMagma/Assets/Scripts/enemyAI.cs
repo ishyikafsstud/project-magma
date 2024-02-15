@@ -235,7 +235,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
     void faceTarget()
     {
-        if(!canRotate) return;
+        if (!canRotate) return;
         Quaternion rot = Quaternion.LookRotation(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, faceTargetSpeed * Time.deltaTime);
     }
@@ -316,12 +316,21 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         enemyManager.instance.EnemyDied(gameObject, isMinion);
 
-        // If it's the last enemy and it's not an ambush, drop the key
-        if (enemyManager.instance.TotalEnemies == 0 && !gameManager.instance.IsKeyDropped)
+        // If it's the last enemy
+        if (enemyManager.instance.TotalEnemies == 0)
         {
             Vector3 lootPos = lootPosition != null ? lootPosition.transform.position : transform.position;
-
-            gameManager.instance.SpawnKey(lootPos);
+            
+            // If the key was not dropped (i.e. it was the last "required" enemy), drop the key
+            if (!gameManager.instance.IsKeyDropped)
+            {
+                gameManager.instance.SpawnKey(lootPos);
+            }
+            // if the key was already dropped then the died enemy was the last ambush enemy, so drop the ambush reward
+            else if (!gameManager.instance.IsAmbushRewardDropped)
+            {
+                gameManager.instance.SpawnAmbushReward(lootPos);
+            }
         }
 
         OnDeath();
