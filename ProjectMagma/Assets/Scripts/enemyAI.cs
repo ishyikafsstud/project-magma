@@ -370,6 +370,7 @@ public class enemyAI : MonoBehaviour, IDamage
     protected virtual void AttackAnimationEnd()
     {
         isAttacking = false;
+        canRotate = true;
         animator.ResetTrigger("AttackTrigger");
         enemyManager.instance.attackingEnemiesCount--;
         //yield return new WaitForSeconds(attackRate);
