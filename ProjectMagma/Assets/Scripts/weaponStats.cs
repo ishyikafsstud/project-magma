@@ -6,11 +6,17 @@ using UnityEngine;
 
 public class weaponStats : ScriptableObject
 {
+    [Header("----- Alt Attack -----")]
+    [SerializeField] public float altRange;
+    [SerializeField] public int altDamage;
+    [SerializeField] public float altRate;
+    [SerializeField] public GameObject hitParticlePrefab;
+    [SerializeField] public float particleDuration;
+    [Header("----- Shooting ----")]
     public int shootDamage;
     public float shootRate;
     public int shootDist;
     public float energyCostPerShot;
-
     /// <summary>
     /// Describes the underlying implementation of the weapon.
     /// </summary>

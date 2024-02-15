@@ -47,13 +47,6 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float energyRegenRate;
     [SerializeField] float energyIncreasePerAmbush;
 
-    [Header("Melee")]
-    [SerializeField] float meleeRange;
-    [SerializeField] int meleeDamage;
-    [SerializeField] float meleeRate;
-    [SerializeField] float particleDuration;
-    public GameObject hitParticlesPrefab;
-
     [Header("UI")]
     [Tooltip("The duration of screen flash upon receiving damage.")]
     [SerializeField] float damageFlashDuration;
@@ -72,7 +65,7 @@ public class playerController : MonoBehaviour, IDamage
     private float walkToSprintSpeedRatio;
     private int selectedWeapon;
     private bool isShooting;
-    private bool isMeleeActive;
+    private bool isAltActive;
 
     public float Health
     {
@@ -133,10 +126,10 @@ public class playerController : MonoBehaviour, IDamage
                     gameManager.instance.ShowHint("Not enough energy to shoot \nKeep Moving!");
                 }
             }
-            // Right click - melee attack
-            else if (Input.GetButton("Hit") && !isMeleeActive && !isShooting)
+            // Right click - alt attack
+            else if (Input.GetButton("Hit") && !isAltActive && !isShooting)
             {
-                StartCoroutine(MeleeAttack());
+                StartCoroutine(AltAttack());
             }
         }
 
@@ -305,27 +298,27 @@ public class playerController : MonoBehaviour, IDamage
         projectileScript.DamageValue = weaponList[selectedWeapon].shootDamage;
     }
 
-    IEnumerator MeleeAttack()
+    IEnumerator AltAttack()
     {
-        isMeleeActive = true;
+        isAltActive = true;
 
         RaycastHit hit;
         // The layer masks of the collision layers we want the raycast to hit: Default, Enemy.
         // Using it specifies the layers we want the raycast to collide with.
         int layerMask = (1 << 0) | (1 << 6);
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, meleeRange, layerMask))
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, weaponList[selectedWeapon].altRange, layerMask))
         {
             IDamage damagedBody = hit.collider.GetComponent<IDamage>();
             if (damagedBody != null && hit.collider.CompareTag("Enemy"))
             {
-                damagedBody.takeDamage(meleeDamage);
+                damagedBody.takeDamage(weaponList[selectedWeapon].altDamage);
             }
             SpawnHitParticles(hit.point);
         }
         // Delay between melee hits
-        yield return new WaitForSeconds(meleeRate);
-
-        isMeleeActive = false;
+        yield return new WaitForSeconds(weaponList[selectedWeapon].altRate);
+        
+        isAltActive = false;
     }
     /// <summary>
     /// Melee Feedback
@@ -333,9 +326,9 @@ public class playerController : MonoBehaviour, IDamage
     /// <param name="position">Position of the hit particles.</param>
     void SpawnHitParticles(Vector3 position)
     {
-        GameObject hitParticles = Instantiate(hitParticlesPrefab, position, Quaternion.identity);
+        GameObject hitParticles = Instantiate(weaponList[selectedWeapon].hitParticlePrefab, position, Quaternion.identity);
 
-        Destroy(hitParticles, particleDuration);
+        Destroy(hitParticles, weaponList[selectedWeapon].particleDuration);
     }
 
     /// <summary>

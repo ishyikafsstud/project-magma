@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb8fe04bec90c1468c6f2485591ae7d, type: 3}
   m_Name: Weapon - Ice Staff
   m_EditorClassIdentifier: 
+  altRange: 3
+  altDamage: 3
+  altRate: 0.5
+  hitParticlePrefab: {fileID: 2060900179291159282, guid: ca6705a3f9070d14d819d179493bcfa0, type: 3}
+  particleDuration: 1
   shootDamage: 1
   shootRate: 0.05
   shootDist: 15

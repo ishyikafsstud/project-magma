@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb8fe04bec90c1468c6f2485591ae7d, type: 3}
   m_Name: Weapon - Fire Staff
   m_EditorClassIdentifier: 
+  altRange: 3
+  altDamage: 3
+  altRate: 0.5
+  hitParticlePrefab: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473, type: 3}
+  particleDuration: 1
   shootDamage: 50
   shootRate: 1
   shootDist: 25
