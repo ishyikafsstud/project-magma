@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] Transform cameraTiltAnchor;
     [SerializeField] float maxCameraTilt;
     [SerializeField] float tiltCameraSpeed;
+    [SerializeField] private bool canTilt = true;
 
     [Header("Jumps & Gravity")]
     [Tooltip("The maximum number of jumps the player can perform before hitting the ground.")]
@@ -170,7 +171,10 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(horMotion);
 
         // Call tiltCamera to handle camera tilt based on horizontal motion
-        tiltCamera(horMotionDirection);
+        if(canTilt)
+        {
+            tiltCamera(horMotionDirection);
+        }
 
         // Handle jumping
         if (Input.GetButtonDown("Jump") & jumpCount < jumpMaxNumber)
@@ -205,6 +209,15 @@ public class playerController : MonoBehaviour, IDamage
         // Debug.Log("Lateral Velocity: " + lateralVelocity);
         // Debug.Log("Expected Tilt Angle: " + expectedTiltAngle);
         // Debug.Log("Current Tilt Angle: " + currentTiltAngle);
+    }
+
+    public void EnableTilt(bool enable)
+    {
+        canTilt = enable;
+        if(!canTilt)
+        {
+            cameraTiltAnchor.localRotation = Quaternion.identity;
+        }
     }
 
     void jump()
