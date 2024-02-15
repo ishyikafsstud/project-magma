@@ -6,8 +6,8 @@ using UnityEngine.Events;
 public class spawnOnEnemyEvent : MonoBehaviour
 {
 
-    [Tooltip("The enemy to spawn.")]
-    [SerializeField] GameObject spawnedEnemyPrefab;
+    [Tooltip("The object to spawn.")]
+    [SerializeField] GameObject spawnedObjectPrefab;
     [Tooltip("The spawn positions for the object. The specified object will be spawned at each of them.")]
     [SerializeField] List<GameObject> spawnPositions = new List<GameObject>();
 
@@ -32,10 +32,13 @@ public class spawnOnEnemyEvent : MonoBehaviour
     {
         foreach (GameObject spawnPos in spawnPositions)
         {
-            GameObject enemyInst = Instantiate(spawnedEnemyPrefab, spawnPos.transform.position, spawnPos.transform.rotation);
-            enemyAI spawnedEnemyScript = enemyInst.GetComponent<enemyAI>();
-            spawnedEnemyScript.IsMinion = true;
-            spawnedEnemyScript.BecomeAlerted(gameManager.instance.player.transform.position);
+            GameObject objectInst = Instantiate(spawnedObjectPrefab, spawnPos.transform.position, spawnPos.transform.rotation);
+            enemyAI spawnedEnemyScript = objectInst.GetComponent<enemyAI>();
+            if (spawnedEnemyScript != null)
+            {
+                spawnedEnemyScript.IsMinion = true;
+                spawnedEnemyScript.BecomeAlerted(gameManager.instance.player.transform.position);
+            }
         }
     }
 }
