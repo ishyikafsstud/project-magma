@@ -2013,7 +2013,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1619444224881450977, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2062517292711689769, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
       propertyPath: HP
@@ -2452,7 +2452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5331191828365259758, guid: f027186b3b106d44f8a283b75cb29af6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8908332556140719495, guid: f027186b3b106d44f8a283b75cb29af6, type: 3}
       propertyPath: m_LocalPosition.x
