@@ -39,6 +39,7 @@ public class gameManager : MonoBehaviour
 
     [Header("---- Prefabs ----")]
     [SerializeField] GameObject keyPrefab;
+    [SerializeField] GameObject ambushRewardPrefab;
 
     [Header("---- Automatic set ----")]
     public GameObject playerSpawnPosition;
@@ -51,8 +52,12 @@ public class gameManager : MonoBehaviour
 
     public bool IsKeyDropped { get; private set; }
     public bool IsKeyPicked { get; private set; }
-    public delegate void KeyPickedAction();
-    public static event KeyPickedAction OnKeyPicked;
+    public bool IsAmbushRewardDropped { get; private set; }
+    public bool IsAmbushRewardPicked { get; private set; }
+
+    public delegate void ItemPicked();
+    public static event ItemPicked OnKeyPicked;
+    public static event ItemPicked AmbushRewardPickedEvent;
 
 
     void Awake()
@@ -63,6 +68,8 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
+
+        playerScript.PlayerSpawnedEvent += OnPlayerSpawned;
 
         LoadGeneralSettings();
 
@@ -90,16 +97,18 @@ public class gameManager : MonoBehaviour
 
         playerScript.pickupWeapon(firstWeapon);
         playerScript.pickupWeapon(secondWeapon);
-
-        int ambushesDefeated = saveSystem.CountAmbushesDefeated(levelId);
-        // TODO: increase player's max energy based on the total number of ambushes won
-        // player.ApplyAmbushDefeatReward(ambushesDefeated);
     }
 
     void Start()
     {
         UpdateEnemyCountText();
         ShowHint("Good Luck!");
+    }
+
+    void OnPlayerSpawned()
+    {
+        int ambushesDefeated = saveSystem.CountAmbushesDefeated(levelId);
+        playerScript.ApplyAmbushDefeatPowerup(ambushesDefeated);
     }
 
     // Update is called once per frame
@@ -177,6 +186,7 @@ public class gameManager : MonoBehaviour
 
         gameManager.instance.ShowHint("Enemy Dropped Activator Stone");
     }
+
     public void keyPicked()
     {
         IsKeyPicked = true;
@@ -191,6 +201,29 @@ public class gameManager : MonoBehaviour
             enemyManager.instance.ambushSpawner.gameObject.SetActive(true);
             enemyManager.instance.ambushSpawner.StartAmbush();
         }
+    }
+
+    /// <summary>
+    /// Spawn the ambush reward and inform the player about it.
+    /// </summary>
+    /// <param name="pos">Spawn position.</param>
+    public void SpawnAmbushReward(Vector3 pos)
+    {
+        IsAmbushRewardDropped = true;
+
+        if (ambushRewardPrefab != null)
+            Instantiate(ambushRewardPrefab, pos, Quaternion.identity);
+
+        gameManager.instance.ShowHint("Enemy Dropped Ambush Reward");
+    }
+
+    public void ambushRewardPicked()
+    {
+        IsAmbushRewardPicked = true;
+
+        playerScript.ApplyAmbushDefeatPowerup(1);
+
+        AmbushRewardPickedEvent?.Invoke();
     }
 
     public void UpdateEnemyCountText()

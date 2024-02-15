@@ -72,6 +72,7 @@ MonoBehaviour:
   energy: 100
   energyCostPerShot: 0
   energyRegenRate: 27
+  energyIncreasePerAmbush: 20
   meleeRange: 3
   meleeDamage: 5
   meleeRate: 0.5

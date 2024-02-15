@@ -45,6 +45,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float energy;
     [SerializeField] float energyCostPerShot;
     [SerializeField] float energyRegenRate;
+    [SerializeField] float energyIncreasePerAmbush;
 
     [Header("Melee")]
     [SerializeField] float meleeRange;
@@ -79,6 +80,18 @@ public class playerController : MonoBehaviour, IDamage
         set => health = Mathf.Clamp(value, 0, healthOriginal);
     }
 
+    public delegate void PlayerAction();
+    public event PlayerAction PlayerSpawnedEvent;
+
+    /// <summary>
+    /// Apply ambush defeat reward powerup.
+    /// </summary>
+    /// <param name="stacks">How many stacks of the powerup to apply.</param>
+    public void ApplyAmbushDefeatPowerup(int stacks = 1)
+    {
+        energyOriginal += energyIncreasePerAmbush * stacks;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,6 +100,8 @@ public class playerController : MonoBehaviour, IDamage
         currentSpeed = walkSpeed;
         walkToSprintSpeedRatio = walkSpeed / sprintSpeed;
 
+        PlayerSpawnedEvent?.Invoke();
+        
         updatePlayerUI();
         //respawn();
     }

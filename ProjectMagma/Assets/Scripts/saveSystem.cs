@@ -92,7 +92,7 @@ public abstract class saveSystem : MonoBehaviour
         PlayerPrefs.SetInt(levelPrefix + levelEndWeapon1KeySuffix, playerWeapons.Count >= 1 ? (int)playerWeapons[0].wandType : -1);
         PlayerPrefs.SetInt(levelPrefix + levelEndWeapon2KeySuffix, playerWeapons.Count >= 2 ? (int)playerWeapons[1].wandType : -1);
         // Ambush defeated
-        // TODO: implement ambush defeated fact saving
+        PlayerPrefs.SetInt(levelPrefix + levelAmbushDefeatedKeySuffix, gameManagerInst.IsAmbushRewardPicked ? 1 : 0);
 
 
         // If it is not the last level, then unlock the next level + set the starting weapons for it
