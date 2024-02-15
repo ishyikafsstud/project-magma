@@ -28,6 +28,34 @@ public class menuManager : MonoBehaviour
             Debug.LogWarning("Scene is not set in inspector.");
         }
     }
+    public void Continue()
+    {
+        //Add save system code here to resume where player left off
+    }
+
+    // Settings
+    public void MasterVolume()
+    {
+        // Controls Master Volume
+    }
+    public void SFXVolume()
+    {
+        // Controls Sound Effect Volume
+    }
+    public void MusicVolume()
+    {
+        // Controls Music Volume
+    }
+    public void UIVolume()
+    {
+        // Controls UI Volume. Menus/Button sounds
+    }
+    public void TiltCamera()
+    {
+        // Calls/Toggles Tilt Camera off/on
+    }
+
+    // Need to implement code so that Level select buttons stay disabled until the player completes that level
     public void LoadLevelOne()
     {
         if (levelOne != null)
