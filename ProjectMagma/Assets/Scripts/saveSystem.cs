@@ -89,8 +89,8 @@ public abstract class saveSystem : MonoBehaviour
         // Mark as completed
         PlayerPrefs.SetInt(levelPrefix + levelCompletedKeySuffix, 1);
         // Remember end weapons
-        PlayerPrefs.SetInt(levelPrefix + levelEndWeapon1KeySuffix, (int)playerWeapons[0].wandType);
-        PlayerPrefs.SetInt(levelPrefix + levelEndWeapon2KeySuffix, (int)playerWeapons[1].wandType);
+        PlayerPrefs.SetInt(levelPrefix + levelEndWeapon1KeySuffix, playerWeapons.Count >= 1 ? (int)playerWeapons[0].wandType : -1);
+        PlayerPrefs.SetInt(levelPrefix + levelEndWeapon2KeySuffix, playerWeapons.Count >= 2 ? (int)playerWeapons[1].wandType : -1);
         // Ambush defeated
         // TODO: implement ambush defeated fact saving
 
@@ -105,8 +105,8 @@ public abstract class saveSystem : MonoBehaviour
             PlayerPrefs.SetInt(nextLevelPrefix + levelUnlockedKeySuffix, 1);
 
             // Set start weapons
-            PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeapon1KeySuffix, (int)playerWeapons[0].wandType);
-            PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeapon2KeySuffix, (int)playerWeapons[1].wandType);
+            PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeapon1KeySuffix, playerWeapons.Count >= 1 ? (int)playerWeapons[0].wandType : -1);
+            PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeapon2KeySuffix, playerWeapons.Count >= 2 ? (int)playerWeapons[1].wandType : -1);
         }
 
         PlayerPrefs.Save();
