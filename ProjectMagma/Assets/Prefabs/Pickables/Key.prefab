@@ -130,6 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9fad7a1f6092d4e9d0b180169bf855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiresPickupConfirmation: 1
+  itemTitle: Activator Stone
+  itemDescription: Activates portal, attracts the ambush
 --- !u!114 &2855919532048462190
 MonoBehaviour:
   m_ObjectHideFlags: 0
