@@ -47,6 +47,7 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     public playerController playerScript;
     helperClass helper;
+    public helperClass Helper { get { return helper; } }
 
     [Header("Functional settings")]
     public bool isPaused;
