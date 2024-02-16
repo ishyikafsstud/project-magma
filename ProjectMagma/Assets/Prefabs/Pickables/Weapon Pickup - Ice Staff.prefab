@@ -47,6 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f3179a0ea01d974b8d9b6dae31ce525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiresPickupConfirmation: 0
+  showPrompt: 1
+  itemTitle: 
+  itemDescription: 
   weapon: {fileID: 11400000, guid: 76e01bf8dc4ac044c896672548c983c8, type: 2}
 --- !u!33 &2502958228679886604
 MeshFilter:
