@@ -38,6 +38,9 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] TextMeshProUGUI itemPromptTitle;
+    [SerializeField] TextMeshProUGUI itemPromptDescription;
+    [SerializeField] TextMeshProUGUI itemPromptDirection;
 
     [SerializeField] TextMeshProUGUI hintText;
     [SerializeField] float hintDuration;
@@ -296,5 +299,22 @@ public class gameManager : MonoBehaviour
     public void HideHint()
     {
         hintText.gameObject.SetActive(false);
+    }
+    public void ShowItemPrompt(string title, string description)
+    {
+        itemPromptTitle.text = title;
+        itemPromptTitle.gameObject.SetActive(true);
+
+        itemPromptDescription.text = description;
+        itemPromptDescription.gameObject.SetActive(true);
+
+        itemPromptDirection.text = "Press E to Pickup";
+        itemPromptDirection.gameObject.SetActive(true);
+    }
+    public void StopShowingItemPrompt()
+    {
+        itemPromptTitle.gameObject.SetActive(false);
+        itemPromptDescription.gameObject.SetActive(false);
+        itemPromptDirection.gameObject.SetActive(false);
     }
 }

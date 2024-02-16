@@ -45,7 +45,7 @@ public class pickableItemBase : MonoBehaviour, IPickable
                 canPickup = true;
                 if (showPrompt)
                 {
-                    //gameManager.instance.ShowItemPrompt(itemTitle, itemDescription);
+                    gameManager.instance.ShowItemPrompt(itemTitle, itemDescription);
                 }
             }
             // If confirmation is nonessential, just pickup.
@@ -61,7 +61,7 @@ public class pickableItemBase : MonoBehaviour, IPickable
         canPickup = false;
         if (showPrompt)
         {
-            //gameManager.instance.StopShowingItemPrompt();
+            gameManager.instance.StopShowingItemPrompt();
         }
     }
 }
