@@ -17,4 +17,13 @@ public class helperClass : MonoBehaviour
         "with the int value of their wandType. (e.g. Electric has the value of 0 so it must be the first in the list).\n" +
         "TL;DR - UNLESS YOU ARE IVAN, DON'T MESS WITH THIS LIST.")]
     [SerializeField] public List<GameObject> weaponItemsList;
+
+    [SerializeField] List<string> levelNames = new List<string>();
+    public System.Collections.ObjectModel.ReadOnlyCollection<string> LevelNames {  get { return levelNames.AsReadOnly(); } }
+
+    public string GetNextLevelName(gameManager.LevelIdEnum levelId)
+    {
+        int nextLevelIndex = (int)levelId;
+        return levelNames[nextLevelIndex];
+    }
 }
