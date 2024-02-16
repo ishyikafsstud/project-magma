@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f3179a0ea01d974b8d9b6dae31ce525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiresPickupConfirmation: 0
+  requiresPickupConfirmation: 1
   showPrompt: 1
-  itemTitle: 
+  itemTitle: Rock Wand
   itemDescription: 
   weapon: {fileID: 11400000, guid: 7fa4b58851c4b6e46bcf8ef0277a2700, type: 2}
 --- !u!33 &8684162858995906823

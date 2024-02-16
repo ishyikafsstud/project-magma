@@ -32,6 +32,7 @@ public class pickableItemBase : MonoBehaviour, IPickable
         {
             Pickup();
             //Debug.Log("Picked " + itemTitle + " with the description '" + itemDescription + "'");
+            gameManager.instance.StopShowingItemPrompt();
         }
     }
 
