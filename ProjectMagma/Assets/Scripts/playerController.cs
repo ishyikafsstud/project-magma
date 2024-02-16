@@ -135,6 +135,11 @@ public class playerController : MonoBehaviour, IDamage
             {
                 StartCoroutine(AltAttack());
             }
+
+            if(Input.GetKeyDown(KeyCode.X))
+            {
+                dropWeapon(selectedWeapon);
+            }
         }
 
         RegenEnergy();
@@ -451,12 +456,12 @@ public class playerController : MonoBehaviour, IDamage
     void changeWeapon()
     {
         weaponStats currentWeapon = weaponList[selectedWeapon];
-
+        
         shootDamage = weaponList[selectedWeapon].shootDamage;
         shootDist = weaponList[selectedWeapon].shootDist;
         shootRate = weaponList[selectedWeapon].shootRate;
         energyCostPerShot = weaponList[selectedWeapon].energyCostPerShot;
-
+        
         weaponPosition.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
         weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
     }
@@ -491,8 +496,16 @@ public class playerController : MonoBehaviour, IDamage
 
     void dropWeapon(int weaponIndex)
     {
+        weaponStats.WandType wandType = weaponList[weaponIndex].wandType;
+        GameObject correctWandItem = gameManager.instance.Helper.weaponItemsList[(int)wandType];
+
         weaponList.RemoveAt(weaponIndex);
-        
-        // Instantiate the respective wand item
+
+        // Drop offset will change once button to pickup wands is implemented.
+        // For now, the wand drops behind the player so that the player doesnt keep colliding with it
+        int dropDistance = -2;
+        Vector3 dropPosition = transform.position + transform.forward * dropDistance;
+
+        Instantiate(correctWandItem, dropPosition, Quaternion.identity);
     }
 }
