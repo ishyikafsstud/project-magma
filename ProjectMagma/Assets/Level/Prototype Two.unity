@@ -7200,6 +7200,7 @@ MonoBehaviour:
   barriers:
   - {fileID: 50074528}
   - {fileID: 1679605968}
+  unlockDoorsOnPlayerLeave: 0
   enemyCount: 0
 --- !u!65 &558029486
 BoxCollider:
@@ -7220,8 +7221,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 24, y: 5, z: 32}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 24, y: 5, z: 30.446747}
+  m_Center: {x: 0, y: 0, z: -0.7766266}
 --- !u!4 &558029487
 Transform:
   m_ObjectHideFlags: 0
@@ -11483,6 +11484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barriers:
   - {fileID: 981232134}
+  unlockDoorsOnPlayerLeave: 0
   enemyCount: 0
 --- !u!4 &1005092237
 Transform:
@@ -21136,6 +21138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barriers: []
+  unlockDoorsOnPlayerLeave: 0
   enemyCount: 0
 --- !u!1 &1681158298
 GameObject:

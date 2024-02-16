@@ -8,6 +8,8 @@ public class roomController : MonoBehaviour
 {
     public GameObject[] barriers;
 
+    [SerializeField] bool unlockDoorsOnPlayerLeave;
+
     [SerializeField] private int enemyCount;
     private bool doorsLocked;
 
@@ -20,32 +22,33 @@ public class roomController : MonoBehaviour
             gameManager.instance.EnterGameState(gameManager.GameStates.Calm);
             UnlockDoors();
 
-            if (gameObject.CompareTag("Room Controller 1"))
-            {
-                gameObject.SetActive(false); // Deactivate Room Controller 1
-            }
-            else if (gameObject.CompareTag("Room Controller 2"))
-            {
-                gameObject.SetActive(false); // Deactivate Room Controller 2
-            }
+            gameObject.SetActive(false);
         }
     }
 
     public void LockDoors()
     {
         doorsLocked = true;
-        foreach (GameObject barrier in barriers)
+        if (barriers.Length > 0)
         {
-            barrier.GetComponent<Animator>().SetTrigger("Door Locked");
+            foreach (GameObject barrier in barriers)
+            {
+                if (barrier != null)
+                    barrier.GetComponent<Animator>().SetTrigger("Door Locked");
+            }
         }
     }
 
     public void UnlockDoors()
     {
         doorsLocked = false;
-        foreach (GameObject barrier in barriers)
+        if (barriers.Length > 0)
         {
-            barrier.GetComponent<Animator>().SetTrigger("Door Open");
+            foreach (GameObject barrier in barriers)
+            {
+                if (barrier != null)
+                    barrier.GetComponent<Animator>().SetTrigger("Door Open");
+            }
         }
     }
 
@@ -59,21 +62,21 @@ public class roomController : MonoBehaviour
                 gameManager.instance.EnterGameState(gameManager.GameStates.Combat);
                 LockDoors();
             }
-                
+
         }
         else if (other.CompareTag("Enemy"))
         {
             enemyCount++;
 
             other.GetComponent<enemyAI>().DeathEvent += DecrementEnemyCount;
-
         }
-  
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && unlockDoorsOnPlayerLeave)
+        {
             UnlockDoors();
+        }
     }
 }
