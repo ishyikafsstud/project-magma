@@ -131,7 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5aa2b5685c96184e99d52fe202603c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiresPickupConfirmation: 1
+  requiresPickupConfirmation: 0
+  showPrompt: 1
   itemTitle: Stone of Souls
   itemDescription: Permanently increases max energy
 --- !u!114 &6589437577483612445

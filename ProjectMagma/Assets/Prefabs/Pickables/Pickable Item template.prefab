@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae43542eb501664695f124fa4212469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiresPickupConfirmation: 1
+  requiresPickupConfirmation: 0
   showPrompt: 1
   itemTitle: 
   itemDescription: 
