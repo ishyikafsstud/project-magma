@@ -19,6 +19,14 @@ public class gameManager : MonoBehaviour
         LAST_LEVEL = Level5
     }
 
+    public enum GameStates
+    {
+        Calm,
+        Combat,
+        Ambush,
+        AmbushDefeated
+    }
+
     public static gameManager instance;
 
     [Header("---- Level Data ----")]
@@ -51,6 +59,9 @@ public class gameManager : MonoBehaviour
 
     [Header("Functional settings")]
     public bool isPaused;
+    [SerializeField] GameStates defaultGameState;
+    private GameStates curGameState;
+
 
     [Header("Mouse and Keyboard Menu Controls")]
     [Tooltip("Eventsystem will highlight this button first on the Win Menu.")]
@@ -113,6 +124,7 @@ public class gameManager : MonoBehaviour
     {
         UpdateEnemyCountText();
         ShowHint("Good Luck!");
+        EnterGameState(defaultGameState);
     }
 
     void OnPlayerSpawned()
@@ -135,6 +147,13 @@ public class gameManager : MonoBehaviour
             menuActive.SetActive(isPaused);
         }
     }
+    public void EnterGameState(GameStates newState)
+    {
+        curGameState = newState;
+
+        Debug.Log("Entered " + newState + " state.");
+    }
+
     public void statePaused()
     {
         isPaused = true;
@@ -207,12 +226,16 @@ public class gameManager : MonoBehaviour
         IsKeyPicked = true;
 
         if (OnKeyPicked != null)
+        {
+            EnterGameState(GameStates.Ambush);
             OnKeyPicked();
+        }
 
         //ShowHint("Key Collected\nEscape");
 
         if (enemyManager.instance.ambushSpawner != null)
         {
+            EnterGameState(GameStates.Ambush);
             enemyManager.instance.ambushSpawner.gameObject.SetActive(true);
             enemyManager.instance.ambushSpawner.StartAmbush();
         }
@@ -225,7 +248,7 @@ public class gameManager : MonoBehaviour
     public void SpawnAmbushReward(Vector3 pos)
     {
         IsAmbushRewardDropped = true;
-
+        EnterGameState(GameStates.AmbushDefeated);
         if (ambushRewardPrefab != null)
             Instantiate(ambushRewardPrefab, pos, Quaternion.identity);
 

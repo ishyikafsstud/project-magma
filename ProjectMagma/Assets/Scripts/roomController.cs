@@ -17,6 +17,7 @@ public class roomController : MonoBehaviour
 
         if (enemyCount <= 0)
         {
+            gameManager.instance.EnterGameState(gameManager.GameStates.Calm);
             UnlockDoors();
 
             if (gameObject.CompareTag("Room Controller 1"))
@@ -54,7 +55,11 @@ public class roomController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (!doorsLocked)
+            {
+                gameManager.instance.EnterGameState(gameManager.GameStates.Combat);
                 LockDoors();
+            }
+                
         }
         else if (other.CompareTag("Enemy"))
         {
