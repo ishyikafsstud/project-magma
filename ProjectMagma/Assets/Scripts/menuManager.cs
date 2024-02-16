@@ -28,7 +28,7 @@ public class menuManager : MonoBehaviour
             Debug.LogWarning("Scene is not set in inspector.");
         }
     }
-    public void Continue()
+    public void ContinueGame()
     {
         //Add save system code here to resume where player left off
         Debug.Log("Button Test: Continue Button Presssed.");

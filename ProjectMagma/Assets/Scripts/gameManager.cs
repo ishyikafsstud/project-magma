@@ -36,6 +36,7 @@ public class gameManager : MonoBehaviour
     [Header("---- UI ----")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
+    [SerializeField] GameObject menuLevelComplete;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] TextMeshProUGUI itemPromptTitle;
@@ -67,6 +68,8 @@ public class gameManager : MonoBehaviour
 
 
     [Header("Mouse and Keyboard Menu Controls")]
+    [Tooltip("Eventsystem will highlight this button first on the Continue Menu.")]
+    [SerializeField] private GameObject highlightContinueButton;
     [Tooltip("Eventsystem will highlight this button first on the Win Menu.")]
     [SerializeField] private GameObject highlightWinButton;
     [Tooltip("Eventsystem will highlight this button first on the Lose Menu.")]
@@ -188,11 +191,22 @@ public class gameManager : MonoBehaviour
 
     public void scenarioPlayerWins()
     {
-        statePaused();
-        menuActive = menuWin;
-        menuActive.SetActive(true);
-        // Event System Highlights/Selects button to enable keyboard controls on menu
-        EventSystem.current.SetSelectedGameObject(highlightWinButton);
+        if (levelId == LevelIdEnum.Level5)
+        {
+            statePaused();
+            menuActive = menuWin;
+            menuActive.SetActive(true);
+            // Event System Highlights/Selects button to enable keyboard controls on menu
+            EventSystem.current.SetSelectedGameObject(highlightWinButton);
+        }
+        else
+        {
+            statePaused();
+            menuActive = menuLevelComplete;
+            menuActive.SetActive(true);
+            // Event System Highlights/Selects button to enable keyboard controls on menu
+            EventSystem.current.SetSelectedGameObject(highlightContinueButton);
+        }
 
         // Save data if playing on a regular level
         if (levelId != LevelIdEnum.Other)
