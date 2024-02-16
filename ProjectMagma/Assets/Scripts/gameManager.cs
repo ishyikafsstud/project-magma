@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
@@ -49,6 +50,14 @@ public class gameManager : MonoBehaviour
 
     [Header("Functional settings")]
     public bool isPaused;
+
+    [Header("Mouse and Keyboard Menu Controls")]
+    [Tooltip("Eventsystem will highlight this button first on the Win Menu.")]
+    [SerializeField] private GameObject highlightWinButton;
+    [Tooltip("Eventsystem will highlight this button first on the Lose Menu.")]
+    [SerializeField] private GameObject highlightLoseButton;
+    [Tooltip("Eventsystem will highlight this button first on the Pause Menu.")]
+    [SerializeField] private GameObject highlightPauseButton;
 
     public bool IsKeyDropped { get; private set; }
     public bool IsKeyPicked { get; private set; }
@@ -136,7 +145,8 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         //stop all coroutines
         StopAllCoroutines();
-
+        // Event System Highlights/Selects button to enable keyboard controls on menu
+        EventSystem.current.SetSelectedGameObject(highlightPauseButton);
     }
     public void stateUnpaused()
     {
@@ -158,6 +168,8 @@ public class gameManager : MonoBehaviour
         statePaused();
         menuActive = menuWin;
         menuActive.SetActive(true);
+        // Event System Highlights/Selects button to enable keyboard controls on menu
+        EventSystem.current.SetSelectedGameObject(highlightWinButton);
 
         // Save data if playing on a regular level
         if (levelId != LevelIdEnum.Other)
@@ -171,6 +183,8 @@ public class gameManager : MonoBehaviour
         statePaused();
         menuActive = menuLose;
         menuActive.SetActive(true);
+        // Event System Highlights/Selects button to enable keyboard controls on menu
+        EventSystem.current.SetSelectedGameObject(highlightLoseButton);
     }
 
     /// <summary>
