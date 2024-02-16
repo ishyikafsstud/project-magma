@@ -499,6 +499,16 @@ public class playerController : MonoBehaviour, IDamage
         weaponStats.WandType wandType = weaponList[weaponIndex].wandType;
         GameObject correctWandItem = gameManager.instance.Helper.weaponItemsList[(int)wandType];
 
+        if (weaponIndex == selectedWeapon)
+        {
+            shootDamage = 0;
+            shootDist = 0;
+            shootRate = 0;
+            energyCostPerShot = 0;
+            weaponPosition.GetComponent<MeshFilter>().sharedMesh = null;
+            weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = null;
+        }
+
         weaponList.RemoveAt(weaponIndex);
 
         // Drop offset will change once button to pickup wands is implemented.
