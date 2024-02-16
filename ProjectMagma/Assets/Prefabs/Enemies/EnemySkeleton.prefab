@@ -590,7 +590,7 @@ MonoBehaviour:
   lootPosition: {fileID: 258622139287210325}
   enemyUI: {fileID: 1485194551714496848}
   HP: 20
-  speed: 10
+  restoredHealthValue: 5
   detectionRange: 40
   fieldOfView: 45
   fieldOfViewAttack: 25
