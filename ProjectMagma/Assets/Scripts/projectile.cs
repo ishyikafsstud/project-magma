@@ -88,8 +88,8 @@ public class projectile : MonoBehaviour
 
     private void StickToObject(Collider other)
     {
-        rb.isKinematic = true;
         transform.parent = other.transform;
+        Destroy(rb);
     }
 
     IEnumerator ExplosionDelay()
