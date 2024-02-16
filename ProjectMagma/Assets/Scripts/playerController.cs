@@ -466,7 +466,17 @@ public class playerController : MonoBehaviour, IDamage
         if (weapon == null)
             return;
 
-        weaponList.Add(weapon);
+        int newWeaponIndex = weaponList.Count;
+
+        // If the inventory is full, drop the current selected weapon and remember to insert the new weapon in
+        // place of the dropped weapon
+        if (weaponList.Count == 2)
+        {
+            dropWeapon(selectedWeapon);
+            newWeaponIndex = selectedWeapon;
+        }
+
+        weaponList.Insert(newWeaponIndex, weapon);
 
         shootDamage = weapon.shootDamage;
         shootDist = weapon.shootDist;
@@ -477,5 +487,12 @@ public class playerController : MonoBehaviour, IDamage
         weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weapon.model.GetComponent<MeshRenderer>().sharedMaterial;
 
         selectedWeapon = weaponList.Count - 1;
+    }
+
+    void dropWeapon(int weaponIndex)
+    {
+        weaponList.RemoveAt(weaponIndex);
+        
+        // Instantiate the respective wand item
     }
 }
