@@ -352,8 +352,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     {
         return distanceToPlayer.magnitude <= attackRange
             && !isAttacking
-            && angleToPlayer < fieldOfViewAttack
-            && enemyManager.instance.attackingEnemiesCount <= enemyManager.instance.maxAttackingEnemies;
+            && angleToPlayer < fieldOfViewAttack;
+            //&& enemyManager.instance.attackingEnemiesCount <= enemyManager.instance.maxAttackingEnemies;
     }
 
     /// <summary>
@@ -365,9 +365,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         soundManager?.PlayAttackStart();
         isAttacking = true;
         canRotate = false; // lock rotation when attacking
-
         animator.SetTrigger("AttackTrigger");
-        enemyManager.instance.attackingEnemiesCount++;
+        //enemyManager.instance.attackingEnemiesCount++;
     }
 
     /// <summary>
@@ -393,7 +392,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         isAttacking = false;
         canRotate = true;
         animator.ResetTrigger("AttackTrigger");
-        enemyManager.instance.attackingEnemiesCount--;
+        //enemyManager.instance.attackingEnemiesCount--;
         //yield return new WaitForSeconds(attackRate);
     }
 
