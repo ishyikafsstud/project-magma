@@ -49,8 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiresPickupConfirmation: 1
   showPrompt: 1
-  itemTitle: Electric Wand
-  itemDescription: 
+  itemTitle: Thunder Wand
+  itemDescription: Feel yourself a Zeus.
   weapon: {fileID: 11400000, guid: db0821c9aeaf395448665233bbbcbf3c, type: 2}
 --- !u!33 &6437131331610866197
 MeshFilter:

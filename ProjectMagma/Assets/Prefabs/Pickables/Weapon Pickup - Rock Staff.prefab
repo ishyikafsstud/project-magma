@@ -50,7 +50,7 @@ MonoBehaviour:
   requiresPickupConfirmation: 1
   showPrompt: 1
   itemTitle: Rock Wand
-  itemDescription: 
+  itemDescription: Stone age, but sophisticated.
   weapon: {fileID: 11400000, guid: 7fa4b58851c4b6e46bcf8ef0277a2700, type: 2}
 --- !u!33 &8684162858995906823
 MeshFilter:

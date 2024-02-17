@@ -50,7 +50,7 @@ MonoBehaviour:
   requiresPickupConfirmation: 1
   showPrompt: 1
   itemTitle: Poison Bomb Wand
-  itemDescription: 
+  itemDescription: Sticky bombs with area damage? Please.
   weapon: {fileID: 11400000, guid: 00d4c2be82dff4c4b8e76a1159c1b70f, type: 2}
 --- !u!33 &698927415777631389
 MeshFilter:

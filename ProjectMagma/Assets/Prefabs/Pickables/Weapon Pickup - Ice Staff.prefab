@@ -50,7 +50,7 @@ MonoBehaviour:
   requiresPickupConfirmation: 1
   showPrompt: 1
   itemTitle: Ice Wand
-  itemDescription: 
+  itemDescription: Freeze your foes to death.
   weapon: {fileID: 11400000, guid: 76e01bf8dc4ac044c896672548c983c8, type: 2}
 --- !u!33 &2502958228679886604
 MeshFilter:
