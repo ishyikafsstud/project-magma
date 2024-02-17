@@ -4869,6 +4869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelId: 0
+  nextLevelOverride: 
   menuActive: {fileID: 0}
   menuPause: {fileID: 3223793094632435500}
   menuLevelComplete: {fileID: 8462227172423167825}
@@ -4882,6 +4883,7 @@ MonoBehaviour:
   enemyCountText: {fileID: 7569036431406977521}
   playerHealthbar: {fileID: 3485526451889417748}
   playerEnergybar: {fileID: 8395521046521427636}
+  playerEnergybarBG: {fileID: 6577022081532609291}
   playerDamageScreenFlash: {fileID: 3331555979164700209}
   keyPrefab: {fileID: 7516420828584535120, guid: a63f9ed5ef581544ba657aef03d9d8ee, type: 3}
   ambushRewardPrefab: {fileID: 6742071433124294444, guid: 247ba2f1558121c43a8db5aa019402c1, type: 3}
@@ -4917,6 +4919,7 @@ MonoBehaviour:
   levelThree: 
   levelFour: 
   levelFive: 
+  audioMixer: {fileID: 0}
 --- !u!114 &2689396903524032928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4932,8 +4935,6 @@ MonoBehaviour:
   playerController: {fileID: 0}
   ambushSpawnerObject: {fileID: 0}
   ambushSpawner: {fileID: 0}
-  maxAttackingEnemies: 6
-  attackingEnemiesCount: 0
 --- !u!114 &2665246074342212890
 MonoBehaviour:
   m_ObjectHideFlags: 0
