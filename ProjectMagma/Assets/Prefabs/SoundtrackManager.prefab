@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0fa10074df498409b0844dc6f94b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuSoundtracks: []
+  menuSoundtracks:
+  - {fileID: 8300000, guid: 1f3f69e6cb836734a8ee4ae55e1eb792, type: 3}
   calmSoundtracks:
   - {fileID: 8300000, guid: 1e8be6061482ddc4f8d67ff4fd0dc33e, type: 3}
   - {fileID: 8300000, guid: 72a2816eca1bec54288707e2281efb61, type: 3}
