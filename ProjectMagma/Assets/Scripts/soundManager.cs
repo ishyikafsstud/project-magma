@@ -4,46 +4,42 @@ using UnityEngine;
 
 public class soundManager : MonoBehaviour
 {
-    [Header("----- Player Audio SFX -----")]
-    [SerializeField] AudioSource hitSFX;
-    [SerializeField] public AudioSource jumpSFX;
-    [SerializeField] public AudioSource deathSFX;
-
-    [Header("----- Enemy Audio SFX -----")]
-    [SerializeField] public AudioSource spawnerSFX;
-    [SerializeField] public AudioSource skeletonSwordSFX;
-    [SerializeField] public AudioSource spiderlingSFX;
-    [SerializeField] public AudioSource spiderSFX;
-    [SerializeField] public AudioSource slimeSFX;
+    [Header("----- Audio SFX -----")]
+    [SerializeField] AudioSource hurtSFX;
+    [SerializeField] AudioSource jumpSFX;
+    [SerializeField] AudioSource deathSFX;
+    [SerializeField] AudioSource attackStartSFX;
+    [SerializeField] AudioSource attackMiddleSFX;
+    [SerializeField] AudioSource altAttackSFX;
 
     public void PlayHurt()
     {
-        if (hitSFX != null && hitSFX.clip != null)
-            hitSFX.Play();
+        if (hurtSFX != null && hurtSFX.clip != null)
+            hurtSFX.Play();
     }
-
-    public void SkelatonSFX()
+    public void PlayJump()
     {
-        skeletonSwordSFX.Play();
+        if (jumpSFX != null && jumpSFX.clip != null)
+            jumpSFX.Play();
     }
-    public void SlimeSFX()
+    public void PlayDeath()
     {
-        slimeSFX.Play();
+        if (deathSFX != null && deathSFX.clip != null)
+            deathSFX.Play();
     }
-    public void SpiderSFX()
+    public void PlayAttackStart()
     {
-        spiderSFX.Play();
+        if (attackStartSFX != null && attackStartSFX.clip != null)
+            attackStartSFX.Play();
     }
-    public void SpiderlingSFX()
+    public void PlayAttackMiddle()
     {
-        spiderlingSFX.Play();
+        if (attackMiddleSFX != null && attackMiddleSFX.clip != null)
+            attackMiddleSFX.Play();
     }
-    public void BomblingSFX()
+    public void PlayAltAttack()
     {
-        skeletonSwordSFX.Play();
-    }
-    public void SummonerSFX()
-    {
-        spawnerSFX.Play();
+        if (altAttackSFX != null && altAttackSFX.clip != null)
+            altAttackSFX.Play();
     }
 }

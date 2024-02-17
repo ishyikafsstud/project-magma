@@ -234,7 +234,7 @@ public class playerController : MonoBehaviour, IDamage
     void jump()
     {
         verticalVelocity.y = jumpStrength;
-        soundManager.jumpSFX.Play();
+        soundManager?.PlayJump();
         jumpCount++;
     }
 
@@ -259,7 +259,6 @@ public class playerController : MonoBehaviour, IDamage
         {
             die();
         }
-
         soundManager?.PlayHurt();
     }
 
@@ -273,6 +272,7 @@ public class playerController : MonoBehaviour, IDamage
         isShooting = true;
 
         weaponAudioSource.PlayOneShot(weaponList[selectedWeapon].shootSound);
+        soundManager?.PlayAttackStart();
 
         if (!hasInfiniteEnergy)
             useEnergy(energyCostPerShot);
@@ -330,6 +330,9 @@ public class playerController : MonoBehaviour, IDamage
     {
         isAltActive = true;
         altAttackCollider.enabled = true;
+
+        soundManager?.PlayAltAttack();
+
         RaycastHit hit;
         // The layer masks of the collision layers we want the raycast to hit: Default, Enemy.
         // Using it specifies the layers we want the raycast to collide with.
@@ -415,7 +418,7 @@ public class playerController : MonoBehaviour, IDamage
     void die()
     {
         gameManager.instance.scenarioPlayerLoses();
-        soundManager.deathSFX.Play();
+        soundManager?.PlayDeath();
     }
 
     //public void respawn()
