@@ -75,6 +75,7 @@ public class playerController : MonoBehaviour, IDamage
     private int selectedWeapon;
     private bool isShooting;
     private bool isAltActive;
+    
 
     public float Health
     {
@@ -332,6 +333,10 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator AltAttack()
     {
+        if (selectedWeapon < 0 || selectedWeapon >= weaponList.Count)
+        {
+            yield break;
+        }
         isAltActive = true;
         altAttackCollider.enabled = true;
 
