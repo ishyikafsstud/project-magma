@@ -53,6 +53,32 @@ public abstract class saveSystem : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    public static void SaveVolume(string mixerGroup, float volume)
+    {
+        switch (mixerGroup)
+        {
+            case "master":
+                PlayerPrefs.SetFloat(masterVolumeKey, volume);
+                break;
+
+            case "sfx":
+                PlayerPrefs.SetFloat(sfxVolumeKey, volume);
+                break;
+
+            case "music":
+                PlayerPrefs.SetFloat(musicVolumeKey, volume);
+                break;
+
+            case "ui":
+                PlayerPrefs.SetFloat(uiVolumeKey, volume);
+                break;
+
+            default:
+                break;
+        }
+        PlayerPrefs.Save();
+    }
+
     public static void SaveMasterVolume(float volume)
     {
         PlayerPrefs.SetFloat(masterVolumeKey, volume);

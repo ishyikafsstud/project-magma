@@ -16,6 +16,25 @@ public class SoundtrackManager : MonoBehaviour
     [SerializeField] AudioSource combatAudioSource;
     [SerializeField] AudioSource activeAudioSource;
 
+    [Header("---- Other ----")]
+
+    UnityEngine.Audio.AudioMixer audioMixer;
+
+
+    private void Start()
+    {
+        audioMixer = menuAudioSource.outputAudioMixerGroup.audioMixer;
+        ApplyVolumeSettings(saveSystem.LoadGeneralSettings());
+    }
+
+    public void ApplyVolumeSettings(GeneralSettingsData settings)
+    {
+        audioMixer.SetFloat("master", Mathf.Log10(settings.masterVolume) * 20);
+        audioMixer.SetFloat("sfx", Mathf.Log10(settings.sfxVolume) * 20);
+        audioMixer.SetFloat("music", Mathf.Log10(settings.musicVolume) * 20);
+        audioMixer.SetFloat("ui", Mathf.Log10(settings.uiVolume) * 20);
+    }
+
     public void PlayGameStateMusic(gameManager.GameStates state)
     {
         switch (state)

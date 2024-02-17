@@ -122,8 +122,6 @@ public class gameManager : MonoBehaviour
         GeneralSettingsData generalSettingsData = saveSystem.LoadGeneralSettings();
 
         playerScript.EnableTilt(generalSettingsData.tiltEnabled);
-
-        // TODO: implement bus volume change
     }
 
     void LoadLevelStartData()

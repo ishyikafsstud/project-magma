@@ -60,6 +60,7 @@ MonoBehaviour:
   calmAudioSource: {fileID: 3568981251919448017}
   combatAudioSource: {fileID: 5261630486556975585}
   activeAudioSource: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
 --- !u!82 &1511506270018205546
 AudioSource:
   m_ObjectHideFlags: 0

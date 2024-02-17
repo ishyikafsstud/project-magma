@@ -37,14 +37,14 @@ public class menuManager : MonoBehaviour
 
     void ApplyGeneralSettings(GeneralSettingsData settingsData)
     {
-        if (masterVolumeSlider == null)
-            return;
-
-        masterVolumeSlider.value = settingsData.masterVolume;
-        sfxVolumeSlider.value = settingsData.sfxVolume;
-        musicVolumeSlider.value = settingsData.musicVolume;
-        uiVolumeSlider.value = settingsData.uiVolume;
-        tiltToggle.isOn = settingsData.tiltEnabled;
+        if (masterVolumeSlider != null)
+        {
+            masterVolumeSlider.value = settingsData.masterVolume;
+            sfxVolumeSlider.value = settingsData.sfxVolume;
+            musicVolumeSlider.value = settingsData.musicVolume;
+            uiVolumeSlider.value = settingsData.uiVolume;
+            tiltToggle.isOn = settingsData.tiltEnabled;
+        }
     }
 
     public void MainMenu()
@@ -68,40 +68,36 @@ public class menuManager : MonoBehaviour
     // Settings
     public void MasterVolumeChanged()
     {
-        Debug.Log("Slider Test: Master Volume Changed.");
-        float newValue = masterVolumeSlider.value;
-        audioMixer.SetFloat("master", Mathf.Log10(newValue) * 20);
-
-        saveSystem.SaveMasterVolume(newValue);
+        //Debug.Log("Slider Test: Master Volume Changed.");
+        SetAudioMixerVolume("master", masterVolumeSlider.value);
     }
+
     public void SFXVolumeChanged()
     {
-        Debug.Log("Slider Test: SFX Volume Changed.");
-        float newValue = sfxVolumeSlider.value;
-        audioMixer.SetFloat("sfx", Mathf.Log10(newValue) * 20);
-
-        saveSystem.SaveSfxVolume(newValue);
+        //Debug.Log("Slider Test: SFX Volume Changed.");
+        SetAudioMixerVolume("sfx", sfxVolumeSlider.value);
     }
     public void MusicVolumeChanged()
     {
-        Debug.Log("Slider Test: Music Volume Changed.");
-        float newValue = musicVolumeSlider.value;
-        audioMixer.SetFloat("music", Mathf.Log10(newValue) * 20);
-
-        saveSystem.SaveMusicVolume(newValue);
+        //Debug.Log("Slider Test: Music Volume Changed.");
+        SetAudioMixerVolume("music", musicVolumeSlider.value);
     }
     public void UIVolumeChanged()
     {
-        Debug.Log("Slider Test: UI Volume Changed.");
-        float newValue = uiVolumeSlider.value;
-        audioMixer.SetFloat("ui", Mathf.Log10(newValue) * 20);
+        //Debug.Log("Slider Test: UI Volume Changed.");
+        SetAudioMixerVolume("ui", uiVolumeSlider.value);
+    }
 
-        saveSystem.SaveUiVolume(newValue);
+    private void SetAudioMixerVolume(string paramName, float newValue)
+    {
+        audioMixer.SetFloat(paramName, Mathf.Log10(newValue) * 20);
+
+        saveSystem.SaveVolume(paramName, newValue);
     }
 
     public void TiltCameraChanged()
     {
-        Debug.Log("Toggle Test: Camera Tilt Changed.");
+        //Debug.Log("Toggle Test: Camera Tilt Changed.");
         saveSystem.SaveTilt(tiltToggle.isOn);
     }
 
