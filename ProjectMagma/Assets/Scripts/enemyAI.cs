@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class enemyAI : MonoBehaviour, IDamage
+public class enemyAI : MonoBehaviour, IDamage, IPushable
 {
     [Header("----- Componets -----")]
     [SerializeField] Renderer model;
@@ -21,7 +21,6 @@ public class enemyAI : MonoBehaviour, IDamage
 
     [Header("---- Stats ----")]
     [Range(1, 20)][SerializeField] protected int HP;
-    [SerializeField] public int restoredHealthValue;
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
     [Tooltip("The angle that sets enemy field of view (not attacking).")]
@@ -54,7 +53,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
     [Header("---- Combat Effects ---")]
     [SerializeField] protected int maxFreezeStack = 5;
-    [SerializeField] protected float freezeStackStrength = 1f;
+    [SerializeField] protected float freezeStackStrength = 0.08f;
     /// <summary>
     /// Do not access/set this value directly, use CurrentFreezeStack setter.
     /// </summary>
@@ -72,9 +71,8 @@ public class enemyAI : MonoBehaviour, IDamage
     Vector3 startingPos;
     float origSpeed;
     float stoppingDistOrig;
-    bool canRotate = true; //For locking enemy rotation
+    bool canRotate = true; //For locking enemy rotation 
     bool hasBeenAlerted;
-    Color origColor;
 
     public delegate void EnemyAction(GameObject enemy);
 
@@ -122,11 +120,11 @@ public class enemyAI : MonoBehaviour, IDamage
         return Mathf.Max(1.0f - GetSlowdownEffectStrength(), 0);
     }
 
+
     // Start is called before the first frame update
     void Start()
     {
         origHP = HP;
-        origColor = model.material.color;
         origSpeed = agent.speed;
         //enemyManager.instance.EnemySpawned(gameObject, isMinion); // spawners should be responsible for reporting enemies
         stoppingDistOrig = agent.stoppingDistance;
@@ -177,6 +175,9 @@ public class enemyAI : MonoBehaviour, IDamage
             float targetAnimSpeed = agent.velocity.normalized.magnitude;
             animator.SetFloat("Speed", Mathf.Lerp(animator.GetFloat("Speed"), targetAnimSpeed, animSpeedTransition * Time.deltaTime));
         }
+
+
+        
     }
 
     /// <summary>
@@ -213,13 +214,13 @@ public class enemyAI : MonoBehaviour, IDamage
     void ChasePlayer()
     {
         agent.SetDestination(gameManager.instance.player.transform.position);
-        if (agent.remainingDistance < agent.stoppingDistance)
+        if (agent.remainingDistance < agent.stoppingDistance && canRotate)
             faceTarget();
     }
 
     void faceTarget()
     {
-        if(!canRotate) return;
+        if (!canRotate) return;
         Quaternion rot = Quaternion.LookRotation(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, faceTargetSpeed * Time.deltaTime);
     }
@@ -239,6 +240,11 @@ public class enemyAI : MonoBehaviour, IDamage
             if (hit.collider.CompareTag("Player") && angleToPlayer <= fieldOfView)
                 spotPlayer();
         }
+    }
+
+    public void Push(Vector3 direction, float force)
+    {
+        transform.Translate(direction * force * Time.deltaTime, Space.World);
     }
 
     public void takeDamage(int amount)
@@ -300,12 +306,21 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         enemyManager.instance.EnemyDied(gameObject, isMinion);
 
-        // If it's the last enemy and it's not an ambush, drop the key
-        if (enemyManager.instance.TotalEnemies == 0 && !gameManager.instance.IsKeyDropped)
+        // If it's the last enemy
+        if (enemyManager.instance.TotalEnemies == 0)
         {
             Vector3 lootPos = lootPosition != null ? lootPosition.transform.position : transform.position;
-
-            gameManager.instance.SpawnKey(lootPos);
+            
+            // If the key was not dropped (i.e. it was the last "required" enemy), drop the key
+            if (!gameManager.instance.IsKeyDropped)
+            {
+                gameManager.instance.SpawnKey(lootPos);
+            }
+            // if the key was already dropped then the died enemy was the last ambush enemy, so drop the ambush reward
+            else if (!gameManager.instance.IsAmbushRewardDropped)
+            {
+                gameManager.instance.SpawnAmbushReward(lootPos);
+            }
         }
 
         OnDeath();
@@ -319,11 +334,14 @@ public class enemyAI : MonoBehaviour, IDamage
         if (model == null)
             yield break;
 
+        // Remember the old color
+        Color oldColor = model.material.color;
+
         // Flash red for some time
         model.material.color = Color.red;
         yield return new WaitForSeconds(damageFlashLength);
 
-        model.material.color = origColor;
+        model.material.color = oldColor;
     }
 
     protected virtual bool CanAttack()

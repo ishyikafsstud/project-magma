@@ -5,8 +5,7 @@ using UnityEngine;
 public class enemyManager : MonoBehaviour
 {
     public static enemyManager instance;
-    // reference playerController
-    public playerController playerController;
+
     /// <summary>
     /// The count of significant enemies (non-minions).
     /// </summary>
@@ -72,8 +71,6 @@ public class enemyManager : MonoBehaviour
         enemyCount = 0;
 
         enemies = new List<GameObject>();
-
-        playerController = FindObjectOfType<playerController>();
     }
 
     void Start()
@@ -131,13 +128,6 @@ public class enemyManager : MonoBehaviour
     {
         enemies.Remove(enemy);
         EnemyCount -= !isMinion ? 1 : 0; // Decrease significant enemy count if not a minion
-
-        // Increase player's health when an enemy dies
-        if (!isMinion)
-        {
-            int restoredHealthValue = enemy.GetComponent<enemyAI>().restoredHealthValue;
-            playerController.health += restoredHealthValue;
-        }
     }
 
     IEnumerator EnqueueAttack(GameObject enemy)
@@ -164,4 +154,5 @@ public class enemyManager : MonoBehaviour
             Debug.Log("All enemies finished attacking.");
         }
     }
+
 }
