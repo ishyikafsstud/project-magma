@@ -12,7 +12,7 @@ public class playerController : MonoBehaviour, IDamage
     public Collider altAttackCollider;
     
     [Header("----- Player Health -----")]
-    [SerializeField] float health;
+    [SerializeField] public float health;
     [SerializeField] float healthRegenRate;
     [SerializeField] bool isInvincible;
     [SerializeField] bool hasInfiniteEnergy;
@@ -413,7 +413,7 @@ public class playerController : MonoBehaviour, IDamage
     //    controller.enabled = true;
     //}
 
-    void updatePlayerUI()
+    public void updatePlayerUI()
     {
         //health bar update
         gameManager.instance.playerHealthbar.fillAmount = (float)health / healthOriginal;

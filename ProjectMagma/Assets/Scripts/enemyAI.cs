@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class enemyAI : MonoBehaviour, IDamage, IPushable
 {
-    [Header("----- Componets -----")]
+    [Header("----- Components -----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator animator;
@@ -21,6 +21,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     [Header("---- Stats ----")]
     [Range(1, 20)][SerializeField] protected int HP;
+    [SerializeField] public int restoredHealthValue;
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
     [Tooltip("The angle that sets enemy field of view (not attacking).")]
