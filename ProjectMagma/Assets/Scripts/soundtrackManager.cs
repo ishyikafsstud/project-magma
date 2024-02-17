@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class soundtrackManager : MonoBehaviour
+public class SoundtrackManager : MonoBehaviour
 {
     [Header("---- Audio Clips ----")]
     [SerializeField] List<AudioClip> menuSoundtracks = new List<AudioClip>();
@@ -16,54 +16,68 @@ public class soundtrackManager : MonoBehaviour
     [SerializeField] AudioSource combatAudioSource;
     [SerializeField] AudioSource activeAudioSource;
 
-    public void PlayCalmMusic()
+    public void PlayGameStateMusic(gameManager.GameStates state)
     {
-        if (activeAudioSource == calmAudioSource)
+        switch (state)
+        {
+            case gameManager.GameStates.Calm:
+                PlayCalmMusic();
+                break;
+            case gameManager.GameStates.Combat:
+                PlayCombatMusic();
+                break;
+            case gameManager.GameStates.Ambush:
+                PlayCombatMusic();
+                break;
+            case gameManager.GameStates.AmbushDefeated:
+                PlayCalmMusic();
+                break;
+        }
+
+        activeAudioSource.UnPause();
+    }
+
+    /// <summary>
+    /// Pause or unpause current music.
+    /// </summary>
+    /// <param name="pause">Pause (true) or unpause (false)</param>
+    public void PauseMusic(bool pause = true)
+    {
+        if (pause)
+            activeAudioSource.Pause();
+        else
+            activeAudioSource.UnPause();
+    }
+
+    void PlayMusic(AudioSource newSource, List<AudioClip> newMusic)
+    {
+        if (activeAudioSource == newSource)
             return;
 
         if (activeAudioSource != null)
             activeAudioSource.Stop();
 
-        if (calmSoundtracks.Count > 0)
+        if (newMusic.Count > 0)
         {
-            calmAudioSource.clip = calmSoundtracks[Random.Range(0, calmSoundtracks.Count)];
-            calmAudioSource.Play();
+            newSource.clip = newMusic[Random.Range(0, newMusic.Count)];
+            newSource.Play();
         }
 
-        activeAudioSource = calmAudioSource;
+        activeAudioSource = newSource;
+    }
+
+    public void PlayCalmMusic()
+    {
+        PlayMusic(calmAudioSource, calmSoundtracks);
     }
 
     public void PlayCombatMusic()
     {
-        if (activeAudioSource == combatAudioSource)
-            return;
-
-        if (activeAudioSource != null)
-            activeAudioSource.Stop();
-
-        if (combatSoundtracks.Count > 0)
-        {
-            combatAudioSource.clip = combatSoundtracks[Random.Range(0, combatSoundtracks.Count)];
-            combatAudioSource.Play();
-        }
-
-        activeAudioSource = combatAudioSource;
+        PlayMusic(combatAudioSource, combatSoundtracks);
     }
 
     public void PlayMenuMusic()
     {
-        if (activeAudioSource == menuAudioSource)
-            return;
-
-        if (activeAudioSource != null)
-            activeAudioSource.Stop();
-
-        if (menuSoundtracks.Count > 0)
-        {
-            menuAudioSource.clip = menuSoundtracks[Random.Range(0, menuSoundtracks.Count)];
-            menuAudioSource.Play();
-        }
-
-        activeAudioSource = menuAudioSource;
+        PlayMusic(menuAudioSource, menuSoundtracks);
     }
 }

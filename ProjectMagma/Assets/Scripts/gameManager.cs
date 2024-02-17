@@ -59,6 +59,7 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     public playerController playerScript;
     helperClass helper;
+    SoundtrackManager soundtrackManager;
     public helperClass Helper { get { return helper; } }
 
     [Header("Functional settings")]
@@ -96,6 +97,8 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
 
+        soundtrackManager = GameObject.FindGameObjectWithTag("SoundtrackManager").GetComponent<SoundtrackManager>();
+
         playerScript.PlayerSpawnedEvent += OnPlayerSpawned;
 
         LoadGeneralSettings();
@@ -126,11 +129,23 @@ public class gameManager : MonoBehaviour
         playerScript.pickupWeapon(secondWeapon);
     }
 
-    void Start()
+    IEnumerator Start()
     {
         UpdateEnemyCountText();
         ShowHint("Good Luck!");
+
         EnterGameState(defaultGameState);
+
+        yield return new WaitForFixedUpdate();
+        LateStart();
+    }
+
+    /// <summary>
+    /// If for any reason something that must be in Start() is not ready at the time of Start(),
+    /// use this method.
+    /// </summary>
+    void LateStart()
+    {
     }
 
     void OnPlayerSpawned()
@@ -156,8 +171,9 @@ public class gameManager : MonoBehaviour
     public void EnterGameState(GameStates newState)
     {
         curGameState = newState;
-
         Debug.Log("Entered " + newState + " state.");
+
+        soundtrackManager.GetComponent<SoundtrackManager>().PlayGameStateMusic(curGameState);
     }
 
     public void statePaused()
@@ -169,8 +185,13 @@ public class gameManager : MonoBehaviour
         Cursor.visible = true;
         // Confine Cursor to Pause window boundaries
         Cursor.lockState = CursorLockMode.Confined;
+        
+        // TODO: should it really be here?
         //stop all coroutines
         StopAllCoroutines();
+
+        soundtrackManager.PauseMusic();
+
         // Event System Highlights/Selects button to enable keyboard controls on menu
         EventSystem.current.SetSelectedGameObject(highlightPauseButton);
     }
@@ -183,6 +204,9 @@ public class gameManager : MonoBehaviour
         Cursor.visible = false;
         // Locks Cursor
         Cursor.lockState = CursorLockMode.Locked;
+
+        soundtrackManager.PauseMusic(false);
+
         // Toggle Menu Off
         menuActive.SetActive(false);
         // resets and removes pause menu from active Menu
