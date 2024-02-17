@@ -34,6 +34,9 @@ public class menuManager : MonoBehaviour
 
     void ApplyGeneralSettings(GeneralSettingsData settingsData)
     {
+        if (masterVolumeSlider == null)
+            return;
+
         masterVolumeSlider.value = settingsData.masterVolume;
         sfxVolumeSlider.value = settingsData.sfxVolume;
         musicVolumeSlider.value = settingsData.musicVolume;
