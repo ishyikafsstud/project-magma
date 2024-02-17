@@ -9,11 +9,13 @@ public class playerController : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
     [SerializeField] CharacterController controller;
+    
     public Collider altAttackCollider;
     
     [Header("----- Player Health -----")]
+    [Tooltip("Do not directly access private health - use the public Health property instead.")]
     [SerializeField] float health;
-    [SerializeField] float healthRegenRate;
+    //[SerializeField] float healthRegenRate;
     [SerializeField] bool isInvincible;
     [SerializeField] bool hasInfiniteEnergy;
 
@@ -146,7 +148,7 @@ public class playerController : MonoBehaviour, IDamage
         }
 
         RegenEnergy();
-        healthRegen();
+        //healthRegenOnMovement();
     }
 
     void processMovement()
@@ -249,13 +251,13 @@ public class playerController : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
         if (!isInvincible)
-            health -= amount;
+            Health -= amount;
 
         updatePlayerUI();
 
         StartCoroutine(flashDamageOnScreen());
 
-        if (health <= 0)
+        if (Health <= 0)
         {
             die();
         }
@@ -372,22 +374,22 @@ public class playerController : MonoBehaviour, IDamage
         Destroy(hitParticles, weaponList[selectedWeapon].particleDuration);
     }
 
-    /// <summary>
-    /// Health Regen when moving
-    /// </summary>
-    void healthRegen()
-    {
-        if (health > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
-        {
-            health += healthRegenRate * Time.deltaTime;
-            health = Mathf.Clamp(health, 0, healthOriginal);
-        }
-        updatePlayerUI();
-    }
+    ///// <summary>
+    ///// Health Regen when moving
+    ///// </summary>
+    //void healthRegenOnMovement()
+    //{
+    //    if (health > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
+    //    {
+    //        health += healthRegenRate * Time.deltaTime;
+    //        health = Mathf.Clamp(health, 0, healthOriginal);
+    //    }
+    //    updatePlayerUI();
+    //}
 
     public void Heal(int value)
     {
-        health += value;
+        Health += value;
     }
 
     void useEnergy(float amount)
