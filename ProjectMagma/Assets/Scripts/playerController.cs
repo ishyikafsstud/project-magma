@@ -55,6 +55,8 @@ public class playerController : MonoBehaviour, IDamage
     [Tooltip("The duration of screen flash upon receiving damage.")]
     [SerializeField] float damageFlashDuration;
 
+    [Header("----- Audio -----")]
+    [SerializeField] soundManager soundManager;
 
     private float energyOriginal;
     private float energyRegenerated;
@@ -231,6 +233,7 @@ public class playerController : MonoBehaviour, IDamage
     void jump()
     {
         verticalVelocity.y = jumpStrength;
+        soundManager.jumpSFX.Play();
         jumpCount++;
     }
 
@@ -255,6 +258,8 @@ public class playerController : MonoBehaviour, IDamage
         {
             die();
         }
+
+        soundManager.hitSFX.Play();
     }
 
     public IEnumerator ApplyFreeze(int stacks)
@@ -298,7 +303,6 @@ public class playerController : MonoBehaviour, IDamage
             {
                 damagedBody.takeDamage(shootDamage);
             }
-
             Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
         }
     }
@@ -408,6 +412,7 @@ public class playerController : MonoBehaviour, IDamage
     void die()
     {
         gameManager.instance.scenarioPlayerLoses();
+        soundManager.deathSFX.Play();
     }
 
     //public void respawn()
