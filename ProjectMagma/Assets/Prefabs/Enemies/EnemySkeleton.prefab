@@ -1952,7 +1952,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1704217385196173746, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4599023807389639559, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1960,7 +1960,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6991153564324993710, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7551212439206765574, guid: fb23b769c717756418961fdb971ff5e8, type: 3}
       propertyPath: m_AnchoredPosition.y
