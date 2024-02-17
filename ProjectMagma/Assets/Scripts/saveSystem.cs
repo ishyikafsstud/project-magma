@@ -44,34 +44,35 @@ public abstract class saveSystem : MonoBehaviour
 
     public static void SaveGeneralSettings(GeneralSettingsData generalSettingsData)
     {
-        PlayerPrefs.SetInt(masterVolumeKey, generalSettingsData.masterVolume);
-        PlayerPrefs.SetInt(sfxVolumeKey, generalSettingsData.sfxVolume);
-        PlayerPrefs.SetInt(musicVolumeKey, generalSettingsData.musicVolume);
-        PlayerPrefs.SetInt(uiVolumeKey, generalSettingsData.uiVolume);
+        PlayerPrefs.SetFloat(masterVolumeKey, generalSettingsData.masterVolume);
+        PlayerPrefs.SetFloat(sfxVolumeKey, generalSettingsData.sfxVolume);
+        PlayerPrefs.SetFloat(musicVolumeKey, generalSettingsData.musicVolume);
+        PlayerPrefs.SetFloat(uiVolumeKey, generalSettingsData.uiVolume);
         PlayerPrefs.SetInt(tiltEnabledKey, generalSettingsData.tiltEnabled == true ? 1 : 0);
 
         PlayerPrefs.Save();
     }
 
-    public static void SaveMasterVolume(int volume)
+    public static void SaveMasterVolume(float volume)
     {
-        volume = Mathf.Clamp(volume, 0, 100);
-        PlayerPrefs.SetInt(masterVolumeKey, volume);
+        PlayerPrefs.SetFloat(masterVolumeKey, volume);
         PlayerPrefs.Save();
     }
 
-    public static void SaveSfxVolume(int volume)
+    public static void SaveSfxVolume(float volume)
     {
-        volume = Mathf.Clamp(volume, 0, 100);
-        PlayerPrefs.SetInt(sfxVolumeKey, volume);
+        PlayerPrefs.SetFloat(sfxVolumeKey, volume);
         PlayerPrefs.Save();
     }
 
-
-    public static void SaveMusicVolume(int volume)
+    public static void SaveMusicVolume(float volume)
     {
-        volume = Mathf.Clamp(volume, 0, 100);
-        PlayerPrefs.SetInt(uiVolumeKey, volume);
+        PlayerPrefs.SetFloat(musicVolumeKey, volume);
+        PlayerPrefs.Save();
+    }
+    public static void SaveUiVolume(float volume)
+    {
+        PlayerPrefs.SetFloat(uiVolumeKey, volume);
         PlayerPrefs.Save();
     }
 
@@ -82,22 +83,14 @@ public abstract class saveSystem : MonoBehaviour
     }
 
 
-    public static void SaveUiVolume(int volume)
-    {
-        volume = Mathf.Clamp(volume, 0, 100);
-        PlayerPrefs.SetInt(masterVolumeKey, volume);
-        PlayerPrefs.Save();
-    }
-
-
     public static GeneralSettingsData LoadGeneralSettings()
     {
         GeneralSettingsData generalSettingsData = new GeneralSettingsData();
 
-        generalSettingsData.masterVolume = PlayerPrefs.GetInt(masterVolumeKey, 100);
-        generalSettingsData.sfxVolume = PlayerPrefs.GetInt(sfxVolumeKey, 100);
-        generalSettingsData.musicVolume = PlayerPrefs.GetInt(musicVolumeKey, 100);
-        generalSettingsData.uiVolume = PlayerPrefs.GetInt(uiVolumeKey, 100);
+        generalSettingsData.masterVolume = PlayerPrefs.GetFloat(masterVolumeKey, 1);
+        generalSettingsData.sfxVolume = PlayerPrefs.GetFloat(sfxVolumeKey, 1);
+        generalSettingsData.musicVolume = PlayerPrefs.GetFloat(musicVolumeKey, 1);
+        generalSettingsData.uiVolume = PlayerPrefs.GetFloat(uiVolumeKey, 1);
         generalSettingsData.tiltEnabled = PlayerPrefs.GetInt(tiltEnabledKey, 1) == 1 ? true : false;
 
         return generalSettingsData;
@@ -251,10 +244,10 @@ public struct LevelSaveData
 
 public struct GeneralSettingsData
 {
-    public int masterVolume;
-    public int sfxVolume;
-    public int musicVolume;
-    public int uiVolume;
+    public float masterVolume;
+    public float sfxVolume;
+    public float musicVolume;
+    public float uiVolume;
 
     public bool tiltEnabled;
 }

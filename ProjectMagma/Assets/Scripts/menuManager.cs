@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,7 +17,6 @@ public class menuManager : MonoBehaviour
     [SerializeField] Slider uiVolumeSlider;
     [SerializeField] Toggle tiltToggle;
 
-
     [Header("---- Load Scene ----")]
     [SerializeField] string mainMenu;
     [SerializeField] string levelOne;
@@ -24,6 +24,9 @@ public class menuManager : MonoBehaviour
     [SerializeField] string levelThree;
     [SerializeField] string levelFour;
     [SerializeField] string levelFive;
+
+    [Header("---- Other Dependencies ----")]
+    [SerializeField] private AudioMixer audioMixer;
 
 
     private void Start()
@@ -66,27 +69,36 @@ public class menuManager : MonoBehaviour
     public void MasterVolumeChanged()
     {
         Debug.Log("Slider Test: Master Volume Changed.");
-        saveSystem.SaveMasterVolume((int)masterVolumeSlider.value);
-        // TODO: update it in MagmaAudioMixer
+        float newValue = masterVolumeSlider.value;
+        audioMixer.SetFloat("master", Mathf.Log10(newValue) * 20);
+
+        saveSystem.SaveMasterVolume(newValue);
     }
     public void SFXVolumeChanged()
     {
         Debug.Log("Slider Test: SFX Volume Changed.");
-        saveSystem.SaveSfxVolume((int)sfxVolumeSlider.value);
-        // TODO: update it in MagmaAudioMixer
+        float newValue = sfxVolumeSlider.value;
+        audioMixer.SetFloat("sfx", Mathf.Log10(newValue) * 20);
+
+        saveSystem.SaveSfxVolume(newValue);
     }
     public void MusicVolumeChanged()
     {
         Debug.Log("Slider Test: Music Volume Changed.");
-        saveSystem.SaveMusicVolume((int)musicVolumeSlider.value);
-        // TODO: update it in MagmaAudioMixer
+        float newValue = musicVolumeSlider.value;
+        audioMixer.SetFloat("music", Mathf.Log10(newValue) * 20);
+
+        saveSystem.SaveMusicVolume(newValue);
     }
     public void UIVolumeChanged()
     {
         Debug.Log("Slider Test: UI Volume Changed.");
-        saveSystem.SaveUiVolume((int)uiVolumeSlider.value);
-        // TODO: update it in MagmaAudioMixer
+        float newValue = uiVolumeSlider.value;
+        audioMixer.SetFloat("ui", Mathf.Log10(newValue) * 20);
+
+        saveSystem.SaveUiVolume(newValue);
     }
+
     public void TiltCameraChanged()
     {
         Debug.Log("Toggle Test: Camera Tilt Changed.");

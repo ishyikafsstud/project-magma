@@ -496,6 +496,7 @@ MonoBehaviour:
   levelThree: 
   levelFour: 
   levelFive: 
+  audioMixer: {fileID: 24100000, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
 --- !u!1 &149614077
 GameObject:
   m_ObjectHideFlags: 0
@@ -2943,10 +2944,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 270739808}
   m_HandleRect: {fileID: 430573525}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
-  m_Value: 100
+  m_MinValue: 0.0001
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -4884,10 +4885,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1801932329}
   m_HandleRect: {fileID: 1092083630}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
-  m_Value: 100
+  m_MinValue: 0.0001
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -7376,10 +7377,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1450173149}
   m_HandleRect: {fileID: 1964424506}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
-  m_Value: 100
+  m_MinValue: 0.0001
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -8791,10 +8792,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 73622385}
   m_HandleRect: {fileID: 149614078}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
-  m_Value: 100
+  m_MinValue: 0.0001
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
