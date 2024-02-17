@@ -111,8 +111,7 @@ public class gameManager : MonoBehaviour
     {
         GeneralSettingsData generalSettingsData = saveSystem.LoadGeneralSettings();
 
-        // TODO: implement camera tilt update on player
-        //playerScript.SetTilt(generalSettingsData.tiltEnabled);
+        playerScript.EnableTilt(generalSettingsData.tiltEnabled);
 
         // TODO: implement bus volume change
     }

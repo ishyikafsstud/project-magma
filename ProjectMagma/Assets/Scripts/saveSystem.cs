@@ -53,6 +53,43 @@ public abstract class saveSystem : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    public static void SaveMasterVolume(int volume)
+    {
+        volume = Mathf.Clamp(volume, 0, 100);
+        PlayerPrefs.SetInt(masterVolumeKey, volume);
+        PlayerPrefs.Save();
+    }
+
+    public static void SaveSfxVolume(int volume)
+    {
+        volume = Mathf.Clamp(volume, 0, 100);
+        PlayerPrefs.SetInt(sfxVolumeKey, volume);
+        PlayerPrefs.Save();
+    }
+
+
+    public static void SaveMusicVolume(int volume)
+    {
+        volume = Mathf.Clamp(volume, 0, 100);
+        PlayerPrefs.SetInt(uiVolumeKey, volume);
+        PlayerPrefs.Save();
+    }
+
+    public static void SaveTilt(bool enabled)
+    {
+        PlayerPrefs.SetInt(tiltEnabledKey, enabled == true ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+
+    public static void SaveUiVolume(int volume)
+    {
+        volume = Mathf.Clamp(volume, 0, 100);
+        PlayerPrefs.SetInt(masterVolumeKey, volume);
+        PlayerPrefs.Save();
+    }
+
+
     public static GeneralSettingsData LoadGeneralSettings()
     {
         GeneralSettingsData generalSettingsData = new GeneralSettingsData();

@@ -3,10 +3,19 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class menuManager : MonoBehaviour
 {
     public static menuManager instance;
+
+    [Header("---- Elements ----")]
+    [SerializeField] Slider masterVolumeSlider;
+    [SerializeField] Slider sfxVolumeSlider;
+    [SerializeField] Slider musicVolumeSlider;
+    [SerializeField] Slider uiVolumeSlider;
+    [SerializeField] Toggle tiltToggle;
+
 
     [Header("---- Load Scene ----")]
     [SerializeField] string mainMenu;
@@ -15,6 +24,22 @@ public class menuManager : MonoBehaviour
     [SerializeField] string levelThree;
     [SerializeField] string levelFour;
     [SerializeField] string levelFive;
+
+
+    private void Start()
+    {
+        GeneralSettingsData savedSettings = saveSystem.LoadGeneralSettings();
+        ApplyGeneralSettings(savedSettings);
+    }
+
+    void ApplyGeneralSettings(GeneralSettingsData settingsData)
+    {
+        masterVolumeSlider.value = settingsData.masterVolume;
+        sfxVolumeSlider.value = settingsData.sfxVolume;
+        musicVolumeSlider.value = settingsData.musicVolume;
+        uiVolumeSlider.value = settingsData.uiVolume;
+        tiltToggle.isOn = settingsData.tiltEnabled;
+    }
 
     public void MainMenu()
     {
@@ -38,27 +63,31 @@ public class menuManager : MonoBehaviour
     public void MasterVolumeChanged()
     {
         Debug.Log("Slider Test: Master Volume Changed.");
-        // Controls Master Volume
+        saveSystem.SaveMasterVolume((int)masterVolumeSlider.value);
+        // TODO: update it in MagmaAudioMixer
     }
     public void SFXVolumeChanged()
     {
         Debug.Log("Slider Test: SFX Volume Changed.");
-        // Controls Sound Effect Volume
+        saveSystem.SaveSfxVolume((int)sfxVolumeSlider.value);
+        // TODO: update it in MagmaAudioMixer
     }
     public void MusicVolumeChanged()
     {
         Debug.Log("Slider Test: Music Volume Changed.");
-        // Controls Music Volume
+        saveSystem.SaveMusicVolume((int)musicVolumeSlider.value);
+        // TODO: update it in MagmaAudioMixer
     }
     public void UIVolumeChanged()
     {
         Debug.Log("Slider Test: UI Volume Changed.");
-        // Controls UI Volume. Menus/Button sounds
+        saveSystem.SaveUiVolume((int)uiVolumeSlider.value);
+        // TODO: update it in MagmaAudioMixer
     }
     public void TiltCameraChanged()
     {
         Debug.Log("Toggle Test: Camera Tilt Changed.");
-        // Calls/Toggles Tilt Camera off/on
+        saveSystem.SaveTilt(tiltToggle.isOn);
     }
 
     // Need to implement code so that Level select buttons stay disabled until the player completes that level
