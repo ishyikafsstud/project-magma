@@ -12,7 +12,7 @@ public class playerController : MonoBehaviour, IDamage
     public Collider altAttackCollider;
     
     [Header("----- Player Health -----")]
-    [SerializeField] public float health;
+    [SerializeField] float health;
     [SerializeField] float healthRegenRate;
     [SerializeField] bool isInvincible;
     [SerializeField] bool hasInfiniteEnergy;
@@ -375,6 +375,11 @@ public class playerController : MonoBehaviour, IDamage
         updatePlayerUI();
     }
 
+    public void Heal(int value)
+    {
+        health += value;
+    }
+
     void useEnergy(float amount)
     {
         energy -= amount;
@@ -386,11 +391,15 @@ public class playerController : MonoBehaviour, IDamage
     /// </summary>
     void RegenEnergy()
     {
-        // Calculate the energy regenerated based on speed
-        energyRegenerated = Mathf.Clamp(((currentSpeed / sprintSpeed) + (verticalVelocity.y / jumpStrength)) * energyRegenRate, energyRegenRate, 0) * Time.deltaTime;
+        // Calculate the base energy regenerated based on speed
+        float baseEnergyRegenerated = Mathf.Clamp(((currentSpeed / sprintSpeed) + (verticalVelocity.y / jumpStrength)) * energyRegenRate, energyRegenRate, 0);
+
+        // Adjust energy regeneration if sprinting
+        float adjustedEnergyRegenerated = sprinting ? baseEnergyRegenerated * 2f : baseEnergyRegenerated;
+
         if (currentSpeed > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
         {
-            energy += energyRegenerated;
+            energy += adjustedEnergyRegenerated * Time.deltaTime;
             energy = Mathf.Clamp(energy, 0, energyOriginal);
         }
         updatePlayerUI();

@@ -133,7 +133,7 @@ public class enemyManager : MonoBehaviour
         if (!isMinion)
         {
             int restoredHealthValue = enemy.GetComponent<enemyAI>().restoredHealthValue;
-            playerController.health += restoredHealthValue;
+            playerController.Heal(restoredHealthValue);
             playerController.updatePlayerUI();
         }
     }
