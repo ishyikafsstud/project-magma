@@ -32,6 +32,16 @@ public class gameManager : MonoBehaviour
     [Header("---- Level Data ----")]
     [SerializeField] LevelIdEnum levelId = LevelIdEnum.Other;
     public LevelIdEnum LevelId { get => levelId; }
+    [Tooltip("Keep empty if you do not wish to override the next level.\n\n" +
+        "If you wish the next level to be different from what is automatically chosen, enter the name " +
+        "of the target level.")]
+    [SerializeField] string nextLevelOverride;
+
+    public string GetNextLevelName()
+    {
+        return nextLevelOverride.Length == 0 ? helper.GetNextLevelName(levelId) : nextLevelOverride;
+    }
+
 
     [Header("---- UI ----")]
     [SerializeField] GameObject menuActive;
@@ -184,7 +194,7 @@ public class gameManager : MonoBehaviour
         Cursor.visible = true;
         // Confine Cursor to Pause window boundaries
         Cursor.lockState = CursorLockMode.Confined;
-        
+
         // TODO: should it really be here?
         //stop all coroutines
         StopAllCoroutines();
@@ -214,22 +224,18 @@ public class gameManager : MonoBehaviour
 
     public void scenarioPlayerWins()
     {
-        if (levelId == LevelIdEnum.Level5)
-        {
-            statePaused();
-            menuActive = menuWin;
-            menuActive.SetActive(true);
-            // Event System Highlights/Selects button to enable keyboard controls on menu
-            EventSystem.current.SetSelectedGameObject(highlightWinButton);
-        }
-        else
-        {
-            statePaused();
+        statePaused();
+
+        menuActive = menuWin;
+        // If the next level is overriden OR it is a normal not-final level, show the Level Complete menu instead
+        if (nextLevelOverride.Length > 0
+            || (levelId != LevelIdEnum.Other && levelId != LevelIdEnum.LAST_LEVEL))
             menuActive = menuLevelComplete;
-            menuActive.SetActive(true);
-            // Event System Highlights/Selects button to enable keyboard controls on menu
-            EventSystem.current.SetSelectedGameObject(highlightContinueButton);
-        }
+
+        menuActive.SetActive(true);
+
+        // Event System Highlights/Selects button to enable keyboard controls on menu
+        EventSystem.current.SetSelectedGameObject(highlightWinButton);
 
         // Save data if playing on a regular level
         if (levelId != LevelIdEnum.Other)

@@ -21,9 +21,9 @@ public class helperClass : MonoBehaviour
     [SerializeField] List<string> levelNames = new List<string>();
     public System.Collections.ObjectModel.ReadOnlyCollection<string> LevelNames {  get { return levelNames.AsReadOnly(); } }
 
-    public string GetNextLevelName(gameManager.LevelIdEnum levelId)
+    public string GetNextLevelName(gameManager.LevelIdEnum curLevelId)
     {
-        int nextLevelIndex = (int)levelId;
+        int nextLevelIndex = (int)curLevelId;
         return levelNames[nextLevelIndex];
     }
 }

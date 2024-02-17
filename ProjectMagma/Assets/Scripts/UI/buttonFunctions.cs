@@ -28,7 +28,10 @@ public class buttonFunctions : MonoBehaviour
 
     public void Continue()
     {
-        
+        // Loads entire scene the user is currently in
+        SceneManager.LoadScene(gameManager.instance.GetNextLevelName());
+        // Reset Time scale
+        gameManager.instance.stateUnpaused();
     }
 
     //public void Respawn()
