@@ -24,6 +24,7 @@ public class menuManager : MonoBehaviour
     [SerializeField] string levelThree;
     [SerializeField] string levelFour;
     [SerializeField] string levelFive;
+    [SerializeField] string alphaShowcaseLevel;
 
     [Header("---- Other Dependencies ----")]
     [SerializeField] private AudioMixer audioMixer;
@@ -59,6 +60,7 @@ public class menuManager : MonoBehaviour
             Debug.LogWarning("Scene is not set in inspector.");
         }
     }
+
     public void ContinueGame()
     {
         //Add save system code here to resume where player left off
@@ -99,6 +101,11 @@ public class menuManager : MonoBehaviour
     {
         //Debug.Log("Toggle Test: Camera Tilt Changed.");
         saveSystem.SaveTilt(tiltToggle.isOn);
+    }
+
+    public void StartNewGame()
+    {
+        SceneManager.LoadScene(alphaShowcaseLevel);
     }
 
     // Need to implement code so that Level select buttons stay disabled until the player completes that level

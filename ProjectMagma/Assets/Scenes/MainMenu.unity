@@ -504,11 +504,12 @@ MonoBehaviour:
   uiVolumeSlider: {fileID: 559646823}
   tiltToggle: {fileID: 461288429}
   mainMenu: MainMenu
-  levelOne: Prototype Two
-  levelTwo: 
-  levelThree: 
-  levelFour: 
-  levelFive: 
+  levelOne: Level1Placeholder
+  levelTwo: Level2Placeholder
+  levelThree: Level3Placeholder
+  levelFour: Level4Placeholder
+  levelFive: Level5Placeholder
+  alphaShowcaseLevel: AlphaShowcaseLevel
   audioMixer: {fileID: 24100000, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
 --- !u!1 &149614077
 GameObject:
@@ -2808,7 +2809,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 145158387}
         m_TargetAssemblyTypeName: menuManager, Assembly-CSharp
-        m_MethodName: LoadLevelOne
+        m_MethodName: StartNewGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
