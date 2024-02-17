@@ -58,6 +58,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI enemyCountText;
     public Image playerHealthbar;
     public Image playerEnergybar;
+    public Image playerEnergybarBG;
     public GameObject playerDamageScreenFlash;
 
     [Header("---- Prefabs ----")]

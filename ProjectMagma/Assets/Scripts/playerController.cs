@@ -120,10 +120,12 @@ public class playerController : MonoBehaviour, IDamage
             {
                 selectWeapon();
                 gameManager.instance.playerEnergybar.gameObject.SetActive(true);
+                gameManager.instance.playerEnergybarBG.gameObject.SetActive(true);
             }
             else
             {
                 gameManager.instance.playerEnergybar.gameObject.SetActive(false);
+                gameManager.instance.playerEnergybarBG.gameObject.SetActive(false);
             }
             // Left Click - ranged attack
             if (Input.GetButton("Shoot") && weaponList.Count > 0 && !isShooting)

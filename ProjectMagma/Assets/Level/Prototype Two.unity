@@ -17817,6 +17817,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3803772060851076272, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5121182750270922756, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -17925,11 +17929,26 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8151666403568927593, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+      propertyPath: playerEnergybarBG
+      value: 
+      objectReference: {fileID: 1440831997}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+--- !u!114 &1440831997 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3803772060851076272, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+  m_PrefabInstance: {fileID: 1440831996}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1443542409
 PrefabInstance:
   m_ObjectHideFlags: 0
