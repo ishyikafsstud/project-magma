@@ -120,14 +120,8 @@ public class playerController : MonoBehaviour, IDamage
             if (weaponList.Count > 0)
             {
                 selectWeapon();
-                gameManager.instance.playerEnergybar.gameObject.SetActive(true);
-                gameManager.instance.playerEnergybarBG.gameObject.SetActive(true);
             }
-            else
-            {
-                gameManager.instance.playerEnergybar.gameObject.SetActive(false);
-                gameManager.instance.playerEnergybarBG.gameObject.SetActive(false);
-            }
+
             // Left Click - ranged attack
             if (Input.GetButton("Shoot") && weaponList.Count > 0 && !isShooting)
             {
@@ -447,6 +441,9 @@ public class playerController : MonoBehaviour, IDamage
         if (energyOriginal > 0.0f)
             //energy bar update
             gameManager.instance.playerEnergybar.fillAmount = (float)energy / energyOriginal;
+
+        gameManager.instance.playerEnergybar.gameObject.SetActive(weaponList.Count > 0);
+        gameManager.instance.playerEnergybarBG.gameObject.SetActive(weaponList.Count > 0);
     }
 
     IEnumerator flashDamageOnScreen()
@@ -544,5 +541,7 @@ public class playerController : MonoBehaviour, IDamage
         Vector3 dropPosition = transform.position + transform.forward * dropDistance;
 
         Instantiate(correctWandItem, dropPosition, Quaternion.identity);
+
+        updatePlayerUI();
     }
 }
