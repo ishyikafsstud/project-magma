@@ -260,7 +260,7 @@ public class playerController : MonoBehaviour, IDamage
             die();
         }
 
-        soundManager.hitSFX.Play();
+        soundManager?.PlayHurt();
     }
 
     public IEnumerator ApplyFreeze(int stacks)

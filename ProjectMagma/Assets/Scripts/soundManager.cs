@@ -5,7 +5,7 @@ using UnityEngine;
 public class soundManager : MonoBehaviour
 {
     [Header("----- Player Audio SFX -----")]
-    [SerializeField] public AudioSource hitSFX;
+    [SerializeField] AudioSource hitSFX;
     [SerializeField] public AudioSource jumpSFX;
     [SerializeField] public AudioSource deathSFX;
 
@@ -15,6 +15,12 @@ public class soundManager : MonoBehaviour
     [SerializeField] public AudioSource spiderlingSFX;
     [SerializeField] public AudioSource spiderSFX;
     [SerializeField] public AudioSource slimeSFX;
+
+    public void PlayHurt()
+    {
+        if (hitSFX != null && hitSFX.clip != null)
+            hitSFX.Play();
+    }
 
     public void SkelatonSFX()
     {
