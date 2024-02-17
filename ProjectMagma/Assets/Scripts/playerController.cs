@@ -333,8 +333,6 @@ public class playerController : MonoBehaviour, IDamage
         isAltActive = true;
         altAttackCollider.enabled = true;
 
-        soundManager?.PlayAltAttack();
-
         RaycastHit hit;
         // The layer masks of the collision layers we want the raycast to hit: Default, Enemy.
         // Using it specifies the layers we want the raycast to collide with.

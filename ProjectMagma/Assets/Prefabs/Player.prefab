@@ -58,7 +58,6 @@ MonoBehaviour:
   controller: {fileID: 2324110343507679693}
   altAttackCollider: {fileID: 4527473754651348832}
   health: 20
-  healthRegenRate: 2
   isInvincible: 0
   hasInfiniteEnergy: 0
   walkSpeed: 8
@@ -101,7 +100,6 @@ MonoBehaviour:
   deathSFX: {fileID: -7619010367592092383}
   attackStartSFX: {fileID: 0}
   attackMiddleSFX: {fileID: 0}
-  altAttackSFX: {fileID: 0}
 --- !u!82 &8436475894874250393
 AudioSource:
   m_ObjectHideFlags: 0

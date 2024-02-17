@@ -10,7 +10,6 @@ public class soundManager : MonoBehaviour
     [SerializeField] AudioSource deathSFX;
     [SerializeField] AudioSource attackStartSFX;
     [SerializeField] AudioSource attackMiddleSFX;
-    [SerializeField] AudioSource altAttackSFX;
 
     public void PlayHurt()
     {
@@ -36,10 +35,5 @@ public class soundManager : MonoBehaviour
     {
         if (attackMiddleSFX != null && attackMiddleSFX.clip != null)
             attackMiddleSFX.Play();
-    }
-    public void PlayAltAttack()
-    {
-        if (altAttackSFX != null && altAttackSFX.clip != null)
-            altAttackSFX.Play();
     }
 }

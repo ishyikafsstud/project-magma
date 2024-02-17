@@ -8,7 +8,6 @@ public class enemyAIMelee : enemyAI
     [SerializeField] float particleDuration = 0.1f;
     [SerializeField] GameObject hitParticlesPrefab;
 
-
     protected override void Attack()
     {
         base.Attack();
@@ -17,7 +16,7 @@ public class enemyAIMelee : enemyAI
     protected override void AttackAnimationEvent()
     {
         OnAttack();
-
+        soundManager?.PlayAttackMiddle();
         Vector3 distanceToPlayerFromAttackOrigin = (gameManager.instance.player.transform.position - attackOrigin.transform.position);
 
         RaycastHit hit;

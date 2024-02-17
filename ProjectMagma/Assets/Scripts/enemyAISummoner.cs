@@ -21,7 +21,7 @@ public class enemyAISummoner : enemyAI
     protected override void AttackAnimationEvent()
     {
         OnAttack();
-
+        soundManager?.PlayAttackMiddle();
         foreach (GameObject spawnPos in spawnPositions)
         {
             curAliveMinions++;

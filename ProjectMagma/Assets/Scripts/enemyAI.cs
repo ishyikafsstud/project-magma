@@ -61,7 +61,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     protected int currentFreezeStack = 0;
 
     [Header("----- Audio -----")]
-    [SerializeField] soundManager soundManager;
+    [SerializeField] public soundManager soundManager;
 
     [Header("---- Other ----")]
 
@@ -362,6 +362,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     /// <returns></returns>
     protected virtual void Attack()
     {
+        soundManager?.PlayAttackStart();
         isAttacking = true;
         canRotate = false; // lock rotation when attacking
 
@@ -376,6 +377,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     /// </summary>
     protected virtual void AttackAnimationEvent()
     {
+        soundManager?.PlayAttackMiddle();
         Vector3 distanceToPlayerFromShootPos = (gameManager.instance.player.transform.position - attackOrigin.transform.position);
         Quaternion bulletRot = Quaternion.LookRotation(distanceToPlayerFromShootPos);
 
