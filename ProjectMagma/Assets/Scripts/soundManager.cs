@@ -15,4 +15,29 @@ public class soundManager : MonoBehaviour
     [SerializeField] public AudioSource spiderlingSFX;
     [SerializeField] public AudioSource spiderSFX;
     [SerializeField] public AudioSource slimeSFX;
+
+    public void SkelatonSFX()
+    {
+        skeletonSwordSFX.Play();
+    }
+    public void SlimeSFX()
+    {
+        slimeSFX.Play();
+    }
+    public void SpiderSFX()
+    {
+        spiderSFX.Play();
+    }
+    public void SpiderlingSFX()
+    {
+        spiderlingSFX.Play();
+    }
+    public void BomblingSFX()
+    {
+        skeletonSwordSFX.Play();
+    }
+    public void SummonerSFX()
+    {
+        spawnerSFX.Play();
+    }
 }

@@ -50,6 +50,11 @@ MonoBehaviour:
   hitSFX: {fileID: 3605668025904060708}
   jumpSFX: {fileID: 7942651935283425153}
   deathSFX: {fileID: 1506536595223517005}
+  spawnerSFX: {fileID: 0}
+  skeletonSwordSFX: {fileID: 0}
+  spiderlingSFX: {fileID: 0}
+  spiderSFX: {fileID: 0}
+  slimeSFX: {fileID: 0}
 --- !u!82 &3605668025904060708
 AudioSource:
   m_ObjectHideFlags: 0
@@ -60,7 +65,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -2675556089199335731, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 6f567a1d9759406418cd7b30758f2882, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 31b6a15fa12302a4bacda83cc5cb0302, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

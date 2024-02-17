@@ -27,5 +27,5 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   model: {fileID: 3511148948247028921, guid: 24a7ada550efa5a449ab965ff50084c0, type: 3}
   hitEffect: {fileID: 4033287822461114141, guid: ac9661374d76a734da73e1e9066e2a70, type: 3}
-  shootSound: {fileID: 0}
-  shootSoundVolume: 0
+  shootSound: {fileID: 8300000, guid: a0ff82549e8dba24d82a4f69fc91b755, type: 3}
+  shootSoundVolume: 1
