@@ -60,6 +60,9 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     /// </summary>
     protected int currentFreezeStack = 0;
 
+    [Header("----- Audio -----")]
+    [SerializeField] soundManager soundManager;
+
     [Header("---- Other ----")]
 
     protected int origHP;

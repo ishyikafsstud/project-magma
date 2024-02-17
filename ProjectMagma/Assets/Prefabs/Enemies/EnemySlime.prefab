@@ -430,6 +430,7 @@ MonoBehaviour:
   projectile: {fileID: 0}
   maxFreezeStack: 5
   freezeStackStrength: 0.08
+  soundManager: {fileID: 8032331065347500116, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
   particleDuration: 0.1
   hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
 --- !u!95 &5141618466626957924

@@ -57,6 +57,7 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("----- Audio -----")]
     [SerializeField] soundManager soundManager;
+    [SerializeField] AudioSource weaponAudioSource;
 
     private float energyOriginal;
     private float energyRegenerated;
@@ -270,6 +271,8 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator Shoot()
     {
         isShooting = true;
+
+        weaponAudioSource.PlayOneShot(weaponList[selectedWeapon].shootSound);
 
         if (!hasInfiniteEnergy)
             useEnergy(energyCostPerShot);

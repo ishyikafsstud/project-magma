@@ -57,6 +57,10 @@ MonoBehaviour:
   speed: 50
   destroyTime: 5
   type: 2
+  explosionEffect: {fileID: 0}
+  explosionDelay: 0
+  explosionRadius: 0
+  explosionDamage: 0
 --- !u!96 &4465180956635764682
 TrailRenderer:
   serializedVersion: 3
