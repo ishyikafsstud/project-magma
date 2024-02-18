@@ -8,10 +8,17 @@ public class roomController : MonoBehaviour
 {
     public GameObject[] barriers;
 
+    [SerializeField] bool unlockDoorsOnStart;
     [SerializeField] bool unlockDoorsOnPlayerLeave;
 
     [SerializeField] private int enemyCount;
     private bool doorsLocked;
+
+    private void Start()
+    {
+        if (unlockDoorsOnStart)
+            UnlockDoors();
+    }
 
     public void DecrementEnemyCount(GameObject enemy)
     {
@@ -34,7 +41,14 @@ public class roomController : MonoBehaviour
             foreach (GameObject barrier in barriers)
             {
                 if (barrier != null)
-                    barrier.GetComponent<Animator>().SetTrigger("Door Locked");
+                {
+                    if (barrier.GetComponent<ILockable>() != null)
+                    {
+                        barrier.GetComponent<ILockable>().Lock();
+                    }
+                    else
+                        barrier.GetComponent<Animator>().SetTrigger("Door Locked");
+                }
             }
         }
     }
@@ -47,14 +61,21 @@ public class roomController : MonoBehaviour
             foreach (GameObject barrier in barriers)
             {
                 if (barrier != null)
-                    barrier.GetComponent<Animator>().SetTrigger("Door Open");
+                {
+                    if (barrier.GetComponent<ILockable>() != null)
+                    {
+                        barrier.GetComponent<ILockable>().Unlock();
+                    }
+                    else
+                        barrier.GetComponent<Animator>().SetTrigger("Door Open");
+                }
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        
+
         if (other.CompareTag("Player"))
         {
             //Debug.Log("Trigger entered: " + other.name);
