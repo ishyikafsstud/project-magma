@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class enemyAI : MonoBehaviour, IDamage, IPushable
 {
@@ -77,6 +79,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     float stoppingDistOrig;
     bool canRotate = true; //For locking enemy rotation 
     bool hasBeenAlerted;
+    bool isDead;
 
     public delegate void EnemyAction(GameObject enemy);
 
@@ -132,11 +135,15 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         origSpeed = agent.speed;
         //enemyManager.instance.EnemySpawned(gameObject, isMinion); // spawners should be responsible for reporting enemies
         stoppingDistOrig = agent.stoppingDistance;
+        isDead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isDead)
+            return;
+
         distanceToPlayer = (gameManager.instance.player.transform.position - transform.position);
         angleToPlayer = Vector3.Angle(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z),
             new Vector3(transform.forward.x, 0, transform.forward.z));
@@ -179,9 +186,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
             float targetAnimSpeed = agent.velocity.normalized.magnitude;
             animator.SetFloat("Speed", Mathf.Lerp(animator.GetFloat("Speed"), targetAnimSpeed, animSpeedTransition * Time.deltaTime));
         }
-
-
-        
     }
 
     /// <summary>
@@ -308,8 +312,17 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     public void die()
     {
-        enemyManager.instance.EnemyDied(gameObject, isMinion);
+        if (isDead)
+            return;
 
+        isDead = true;
+
+        if (animator != null && animator.parameters.Any(param => param.name == "DeathTrigger"
+            && param.type == AnimatorControllerParameterType.Trigger))
+        {
+            animator.SetTrigger("DeathTrigger");
+        }
+        enemyManager.instance.EnemyDied(gameObject, isMinion);
         // If it's the last enemy
         if (enemyManager.instance.TotalEnemies == 0)
         {
@@ -326,11 +339,18 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
                 gameManager.instance.SpawnAmbushReward(lootPos);
             }
         }
-
-        OnDeath();
-
-        Destroy(gameObject);
     }
+    
+    protected virtual void DeathAnimationEnd()
+    {
+        if (isDead)
+        {
+            OnDeath();
+            Destroy(gameObject);
+        }
+            
+    }
+
 
     //this is going to change. this is for test feedback for the player.
     IEnumerator flashRed()

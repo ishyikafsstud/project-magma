@@ -54,9 +54,10 @@ public class roomController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(other.name + " entered " + gameObject.name); // Print out the collider's name and the identifier of the room controller
+        
         if (other.CompareTag("Player"))
         {
+            //Debug.Log("Trigger entered: " + other.name);
             if (!doorsLocked)
             {
                 gameManager.instance.EnterGameState(gameManager.GameStates.Combat);
@@ -66,9 +67,10 @@ public class roomController : MonoBehaviour
         }
         else if (other.CompareTag("Enemy"))
         {
+            //Debug.Log("Trigger entered: " + other.name);
             enemyCount++;
 
-            other.GetComponent<enemyAI>().DeathEvent += DecrementEnemyCount;
+            other.GetComponentInParent<enemyAI>().DeathEvent += DecrementEnemyCount;
         }
     }
 
@@ -76,6 +78,7 @@ public class roomController : MonoBehaviour
     {
         if (other.CompareTag("Player") && unlockDoorsOnPlayerLeave)
         {
+            //Debug.Log("Trigger exited: " + other.name);
             UnlockDoors();
         }
     }
