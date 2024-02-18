@@ -18,6 +18,7 @@ public class menuManager : MonoBehaviour
     [SerializeField] Toggle tiltToggle;
 
     [Header("---- Load Scene ----")]
+    [SerializeField] float transitionDelay;
     [SerializeField] string mainMenu;
     [SerializeField] string levelOne;
     [SerializeField] string levelTwo;
@@ -25,6 +26,10 @@ public class menuManager : MonoBehaviour
     [SerializeField] string levelFour;
     [SerializeField] string levelFive;
     [SerializeField] string alphaShowcaseLevel;
+
+    [Header("---- Load Scene ----")]
+    [SerializeField] float ToggleWindowDelay;
+    [SerializeField] float CloseWindowDelay;
 
     [Header("---- Other Dependencies ----")]
     [SerializeField] private AudioMixer audioMixer;
@@ -47,12 +52,17 @@ public class menuManager : MonoBehaviour
             tiltToggle.isOn = settingsData.tiltEnabled;
         }
     }
+    public IEnumerator LoadSceneWithDelay(string sceneName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(sceneName);
+    }
 
     public void MainMenu()
     {
         if (mainMenu != null)
         {
-            SceneManager.LoadScene(mainMenu);
+            StartCoroutine(LoadSceneWithDelay(mainMenu, transitionDelay));
             Time.timeScale = 1.0f;
         }
         else
@@ -105,7 +115,7 @@ public class menuManager : MonoBehaviour
 
     public void StartNewGame()
     {
-        SceneManager.LoadScene(alphaShowcaseLevel);
+        StartCoroutine(LoadSceneWithDelay(alphaShowcaseLevel, transitionDelay));
     }
 
     // Need to implement code so that Level select buttons stay disabled until the player completes that level
@@ -113,7 +123,7 @@ public class menuManager : MonoBehaviour
     {
         if (levelOne != null)
         {
-            SceneManager.LoadScene(levelOne);
+            StartCoroutine(LoadSceneWithDelay(levelOne, transitionDelay));
             Time.timeScale = 1.0f;
         }
         else
@@ -125,7 +135,7 @@ public class menuManager : MonoBehaviour
     {
         if (levelTwo != null)
         {
-            SceneManager.LoadScene(levelTwo);
+            StartCoroutine(LoadSceneWithDelay(levelTwo, transitionDelay));
             Time.timeScale = 1.0f;
         }
         else
@@ -137,7 +147,7 @@ public class menuManager : MonoBehaviour
     {
         if (levelThree != null)
         {
-            SceneManager.LoadScene(levelThree);
+            StartCoroutine(LoadSceneWithDelay(levelThree, transitionDelay));
             Time.timeScale = 1.0f;
         }
         else
@@ -149,7 +159,7 @@ public class menuManager : MonoBehaviour
     {
         if (levelFour != null)
         {
-            SceneManager.LoadScene(levelFour);
+            StartCoroutine(LoadSceneWithDelay(levelFour, transitionDelay));
             Time.timeScale = 1.0f;
         }
         else
@@ -161,7 +171,7 @@ public class menuManager : MonoBehaviour
     {
         if (levelFive != null)
         {
-            SceneManager.LoadScene(levelFive);
+            StartCoroutine(LoadSceneWithDelay(levelFive, transitionDelay));
             Time.timeScale = 1.0f;
         }
         else
@@ -174,9 +184,18 @@ public class menuManager : MonoBehaviour
     {
         Application.Quit();
     }
-
     public void ToggleWindow(GameObject window)
     {
+        StartCoroutine(ToggleWindowWithDelay(window, ToggleWindowDelay));
+    }
+    public void CloseWindow(GameObject window)
+    {
+        StartCoroutine(CloseWindowWithDelay(window, CloseWindowDelay));
+    }
+
+    IEnumerator ToggleWindowWithDelay(GameObject window, float delay)
+    {
+        yield return new WaitForSeconds(delay);
         if (window != null)
         {
             window.SetActive(!window.activeSelf);
@@ -186,8 +205,9 @@ public class menuManager : MonoBehaviour
             Debug.LogWarning("Reference not set in inspector.");
         }
     }
-    public void CloseWindow(GameObject window)
+    IEnumerator CloseWindowWithDelay(GameObject window, float delay)
     {
+        yield return new WaitForSeconds(delay);
         if (window != null)
         {
             window.SetActive(false);

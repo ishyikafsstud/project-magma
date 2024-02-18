@@ -1220,18 +1220,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 403832680090878331}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &5769464156248427047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1791,18 +1779,6 @@ MonoBehaviour:
       - m_Target: {fileID: 2665246074342212890}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: Resume
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8092084114197303766}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4415,18 +4391,6 @@ MonoBehaviour:
       - m_Target: {fileID: 2665246074342212890}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: Restart
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4106206758588695458}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7255,6 +7219,7 @@ MonoBehaviour:
   musicVolumeSlider: {fileID: 0}
   uiVolumeSlider: {fileID: 0}
   tiltToggle: {fileID: 0}
+  transitionDelay: 1
   mainMenu: MainMenu
   levelOne: Prototype Two
   levelTwo: 
@@ -7262,6 +7227,8 @@ MonoBehaviour:
   levelFour: 
   levelFive: 
   alphaShowcaseLevel: 
+  ToggleWindowDelay: 0
+  CloseWindowDelay: 0
   audioMixer: {fileID: 0}
 --- !u!114 &2689396903524032928
 MonoBehaviour:
