@@ -76,13 +76,13 @@ public class gameManager : MonoBehaviour
     SoundtrackManager soundtrackManager;
     public helperClass Helper { get { return helper; } }
 
-    [Header("Functional settings")]
+    [Header("---- Functional settings ----")]
     public bool isPaused;
     [SerializeField] GameStates defaultGameState;
     private GameStates curGameState;
 
 
-    [Header("Mouse and Keyboard Menu Controls")]
+    [Header("---- Mouse and Keyboard Menu Controls ----")]
     [Tooltip("Eventsystem will highlight this button first on the Continue Menu.")]
     [SerializeField] private GameObject highlightContinueButton;
     [Tooltip("Eventsystem will highlight this button first on the Win Menu.")]
