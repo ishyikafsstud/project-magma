@@ -8,6 +8,8 @@ public class spawner : MonoBehaviour
     [SerializeField] int numToSpawn;
     [SerializeField] int timeBetweenSpawns;
     [SerializeField] Transform[] spawnPos;
+    [Tooltip("Whether the enemies spawned by this spawner should roam.")]
+    [SerializeField] bool canEnemiesRoam = true;
 
 
     int spawnCount;
@@ -43,6 +45,7 @@ public class spawner : MonoBehaviour
         
         GameObject enemy = Instantiate(objectToSpawn, spawnPos[arrayPos].transform.position, spawnPos[arrayPos].transform.rotation);
         enemyManager.instance.EnemySpawned(enemy, false); // Report about enemy spawning
+        enemy.GetComponent<IEnemy>().SetCanRoam(canEnemiesRoam);
         spawnCount++;
         
         yield return new WaitForSeconds(timeBetweenSpawns);

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class enemyAI : MonoBehaviour, IDamage, IPushable
+public class enemyAI : MonoBehaviour, IDamage, IPushable, IEnemy
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
@@ -187,6 +187,11 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
             float targetAnimSpeed = agent.velocity.normalized.magnitude;
             animator.SetFloat("Speed", Mathf.Lerp(animator.GetFloat("Speed"), targetAnimSpeed, animSpeedTransition * Time.deltaTime));
         }
+    }
+
+    public void SetCanRoam(bool canRoam)
+    {
+        this.canRoam = canRoam;
     }
 
     /// <summary>
