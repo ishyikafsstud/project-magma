@@ -7283,7 +7283,7 @@ MonoBehaviour:
   enemyCountText: {fileID: 7569036431406977521}
   playerHealthbar: {fileID: 3485526451889417748}
   playerEnergybar: {fileID: 8395521046521427636}
-  playerEnergybarBG: {fileID: 8395521046521427636}
+  playerEnergybarBG: {fileID: 3803772060851076272}
   playerDamageScreenFlash: {fileID: 3331555979164700209}
   keyPrefab: {fileID: 7516420828584535120, guid: a63f9ed5ef581544ba657aef03d9d8ee, type: 3}
   ambushRewardPrefab: {fileID: 6742071433124294444, guid: 247ba2f1558121c43a8db5aa019402c1, type: 3}
