@@ -511,8 +511,8 @@ MonoBehaviour:
   levelFour: Level4Placeholder
   levelFive: Level5Placeholder
   alphaShowcaseLevel: AlphaShowcaseLevel
-  ToggleWindowDelay: 0.5
-  CloseWindowDelay: 0.5
+  ToggleWindowDelay: 0.1
+  CloseWindowDelay: 0.1
   audioMixer: {fileID: 24100000, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
 --- !u!1 &149614077
 GameObject:
