@@ -188,7 +188,7 @@ public class gameManager : MonoBehaviour
     public void EnterGameState(GameStates newState)
     {
         curGameState = newState;
-        Debug.Log("Entered " + newState + " state.");
+        //Debug.Log("Entered " + newState + " state.");
 
         soundtrackManager.GetComponent<SoundtrackManager>().PlayGameStateMusic(curGameState);
     }
