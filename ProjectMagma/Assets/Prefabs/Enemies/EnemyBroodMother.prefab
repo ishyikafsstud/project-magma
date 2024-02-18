@@ -2176,24 +2176,26 @@ MonoBehaviour:
   enemyUI: {fileID: 3478104716916680543}
   HP: 15
   restoredHealthValue: 5
+  isMinion: 0
+  canDropLoot: 1
   detectionRange: 40
   fieldOfView: 45
   fieldOfViewAttack: 25
   faceTargetSpeed: 8
-  isMinion: 0
   damageFlashLength: 0.1
   animSpeedTransition: 6
-  canRoam: 0
-  roamDist: 10
-  roamPauseTimeMin: 3
-  roamPauseTimeMax: 6
   attackDamage: 3
   attackRate: 0.3
   attackRange: 3
   projectile: {fileID: 0}
+  canRoam: 0
+  roamDist: 10
+  roamPauseTimeMin: 3
+  roamPauseTimeMax: 6
   maxFreezeStack: 5
   freezeStackStrength: 0.08
   soundManager: {fileID: 406753109707728184}
+  skipDeathAnimation: 0
   particleDuration: 0.1
   hitParticlesPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
 --- !u!114 &406753109707728184

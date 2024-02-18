@@ -24,6 +24,12 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [Header("---- Stats ----")]
     [Range(1, 20)][SerializeField] protected int HP;
     [SerializeField] public int restoredHealthValue;
+    [Tooltip("Whether the character is summoned by a spawner enemy.\nMinions do not count toward kills.")]
+    [SerializeField] bool isMinion;
+    [Tooltip("Whether the enemy can drop loot (activator stone, ambush reward, etc.)")]
+    [SerializeField] bool canDropLoot = true;
+
+    [Header("---- FOV and animation stats ----")]
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
     [Tooltip("The angle that sets enemy field of view (not attacking).")]
@@ -31,18 +37,10 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [Tooltip("The angle that sets enemy field of view (for attacking).")]
     [Range(0, 90)][SerializeField] protected float fieldOfViewAttack = 25;
     [SerializeField] float faceTargetSpeed = 6;
-    [Tooltip("Whether the character is summoned by a spawner enemy.\nMinions do not count toward kills.")]
-    [SerializeField] bool isMinion;
     [Tooltip("For how long the enemy flashes red upon receiving damage, in seconds.")]
     [SerializeField] float damageFlashLength = 0.1f;
     [Tooltip("The speed of transitioning in blend animations.")]
     [SerializeField] float animSpeedTransition = 9;
-    [SerializeField] bool canRoam = true;
-    [SerializeField] int roamDist = 10;
-    [Tooltip("The minimum time before starting to roam again.")]
-    [Range(0, 60)][SerializeField] int roamPauseTimeMin = 3;
-    [Tooltip("The maximum time before starting to roam again.")]
-    [Range(0, 60)][SerializeField] int roamPauseTimeMax = 6;
 
     [Header("---- Attacking ----")]
     [Tooltip("The damage this enemy's attack deals to the target.")]
@@ -53,6 +51,14 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [SerializeField] protected float attackRange;
     [Tooltip("The projectile prefab. Ignore for melee enemies.")]
     [SerializeField] protected GameObject projectile;
+
+    [Header("---- Roaming ----")]
+    [SerializeField] bool canRoam = true;
+    [SerializeField] int roamDist = 10;
+    [Tooltip("The minimum time before starting to roam again.")]
+    [Range(0, 60)][SerializeField] int roamPauseTimeMin = 3;
+    [Tooltip("The maximum time before starting to roam again.")]
+    [Range(0, 60)][SerializeField] int roamPauseTimeMax = 6;
 
     [Header("---- Combat Effects ---")]
     [SerializeField] protected int maxFreezeStack = 5;
@@ -81,6 +87,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     bool canRotate = true; //For locking enemy rotation 
     bool hasBeenAlerted;
     bool isDead;
+    bool shouldDropLoot;
 
     public delegate void EnemyAction(GameObject enemy);
 
@@ -326,6 +333,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         enemyUI.SetActive(false);
 
         enemyManager.instance.EnemyDied(gameObject, isMinion);
+        shouldDropLoot = canDropLoot && enemyManager.instance.TotalEnemies == 0;
+
         if (!skipDeathAnimation && animator.HasState(0, Animator.StringToHash("Death")))
         {
             animator.SetTrigger("DeathTrigger");
@@ -344,7 +353,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
             Destroy(gameObject);
 
             // If it's the last enemy
-            if (enemyManager.instance.TotalEnemies == 0)
+            if (shouldDropLoot)
             {
                 Vector3 lootPos = lootPosition != null ? lootPosition.transform.position : transform.position;
 
