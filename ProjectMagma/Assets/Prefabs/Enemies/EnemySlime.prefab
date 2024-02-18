@@ -414,10 +414,12 @@ MonoBehaviour:
   alertOrigin: {fileID: 7004884628509589446}
   lootPosition: {fileID: 4446764086274478458}
   enemyUI: {fileID: 6287914579173553829}
+  primaryCollider: {fileID: 7760328312414012987}
   HP: 20
   restoredHealthValue: 1
   isMinion: 0
   canDropLoot: 1
+  countDeath: 1
   detectionRange: 20
   fieldOfView: 45
   fieldOfViewAttack: 25

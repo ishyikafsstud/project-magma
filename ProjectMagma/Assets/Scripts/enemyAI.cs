@@ -20,6 +20,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [Tooltip("Where this enemy's loot spawns.")]
     [SerializeField] protected Transform lootPosition;
     [SerializeField] GameObject enemyUI;
+    [SerializeField] Collider primaryCollider;
 
     [Header("---- Stats ----")]
     [Range(1, 20)][SerializeField] protected int HP;
@@ -337,6 +338,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         isDead = true;
         agent.enabled = false;
         enemyUI.SetActive(false);
+        primaryCollider.enabled = false;
 
         enemyManager.instance.EnemyDied(gameObject, isMinion, countDeath);
         shouldDropLoot = canDropLoot && enemyManager.instance.TotalEnemies == 0;
