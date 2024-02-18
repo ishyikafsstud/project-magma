@@ -340,6 +340,8 @@ public class playerController : MonoBehaviour, IDamage
         int layerMask = (1 << 0) | (1 << 6);
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, weaponList[selectedWeapon].altRange, layerMask))
         {
+            // Applys damage and push force to the hit enemy
+            ApplyDamageAndPush(hit.collider);
             SpawnHitParticles(hit.point);
 
             // Gets all colliders within a radius around the hit point
@@ -352,7 +354,6 @@ public class playerController : MonoBehaviour, IDamage
                     ApplyDamageAndPush(collider);
                 }
             }
-            SpawnHitParticles(hit.point);
         }
         // Delay between hits
         yield return new WaitForSeconds(weaponList[selectedWeapon].altRate);
