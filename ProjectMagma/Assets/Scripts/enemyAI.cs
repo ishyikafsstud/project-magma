@@ -28,6 +28,10 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [SerializeField] bool isMinion;
     [Tooltip("Whether the enemy can drop loot (activator stone, ambush reward, etc.)")]
     [SerializeField] bool canDropLoot = true;
+    public bool CanDropLoot { get => canDropLoot; set => canDropLoot = value; }
+    [Tooltip("Whether this enemy's death should decrease enemy counter, even if it is not a minion." +
+        "\n Do not set to false unless for debug reasons.")]
+    [SerializeField] bool countDeath = true;
 
     [Header("---- FOV and animation stats ----")]
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
@@ -332,7 +336,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         agent.enabled = false;
         enemyUI.SetActive(false);
 
-        enemyManager.instance.EnemyDied(gameObject, isMinion);
+        enemyManager.instance.EnemyDied(gameObject, isMinion, countDeath);
         shouldDropLoot = canDropLoot && enemyManager.instance.TotalEnemies == 0;
 
         if (!skipDeathAnimation && animator.HasState(0, Animator.StringToHash("Death")))

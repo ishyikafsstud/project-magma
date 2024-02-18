@@ -1601,6 +1601,14 @@ PrefabInstance:
       propertyPath: roamDist
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9003118281020319490, guid: 49257f16235463a41a020e13fa26bfb5, type: 3}
+      propertyPath: countDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9003118281020319490, guid: 49257f16235463a41a020e13fa26bfb5, type: 3}
+      propertyPath: canDropLoot
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2512,6 +2520,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5012835652415111784, guid: f027186b3b106d44f8a283b75cb29af6, type: 3}
       propertyPath: roamDist
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012835652415111784, guid: f027186b3b106d44f8a283b75cb29af6, type: 3}
+      propertyPath: countDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012835652415111784, guid: f027186b3b106d44f8a283b75cb29af6, type: 3}
+      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5331191828365259758, guid: f027186b3b106d44f8a283b75cb29af6, type: 3}
@@ -3809,6 +3825,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2062517292711689769, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
       propertyPath: roamDist
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062517292711689769, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
+      propertyPath: countDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062517292711689769, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
+      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -7683,6 +7707,14 @@ PrefabInstance:
       propertyPath: roamDist
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4500684107679062096, guid: 39723793ad110c041aa158b7a8ae6edf, type: 3}
+      propertyPath: countDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500684107679062096, guid: 39723793ad110c041aa158b7a8ae6edf, type: 3}
+      propertyPath: canDropLoot
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6469188073297186863, guid: 39723793ad110c041aa158b7a8ae6edf, type: 3}
       propertyPath: m_Name
       value: EnemySpiderling
@@ -7751,6 +7783,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3897954677915085486, guid: 9653e12a37105df47a05842d9cca1901, type: 3}
       propertyPath: roamDist
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3897954677915085486, guid: 9653e12a37105df47a05842d9cca1901, type: 3}
+      propertyPath: countDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3897954677915085486, guid: 9653e12a37105df47a05842d9cca1901, type: 3}
+      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7036350958980362217, guid: 9653e12a37105df47a05842d9cca1901, type: 3}
@@ -9719,6 +9759,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: roamDist
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
+      propertyPath: countDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
+      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -29,6 +29,7 @@ public class enemyAISummoner : enemyAI
             GameObject enemyInst = Instantiate(minionPrefab, spawnPos.transform.position, spawnPos.transform.rotation);
             enemyAI spawnedEnemyScript = enemyInst.GetComponent<enemyAI>();
             spawnedEnemyScript.IsMinion = true;
+            spawnedEnemyScript.CanDropLoot = this.CanDropLoot;
             spawnedEnemyScript.BecomeAlerted(gameManager.instance.player.transform.position);
 
             enemyInst.GetComponent<enemyAI>().DeathEvent += MinionDied;

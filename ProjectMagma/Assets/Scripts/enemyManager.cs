@@ -39,7 +39,7 @@ public class enemyManager : MonoBehaviour
     /// Indicates whether enemies are currently attacking.
     /// </summary>
     //bool isAttacking = false;
-    
+
     /// <summary>
     /// The count of significant enemies (i.e. non-minions).
     /// </summary>
@@ -128,10 +128,19 @@ public class enemyManager : MonoBehaviour
         //EnemyCount += !isMinion ? 1 : 0; // Increase significant enemy count if not a minion
     }
 
-    public void EnemyDied(GameObject enemy, bool isMinion)
+    /// <summary>
+    /// Track a died enemy.
+    /// </summary>
+    /// <param name="enemy">The died enemy.</param>
+    /// <param name="isMinion">Whether it was a minion.</param>
+    /// <param name="countDeath">Whether their death should decrease the enemy count.</param>
+    public void EnemyDied(GameObject enemy, bool isMinion, bool countDeath = true)
     {
         enemies.Remove(enemy);
-        EnemyCount -= !isMinion ? 1 : 0; // Decrease significant enemy count if not a minion
+
+        if (countDeath)
+            EnemyCount -= !isMinion ? 1 : 0; // Decrease significant enemy count if not a minion
+
         if (!isMinion)
         {
             int restoredHealthValue = enemy.GetComponent<enemyAI>().restoredHealthValue;

@@ -39,6 +39,7 @@ public class spawnOnEnemyEvent : MonoBehaviour
             if (spawnedEnemyScript != null)
             {
                 spawnedEnemyScript.IsMinion = true;
+                spawnedEnemyScript.CanDropLoot = GetComponent<enemyAI>().CanDropLoot;
                 spawnedEnemyScript.BecomeAlerted(gameManager.instance.player.transform.position);
             }
         }
