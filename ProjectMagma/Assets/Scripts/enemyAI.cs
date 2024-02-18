@@ -320,37 +320,43 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         agent.enabled = false;
         enemyUI.SetActive(false);
 
-        if (animator.HasState(0, Animator.StringToHash("Death")))
+        enemyManager.instance.EnemyDied(gameObject, isMinion);
+        if (!skipDeathAnimation && animator.HasState(0, Animator.StringToHash("Death")))
         {
             animator.SetTrigger("DeathTrigger");
         }
-        enemyManager.instance.EnemyDied(gameObject, isMinion);
-        // If it's the last enemy
-        if (enemyManager.instance.TotalEnemies == 0)
+        else
         {
-            Vector3 lootPos = lootPosition != null ? lootPosition.transform.position : transform.position;
-            
-            // If the key was not dropped (i.e. it was the last "required" enemy), drop the key
-            if (!gameManager.instance.IsKeyDropped)
-            {
-                gameManager.instance.SpawnKey(lootPos);
-            }
-            // if the key was already dropped then the died enemy was the last ambush enemy, so drop the ambush reward
-            else if (!gameManager.instance.IsAmbushRewardDropped)
-            {
-                gameManager.instance.SpawnAmbushReward(lootPos);
-            }
+            DeathAnimationEnd();
         }
     }
-    
+
     protected virtual void DeathAnimationEnd()
     {
         if (isDead)
         {
             OnDeath();
             Destroy(gameObject);
+
+            // If it's the last enemy
+            if (enemyManager.instance.TotalEnemies == 0)
+            {
+                Vector3 lootPos = lootPosition != null ? lootPosition.transform.position : transform.position;
+
+                // If the key was not dropped (i.e. it was the last "required" enemy), drop the key
+                if (!gameManager.instance.IsKeyDropped)
+                {
+                    gameManager.instance.SpawnKey(lootPos);
+                }
+                // if the key was already dropped then the died enemy was the last ambush enemy, so drop the ambush reward
+                else if (!gameManager.instance.IsAmbushRewardDropped)
+                {
+                    gameManager.instance.SpawnAmbushReward(lootPos);
+                }
+            }
+
         }
-            
+
     }
 
 
@@ -375,7 +381,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         return distanceToPlayer.magnitude <= attackRange
             && !isAttacking
             && angleToPlayer < fieldOfViewAttack;
-            //&& enemyManager.instance.attackingEnemiesCount <= enemyManager.instance.maxAttackingEnemies;
+        //&& enemyManager.instance.attackingEnemiesCount <= enemyManager.instance.maxAttackingEnemies;
     }
 
     /// <summary>
