@@ -507,7 +507,7 @@ public class playerController : MonoBehaviour, IDamage
         if (weapon == null)
             return;
 
-        int newWeaponIndex = weaponList.Count;
+        int newWeaponIndex = Mathf.Max(weaponList.Count - 1, 0);
 
         // If the inventory is full, drop the current selected weapon and remember to insert the new weapon in
         // place of the dropped weapon
@@ -527,7 +527,7 @@ public class playerController : MonoBehaviour, IDamage
         weaponPosition.GetComponent<MeshFilter>().sharedMesh = weapon.model.GetComponent<MeshFilter>().sharedMesh;
         weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weapon.model.GetComponent<MeshRenderer>().sharedMaterial;
 
-        selectedWeapon = weaponList.Count - 1;
+        selectedWeapon = newWeaponIndex;
     }
 
     void dropWeapon(int weaponIndex)
