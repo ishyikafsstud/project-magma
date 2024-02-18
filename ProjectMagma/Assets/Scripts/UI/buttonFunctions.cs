@@ -12,7 +12,6 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.stateUnpaused();
     }
 
-    
     public void Restart() // Will need to find another more efficient way to implement this
     {
         // Loads entire scene the user is currently in
@@ -26,9 +25,18 @@ public class buttonFunctions : MonoBehaviour
         // Close application
         Application.Quit();
     }
-    public void Respawn()
+
+    public void Continue()
     {
-        gameManager.instance.playerScript.respawn();
+        // Loads entire scene the user is currently in
+        SceneManager.LoadScene(gameManager.instance.GetNextLevelName());
+        // Reset Time scale
         gameManager.instance.stateUnpaused();
     }
+
+    //public void Respawn()
+    //{
+    //    gameManager.instance.playerScript.respawn();
+    //    gameManager.instance.stateUnpaused();
+    //}
 }

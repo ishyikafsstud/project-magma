@@ -8,6 +8,9 @@ TagManager:
   - Player Spawn Position
   - Enemy
   - Ambush Spawner
+  - Room Controller 1
+  - Room Controller 2
+  - SoundtrackManager
   layers:
   - Default
   - TransparentFX
@@ -18,7 +21,7 @@ TagManager:
   - enemy
   - enemyAttack
   - playerAttack
-  - 
+  - RoomController
   - 
   - 
   - 

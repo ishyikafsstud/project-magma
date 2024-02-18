@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
-public class enemyAI : MonoBehaviour, IDamage
+public class enemyAI : MonoBehaviour, IDamage, IPushable
 {
+    [Header("----- Components -----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator animator;
@@ -16,29 +20,32 @@ public class enemyAI : MonoBehaviour, IDamage
     [Tooltip("Where this enemy's loot spawns.")]
     [SerializeField] protected Transform lootPosition;
     [SerializeField] GameObject enemyUI;
+    [SerializeField] Collider primaryCollider;
 
     [Header("---- Stats ----")]
     [Range(1, 20)][SerializeField] protected int HP;
-    [SerializeField] float speed;
+    [SerializeField] public int restoredHealthValue;
+    [Tooltip("Whether the character is summoned by a spawner enemy.\nMinions do not count toward kills.")]
+    [SerializeField] bool isMinion;
+    [Tooltip("Whether the enemy can drop loot (activator stone, ambush reward, etc.)")]
+    [SerializeField] bool canDropLoot = true;
+    public bool CanDropLoot { get => canDropLoot; set => canDropLoot = value; }
+    [Tooltip("Whether this enemy's death should decrease enemy counter, even if it is not a minion." +
+        "\n Do not set to false unless for debug reasons.")]
+    [SerializeField] bool countDeath = true;
+
+    [Header("---- FOV and animation stats ----")]
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
     [Tooltip("The angle that sets enemy field of view (not attacking).")]
-    [Range(0, 90)][SerializeField] protected float fieldOfView;
+    [Range(0, 90)][SerializeField] protected float fieldOfView = 45;
     [Tooltip("The angle that sets enemy field of view (for attacking).")]
-    [Range(0, 90)][SerializeField] protected float fieldOfViewAttack;
-    [SerializeField] float faceTargetSpeed;
-    [Tooltip("Whether the character is summoned by a spawner enemy.\nMinions do not count toward kills.")]
-    [SerializeField] bool isMinion;
+    [Range(0, 90)][SerializeField] protected float fieldOfViewAttack = 25;
+    [SerializeField] float faceTargetSpeed = 6;
     [Tooltip("For how long the enemy flashes red upon receiving damage, in seconds.")]
-    [SerializeField] float damageFlashLength;
+    [SerializeField] float damageFlashLength = 0.1f;
     [Tooltip("The speed of transitioning in blend animations.")]
-    [SerializeField] float animSpeedTransition;
-    [SerializeField] bool canRoam;
-    [SerializeField] int roamDist;
-    [Tooltip("The minimum time before starting to roam again.")]
-    [Range(0.0f, 60.0f)][SerializeField] int roamPauseTimeMin;
-    [Tooltip("The maximum time before starting to roam again.")]
-    [Range(0.0f, 60.0f)][SerializeField] int roamPauseTimeMax;
+    [SerializeField] float animSpeedTransition = 9;
 
     [Header("---- Attacking ----")]
     [Tooltip("The damage this enemy's attack deals to the target.")]
@@ -48,9 +55,29 @@ public class enemyAI : MonoBehaviour, IDamage
     [Tooltip("The maximum distance from which this enemy can attack.")]
     [SerializeField] protected float attackRange;
     [Tooltip("The projectile prefab. Ignore for melee enemies.")]
-    [SerializeField] protected GameObject bullet; // TODO: rename to `projectile`. Make sure to update the value correctly.
+    [SerializeField] protected GameObject projectile;
+
+    [Header("---- Roaming ----")]
+    [SerializeField] bool canRoam = true;
+    [SerializeField] int roamDist = 10;
+    [Tooltip("The minimum time before starting to roam again.")]
+    [Range(0, 60)][SerializeField] int roamPauseTimeMin = 3;
+    [Tooltip("The maximum time before starting to roam again.")]
+    [Range(0, 60)][SerializeField] int roamPauseTimeMax = 6;
+
+    [Header("---- Combat Effects ---")]
+    [SerializeField] protected int maxFreezeStack = 5;
+    [SerializeField] protected float freezeStackStrength = 0.08f;
+    /// <summary>
+    /// Do not access/set this value directly, use CurrentFreezeStack setter.
+    /// </summary>
+    protected int currentFreezeStack = 0;
+
+    [Header("----- Audio -----")]
+    [SerializeField] public soundManager soundManager;
 
     [Header("---- Other ----")]
+    [SerializeField] bool skipDeathAnimation;
 
     protected int origHP;
     protected bool isAttacking;
@@ -60,7 +87,26 @@ public class enemyAI : MonoBehaviour, IDamage
     protected float angleToPlayer;
     bool destinationChosen;
     Vector3 startingPos;
+    float origSpeed;
     float stoppingDistOrig;
+    bool canRotate = true; //For locking enemy rotation 
+    bool hasBeenAlerted;
+    bool isDead;
+    bool shouldDropLoot;
+
+    public delegate void EnemyAction(GameObject enemy);
+
+    public event EnemyAction AttackEvent;
+    public event EnemyAction DeathEvent;
+
+    protected virtual void OnAttack()
+    {
+        AttackEvent?.Invoke(this.gameObject);
+    }
+    protected virtual void OnDeath()
+    {
+        DeathEvent?.Invoke(this.gameObject);
+    }
 
     public bool IsMinion
     {
@@ -71,17 +117,46 @@ public class enemyAI : MonoBehaviour, IDamage
     public bool IsAlerted { get => playerSpotted; }
     public Vector3 GetAlertPosition() { return alertOrigin.transform.position; }
 
+    public int CurrentFreezeStack
+    {
+        get => currentFreezeStack;
+        set
+        {
+            int actualValue = Mathf.Clamp(value, 0, maxFreezeStack);
+            if (currentFreezeStack == actualValue)
+                return;
+
+            currentFreezeStack = actualValue;
+
+            UpdateSpeed();
+        }
+    }
+    public float GetSlowdownEffectStrength()
+    {
+        return currentFreezeStack * freezeStackStrength;
+    }
+    public float GetSpeedModifier()
+    {
+        return Mathf.Max(1.0f - GetSlowdownEffectStrength(), 0);
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
         origHP = HP;
+        origSpeed = agent.speed;
         //enemyManager.instance.EnemySpawned(gameObject, isMinion); // spawners should be responsible for reporting enemies
         stoppingDistOrig = agent.stoppingDistance;
+        isDead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isDead)
+            return;
+
         distanceToPlayer = (gameManager.instance.player.transform.position - transform.position);
         angleToPlayer = Vector3.Angle(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z),
             new Vector3(transform.forward.x, 0, transform.forward.z));
@@ -96,7 +171,7 @@ public class enemyAI : MonoBehaviour, IDamage
                 ChasePlayer();
 
                 // If player is within the attack range and unless already attacking, attack him
-                if (distanceToPlayer.magnitude <= attackRange && !isAttacking && angleToPlayer < fieldOfViewAttack)
+                if (CanAttack())
                 {
                     Attack();
                 }
@@ -109,6 +184,16 @@ public class enemyAI : MonoBehaviour, IDamage
             }
         }
 
+        if (isAttacking && !canRotate)
+        {
+            // Lock the enemy's rotation during attack
+            agent.updateRotation = false;
+        }
+        else
+        {
+            agent.updateRotation = true;
+        }
+
         if (animator != null)
         {
             float targetAnimSpeed = agent.velocity.normalized.magnitude;
@@ -116,6 +201,21 @@ public class enemyAI : MonoBehaviour, IDamage
         }
     }
 
+    public void SetCanRoam(bool canRoam)
+    {
+        this.canRoam = canRoam;
+    }
+
+    /// <summary>
+    /// Calculate navigation and animation speed 
+    /// </summary>
+    void UpdateSpeed()
+    {
+        float speedModifier = GetSpeedModifier();
+
+        agent.speed = origSpeed * speedModifier;
+        animator.speed = speedModifier;
+    }
     IEnumerator roam()
     {
         if (agent.remainingDistance > 0.05f || destinationChosen)
@@ -132,7 +232,8 @@ public class enemyAI : MonoBehaviour, IDamage
         // check if chosen position is on navmesh, adjust if needed
         NavMeshHit hit;
         NavMesh.SamplePosition(roamPos, out hit, roamDist, 1);
-        agent.SetDestination(hit.position);
+        if (agent.enabled)
+            agent.SetDestination(hit.position);
 
         destinationChosen = false;
     }
@@ -140,12 +241,13 @@ public class enemyAI : MonoBehaviour, IDamage
     void ChasePlayer()
     {
         agent.SetDestination(gameManager.instance.player.transform.position);
-        if (agent.remainingDistance < agent.stoppingDistance)
+        if (agent.remainingDistance < agent.stoppingDistance && canRotate)
             faceTarget();
     }
 
     void faceTarget()
     {
+        if (!canRotate) return;
         Quaternion rot = Quaternion.LookRotation(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, faceTargetSpeed * Time.deltaTime);
     }
@@ -167,6 +269,11 @@ public class enemyAI : MonoBehaviour, IDamage
         }
     }
 
+    public void Push(Vector3 direction, float force)
+    {
+        transform.Translate(direction * force * Time.deltaTime, Space.World);
+    }
+
     public void takeDamage(int amount)
     {
         HP -= amount;
@@ -186,11 +293,22 @@ public class enemyAI : MonoBehaviour, IDamage
         }
     }
 
+    public IEnumerator ApplyFreeze(int stacks)
+    {
+        int appliedStacks = Mathf.Min(stacks, maxFreezeStack - CurrentFreezeStack);
+        CurrentFreezeStack += appliedStacks;
+
+        yield return new WaitForSeconds(5.0f);
+
+        CurrentFreezeStack -= appliedStacks;
+    }
+
     private void spotPlayer()
     {
         StopCoroutine(roam());
 
-        agent.stoppingDistance = stoppingDistOrig;
+        if (agent.enabled)
+            agent.stoppingDistance = stoppingDistOrig;
 
         BecomeAlerted(gameManager.instance.player.transform.position);
         enemyManager.instance.AlertEnemiesWithinRange(GetAlertPosition(), detectionRange);
@@ -198,24 +316,71 @@ public class enemyAI : MonoBehaviour, IDamage
 
     public void BecomeAlerted(Vector3 disturbancePos)
     {
-        playerSpotted = true;
+        if (!hasBeenAlerted)
+        {
+            playerSpotted = true;
+
+            if (enemyUI != null)
+            {
+                enemyUI.GetComponent<enemyUI>().Alerted();
+            }
+
+            hasBeenAlerted = true;
+        }
         //model.material.color = Color.red; // DEBUG PURPOSES - to see who got alerted
     }
 
-    private void die()
+    public void die()
     {
-        enemyManager.instance.EnemyDied(gameObject, isMinion);
+        if (isDead)
+            return;
 
-        // If it's the last enemy and it's not an ambush, drop the key
-        if (enemyManager.instance.TotalEnemies == 0 && !gameManager.instance.IsKeyDropped)
+        isDead = true;
+        agent.enabled = false;
+        enemyUI.SetActive(false);
+        primaryCollider.enabled = false;
+
+        enemyManager.instance.EnemyDied(gameObject, isMinion, countDeath);
+        shouldDropLoot = canDropLoot && enemyManager.instance.TotalEnemies == 0;
+
+        if (!skipDeathAnimation && animator.HasState(0, Animator.StringToHash("Death")))
         {
-            Vector3 lootPos = lootPosition != null ? lootPosition.transform.position : transform.position;
+            animator.SetTrigger("DeathTrigger");
+        }
+        else
+        {
+            DeathAnimationEnd();
+        }
+    }
 
-            gameManager.instance.SpawnKey(lootPos);
+    protected virtual void DeathAnimationEnd()
+    {
+        if (isDead)
+        {
+            OnDeath();
+            Destroy(gameObject);
+
+            // If it's the last enemy
+            if (shouldDropLoot)
+            {
+                Vector3 lootPos = lootPosition != null ? lootPosition.transform.position : transform.position;
+
+                // If the key was not dropped (i.e. it was the last "required" enemy), drop the key
+                if (!gameManager.instance.IsKeyDropped)
+                {
+                    gameManager.instance.SpawnKey(lootPos);
+                }
+                // if the key was already dropped then the died enemy was the last ambush enemy, so drop the ambush reward
+                else if (!gameManager.instance.IsAmbushRewardDropped)
+                {
+                    gameManager.instance.SpawnAmbushReward(lootPos);
+                }
+            }
+
         }
 
-        Destroy(gameObject);
     }
+
 
     //this is going to change. this is for test feedback for the player.
     IEnumerator flashRed()
@@ -233,15 +398,25 @@ public class enemyAI : MonoBehaviour, IDamage
         model.material.color = oldColor;
     }
 
+    protected virtual bool CanAttack()
+    {
+        return distanceToPlayer.magnitude <= attackRange
+            && !isAttacking
+            && angleToPlayer < fieldOfViewAttack;
+        //&& enemyManager.instance.attackingEnemiesCount <= enemyManager.instance.maxAttackingEnemies;
+    }
+
     /// <summary>
     /// Start the attack.
     /// </summary>
     /// <returns></returns>
     protected virtual void Attack()
     {
+        soundManager?.PlayAttackStart();
         isAttacking = true;
-
+        canRotate = false; // lock rotation when attacking
         animator.SetTrigger("AttackTrigger");
+        //enemyManager.instance.attackingEnemiesCount++;
     }
 
     /// <summary>
@@ -251,19 +426,23 @@ public class enemyAI : MonoBehaviour, IDamage
     /// </summary>
     protected virtual void AttackAnimationEvent()
     {
+        soundManager?.PlayAttackMiddle();
         Vector3 distanceToPlayerFromShootPos = (gameManager.instance.player.transform.position - attackOrigin.transform.position);
         Quaternion bulletRot = Quaternion.LookRotation(distanceToPlayerFromShootPos);
 
-        GameObject bulletInstance = Instantiate(bullet, attackOrigin.position, bulletRot);
-        bulletInstance.GetComponent<bullet>().DamageValue = attackDamage;
+        GameObject projectileInstance = Instantiate(projectile, attackOrigin.position, bulletRot);
+        projectileInstance.GetComponent<projectile>().DamageValue = attackDamage;
+
+        OnAttack();
     }
 
 
     protected virtual void AttackAnimationEnd()
     {
         isAttacking = false;
+        canRotate = true;
         animator.ResetTrigger("AttackTrigger");
-
+        //enemyManager.instance.attackingEnemiesCount--;
         //yield return new WaitForSeconds(attackRate);
     }
 

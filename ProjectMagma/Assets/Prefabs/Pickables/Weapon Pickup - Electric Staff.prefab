@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3511148948247028921}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 2.8, y: 1.46, z: 8.24}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,6 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f3179a0ea01d974b8d9b6dae31ce525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiresPickupConfirmation: 1
+  showPrompt: 1
+  itemTitle: Thunder Wand
+  itemDescription: Feel yourself a Zeus.
   weapon: {fileID: 11400000, guid: db0821c9aeaf395448665233bbbcbf3c, type: 2}
 --- !u!33 &6437131331610866197
 MeshFilter:

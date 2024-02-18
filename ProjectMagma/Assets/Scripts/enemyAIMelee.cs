@@ -5,9 +5,8 @@ using UnityEngine;
 public class enemyAIMelee : enemyAI
 {
     [Header("Melee")]
-    [SerializeField] float particleDuration;
+    [SerializeField] float particleDuration = 0.1f;
     [SerializeField] GameObject hitParticlesPrefab;
-
 
     protected override void Attack()
     {
@@ -16,6 +15,8 @@ public class enemyAIMelee : enemyAI
 
     protected override void AttackAnimationEvent()
     {
+        OnAttack();
+        soundManager?.PlayAttackMiddle();
         Vector3 distanceToPlayerFromAttackOrigin = (gameManager.instance.player.transform.position - attackOrigin.transform.position);
 
         RaycastHit hit;

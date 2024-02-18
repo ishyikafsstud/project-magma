@@ -12,11 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb8fe04bec90c1468c6f2485591ae7d, type: 3}
   m_Name: Weapon - Electric Staff
   m_EditorClassIdentifier: 
+  altRange: 5
+  altDamage: 1
+  altRate: 0.5
+  pushForce: 200
+  pushRadius: 10
+  hitParticlePrefab: {fileID: 1171201465392465800, guid: 4aa9f30a28a77224ba84b2a2c334c71b, type: 3}
+  particleDuration: 1
   shootDamage: 5
   shootRate: 0.1
   shootDist: 25
   energyCostPerShot: 5
-  model: {fileID: 2578245646720399431, guid: 05428b467565a704ba312c74a542bc65, type: 3}
-  hitEffect: {fileID: 4033287822461114141, guid: a164e676dbbd6e54587237e619372c98, type: 3}
-  shootSound: {fileID: 0}
-  shootSoundVolume: 0
+  weaponType: 0
+  wandType: 0
+  projectilePrefab: {fileID: 0}
+  model: {fileID: 3511148948247028921, guid: 24a7ada550efa5a449ab965ff50084c0, type: 3}
+  hitEffect: {fileID: 4033287822461114141, guid: ac9661374d76a734da73e1e9066e2a70, type: 3}
+  shootSound: {fileID: 8300000, guid: a0ff82549e8dba24d82a4f69fc91b755, type: 3}
+  shootSoundVolume: 1

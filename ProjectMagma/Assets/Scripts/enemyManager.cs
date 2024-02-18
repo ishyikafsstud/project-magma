@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class enemyManager : MonoBehaviour
 {
     public static enemyManager instance;
-
+    public playerController playerController;
     /// <summary>
     /// The count of significant enemies (non-minions).
     /// </summary>
@@ -18,10 +19,27 @@ public class enemyManager : MonoBehaviour
     /// Ambush spawner game object
     /// </summary>
     public GameObject ambushSpawnerObject;
-   /// <summary>
-   /// AmbushSpawner script
-   /// </summary>
+    /// <summary>
+    /// AmbushSpawner script
+    /// </summary>
     public AmbushSpawner ambushSpawner;
+    /// <summary>
+    /// Queue to hold enemies currently attacking.
+    /// </summary>
+    //Queue<GameObject> attackQueue = new Queue<GameObject>();
+    /// <summary>
+    /// Maximum number of enemies allowed to attack simultaneously.
+    /// </summary>
+    //[SerializeField] public int maxAttackingEnemies = 6;
+    /// <summary>
+    /// Number of enemies currently attacking.
+    /// </summary>
+    //public int attackingEnemiesCount;
+    /// <summary>
+    /// Indicates whether enemies are currently attacking.
+    /// </summary>
+    //bool isAttacking = false;
+
     /// <summary>
     /// The count of significant enemies (i.e. non-minions).
     /// </summary>
@@ -55,6 +73,8 @@ public class enemyManager : MonoBehaviour
         enemyCount = 0;
 
         enemies = new List<GameObject>();
+
+        playerController = FindObjectOfType<playerController>();
     }
 
     void Start()
@@ -104,13 +124,54 @@ public class enemyManager : MonoBehaviour
     public void EnemySpawned(GameObject enemy, bool isMinion)
     {
         enemies.Add(enemy);
+        //StartCoroutine(EnqueueAttack(enemy));
         //EnemyCount += !isMinion ? 1 : 0; // Increase significant enemy count if not a minion
     }
 
-    public void EnemyDied(GameObject enemy, bool isMinion)
+    /// <summary>
+    /// Track a died enemy.
+    /// </summary>
+    /// <param name="enemy">The died enemy.</param>
+    /// <param name="isMinion">Whether it was a minion.</param>
+    /// <param name="countDeath">Whether their death should decrease the enemy count.</param>
+    public void EnemyDied(GameObject enemy, bool isMinion, bool countDeath = true)
     {
         enemies.Remove(enemy);
-        EnemyCount -= !isMinion ? 1 : 0; // Decrease significant enemy count if not a minion
+
+        if (countDeath)
+            EnemyCount -= !isMinion ? 1 : 0; // Decrease significant enemy count if not a minion
+
+        if (!isMinion)
+        {
+            int restoredHealthValue = enemy.GetComponent<enemyAI>().restoredHealthValue;
+            playerController.Heal(restoredHealthValue);
+            playerController.updatePlayerUI();
+        }
     }
+
+    //public IEnumerator EnqueueAttack(GameObject enemy)
+    //{
+    //    attackQueue.Enqueue(enemy);
+    //    Debug.Log("Enemy " + enemy.name + " added to attack queue. Queue count: " + attackQueue.Count);
+
+    //    if (!isAttacking)
+    //    {
+    //        isAttacking = true;
+    //        while (attackQueue.Count > 0)
+    //        {
+    //            if (attackQueue.Count <= maxAttackingEnemies)
+    //            {
+    //                GameObject nextEnemy = attackQueue.Dequeue();
+    //                Debug.Log("Enemy " + nextEnemy.name + " attacking.");
+
+    //                yield return new WaitForSeconds(1f);
+    //                Debug.Log("Enemy " + nextEnemy.name + " finished attacking.");
+    //            }
+    //            yield return null;
+    //        }
+    //        isAttacking = false;
+    //        Debug.Log("All enemies finished attacking.");
+    //    }
+    //}
 
 }
