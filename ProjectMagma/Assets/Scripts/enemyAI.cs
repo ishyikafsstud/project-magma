@@ -231,7 +231,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         // check if chosen position is on navmesh, adjust if needed
         NavMeshHit hit;
         NavMesh.SamplePosition(roamPos, out hit, roamDist, 1);
-        agent.SetDestination(hit.position);
+        if (agent.enabled)
+            agent.SetDestination(hit.position);
 
         destinationChosen = false;
     }
@@ -305,7 +306,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     {
         StopCoroutine(roam());
 
-        agent.stoppingDistance = stoppingDistOrig;
+        if (agent.enabled)
+            agent.stoppingDistance = stoppingDistOrig;
 
         BecomeAlerted(gameManager.instance.player.transform.position);
         enemyManager.instance.AlertEnemiesWithinRange(GetAlertPosition(), detectionRange);
