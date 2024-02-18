@@ -49,13 +49,16 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuLevelComplete;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+
     [SerializeField] TextMeshProUGUI itemPromptTitle;
     [SerializeField] TextMeshProUGUI itemPromptDescription;
     [SerializeField] TextMeshProUGUI itemPromptDirection;
 
     [SerializeField] TextMeshProUGUI hintText;
     [SerializeField] float hintDuration;
+
     [SerializeField] TextMeshProUGUI enemyCountText;
+
     public Image playerHealthbar;
     public Image playerEnergybar;
     public Image playerEnergybarBG;
@@ -66,7 +69,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject ambushRewardPrefab;
 
     [Header("---- Automatic set ----")]
-    public GameObject playerSpawnPosition;
+    GameObject playerSpawnPosition;
     public GameObject player;
     public playerController playerScript;
     helperClass helper;
@@ -143,6 +146,12 @@ public class gameManager : MonoBehaviour
         ShowHint("Good Luck!");
 
         EnterGameState(defaultGameState);
+
+        if (playerSpawnPosition != null)
+        {
+            player.transform.position = playerSpawnPosition.transform.position;
+            player.transform.rotation = playerSpawnPosition.transform.rotation;
+        }
 
         yield return new WaitForFixedUpdate();
         LateStart();
