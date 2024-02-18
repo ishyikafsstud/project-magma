@@ -132,13 +132,13 @@ public class playerController : MonoBehaviour, IDamage
                     gameManager.instance.ShowHint("Not enough energy to shoot \nKeep Moving!");
                 }
             }
-            // Right click - alt attack
-            else if (Input.GetButton("Hit") && !isAltActive && !isShooting)
-            {
-                StartCoroutine(AltAttack());
-            }
+            ////Right click -alt attack
+            //else if (Input.GetButton("Hit") && !isAltActive && !isShooting)
+            //{
+            //    StartCoroutine(AltAttack());
+            //}
 
-            if(Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 dropWeapon(selectedWeapon);
             }
@@ -340,27 +340,38 @@ public class playerController : MonoBehaviour, IDamage
         int layerMask = (1 << 0) | (1 << 6);
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, weaponList[selectedWeapon].altRange, layerMask))
         {
-            IDamage damagedBody = hit.collider.GetComponent<IDamage>();
-            if (damagedBody != null && hit.collider.CompareTag("Enemy"))
+            SpawnHitParticles(hit.point);
+
+            // Gets all colliders within a radius around the hit point
+            Collider[] colliders = Physics.OverlapSphere(hit.point, weaponList[selectedWeapon].pushRadius, layerMask);
+            foreach (Collider collider in colliders)
             {
-                damagedBody.takeDamage(weaponList[selectedWeapon].altDamage);
-
-                // Calculates the direction from the player to the enemy
-                Vector3 direction = (hit.collider.transform.position - transform.position).normalized;
-
-                // Accesses the push force from the WeaponStats of the selected weapon
-                float force = weaponList[selectedWeapon].pushForce;
-
-                // Calls the Push method on the enemy object
-                hit.collider.GetComponent<IPushable>()?.Push(direction, force);
+                if (collider != hit.collider) // Skips the collider that was hit by the raycast
+                {
+                    // Applys damage and push force to each nearby enemy
+                    ApplyDamageAndPush(collider);
+                }
             }
             SpawnHitParticles(hit.point);
         }
-        // Delay between melee hits
+        // Delay between hits
         yield return new WaitForSeconds(weaponList[selectedWeapon].altRate);
         
         isAltActive = false;
         altAttackCollider.enabled = false;
+    }
+    void ApplyDamageAndPush(Collider collider)
+    {
+        IDamage damagedBody = collider.GetComponent<IDamage>();
+        if (damagedBody != null && collider.CompareTag("Enemy"))
+        {
+            damagedBody.takeDamage(weaponList[selectedWeapon].altDamage);
+
+            Vector3 direction = (collider.transform.position - transform.position).normalized;
+            float force = weaponList[selectedWeapon].pushForce;
+
+            collider.GetComponent<IPushable>()?.Push(direction, force);
+        }
     }
     /// <summary>
     /// Melee Feedback
