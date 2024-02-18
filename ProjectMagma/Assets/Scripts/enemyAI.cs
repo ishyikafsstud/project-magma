@@ -66,6 +66,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [SerializeField] public soundManager soundManager;
 
     [Header("---- Other ----")]
+    [SerializeField] bool skipDeathAnimation;
 
     protected int origHP;
     protected bool isAttacking;
@@ -316,9 +317,10 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
             return;
 
         isDead = true;
+        agent.enabled = false;
+        enemyUI.SetActive(false);
 
-        if (animator != null && animator.parameters.Any(param => param.name == "DeathTrigger"
-            && param.type == AnimatorControllerParameterType.Trigger))
+        if (animator.HasState(0, Animator.StringToHash("Death")))
         {
             animator.SetTrigger("DeathTrigger");
         }
