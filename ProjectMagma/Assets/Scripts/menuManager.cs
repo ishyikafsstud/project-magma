@@ -54,21 +54,14 @@ public class menuManager : MonoBehaviour
     }
     public IEnumerator LoadSceneWithDelay(string sceneName, float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(sceneName);
     }
 
     public void MainMenu()
     {
-        if (mainMenu != null)
-        {
-            StartCoroutine(LoadSceneWithDelay(mainMenu, transitionDelay));
-            Time.timeScale = 1.0f;
-        }
-        else
-        {
-            Debug.LogWarning("Scene is not set in inspector.");
-        }
+        LoadLevel(mainMenu);
     }
 
     public void ContinueGame()
@@ -121,62 +114,34 @@ public class menuManager : MonoBehaviour
     // Need to implement code so that Level select buttons stay disabled until the player completes that level
     public void LoadLevelOne()
     {
-        if (levelOne != null)
-        {
-            StartCoroutine(LoadSceneWithDelay(levelOne, transitionDelay));
-            Time.timeScale = 1.0f;
-        }
-        else
-        {
-            Debug.LogWarning("Scene is not set in inspector.");
-        }
+        LoadLevel(levelOne);
     }
     public void LoadLevelTwo()
     {
-        if (levelTwo != null)
-        {
-            StartCoroutine(LoadSceneWithDelay(levelTwo, transitionDelay));
-            Time.timeScale = 1.0f;
-        }
-        else
-        {
-            Debug.LogWarning("Scene is not set in inspector.");
-        }
+        LoadLevel(levelTwo);
     }
     public void LoadLevelThree()
     {
-        if (levelThree != null)
-        {
-            StartCoroutine(LoadSceneWithDelay(levelThree, transitionDelay));
-            Time.timeScale = 1.0f;
-        }
-        else
-        {
-            Debug.LogWarning("Scene is not set in inspector.");
-        }
+        LoadLevel(levelFour);
     }
     public void LoadLevelFour()
     {
-        if (levelFour != null)
-        {
-            StartCoroutine(LoadSceneWithDelay(levelFour, transitionDelay));
-            Time.timeScale = 1.0f;
-        }
-        else
-        {
-            Debug.LogWarning("Scene is not set in inspector.");
-        }
+        LoadLevel(levelFour);
     }
     public void LoadLevelFive()
     {
-        if (levelFive != null)
+        LoadLevel(levelFive);
+    }
+
+    public void LoadLevel(string levelName)
+    {
+        if (levelName != null)
         {
-            StartCoroutine(LoadSceneWithDelay(levelFive, transitionDelay));
-            Time.timeScale = 1.0f;
+            StartCoroutine(LoadSceneWithDelay(levelName, transitionDelay));
         }
         else
         {
-            Debug.LogWarning("Scene is not set in inspector.");
+            Debug.LogWarning("Trying to load an unnamed scene.");
         }
     }
 
