@@ -74,7 +74,7 @@ public class playerController : MonoBehaviour, IDamage
     private float walkToSprintSpeedRatio;
     private int selectedWeapon;
     private bool isShooting;
-    private bool isAltActive;
+    //private bool isAltActive;
     
 
     public float Health
@@ -331,7 +331,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             yield break;
         }
-        isAltActive = true;
+        //isAltActive = true;
         altAttackCollider.enabled = true;
 
         RaycastHit hit;
@@ -358,7 +358,7 @@ public class playerController : MonoBehaviour, IDamage
         // Delay between hits
         yield return new WaitForSeconds(weaponList[selectedWeapon].altRate);
         
-        isAltActive = false;
+        //isAltActive = false;
         altAttackCollider.enabled = false;
     }
     void ApplyDamageAndPush(Collider collider)
