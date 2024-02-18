@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class enemyAI : MonoBehaviour, IDamage, IPushable, IEnemy
+public class enemyAI : MonoBehaviour, IDamage, IPushable
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
