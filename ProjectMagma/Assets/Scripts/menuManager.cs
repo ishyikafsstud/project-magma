@@ -45,11 +45,11 @@ public class menuManager : MonoBehaviour
     {
         if (masterVolumeSlider != null)
         {
-            masterVolumeSlider.value = settingsData.masterVolume;
-            sfxVolumeSlider.value = settingsData.sfxVolume;
-            musicVolumeSlider.value = settingsData.musicVolume;
-            uiVolumeSlider.value = settingsData.uiVolume;
-            tiltToggle.isOn = settingsData.tiltEnabled;
+            masterVolumeSlider.SetValueWithoutNotify(settingsData.masterVolume);
+            sfxVolumeSlider.SetValueWithoutNotify(settingsData.sfxVolume);
+            musicVolumeSlider.SetValueWithoutNotify(settingsData.musicVolume);
+            uiVolumeSlider.SetValueWithoutNotify(settingsData.uiVolume);
+            tiltToggle.SetIsOnWithoutNotify(settingsData.tiltEnabled);
         }
     }
     public IEnumerator LoadSceneWithDelay(string sceneName, float delay)
@@ -67,7 +67,7 @@ public class menuManager : MonoBehaviour
     public void ContinueGame()
     {
         //Add save system code here to resume where player left off
-        Debug.Log("Button Test: Continue Button Presssed.");
+        //Debug.Log("Button Test: Continue Button Presssed.");
     }
 
     // Settings

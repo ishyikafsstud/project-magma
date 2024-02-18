@@ -503,7 +503,7 @@ MonoBehaviour:
   musicVolumeSlider: {fileID: 1628861441}
   uiVolumeSlider: {fileID: 559646823}
   tiltToggle: {fileID: 461288429}
-  transitionDelay: 1
+  transitionDelay: 0.65
   mainMenu: MainMenu
   levelOne: Level1Placeholder
   levelTwo: Level2Placeholder
