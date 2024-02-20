@@ -491,10 +491,9 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.playerDamageScreenFlash.SetActive(false);
     }
 
-    // TODO: Remove this method, access the Health property instead
     public float GetHealth()
     {
-        return health;
+        return Health;
     }
 
     public float GetOriginalHealth()
