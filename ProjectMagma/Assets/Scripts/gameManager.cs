@@ -54,6 +54,14 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemPromptDescription;
     [SerializeField] TextMeshProUGUI itemPromptDirection;
 
+
+    [SerializeField] List<string> pauseMenuTips = new List<string>();
+    [Tooltip("Select to randomize the list of Tips")]
+    public bool randomTips;
+    [SerializeField] TextMeshProUGUI tipsText;
+    private bool tipShown;
+    private int currentTipIndex = 0;
+
     [SerializeField] TextMeshProUGUI hintText;
     [SerializeField] float hintDuration;
 
@@ -196,6 +204,12 @@ public class gameManager : MonoBehaviour
     public void statePaused()
     {
         isPaused = true;
+
+        if (!randomTips)
+            DisplayTipInOrder();
+        else
+            DisplayRandomTip();
+
         // Stop all time based Actions from happening in the background
         Time.timeScale = 0.0f;
         // Make Cursor Visible
@@ -215,6 +229,8 @@ public class gameManager : MonoBehaviour
     public void stateUnpaused()
     {
         isPaused = false;
+
+        tipShown = false;
         // Resumes time based actions 
         Time.timeScale = 1.0f;
         // Hides Cursor
@@ -367,5 +383,28 @@ public class gameManager : MonoBehaviour
         itemPromptTitle.gameObject.SetActive(false);
         itemPromptDescription.gameObject.SetActive(false);
         itemPromptDirection.gameObject.SetActive(false);
+    }
+
+    // ----- Display Tips in a Random Order -----
+    public void DisplayRandomTip()
+    {
+        if (pauseMenuTips.Count > 0 && tipsText != null && !tipShown)
+        {
+            string randomTip = pauseMenuTips[Random.Range(0, pauseMenuTips.Count)];
+            tipsText.text = randomTip;
+
+            tipShown = true;
+        }
+    }
+    // ----- Display Tips in Order -----
+    public void DisplayTipInOrder()
+    {
+        if (pauseMenuTips.Count > 0 && tipsText != null && !tipShown)
+        {
+            tipsText.text = pauseMenuTips[currentTipIndex];
+            currentTipIndex = (currentTipIndex + 1) % pauseMenuTips.Count;
+
+            tipShown = true;
+        }
     }
 }

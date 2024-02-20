@@ -775,17 +775,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2116141735}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &1017015750 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5424585799700234795, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
-  m_PrefabInstance: {fileID: 822280102865090667}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44b8c9b7cd41e67499f3c34fa4586efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1044267526
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1539,14 +1528,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2373356650496922097, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1017015750}
-    - target: {fileID: 2373356650496922097, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToggleWindow
-      objectReference: {fileID: 0}
     - target: {fileID: 5121182750270922756, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
       propertyPath: m_Pivot.x
       value: 0
