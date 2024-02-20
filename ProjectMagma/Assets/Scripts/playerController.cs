@@ -77,7 +77,10 @@ public class playerController : MonoBehaviour, IDamage
     //private bool isAltActive;
     
     public delegate void PlayerAction();
-    public event PlayerAction PlayerSpawnedEvent;
+    public event PlayerAction SpawnedEvent;
+
+    public delegate void WeaponAction(weaponStats weapon);
+    public event WeaponAction WeaponSwitched;
 
     public delegate void StatsUpdate(float value, float maxValue);
     public event StatsUpdate EnergyChanged;
@@ -128,11 +131,12 @@ public class playerController : MonoBehaviour, IDamage
         currentSpeed = walkSpeed;
         walkToSprintSpeedRatio = walkSpeed / sprintSpeed;
 
-        PlayerSpawnedEvent?.Invoke();
+        SpawnedEvent?.Invoke();
         HealthChanged?.Invoke(health, healthOriginal); // Force-update all listeners
         EnergyChanged?.Invoke(energy, energyOriginal); // Force-update all listeners
+        // Force-update all listeners with the currently selected weapon
+        WeaponSwitched?.Invoke(weaponList.Count > 0 ? weaponList[selectedWeapon] : null);
 
-        updatePlayerUI();
         //respawn();
     }
 
@@ -276,8 +280,6 @@ public class playerController : MonoBehaviour, IDamage
     {
         if (!isInvincible)
             Health -= amount;
-
-        updatePlayerUI();
 
         StartCoroutine(flashDamageOnScreen());
 
@@ -433,7 +435,6 @@ public class playerController : MonoBehaviour, IDamage
     void useEnergy(float amount)
     {
         Energy -= amount;
-        updatePlayerUI();
     }
 
     /// <summary>
@@ -451,9 +452,8 @@ public class playerController : MonoBehaviour, IDamage
         {
             Energy += adjustedEnergyRegenerated * Time.deltaTime;
         }
-        updatePlayerUI();
-
     }
+
     void die()
     {
         gameManager.instance.scenarioPlayerLoses();
@@ -471,18 +471,6 @@ public class playerController : MonoBehaviour, IDamage
     //        transform.position = gameManager.instance.playerSpawnPosition.transform.position;
     //    controller.enabled = true;
     //}
-
-    public void updatePlayerUI()
-    {
-        ////health bar update
-        //gameManager.instance.playerHealthbar.fillAmount = (float)health / healthOriginal;
-        //if (energyOriginal > 0.0f)
-        //    //energy bar update
-        //    gameManager.instance.playerEnergybar.fillAmount = (float)energy / energyOriginal;
-
-        gameManager.instance.playerEnergybar.gameObject.SetActive(weaponList.Count > 0);
-        gameManager.instance.playerEnergybarBG.gameObject.SetActive(weaponList.Count > 0);
-    }
 
     IEnumerator flashDamageOnScreen()
     {
@@ -554,6 +542,7 @@ public class playerController : MonoBehaviour, IDamage
         weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weapon.model.GetComponent<MeshRenderer>().sharedMaterial;
 
         selectedWeapon = newWeaponIndex;
+        WeaponSwitched?.Invoke(weaponList[selectedWeapon]);
     }
 
     void dropWeapon(int weaponIndex)
@@ -580,6 +569,6 @@ public class playerController : MonoBehaviour, IDamage
 
         Instantiate(correctWandItem, dropPosition, Quaternion.identity);
 
-        updatePlayerUI();
+        WeaponSwitched?.Invoke(null);
     }
 }

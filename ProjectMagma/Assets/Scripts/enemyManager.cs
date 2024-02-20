@@ -145,7 +145,6 @@ public class enemyManager : MonoBehaviour
         {
             int restoredHealthValue = enemy.GetComponent<enemyAI>().restoredHealthValue;
             playerController.Heal(restoredHealthValue);
-            playerController.updatePlayerUI();
         }
     }
 

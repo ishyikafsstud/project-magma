@@ -123,15 +123,22 @@ public class gameManager : MonoBehaviour
 
         playerScript.HealthChanged += PlayerScript_HealthChanged;
         playerScript.EnergyChanged += PlayerScript_EnergyChanged;
+        playerScript.WeaponSwitched += PlayerScript_WeaponSwitched;
 
         soundtrackManager = GameObject.FindGameObjectWithTag("SoundtrackManager").GetComponent<SoundtrackManager>();
 
-        playerScript.PlayerSpawnedEvent += OnPlayerSpawned;
+        playerScript.SpawnedEvent += OnPlayerSpawned;
 
         LoadGeneralSettings();
 
         if (levelId != LevelIdEnum.Other)
             LoadLevelStartData();
+    }
+
+    private void PlayerScript_WeaponSwitched(weaponStats weapon)
+    {
+        playerEnergybar.gameObject.SetActive(weapon != null);
+        playerEnergybarBG.gameObject.SetActive(weapon != null);
     }
 
     void LoadGeneralSettings()
