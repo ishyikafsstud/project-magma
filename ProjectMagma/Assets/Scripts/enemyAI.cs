@@ -23,7 +23,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [SerializeField] Collider primaryCollider;
 
     [Header("---- Stats ----")]
-    [Range(1, 20)][SerializeField] protected int HP;
+    [Range(1, 20)][SerializeField] protected float HP;
     [SerializeField] public int restoredHealthValue;
     [Tooltip("Whether the character is summoned by a spawner enemy.\nMinions do not count toward kills.")]
     [SerializeField] bool isMinion;
@@ -79,7 +79,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [Header("---- Other ----")]
     [SerializeField] bool skipDeathAnimation;
 
-    protected int origHP;
+    protected float healthOriginal;
     protected bool isAttacking;
     protected bool playerIsNearby;
     protected bool playerSpotted;
@@ -95,9 +95,31 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     bool shouldDropLoot;
 
     public delegate void EnemyAction(GameObject enemy);
-
     public event EnemyAction AttackEvent;
+    public event EnemyAction AlertedEvent;
     public event EnemyAction DeathEvent;
+
+    public delegate void StatsUpdate(float value, float maxValue);
+    public event StatsUpdate HealthChanged;
+
+    public float Health
+    {
+        get => HP;
+        set
+        {
+            value = Mathf.Clamp(value, 0, healthOriginal);
+            if (HP != value)
+            {
+                HP = value;
+                HealthChanged?.Invoke(HP, healthOriginal);
+
+                if (HP <= 0)
+                {
+                    die();
+                }
+            }
+        }
+    }
 
     protected virtual void OnAttack()
     {
@@ -144,7 +166,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     // Start is called before the first frame update
     void Start()
     {
-        origHP = HP;
+        healthOriginal = HP;
         origSpeed = agent.speed;
         //enemyManager.instance.EnemySpawned(gameObject, isMinion); // spawners should be responsible for reporting enemies
         stoppingDistOrig = agent.stoppingDistance;
@@ -276,21 +298,11 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     public void takeDamage(int amount)
     {
-        HP -= amount;
+        Health -= amount;
         StartCoroutine(flashRed());
         // Trigger the enemy to follow player.
         // It is safe because the only way for the enemy to receive damage right now is to be hit by the player.
         spotPlayer();
-
-        if (enemyUI != null)
-        {
-            enemyUI.GetComponent<enemyUI>().UpdateHealthbar(HP, origHP);
-        }
-
-        if (HP <= 0)
-        {
-            die();
-        }
     }
 
     public IEnumerator ApplyFreeze(int stacks)
@@ -320,10 +332,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         {
             playerSpotted = true;
 
-            if (enemyUI != null)
-            {
-                enemyUI.GetComponent<enemyUI>().Alerted();
-            }
+            AlertedEvent?.Invoke(gameObject);
 
             hasBeenAlerted = true;
         }
@@ -469,7 +478,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     public float GetOriginalHealth()
     {
-        return origHP;
+        return healthOriginal;
     }
 }
 
