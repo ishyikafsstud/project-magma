@@ -11,6 +11,7 @@ TagManager:
   - Room Controller 1
   - Room Controller 2
   - SoundtrackManager
+  - MenuManager
   layers:
   - Default
   - TransparentFX

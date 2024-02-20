@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -285,8 +285,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: menuManager, Assembly-CSharp
+      - m_Target: {fileID: 932568137221489480}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: CloseWindow
         m_Mode: 2
         m_Arguments:
@@ -1260,13 +1260,14 @@ GameObject:
   - component: {fileID: 8346659504222295776}
   - component: {fileID: 7422448940557403182}
   - component: {fileID: 593917768278686497}
+  - component: {fileID: 932568137221489480}
   m_Layer: 5
   m_Name: Controls Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8346659504222295776
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1327,3 +1328,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &932568137221489480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6476350344379001902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd81481c298260e4baceb6511492f6a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
