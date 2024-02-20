@@ -12,11 +12,12 @@ public class playerController : MonoBehaviour, IDamage
     
     public Collider altAttackCollider;
     
-    [Header("----- Player Health -----")]
+    [Header("----- Primary Stats -----")]
     [Tooltip("Do not directly access private health - use the public Health property instead.")]
     [SerializeField] float health;
     //[SerializeField] float healthRegenRate;
     [SerializeField] bool isInvincible;
+    [SerializeField] float energy;
     [SerializeField] bool hasInfiniteEnergy;
 
     [Header("----- Walking & Running -----")]
@@ -36,7 +37,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float gravityStrength;
     [SerializeField] float maxVerticalSpeed;
 
-    [Header("----- Shooting -----")]
+    [Header("----- Attack -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
     /// <summary>
     /// Return read-only version of the weapon list.
@@ -48,7 +49,6 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
-    [SerializeField] float energy;
     [SerializeField] float energyCostPerShot;
     [SerializeField] float energyRegenRate;
     [SerializeField] float energyIncreasePerAmbush;
@@ -76,15 +76,40 @@ public class playerController : MonoBehaviour, IDamage
     private bool isShooting;
     //private bool isAltActive;
     
+    public delegate void PlayerAction();
+    public event PlayerAction PlayerSpawnedEvent;
+
+    public delegate void StatsUpdate(float value, float maxValue);
+    public event StatsUpdate EnergyChanged;
+    public event StatsUpdate HealthChanged;
 
     public float Health
     {
         get => health;
-        set => health = Mathf.Clamp(value, 0, healthOriginal);
+        set
+        {
+            value = Mathf.Clamp(value, 0, healthOriginal);
+            if (health != value)
+            {
+                health = value;
+                HealthChanged?.Invoke(health, healthOriginal);
+            }
+        }
+    }
+    public float Energy
+    {
+        get => energy;
+        set
+        {
+            value = Mathf.Clamp(value, 0, energyOriginal);
+            if (energy != value)
+            {
+                energy = value;
+                EnergyChanged?.Invoke(energy, energyOriginal);
+            }
+        }
     }
 
-    public delegate void PlayerAction();
-    public event PlayerAction PlayerSpawnedEvent;
 
     /// <summary>
     /// Apply ambush defeat reward powerup.
@@ -104,7 +129,9 @@ public class playerController : MonoBehaviour, IDamage
         walkToSprintSpeedRatio = walkSpeed / sprintSpeed;
 
         PlayerSpawnedEvent?.Invoke();
-        
+        HealthChanged?.Invoke(health, healthOriginal); // Force-update all listeners
+        EnergyChanged?.Invoke(energy, energyOriginal); // Force-update all listeners
+
         updatePlayerUI();
         //respawn();
     }
@@ -125,7 +152,7 @@ public class playerController : MonoBehaviour, IDamage
             // Left Click - ranged attack
             if (Input.GetButton("Shoot") && weaponList.Count > 0 && !isShooting)
             {
-                if (energy >= energyCostPerShot)
+                if (Energy >= energyCostPerShot)
                     StartCoroutine(Shoot());
                 else
                 {
@@ -405,7 +432,7 @@ public class playerController : MonoBehaviour, IDamage
 
     void useEnergy(float amount)
     {
-        energy -= amount;
+        Energy -= amount;
         updatePlayerUI();
     }
 
@@ -422,8 +449,7 @@ public class playerController : MonoBehaviour, IDamage
 
         if (currentSpeed > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
         {
-            energy += adjustedEnergyRegenerated * Time.deltaTime;
-            energy = Mathf.Clamp(energy, 0, energyOriginal);
+            Energy += adjustedEnergyRegenerated * Time.deltaTime;
         }
         updatePlayerUI();
 
@@ -448,11 +474,11 @@ public class playerController : MonoBehaviour, IDamage
 
     public void updatePlayerUI()
     {
-        //health bar update
-        gameManager.instance.playerHealthbar.fillAmount = (float)health / healthOriginal;
-        if (energyOriginal > 0.0f)
-            //energy bar update
-            gameManager.instance.playerEnergybar.fillAmount = (float)energy / energyOriginal;
+        ////health bar update
+        //gameManager.instance.playerHealthbar.fillAmount = (float)health / healthOriginal;
+        //if (energyOriginal > 0.0f)
+        //    //energy bar update
+        //    gameManager.instance.playerEnergybar.fillAmount = (float)energy / energyOriginal;
 
         gameManager.instance.playerEnergybar.gameObject.SetActive(weaponList.Count > 0);
         gameManager.instance.playerEnergybarBG.gameObject.SetActive(weaponList.Count > 0);
@@ -465,6 +491,7 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.playerDamageScreenFlash.SetActive(false);
     }
 
+    // TODO: Remove this method, access the Health property instead
     public float GetHealth()
     {
         return health;

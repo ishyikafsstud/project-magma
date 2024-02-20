@@ -68,7 +68,9 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI enemyCountText;
 
     public Image playerHealthbar;
+    public TextMeshProUGUI playerHealthbarText;
     public Image playerEnergybar;
+    public TextMeshProUGUI playerEnergybarText;
     public Image playerEnergybarBG;
     public GameObject playerDamageScreenFlash;
 
@@ -118,6 +120,9 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
+
+        playerScript.HealthChanged += PlayerScript_HealthChanged;
+        playerScript.EnergyChanged += PlayerScript_EnergyChanged;
 
         soundtrackManager = GameObject.FindGameObjectWithTag("SoundtrackManager").GetComponent<SoundtrackManager>();
 
@@ -334,6 +339,20 @@ public class gameManager : MonoBehaviour
         AmbushRewardPickedEvent?.Invoke();
     }
 
+
+    #region UI functionality
+    void PlayerScript_HealthChanged(float value, float maxValue)
+    {
+        playerHealthbar.fillAmount = value / maxValue;
+        playerHealthbarText.text = $"{((int)value).ToString()} / {maxValue.ToString()}";
+    }
+
+    void PlayerScript_EnergyChanged(float value, float maxValue)
+    {
+        playerEnergybar.fillAmount = value / maxValue;
+        playerEnergybarText.text = $"{((int)value).ToString()}\n\n / \n\n{maxValue.ToString()}";
+    }
+
     public void UpdateEnemyCountText()
     {
         enemyCountText.SetText("Enemies Left: " + enemyManager.instance.EnemyCount.ToString());
@@ -407,4 +426,5 @@ public class gameManager : MonoBehaviour
             tipShown = true;
         }
     }
+    #endregion
 }
