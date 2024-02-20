@@ -15,6 +15,7 @@ public class menuManager : MonoBehaviour
     [SerializeField] Slider sfxVolumeSlider;
     [SerializeField] Slider musicVolumeSlider;
     [SerializeField] Slider uiVolumeSlider;
+    [SerializeField] Slider sensitivitySlider;
     [SerializeField] Toggle tiltToggle;
 
     [Header("---- Load Scene ----")]
@@ -27,7 +28,7 @@ public class menuManager : MonoBehaviour
     [SerializeField] string levelFive;
     [SerializeField] string alphaShowcaseLevel;
 
-    [Header("---- Load Scene ----")]
+    [Header("---- Transition ----")]
     [SerializeField] float ToggleWindowDelay;
     [SerializeField] float CloseWindowDelay;
 
@@ -98,6 +99,11 @@ public class menuManager : MonoBehaviour
         audioMixer.SetFloat(paramName, Mathf.Log10(newValue) * 20);
 
         saveSystem.SaveVolume(paramName, newValue);
+    }
+
+    public void SensitivityChanged()
+    {
+        Debug.Log("Slider Test: Sensitivity Changed.");
     }
 
     public void TiltCameraChanged()
