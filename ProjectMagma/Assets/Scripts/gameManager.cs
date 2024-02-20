@@ -175,7 +175,7 @@ public class gameManager : MonoBehaviour
     void Update()
     {
         // If ESC button is pressed and nothing is currently in the active menu
-        if (Input.GetButtonDown("Cancel") && menuActive == null)
+        if (Input.GetButtonDown("Cancel") || Input.GetButtonDown("Pause") && menuActive == null)
         {
             // call pause function
             statePaused();
