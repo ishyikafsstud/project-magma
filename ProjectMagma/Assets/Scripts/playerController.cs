@@ -121,6 +121,7 @@ public class playerController : MonoBehaviour, IDamage
     public void ApplyAmbushDefeatPowerup(int stacks = 1)
     {
         energyOriginal += energyIncreasePerAmbush * stacks;
+        EnergyChanged?.Invoke(Energy, energyOriginal);
     }
 
     // Start is called before the first frame update
