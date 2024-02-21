@@ -74,7 +74,7 @@ public class playerController : MonoBehaviour, IDamage
     private float walkToSprintSpeedRatio;
     private int selectedWeapon;
     private bool isShooting;
-    //private bool isAltActive;
+    private bool isAltActive;
     
     public delegate void PlayerAction();
     public event PlayerAction SpawnedEvent;
@@ -166,11 +166,11 @@ public class playerController : MonoBehaviour, IDamage
                     gameManager.instance.ShowHint("Not enough energy to shoot \nKeep Moving!");
                 }
             }
-            ////Right click -alt attack
-            //else if (Input.GetButton("Hit") && !isAltActive && !isShooting)
-            //{
-            //    StartCoroutine(AltAttack());
-            //}
+            //Right click -alt attack
+            else if (Input.GetButton("Hit") && !isAltActive && !isShooting)
+            {
+                StartCoroutine(AltAttack());
+            }
 
             if (Input.GetKeyDown(KeyCode.X))
             {

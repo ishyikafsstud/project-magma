@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon - Fire Staff
   m_EditorClassIdentifier: 
   altRange: 5
-  altDamage: 1
+  altDamage: 0
   altRate: 0.5
   pushForce: 200
   pushRadius: 10
