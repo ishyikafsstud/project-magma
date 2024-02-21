@@ -146,6 +146,7 @@ public class gameManager : MonoBehaviour
         GeneralSettingsData generalSettingsData = saveSystem.LoadGeneralSettings();
 
         playerScript.EnableTilt(generalSettingsData.tiltEnabled);
+        Camera.main.GetComponent<cameraController>()?.SetMouseSensitivity(generalSettingsData.mouseSensitivity);
     }
 
     void LoadLevelStartData()
@@ -205,6 +206,7 @@ public class gameManager : MonoBehaviour
             menuActive.SetActive(isPaused);
         }
     }
+
     public void EnterGameState(GameStates newState)
     {
         curGameState = newState;

@@ -132,6 +132,8 @@ public class playerController : MonoBehaviour, IDamage
         currentSpeed = walkSpeed;
         walkToSprintSpeedRatio = walkSpeed / sprintSpeed;
 
+        saveSystem.TiltSet += EnableTilt;
+
         SpawnedEvent?.Invoke();
         HealthChanged?.Invoke(health, healthOriginal); // Force-update all listeners
         EnergyChanged?.Invoke(energy, energyOriginal); // Force-update all listeners

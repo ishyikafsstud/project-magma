@@ -32,6 +32,7 @@ public class settingsWindow : MonoBehaviour
             sfxVolumeSlider.SetValueWithoutNotify(settingsData.sfxVolume);
             musicVolumeSlider.SetValueWithoutNotify(settingsData.musicVolume);
             uiVolumeSlider.SetValueWithoutNotify(settingsData.uiVolume);
+            sensitivitySlider.SetValueWithoutNotify(settingsData.mouseSensitivity);
             tiltToggle.SetIsOnWithoutNotify(settingsData.tiltEnabled);
         }
     }
@@ -67,7 +68,8 @@ public class settingsWindow : MonoBehaviour
 
     public void SensitivityChanged()
     {
-        Debug.Log("Slider Test: Sensitivity Changed.");
+        //Debug.Log("Slider Test: Sensitivity Changed.");
+        saveSystem.SaveSensitivity((int)sensitivitySlider.value);
     }
 
     public void TiltCameraChanged()

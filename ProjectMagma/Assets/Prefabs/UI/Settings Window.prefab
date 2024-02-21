@@ -4300,8 +4300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd81481c298260e4baceb6511492f6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggleWindowDelay: 0.1
-  closeWindowDelay: 0.1
 --- !u!1 &8178345322471286100
 GameObject:
   m_ObjectHideFlags: 0
@@ -4600,10 +4598,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 5619605258395981305}
   m_HandleRect: {fileID: 872609871748939623}
   m_Direction: 0
-  m_MinValue: 0.0001
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 1
+  m_MinValue: 100
+  m_MaxValue: 800
+  m_WholeNumbers: 1
+  m_Value: 400
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
