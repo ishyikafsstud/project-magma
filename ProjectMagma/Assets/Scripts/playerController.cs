@@ -514,9 +514,12 @@ public class playerController : MonoBehaviour, IDamage
         shootDist = weaponList[selectedWeapon].shootDist;
         shootRate = weaponList[selectedWeapon].shootRate;
         energyCostPerShot = weaponList[selectedWeapon].energyCostPerShot;
-        
-        weaponPosition.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
-        weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        MeshFilter weaponMeshFilter = currentWeapon.model.GetComponentInChildren<MeshFilter>();
+        weaponPosition.GetComponent<MeshFilter>().sharedMesh = weaponMeshFilter.sharedMesh;
+
+        MeshRenderer weaponMeshRenderer = currentWeapon.model.GetComponentInChildren<MeshRenderer>();
+        weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponMeshRenderer.sharedMaterial;
     }
 
     public void pickupWeapon(weaponStats weapon)
@@ -541,8 +544,11 @@ public class playerController : MonoBehaviour, IDamage
         shootRate = weapon.shootRate;
         energyCostPerShot = weapon.energyCostPerShot;
 
-        weaponPosition.GetComponent<MeshFilter>().sharedMesh = weapon.model.GetComponent<MeshFilter>().sharedMesh;
-        weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weapon.model.GetComponent<MeshRenderer>().sharedMaterial;
+        MeshFilter weaponMeshFilter = weapon.model.GetComponentInChildren<MeshFilter>();
+        weaponPosition.GetComponent<MeshFilter>().sharedMesh = weaponMeshFilter.sharedMesh;
+
+        MeshRenderer weaponMeshRenderer = weapon.model.GetComponentInChildren<MeshRenderer>();
+        weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponMeshRenderer.sharedMaterial;
 
         selectedWeapon = newWeaponIndex;
         WeaponSwitched?.Invoke(weaponList[selectedWeapon]);
