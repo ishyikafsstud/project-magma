@@ -18,7 +18,7 @@ public class cameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         saveSystem.MouseSensitivitySet += SetMouseSensitivity;
-        saveSystem.InvertYSet += SetMouseSensitivity;
+        saveSystem.InvertYSet += SetInvertY;
     }
 
     public void SetMouseSensitivity(float value)
