@@ -150,7 +150,7 @@ public abstract class saveSystem : MonoBehaviour
 
         generalSettingsData.mouseSensitivity = PlayerPrefs.GetInt(mouseSensitivityKey, 400);
         generalSettingsData.tiltEnabled = PlayerPrefs.GetInt(tiltEnabledKey, 1) == 1 ? true : false;
-        generalSettingsData.invertY = PlayerPrefs.GetInt(invertYKey, 1) == 1 ? true : false;
+        generalSettingsData.invertY = PlayerPrefs.GetInt(invertYKey, 0) == 1 ? true : false;
 
         return generalSettingsData;
     }
