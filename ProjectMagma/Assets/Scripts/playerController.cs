@@ -59,6 +59,8 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("----- Audio -----")]
     [SerializeField] entitySoundManager soundManager;
+    [SerializeField] inventorySoundManager interactionSoundManager;
+    [Tooltip("The SFX of the weapon that is in player's hands. Sound clip updates automatically on player pickup.")]
     [SerializeField] AudioSource weaponAudioSource;
 
     private float energyOriginal;
