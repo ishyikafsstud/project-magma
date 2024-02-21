@@ -35,6 +35,7 @@ public class settingsWindow : MonoBehaviour
             uiVolumeSlider.SetValueWithoutNotify(settingsData.uiVolume);
             sensitivitySlider.SetValueWithoutNotify(settingsData.mouseSensitivity);
             tiltToggle.SetIsOnWithoutNotify(settingsData.tiltEnabled);
+            invertYToggle.SetIsOnWithoutNotify(settingsData.invertY);
         }
     }
 
