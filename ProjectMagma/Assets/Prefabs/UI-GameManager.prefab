@@ -4598,9 +4598,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6678683184153763765}
-        m_TargetAssemblyTypeName: menuManager, Assembly-CSharp
-        m_MethodName: ContinueGame
+      - m_Target: {fileID: 4070263357624732165}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: ContinueToNextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

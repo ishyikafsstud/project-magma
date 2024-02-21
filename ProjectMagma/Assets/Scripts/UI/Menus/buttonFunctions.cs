@@ -30,7 +30,7 @@ public class buttonFunctions : MonoBehaviour
         Application.Quit();
     }
 
-    public void Continue()
+    public void ContinueToNextLevel()
     {
         // Loads entire scene the user is currently in
         SceneManager.LoadScene(gameManager.instance.GetNextLevelName());
