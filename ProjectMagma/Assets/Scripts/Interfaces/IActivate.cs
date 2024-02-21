@@ -7,5 +7,5 @@ using System.Collections.Generic;
 /// </summary>
 public interface IActivate
 {
-    void Activate();
+    IEnumerator Activate();
 }
