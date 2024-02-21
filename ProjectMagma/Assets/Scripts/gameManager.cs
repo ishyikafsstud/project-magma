@@ -147,6 +147,7 @@ public class gameManager : MonoBehaviour
 
         playerScript.EnableTilt(generalSettingsData.tiltEnabled);
         Camera.main.GetComponent<cameraController>()?.SetMouseSensitivity(generalSettingsData.mouseSensitivity);
+        Camera.main.GetComponent<cameraController>()?.SetInvertY(generalSettingsData.invertY);
     }
 
     void LoadLevelStartData()

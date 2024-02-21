@@ -33,6 +33,7 @@ public abstract class saveSystem : MonoBehaviour
     private static string uiVolumeKey = "UI_VOLUME";
     private static string mouseSensitivityKey = "MOUSE_SENSITIVITY";
     private static string tiltEnabledKey = "TILT_ENABLED";
+    private static string invertYKey = "INVERT_Y_ENABLED";
 
     private static string GetLevelPrefix(LevelIdEnum levelId)
     { return levelId.ToString().ToUpper(); }
@@ -49,6 +50,7 @@ public abstract class saveSystem : MonoBehaviour
     
     public delegate void BoolSettingCallback(bool value);
     public static event BoolSettingCallback TiltSet;
+    public static event BoolSettingCallback InvertYSet;
 
     public static void SaveGeneralSettings(GeneralSettingsData generalSettingsData)
     {
@@ -129,6 +131,14 @@ public abstract class saveSystem : MonoBehaviour
         TiltSet?.Invoke(enabled);
     }
 
+    public static void SaveInvertY(bool enabled)
+    {
+        PlayerPrefs.SetInt(invertYKey, enabled == true ? 1 : 0);
+        PlayerPrefs.Save();
+
+        InvertYSet?.Invoke(enabled);
+    }
+
     public static GeneralSettingsData LoadGeneralSettings()
     {
         GeneralSettingsData generalSettingsData = new GeneralSettingsData();
@@ -140,6 +150,7 @@ public abstract class saveSystem : MonoBehaviour
 
         generalSettingsData.mouseSensitivity = PlayerPrefs.GetInt(mouseSensitivityKey, 400);
         generalSettingsData.tiltEnabled = PlayerPrefs.GetInt(tiltEnabledKey, 1) == 1 ? true : false;
+        generalSettingsData.invertY = PlayerPrefs.GetInt(invertYKey, 1) == 1 ? true : false;
 
         return generalSettingsData;
     }
@@ -302,4 +313,5 @@ public struct GeneralSettingsData
 
     public int mouseSensitivity;
     public bool tiltEnabled;
+    public bool invertY;
 }

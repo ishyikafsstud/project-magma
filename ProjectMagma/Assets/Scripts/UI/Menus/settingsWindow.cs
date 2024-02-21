@@ -14,6 +14,7 @@ public class settingsWindow : MonoBehaviour
     [SerializeField] Slider uiVolumeSlider;
     [SerializeField] Slider sensitivitySlider;
     [SerializeField] Toggle tiltToggle;
+    [SerializeField] Toggle invertYToggle;
 
     [Header("---- Other Dependencies ----")]
     [SerializeField] private AudioMixer audioMixer;
@@ -76,5 +77,11 @@ public class settingsWindow : MonoBehaviour
     {
         //Debug.Log("Toggle Test: Camera Tilt Changed.");
         saveSystem.SaveTilt(tiltToggle.isOn);
+    }
+
+    public void InvertYChanged()
+    {
+        //Debug.Log("Toggle Test: Invert Y Changed.");
+        saveSystem.SaveInvertY(invertYToggle.isOn);
     }
 }
