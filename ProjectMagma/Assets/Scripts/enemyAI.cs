@@ -67,7 +67,11 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     [Header("---- Combat Effects ---")]
     [SerializeField] protected int maxFreezeStack = 5;
+    [Tooltip("The time for one freeze effect stack to pass.")]
+    [SerializeField] float freezeTime = 5.0f;
     [SerializeField] protected float freezeStackStrength = 0.08f;
+    [SerializeField] Color freezeColor = new Color(0f, 1f, 1f, 1f);
+    [SerializeField] int freezeColorMultiplier = 2;
     /// <summary>
     /// Do not access/set this value directly, use CurrentFreezeStack setter.
     /// </summary>
@@ -81,16 +85,20 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     protected float healthOriginal;
     protected bool isAttacking;
+
     protected bool playerIsNearby;
     protected bool playerSpotted;
     protected Vector3 distanceToPlayer;
     protected float angleToPlayer;
+    
     bool destinationChosen;
     Vector3 startingPos;
     float origSpeed;
     float stoppingDistOrig;
     bool canRotate = true; //For locking enemy rotation 
+    
     bool hasBeenAlerted;
+    bool isGlowingHurt;
     bool isDead;
     bool shouldDropLoot;
 
@@ -139,27 +147,45 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     public bool IsAlerted { get => playerSpotted; }
     public Vector3 GetAlertPosition() { return alertOrigin.transform.position; }
 
-    public int CurrentFreezeStack
+    int CurrentFreezeStack
     {
         get => currentFreezeStack;
         set
         {
-            int actualValue = Mathf.Clamp(value, 0, maxFreezeStack);
-            if (currentFreezeStack == actualValue)
+            // Make sure the new value is within acceptable range
+            int actualNewValue = Mathf.Clamp(value, 0, maxFreezeStack);
+
+            // If the attempted new value is the same as the current value, skip
+            if (currentFreezeStack == actualNewValue)
                 return;
 
-            currentFreezeStack = actualValue;
+            currentFreezeStack = actualNewValue;
 
             UpdateSpeed();
+            UpdateModelColor();
         }
     }
-    public float GetSlowdownEffectStrength()
+
+    bool IsGlowingHurt
+    {
+        get => isGlowingHurt;
+        set
+        {
+            if (isGlowingHurt == value)
+                return;
+
+            isGlowingHurt = value;
+            UpdateModelColor();
+        }
+    }
+
+    public float GetFreezeEffectStrength()
     {
         return currentFreezeStack * freezeStackStrength;
     }
     public float GetSpeedModifier()
     {
-        return Mathf.Max(1.0f - GetSlowdownEffectStrength(), 0);
+        return Mathf.Max(1.0f - GetFreezeEffectStrength(), 0);
     }
 
 
@@ -310,9 +336,37 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         int appliedStacks = Mathf.Min(stacks, maxFreezeStack - CurrentFreezeStack);
         CurrentFreezeStack += appliedStacks;
 
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(freezeTime);
 
         CurrentFreezeStack -= appliedStacks;
+
+        yield return null;
+    }
+
+    //this is going to change. this is for test feedback for the player.
+    IEnumerator flashRed()
+    {
+        IsGlowingHurt = true;
+        UpdateModelColor();
+
+        yield return new WaitForSeconds(damageFlashLength);
+
+        IsGlowingHurt = false;
+        UpdateModelColor();
+    }
+
+    void UpdateModelColor()
+    {
+        if (model == null)
+            return;
+
+        if (isGlowingHurt)
+        {
+            model.material.color = Color.red;
+            return;
+        }
+
+        model.material.color = Color.Lerp(Color.white, freezeColor, GetFreezeEffectStrength() * freezeColorMultiplier);
     }
 
     private void spotPlayer()
@@ -385,26 +439,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
                     gameManager.instance.SpawnAmbushReward(lootPos);
                 }
             }
-
         }
-
-    }
-
-
-    //this is going to change. this is for test feedback for the player.
-    IEnumerator flashRed()
-    {
-        if (model == null)
-            yield break;
-
-        // Remember the old color
-        Color oldColor = model.material.color;
-
-        // Flash red for some time
-        model.material.color = Color.red;
-        yield return new WaitForSeconds(damageFlashLength);
-
-        model.material.color = oldColor;
     }
 
     protected virtual bool CanAttack()
