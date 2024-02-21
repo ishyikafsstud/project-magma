@@ -873,9 +873,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 145158387}
-        m_TargetAssemblyTypeName: menuManager, Assembly-CSharp
-        m_MethodName: CloseWindow
+      - m_Target: {fileID: 2117954298735579135}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: ToggleWindow
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 665579064}
@@ -909,8 +909,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 145158387}
-        m_TargetAssemblyTypeName: menuManager, Assembly-CSharp
+      - m_Target: {fileID: 2117954298735579135}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: ToggleWindow
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1278700905}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2117954298735579135}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: CloseWindow
         m_Mode: 2
         m_Arguments:
@@ -3734,10 +3746,6 @@ PrefabInstance:
     - target: {fileID: 48146251862515617, guid: 11cf66a54a8dbe149b9ee5390f1dad3a, type: 3}
       propertyPath: m_Name
       value: Credits Window
-      objectReference: {fileID: 0}
-    - target: {fileID: 48146251862515617, guid: 11cf66a54a8dbe149b9ee5390f1dad3a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 181528173829761496, guid: 11cf66a54a8dbe149b9ee5390f1dad3a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
@@ -6894,8 +6902,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 145158387}
-        m_TargetAssemblyTypeName: menuManager, Assembly-CSharp
+      - m_Target: {fileID: 2117954298735579135}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: ToggleWindow
         m_Mode: 2
         m_Arguments:
@@ -21840,18 +21848,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 93377959}
     m_Modifications:
-    - target: {fileID: 872609871748939623, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 872609871748939623, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 872609871748939623, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1153246989022543518, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -21860,94 +21856,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 1045553327}
-    - target: {fileID: 2170478529038660308, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170478529038660308, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2548422073964615882, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2548422073964615882, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4210366529964761777, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4210366529964761777, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4210366529964761777, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249777990402961529, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249777990402961529, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4249777990402961529, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740469113788360378, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740469113788360378, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740469113788360378, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5061843681166987607, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5061843681166987607, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5224701898739295910, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5224701898739295910, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5619605258395981305, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5619605258395981305, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6973979057631474003, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6973979057631474003, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6973979057631474003, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7318144723675674337, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -22031,10 +21939,6 @@ PrefabInstance:
     - target: {fileID: 8015011653580743194, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
       propertyPath: m_Name
       value: Settings Window
-      objectReference: {fileID: 0}
-    - target: {fileID: 8015011653580743194, guid: ffc44ce6d8035174db208e4a14b9fd14, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26918,10 +26822,6 @@ PrefabInstance:
     - target: {fileID: 6476350344379001902, guid: 0acbf459701ec9f41b8fe2e1b6693f36, type: 3}
       propertyPath: m_Name
       value: Controls Window
-      objectReference: {fileID: 0}
-    - target: {fileID: 6476350344379001902, guid: 0acbf459701ec9f41b8fe2e1b6693f36, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8346659504222295776, guid: 0acbf459701ec9f41b8fe2e1b6693f36, type: 3}
       propertyPath: m_Pivot.x
