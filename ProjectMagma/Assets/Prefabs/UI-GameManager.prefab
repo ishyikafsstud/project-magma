@@ -5681,7 +5681,7 @@ MonoBehaviour:
   playerEnergybarText: {fileID: 7576505479367089046}
   playerEnergybarBG: {fileID: 3803772060851076272}
   playerDamageScreenFlash: {fileID: 3331555979164700209}
-  keyPrefab: {fileID: 7516420828584535120, guid: a63f9ed5ef581544ba657aef03d9d8ee, type: 3}
+  keyPrefab: {fileID: 4262149187069758960, guid: c10fc1234c93b774f96f6cbdd8e2ad2e, type: 3}
   ambushRewardPrefab: {fileID: 6742071433124294444, guid: 247ba2f1558121c43a8db5aa019402c1, type: 3}
   player: {fileID: 0}
   playerScript: {fileID: 0}
