@@ -78,7 +78,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     protected int currentFreezeStack = 0;
 
     [Header("----- Audio -----")]
-    [SerializeField] public soundManager soundManager;
+    [SerializeField] public entitySoundManager soundManager;
 
     [Header("---- Other ----")]
     [SerializeField] bool skipDeathAnimation;

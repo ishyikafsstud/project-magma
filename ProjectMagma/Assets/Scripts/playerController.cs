@@ -58,7 +58,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float damageFlashDuration;
 
     [Header("----- Audio -----")]
-    [SerializeField] soundManager soundManager;
+    [SerializeField] entitySoundManager soundManager;
     [SerializeField] AudioSource weaponAudioSource;
 
     private float energyOriginal;
