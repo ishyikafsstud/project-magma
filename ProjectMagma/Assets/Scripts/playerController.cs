@@ -159,7 +159,7 @@ public class playerController : MonoBehaviour, IDamage
             }
 
             // Left Click - ranged attack
-            if (Input.GetButton("Shoot") && weaponList.Count > 0 && !isShooting)
+            if (Input.GetButton("Shoot") && weaponList.Count > 0 && !isShooting && !isAltActive)
             {
                 if (Energy >= energyCostPerShot)
                     StartCoroutine(Shoot());
@@ -169,7 +169,7 @@ public class playerController : MonoBehaviour, IDamage
                 }
             }
             //Right click -alt attack
-            else if (Input.GetButton("Hit") && !isAltActive && !isShooting)
+            else if (Input.GetButtonDown("Hit") && !isAltActive && !isShooting)
             {
                 StartCoroutine(AltAttack());
             }

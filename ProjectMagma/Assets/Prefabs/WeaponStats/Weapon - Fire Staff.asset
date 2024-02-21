@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   altRange: 5
   altDamage: 0
-  altRate: 0.5
+  altRate: 2
   pushForce: 200
   pushRadius: 10
   hitParticlePrefab: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473, type: 3}
