@@ -23,7 +23,7 @@ TagManager:
   - enemyAttack
   - playerAttack
   - RoomController
-  - 
+  - Pickable
   - 
   - 
   - 

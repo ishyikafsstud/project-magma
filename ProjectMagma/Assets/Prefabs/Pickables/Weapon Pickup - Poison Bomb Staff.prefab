@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1295825389161164277}
   - component: {fileID: 8029411324679913517}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 9116053474676052607}
   - component: {fileID: 1008182537313602643}
   - component: {fileID: 9110523270786181885}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 8621568963559042801}
   - component: {fileID: 473973170388903865}
   - component: {fileID: 774424304242883315}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon Pickup - Poison Bomb Staff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,10 +255,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2039
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

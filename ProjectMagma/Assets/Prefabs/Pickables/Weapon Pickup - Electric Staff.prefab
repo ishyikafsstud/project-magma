@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5210414065787597247}
   - component: {fileID: 209243751314513219}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 491540483957491514}
   - component: {fileID: 1933855068783675354}
   - component: {fileID: 8204933889591981488}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 4825827102073411876}
   - component: {fileID: 4316977436095401037}
   - component: {fileID: 6248372113350287053}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon Pickup - Electric Staff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,10 +255,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2039
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

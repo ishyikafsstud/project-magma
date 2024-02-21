@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barriers: []
+  unlockDoorsOnStart: 0
   unlockDoorsOnPlayerLeave: 0
   enemyCount: 0
 --- !u!65 &7154553834446657550
@@ -89,7 +90,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0

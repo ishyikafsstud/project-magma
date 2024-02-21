@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 83138412222312040}
   - component: {fileID: 8572682128841654328}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4269624590817040436}
   - component: {fileID: 8780438464453667767}
   - component: {fileID: 6161333590124093}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 7589168707398104479}
   - component: {fileID: 3368927119170041465}
   - component: {fileID: 8061162076443789730}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon Pickup - Ice Staff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,10 +255,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2039
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

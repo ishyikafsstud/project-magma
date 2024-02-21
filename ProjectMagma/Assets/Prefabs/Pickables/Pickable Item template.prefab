@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1937328377531535179}
   - component: {fileID: 7310638808190076715}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 3507287809058061492}
   - component: {fileID: 2855919532048462190}
   - component: {fileID: 2917901672205913923}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pickable Item template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,10 +170,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2039
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
