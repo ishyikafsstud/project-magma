@@ -42,6 +42,8 @@ public class gameManager : MonoBehaviour
         return nextLevelOverride.Length == 0 ? helper.GetNextLevelName(levelId) : nextLevelOverride;
     }
 
+    [Header("---- Settings ----")]
+    [SerializeField] bool spawnAmbushOnKeyPicked = true;
 
     [Header("---- UI ----")]
     [SerializeField] GameObject menuActive;
@@ -91,7 +93,6 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameStates defaultGameState;
     private GameStates curGameState;
 
-
     [Header("---- Mouse and Keyboard Menu Controls ----")]
     [Tooltip("Eventsystem will highlight this button first on the Continue Menu.")]
     [SerializeField] private GameObject highlightContinueButton;
@@ -107,9 +108,12 @@ public class gameManager : MonoBehaviour
     public bool IsAmbushRewardDropped { get; private set; }
     public bool IsAmbushRewardPicked { get; private set; }
 
-    public delegate void ItemPicked();
-    public static event ItemPicked OnKeyPicked;
-    public static event ItemPicked AmbushRewardPickedEvent;
+    public delegate void EventHandler();
+    public static event EventHandler OnKeyPicked;
+    public static event EventHandler AmbushStarted;
+    public static event EventHandler AmbushRewardPickedEvent;
+
+    bool wasAmbushTriggered;
 
 
     void Awake()
@@ -127,6 +131,7 @@ public class gameManager : MonoBehaviour
 
         soundtrackManager = GameObject.FindGameObjectWithTag("SoundtrackManager").GetComponent<SoundtrackManager>();
 
+        AmbushStarted += GameManager_AmbushStarted;
         playerScript.SpawnedEvent += OnPlayerSpawned;
 
         LoadGeneralSettings();
@@ -174,6 +179,11 @@ public class gameManager : MonoBehaviour
         {
             player.transform.position = playerSpawnPosition.transform.position;
             player.transform.rotation = playerSpawnPosition.transform.rotation;
+        }
+
+        if (spawnAmbushOnKeyPicked)
+        {
+            
         }
 
         yield return new WaitForFixedUpdate();
@@ -317,14 +327,21 @@ public class gameManager : MonoBehaviour
             OnKeyPicked();
         }
 
-        //ShowHint("Key Collected\nEscape");
-
-        if (enemyManager.instance.ambushSpawner != null)
+        if (spawnAmbushOnKeyPicked && !wasAmbushTriggered)
         {
-            EnterGameState(GameStates.Ambush);
-            enemyManager.instance.ambushSpawner.gameObject.SetActive(true);
-            enemyManager.instance.ambushSpawner.StartAmbush();
+            AmbushStarted?.Invoke();
         }
+    }
+
+    private void GameManager_AmbushStarted()
+    {
+        wasAmbushTriggered = true;
+        EnterGameState(GameStates.Ambush);
+        ShowHint("Ambush!\nYou Collected The Key\nEscape though the portal\n or kill them all");
+
+        // Backward compatibility code
+        enemyManager.instance.ambushSpawner.gameObject.SetActive(true);
+        enemyManager.instance.ambushSpawner.StartAmbush();
     }
 
     /// <summary>

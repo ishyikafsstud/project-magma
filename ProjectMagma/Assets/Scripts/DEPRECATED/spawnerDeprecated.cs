@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class spawner : MonoBehaviour
+public class spawnerDeprecated : MonoBehaviour
 {
     [SerializeField] GameObject objectToSpawn;
     [SerializeField] int numToSpawn;

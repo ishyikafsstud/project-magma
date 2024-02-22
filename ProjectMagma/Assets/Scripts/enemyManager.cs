@@ -22,7 +22,7 @@ public class enemyManager : MonoBehaviour
     /// <summary>
     /// AmbushSpawner script
     /// </summary>
-    public AmbushSpawner ambushSpawner;
+    public AmbushSpawnerDeprecated ambushSpawner;
     /// <summary>
     /// Queue to hold enemies currently attacking.
     /// </summary>
@@ -86,7 +86,7 @@ public class enemyManager : MonoBehaviour
         if (ambushSpawnerObject != null)
         {
             // Gets the AmbushSpawner component
-            ambushSpawner = ambushSpawnerObject.GetComponent<AmbushSpawner>();
+            ambushSpawner = ambushSpawnerObject.GetComponent<AmbushSpawnerDeprecated>();
 
             // Checks if the AmbushSpawner component is found before setting it to inactive
             if (ambushSpawner != null)

@@ -5656,6 +5656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelId: 0
   nextLevelOverride: 
+  spawnAmbushOnKeyPicked: 1
   menuActive: {fileID: 0}
   menuPause: {fileID: 3223793094632435500}
   menuLevelComplete: {fileID: 8462227172423167825}

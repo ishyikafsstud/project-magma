@@ -13,7 +13,7 @@ public class EnemySpawnInfo
     public int spawnCount;
 }
 
-public class AmbushSpawner : MonoBehaviour
+public class AmbushSpawnerDeprecated : MonoBehaviour
 {
     // List of enemy prefabs and spawn counts
     [SerializeField] List<EnemySpawnInfo> enemiesToSpawn;
