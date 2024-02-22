@@ -45,6 +45,9 @@ public abstract class saveSystem : MonoBehaviour
     private static string levelEndWeapon1KeySuffix = "_ENDWEAPON_1";
     private static string levelEndWeapon2KeySuffix = "_ENDWEAPON_2";
 
+    public delegate void EventHandler();
+    public static event EventHandler SaveFileUpdated;
+
     public delegate void NumericSettingCallback(float value);
     public static event NumericSettingCallback MouseSensitivitySet;
     
@@ -63,6 +66,7 @@ public abstract class saveSystem : MonoBehaviour
         PlayerPrefs.SetInt(tiltEnabledKey, generalSettingsData.tiltEnabled == true ? 1 : 0);
 
         PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
     }
 
     public static void SaveVolume(string mixerGroup, float volume)
@@ -88,7 +92,9 @@ public abstract class saveSystem : MonoBehaviour
             default:
                 break;
         }
+        
         PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
     }
 
     public static void SaveMasterVolume(float volume)
@@ -119,6 +125,7 @@ public abstract class saveSystem : MonoBehaviour
     {
         PlayerPrefs.SetInt(mouseSensitivityKey, value);
         PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
 
         MouseSensitivitySet?.Invoke(value);
     }
@@ -127,6 +134,7 @@ public abstract class saveSystem : MonoBehaviour
     {
         PlayerPrefs.SetInt(tiltEnabledKey, enabled == true ? 1 : 0);
         PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
 
         TiltSet?.Invoke(enabled);
     }
@@ -135,6 +143,7 @@ public abstract class saveSystem : MonoBehaviour
     {
         PlayerPrefs.SetInt(invertYKey, enabled == true ? 1 : 0);
         PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
 
         InvertYSet?.Invoke(enabled);
     }
@@ -201,6 +210,7 @@ public abstract class saveSystem : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
     }
 
     public static LevelSaveData LoadLevelData(LevelIdEnum levelId)
@@ -246,6 +256,7 @@ public abstract class saveSystem : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
     }
 
     /// <summary>
