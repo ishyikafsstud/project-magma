@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 5565058982041714464}
   - component: {fileID: 2631484293761379911}
   m_Layer: 0
-  m_Name: EnemySpawner
+  m_Name: EnemySpawner (Ambush)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
   timeBetweenSpawns: 0.1
   requiredToKill: 1
   canEnemiesRoam: 1
-  isAmbushSpawner: 0
+  isAmbushSpawner: 1
   deactivateTrigger: 0
 --- !u!65 &2631484293761379911
 BoxCollider:
