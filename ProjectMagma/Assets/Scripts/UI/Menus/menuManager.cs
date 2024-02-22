@@ -26,6 +26,9 @@ public class menuManager : MonoBehaviour
     [SerializeField] float closeWindowDelay;
     public float CloseWindowDelay { get { return closeWindowDelay; } }
 
+    [Header("---- Message ----")]
+    [SerializeField] GameObject SaveMessagePrefab;
+
     private void Start()
     {
         // Sync all window toggle / close delay time
