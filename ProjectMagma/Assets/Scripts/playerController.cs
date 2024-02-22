@@ -9,7 +9,7 @@ public class playerController : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
     [SerializeField] CharacterController controller;
-    
+
     public Collider altAttackCollider;
     
     [Header("----- Primary Stats -----")]
@@ -322,6 +322,8 @@ public class playerController : MonoBehaviour, IDamage
                 ShootProjectile();
                 break;
         }
+
+        gameManager.instance.reloadHUD.Reload(shootRate);
 
         yield return new WaitForSeconds(shootRate);
 

@@ -80,6 +80,7 @@ public class gameManager : MonoBehaviour
     public Image playerEnergybarBG;
     public GameObject playerDamageScreenFlash;
     public GameObject playerHealedScreenFlash;
+    public ReloadHUD reloadHUD;
 
     [Header("---- Prefabs ----")]
     [SerializeField] GameObject keyPrefab;
