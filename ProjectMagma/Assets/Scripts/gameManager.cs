@@ -169,7 +169,6 @@ public class gameManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        IsWebGLBuild();
         UpdateEnemyCountText();
         ShowHint("Good Luck!");
 
@@ -367,18 +366,6 @@ public class gameManager : MonoBehaviour
         AmbushRewardPickedEvent?.Invoke();
     }
 
-    public void IsWebGLBuild()
-    {
-        // Toggle off all quit buttons if the build is WebGL
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-        {
-            GameObject[] quitButtons = GameObject.FindGameObjectsWithTag("QuitButton");
-            foreach (GameObject quitButton in quitButtons)
-            {
-                quitButton.SetActive(false);
-            }
-        }
-    }
     #region UI functionality
     void PlayerScript_HealthChanged(float value, float maxValue)
     {
