@@ -405,7 +405,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         primaryCollider.enabled = false;
 
         enemyManager.instance.EnemyDied(gameObject, isMinion, countDeath);
-        shouldDropLoot = canDropLoot && enemyManager.instance.TotalEnemies == 0;
+        shouldDropLoot = canDropLoot && enemyManager.instance.EnemyCount == 0;
 
         if (!skipDeathAnimation && animator.HasState(0, Animator.StringToHash("Death")))
         {
