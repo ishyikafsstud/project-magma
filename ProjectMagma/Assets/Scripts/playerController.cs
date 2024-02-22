@@ -159,7 +159,7 @@ public class playerController : MonoBehaviour, IDamage
             }
 
             // Left Click - ranged attack
-            if (Input.GetButton("Shoot") && weaponList.Count > 0 && !isShooting && !isAltActive)
+            if (Input.GetButton("Shoot") && weaponList.Count > 0 && !isShooting)
             {
                 if (Energy >= energyCostPerShot)
                     StartCoroutine(Shoot());
@@ -169,7 +169,7 @@ public class playerController : MonoBehaviour, IDamage
                 }
             }
             //Right click -alt attack
-            else if (Input.GetButtonDown("Hit") && !isAltActive && !isShooting)
+            else if (Input.GetButton("Hit") && !isAltActive && !isShooting)
             {
                 StartCoroutine(AltAttack());
             }
@@ -365,7 +365,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             yield break;
         }
-        //isAltActive = true;
+        isAltActive = true;
         altAttackCollider.enabled = true;
 
         RaycastHit hit;
@@ -389,10 +389,26 @@ public class playerController : MonoBehaviour, IDamage
                 }
             }
         }
+        else
+        {
+            // If the raycast doesn't hit anything,this calculates a point based on the ray's direction and length
+            Vector3 rayDirection = Camera.main.transform.forward;
+            Vector3 rayEndPoint = Camera.main.transform.position + (rayDirection * weaponList[selectedWeapon].altRange);
+            // Applys damage and push force to all enemies within the calculated range
+            Collider[] colliders = Physics.OverlapSphere(rayEndPoint, weaponList[selectedWeapon].pushRadius, layerMask);
+            foreach (Collider collider in colliders)
+            {
+                ApplyDamageAndPush(collider);
+            }
+            // Spawns hit particles at the calculated point
+            SpawnHitParticles(rayEndPoint);
+        }
         // Delay between hits
+        Debug.Log("Waiting for " + weaponList[selectedWeapon].altRate + " seconds");
         yield return new WaitForSeconds(weaponList[selectedWeapon].altRate);
-        
-        //isAltActive = false;
+        Debug.Log("Delay completed");
+
+        isAltActive = false;
         altAttackCollider.enabled = false;
     }
     void ApplyDamageAndPush(Collider collider)
