@@ -157,6 +157,7 @@ MonoBehaviour:
     positionList:
     - {fileID: 8854604617732214838}
   timeBetweenSpawns: 0.1
+  requiredToKill: 1
   canEnemiesRoam: 1
   isAmbushSpawner: 0
   deactivateTrigger: 0

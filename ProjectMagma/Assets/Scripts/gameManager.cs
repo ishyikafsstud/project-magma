@@ -339,8 +339,8 @@ public class gameManager : MonoBehaviour
         ShowHint("Ambush!\nYou Collected The Key\nEscape though the portal\n or kill them all");
 
         // Backward compatibility code
-        enemyManager.instance.ambushSpawner.gameObject.SetActive(true);
-        enemyManager.instance.ambushSpawner.StartAmbush();
+        enemyManager.instance.ambushSpawner?.gameObject.SetActive(true);
+        enemyManager.instance.ambushSpawner?.StartAmbush();
     }
 
     /// <summary>

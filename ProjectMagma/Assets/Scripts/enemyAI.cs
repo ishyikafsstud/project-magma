@@ -31,8 +31,9 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [SerializeField] bool canDropLoot = true;
     public bool CanDropLoot { get => canDropLoot; set => canDropLoot = value; }
     [Tooltip("Whether this enemy's death should decrease enemy counter, even if it is not a minion." +
-        "\n Do not set to false unless for debug reasons.")]
+        "\n Do not set to false unless the enemy is not required to be killed to continue the level.")]
     [SerializeField] bool countDeath = true;
+    public bool CountDeath { get => countDeath; set => countDeath = value; }
 
     [Header("---- FOV and animation stats ----")]
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]

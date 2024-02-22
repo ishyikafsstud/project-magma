@@ -19,6 +19,9 @@ public class enemySpawner : MonoBehaviour, IActivate
     [Header("---- Spawn settings ----")]
     [SerializeField] List<EnemySpawnInfo> enemiesToSpawn;
     [SerializeField] float timeBetweenSpawns;
+    [Tooltip("If false, the enemies spawned by this spawner will not count toward the activator stone " +
+        "or the ambush reward.")]
+    [SerializeField] bool requiredToKill = true;
     [Tooltip("Whether the enemies spawned by this spawner should roam.")]
     [SerializeField] bool canEnemiesRoam = true;
 
@@ -45,6 +48,14 @@ public class enemySpawner : MonoBehaviour, IActivate
         {
             DeactivateTriggerAreas();
         }
+
+        // For required non-ambush spawners, the enemy count should be reported on spawn
+        if (requiredToKill && !isAmbushSpawner)
+            foreach (EnemySpawnInfo info in enemiesToSpawn)
+            {
+                if (IsInfoValid(info))
+                    enemyManager.instance.EnemyCount += info.count;
+            }
     }
 
     /// <summary>
@@ -56,12 +67,20 @@ public class enemySpawner : MonoBehaviour, IActivate
         gameObject.SetActive(true);
         isTriggered = true;
 
+        // For required ambush spawners, the enemy count should be reported upon activation
+        if (isAmbushSpawner && requiredToKill)
+            foreach (EnemySpawnInfo info in enemiesToSpawn)
+            {
+                if (IsInfoValid(info))
+                    enemyManager.instance.EnemyCount += info.count;
+            }
+
         // Go through every enemy info and spawn the specified number of enemies
         foreach (EnemySpawnInfo enemyInfo in enemiesToSpawn)
         {
             // Skip this enemyInfo if it is invalid (e.g., the enemyInfo is empty, the enemy
             // prefab is not set, the spawn position list is empty)
-            if (enemyInfo == null || enemyInfo.enemy == null || enemyInfo.positionList.Length == 0)
+            if (!IsInfoValid(enemyInfo))
                 continue;
 
             // Spawn the specified number of enemies
@@ -75,8 +94,10 @@ public class enemySpawner : MonoBehaviour, IActivate
                 GameObject enemy = Instantiate(enemyInfo.enemy, spawnTransform.position, spawnTransform.rotation);
                 enemyManager.instance.EnemySpawned(enemy, false); // Report about enemy spawning
 
-                // Incorporate other settings
-                enemy.GetComponent<enemyAI>().SetCanRoam(canEnemiesRoam);
+                // Integrate other settings
+                enemyAI enemyScript = enemy.GetComponent<enemyAI>();
+                enemyScript.SetCanRoam(canEnemiesRoam);
+                enemyScript.CountDeath = requiredToKill;
 
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
@@ -106,5 +127,10 @@ public class enemySpawner : MonoBehaviour, IActivate
         {
             collider.enabled = false;
         }
+    }
+
+    bool IsInfoValid(EnemySpawnInfo info)
+    {
+        return (info != null && info.enemy != null && info.positionList.Length > 0);
     }
 }
