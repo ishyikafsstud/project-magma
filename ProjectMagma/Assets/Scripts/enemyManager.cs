@@ -15,9 +15,7 @@ public class enemyManager : MonoBehaviour
     /// A list of all enemies (including minions).
     /// </summary>
     List<GameObject> enemies;
-    /// <summary>
-    /// Ambush spawner game object
-    /// </summary>
+    [Tooltip("DEPRECATED. Preserved only for backward compatibility purposes.")]
     public GameObject ambushSpawnerObject;
     /// <summary>
     /// AmbushSpawner script
