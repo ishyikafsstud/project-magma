@@ -31,6 +31,7 @@ public class menuManager : MonoBehaviour
 
     private void Start()
     {
+        IsWebGLBuild();
         // Sync all window toggle / close delay time
         buttonFunctions[] buttonFunctionsComponents = FindObjectsOfType<buttonFunctions>(true);
         foreach (var buttonFunctionsComponent in buttonFunctionsComponents)
@@ -38,6 +39,19 @@ public class menuManager : MonoBehaviour
             buttonFunctionsComponent.ToggleWindowDelay = toggleWindowDelay;
             buttonFunctionsComponent.CloseWindowDelay = closeWindowDelay;
         }    
+    }
+
+    public void IsWebGLBuild()
+    {
+        // Toggle off all quit buttons if the build is WebGL
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            GameObject[] quitButtons = GameObject.FindGameObjectsWithTag("QuitButton");
+            foreach (GameObject quitButton in quitButtons)
+            {
+                quitButton.SetActive(false);
+            }
+        }
     }
 
     public IEnumerator LoadSceneWithDelay(string sceneName, float delay)
