@@ -2036,7 +2036,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI-GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8462227172423167825, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
+    - target: {fileID: 8744182476381001292, guid: 10b44d8360cf5aa4faf3739a49cd6578, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
