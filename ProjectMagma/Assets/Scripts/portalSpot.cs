@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Json;
 using UnityEngine;
 
 public class portalSpot : MonoBehaviour, ILockable
@@ -23,6 +24,9 @@ public class portalSpot : MonoBehaviour, ILockable
 
         if (!activateOnStart)
             gameManager.OnKeyPicked += Unlock; // Subscribe to call Unlock() on key pickup 
+
+        gameManager.AmbushRewardDropped += DisablePortalTrigger;
+        gameManager.AmbushRewardPickedEvent += EnablePortalTrigger;
     }
 
     private void OnDisable()
@@ -42,23 +46,42 @@ public class portalSpot : MonoBehaviour, ILockable
     public void Lock()
     {
         portal.SetActive(false);
-        reminderTriggerCollider.enabled = true;
         spotLight.enabled = false;
     }
 
     public void Unlock()
     {
         portal.SetActive(true);
-        reminderTriggerCollider.enabled = false;
         spotLight.enabled = true;
+    }
+
+    /// <summary>
+    /// Enable just the trigger area that triggers the level completion scenario.
+    /// </summary>
+    void EnablePortalTrigger()
+    {
+        portal.GetComponent<BoxCollider>().enabled = true;
+    }
+
+    /// <summary>
+    /// Disable just the trigger area that triggers the level completion scenario.
+    /// </summary>
+    void DisablePortalTrigger()
+    {
+        portal.GetComponent<BoxCollider>().enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !gameManager.instance.IsKeyPicked)
-        {
-            StartCoroutine(gameManager.instance.ShowHint("Can't proceed: find the activator stone!", 10.0f));
-        }
+        if (other.CompareTag("Player"))
+            if (!gameManager.instance.IsKeyPicked)
+            {
+                StartCoroutine(gameManager.instance.ShowHint("Can't proceed: find the activator stone!", 10.0f));
+            }
+            else if (gameManager.instance.IsKeyPicked && !gameManager.instance.IsAmbushRewardPicked)
+            {
+                StartCoroutine(gameManager.instance.ShowHint("Can't proceed: pick up the ambush reward!", 10.0f));
+            }
     }
 
     private void OnTriggerExit(Collider other)

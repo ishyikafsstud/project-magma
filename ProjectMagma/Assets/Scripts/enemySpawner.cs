@@ -42,7 +42,7 @@ public class enemySpawner : MonoBehaviour, IActivate
         if (isAmbushSpawner)
         {
             DeactivateTriggerAreas();
-            gameManager.AmbushStarted += ProxyActivate;
+            gameManager.instance.AmbushStarted += ProxyActivate;
         }
         else if (deactivateTrigger)
         {

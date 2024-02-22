@@ -115,7 +115,8 @@ public class gameManager : MonoBehaviour
 
     public delegate void EventHandler();
     public static event EventHandler OnKeyPicked;
-    public static event EventHandler AmbushStarted;
+    public event EventHandler AmbushStarted;
+    public static event EventHandler AmbushRewardDropped;
     public static event EventHandler AmbushRewardPickedEvent;
 
     bool wasAmbushTriggered;
@@ -260,7 +261,7 @@ public class gameManager : MonoBehaviour
         curGameState = newState;
         //Debug.Log("Entered " + newState + " state.");
 
-        soundtrackManager.GetComponent<SoundtrackManager>().PlayGameStateMusic(curGameState);
+        soundtrackManager.PlayGameStateMusic(curGameState);
     }
 
     public void statePaused()
@@ -357,11 +358,7 @@ public class gameManager : MonoBehaviour
     {
         IsKeyPicked = true;
 
-        if (OnKeyPicked != null)
-        {
-            EnterGameState(GameStates.Ambush);
-            OnKeyPicked();
-        }
+        OnKeyPicked?.Invoke();
 
         if (spawnAmbushOnKeyPicked && !wasAmbushTriggered)
         {
@@ -387,6 +384,8 @@ public class gameManager : MonoBehaviour
     public void SpawnAmbushReward(Vector3 pos)
     {
         IsAmbushRewardDropped = true;
+        AmbushRewardDropped?.Invoke();
+
         EnterGameState(GameStates.AmbushDefeated);
         if (ambushRewardPrefab != null)
             Instantiate(ambushRewardPrefab, pos, Quaternion.identity);
