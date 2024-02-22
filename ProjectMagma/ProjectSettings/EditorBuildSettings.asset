@@ -36,6 +36,6 @@ EditorBuildSettings:
     path: Assets/Scenes/TEST_SCENES/Saving/SavingTest_Level3.unity
     guid: 29ade0c8f82eb8348af3a78f09091c17
   - enabled: 0
-    path: Assets/Level/Prototype Two.unity
+    path: Assets/Level/Level 1.unity
     guid: b48ad85d421939a48a182776ddee311e
   m_configObjects: {}
