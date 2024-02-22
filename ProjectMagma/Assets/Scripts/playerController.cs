@@ -80,6 +80,8 @@ public class playerController : MonoBehaviour, IDamage
     
     public delegate void PlayerAction();
     public event PlayerAction SpawnedEvent;
+    public event PlayerAction Hurt;
+    public event PlayerAction Healed;
 
     public delegate void WeaponAction(weaponStats weapon);
     public event WeaponAction WeaponSwitched;
@@ -286,7 +288,7 @@ public class playerController : MonoBehaviour, IDamage
         if (!isInvincible)
             Health -= amount;
 
-        StartCoroutine(flashDamageOnScreen());
+        Hurt?.Invoke();
 
         if (Health <= 0)
         {
@@ -451,6 +453,7 @@ public class playerController : MonoBehaviour, IDamage
     public void Heal(int value)
     {
         Health += value;
+        Healed?.Invoke();
     }
 
     void useEnergy(float amount)
@@ -492,13 +495,6 @@ public class playerController : MonoBehaviour, IDamage
     //        transform.position = gameManager.instance.playerSpawnPosition.transform.position;
     //    controller.enabled = true;
     //}
-
-    IEnumerator flashDamageOnScreen()
-    {
-        gameManager.instance.playerDamageScreenFlash.SetActive(true);
-        yield return new WaitForSeconds(damageFlashDuration);
-        gameManager.instance.playerDamageScreenFlash.SetActive(false);
-    }
 
     public float GetHealth()
     {

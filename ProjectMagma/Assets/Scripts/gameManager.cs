@@ -44,8 +44,12 @@ public class gameManager : MonoBehaviour
 
     [Header("---- Settings ----")]
     [SerializeField] bool spawnAmbushOnKeyPicked = true;
+    [Tooltip("For how long the screen flashes red on player hurt.")]
+    [SerializeField] float hurtFlashDuration = 0.1f;
+    [Tooltip("For how long the screen flashes green on player healed.")]
+    [SerializeField] float healedFlashDuration = 0.15f;
 
-    [Header("---- UI ----")]
+    [Header("---- UI elements ----")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuLevelComplete;
@@ -75,6 +79,7 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI playerEnergybarText;
     public Image playerEnergybarBG;
     public GameObject playerDamageScreenFlash;
+    public GameObject playerHealedScreenFlash;
 
     [Header("---- Prefabs ----")]
     [SerializeField] GameObject keyPrefab;
@@ -133,11 +138,43 @@ public class gameManager : MonoBehaviour
 
         AmbushStarted += GameManager_AmbushStarted;
         playerScript.SpawnedEvent += OnPlayerSpawned;
+        playerScript.Hurt += PlayerScript_Hurt;
+        playerScript.Healed += PlayerScript_Healed;
 
         LoadGeneralSettings();
 
         if (levelId != LevelIdEnum.Other)
             LoadLevelStartData();
+    }
+
+    private void PlayerScript_Healed()
+    {
+        StartCoroutine(FlashGreenScreen());
+    }
+
+    private void PlayerScript_Hurt()
+    {
+        StartCoroutine(FlashRedScreen());
+    }
+
+    IEnumerator FlashRedScreen()
+    {
+        playerHealedScreenFlash.SetActive(false); // Stop flashing green
+        playerDamageScreenFlash.SetActive(true); // Flash red
+
+        yield return new WaitForSeconds(hurtFlashDuration);
+        
+        playerDamageScreenFlash.SetActive(false);
+    }
+
+    IEnumerator FlashGreenScreen()
+    {
+        playerDamageScreenFlash.SetActive(false); // Stop flashing red
+        playerHealedScreenFlash.SetActive(true); // Flash green
+
+        yield return new WaitForSeconds(healedFlashDuration);
+
+        playerHealedScreenFlash.SetActive(false);
     }
 
     private void PlayerScript_WeaponSwitched(weaponStats weapon)
