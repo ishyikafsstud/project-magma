@@ -183,6 +183,7 @@ public class gameManager : MonoBehaviour
     {
         playerEnergybar.gameObject.SetActive(weapon != null);
         playerEnergybarBG.gameObject.SetActive(weapon != null);
+        reloadHUD.gameObject.SetActive(weapon != null);
     }
 
     void LoadGeneralSettings()
