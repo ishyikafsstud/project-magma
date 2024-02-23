@@ -60,8 +60,8 @@ MonoBehaviour:
   walkSpeed: 8
   sprintSpeed: 13
   cameraTiltAnchor: {fileID: 7953032253958257473}
-  maxCameraTilt: 5
-  tiltCameraSpeed: 3
+  maxCameraTilt: 1.5
+  tiltCameraSpeed: 6
   canTilt: 1
   jumpMaxNumber: 1
   jumpStrength: 7
