@@ -57,7 +57,7 @@ MonoBehaviour:
   speed: 50
   destroyTime: 5
   type: 2
-  explosionEffect: {fileID: 0}
+  explosionEffect: {fileID: 4673721205880844541, guid: f4d97b1aceef19f45b9f101e4ae240da, type: 3}
   explosionDelay: 0
   explosionRadius: 0
   explosionDamage: 0
@@ -243,7 +243,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.675
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3838228031201860378
 Rigidbody:

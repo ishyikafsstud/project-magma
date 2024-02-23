@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 834644128066518930, guid: 137233839c41a55469bdcfd367a1b1f6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.9873905
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 834644128066518930, guid: 137233839c41a55469bdcfd367a1b1f6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -285,75 +285,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1089401410}
   m_LocalEulerAnglesHint: {x: -59.801, y: -90, z: 90}
---- !u!1001 &108388658
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4015571695596763258, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 7.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 4015571695596763258, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.28644133
-      objectReference: {fileID: 0}
-    - target: {fileID: 4015571695596763258, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -15.39
-      objectReference: {fileID: 0}
-    - target: {fileID: 4015571695596763258, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4015571695596763258, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4015571695596763258, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4015571695596763258, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4015571695596763258, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4015571695596763258, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4015571695596763258, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4657143299724014787, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: m_Name
-      value: EnemySpawner (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5565058982041714464, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: isAmbushSpawner
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5565058982041714464, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: enemiesToSpawn.Array.data[0].count
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5565058982041714464, guid: be43a994403ace447a4490157a4005f7, type: 3}
-      propertyPath: enemiesToSpawn.Array.data[0].enemy
-      value: 
-      objectReference: {fileID: 2719968998503626013, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: be43a994403ace447a4490157a4005f7, type: 3}
 --- !u!1001 &134896539
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -473,7 +404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3261284166982990976, guid: 49257f16235463a41a020e13fa26bfb5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4254097870087045042, guid: 49257f16235463a41a020e13fa26bfb5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -636,7 +567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7323496896376465274, guid: 9653e12a37105df47a05842d9cca1901, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -657,7 +588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2719968998503626013, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4111236185231863965, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -669,7 +600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111236185231863965, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7
+      value: 13.3
       objectReference: {fileID: 0}
     - target: {fileID: 4111236185231863965, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1232,6 +1163,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon Pickup - Poison Bomb Staff
       objectReference: {fileID: 0}
+    - target: {fileID: 3597905204787829428, guid: f189ea45f850e82438d01db42d1d4179, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9217785666116846066, guid: f189ea45f850e82438d01db42d1d4179, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.0793705
@@ -1328,6 +1263,10 @@ PrefabInstance:
     - target: {fileID: 3511148948247028921, guid: 24a7ada550efa5a449ab965ff50084c0, type: 3}
       propertyPath: m_Name
       value: Weapon Pickup - Electric Staff
+      objectReference: {fileID: 0}
+    - target: {fileID: 3511148948247028921, guid: 24a7ada550efa5a449ab965ff50084c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1930,4 +1869,3 @@ SceneRoots:
   - {fileID: 460820389}
   - {fileID: 612473100}
   - {fileID: 4004269120196831443}
-  - {fileID: 108388658}

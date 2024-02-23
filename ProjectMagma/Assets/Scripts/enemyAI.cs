@@ -91,13 +91,13 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     protected bool playerSpotted;
     protected Vector3 distanceToPlayer;
     protected float angleToPlayer;
-    
+
     bool destinationChosen;
     Vector3 startingPos;
     float origSpeed;
     float stoppingDistOrig;
     bool canRotate = true; //For locking enemy rotation 
-    
+
     bool hasBeenAlerted;
     bool isGlowingHurt;
     bool isDead;
@@ -325,10 +325,10 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     public void takeDamage(int amount)
     {
-        Health -= amount;
         StartCoroutine(flashRed());
+        Health -= amount;
         // Trigger the enemy to follow player.
-        // It is safe because the only way for the enemy to receive damage right now is to be hit by the player.
+        // It is safe because the only way for the enemy to receive damage right now is to be attacked by the player.
         spotPlayer();
     }
 
