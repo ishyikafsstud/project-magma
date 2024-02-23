@@ -120,8 +120,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1267193069750124032}
   m_HandleRect: {fileID: 4016929526146827147}
   m_Direction: 2
-  m_Value: 0.5665348
-  m_Size: 0.15197904
+  m_Value: 0.99999994
+  m_Size: 0.13923697
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -342,8 +342,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1330.27}
-  m_SizeDelta: {x: 0, y: 3068.92}
+  m_AnchoredPosition: {x: 0, y: 0.00012207031}
+  m_SizeDelta: {x: 0, y: 3400.1}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1477514378892851076
 CanvasRenderer:
@@ -373,10 +373,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\"Game Title Goes Here\"\n\n\"Thank you message Goes Here\"\n\n- Developers
-    and Game Designers -\nIvan Shyika \nScott Chase\nTaetem Brock\nEthan Brunswick\n\n-
-    Instructors - \nRod Moye\nJohn O'Leske\n\n- Software -\nUnity\nVisual Studio\n\n-
-    Assets Used -\nMagic Effects FREE by Hovl Studio \nhttps://assetstore.unity.com/packages/vfx/particles/spells/magic-effects-free-247933\n\nProcedural
+  m_text: "- WonderLock -\n\nThanks for playing!\n\nIvan Shyika\nTeam Lead\n\nEthan
+    Brunswick\nProgrammer, UI Specialist\n\nScott Chase\nProgrammer, Level Design
+    Specialist\n\nTaetem Brock\nProgrammer, Supporting Systems\n\nExtra thanks to
+    our instructors Mr. Rod Moye and Mr. John O\u2019Leske for their guidance\n\nAnd
+    our families and friends for their support. It would not have been possible without
+    you!\n\n- Software -\nUnity\nVisual Studio\n\n- Assets Used -\nMagic Effects
+    FREE by Hovl Studio \nhttps://assetstore.unity.com/packages/vfx/particles/spells/magic-effects-free-247933\n\nProcedural
     Fire by Hovl Studio\nhttps://assetstore.unity.com/packages/vfx/particles/fire-explosions/procedural-fire-141496\n\nUltimate
     Low Poly Dungeon by Broken Vector\nhttps://assetstore.unity.com/packages/3d/environments/dungeons/ultimate-low-poly-dungeon-143535\n\nRPG
     - Skeleton by IronicGame\nhttps://assetstore.unity.com/packages/3d/characters/humanoids/fantasy/rpg-skeleton-35463\n\nStylized
@@ -774,8 +777,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7865175243731112633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.4804334}
-  m_AnchorMax: {x: 1, y: 0.63241243}
+  m_AnchorMin: {x: 0, y: 0.86076295}
+  m_AnchorMax: {x: 1, y: 0.99999994}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
