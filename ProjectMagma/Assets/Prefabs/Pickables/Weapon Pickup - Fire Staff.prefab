@@ -229,7 +229,10 @@ MonoBehaviour:
   requiresPickupConfirmation: 1
   showPrompt: 1
   itemTitle: Siphon Wand
-  itemDescription: Withers enemies in an area over time
+  itemDescription: Withers enemies in an area over time.
+  pickupSound: {fileID: 0}
+  pickupSoundVolume: 1
+  mixerGroup: {fileID: -2675556089199335731, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
   weapon: {fileID: 11400000, guid: 4fd9b4fca0cac9a4e98c8862e295143d, type: 2}
 --- !u!114 &475944640973701506
 MonoBehaviour:

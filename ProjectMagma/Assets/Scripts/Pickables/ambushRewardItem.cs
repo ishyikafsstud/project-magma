@@ -8,6 +8,6 @@ public class ambushRewardItem : pickableItemBase
     public override void Pickup()
     {
         gameManager.instance.ambushRewardPicked();
-        Destroy(gameObject);
+        base.Pickup();
     }
 }

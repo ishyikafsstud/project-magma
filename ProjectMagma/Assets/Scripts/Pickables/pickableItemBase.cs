@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ExtensionMethods;
+using UnityEngine.Audio;
 
 public class pickableItemBase : MonoBehaviour, IPickable
 {
@@ -13,6 +15,10 @@ public class pickableItemBase : MonoBehaviour, IPickable
     [SerializeField] string itemTitle;
     [Tooltip("A short description of the item that will be displayed beneath the item title.")]
     [SerializeField] string itemDescription;
+    [SerializeField] AudioClip pickupSound;
+    [Tooltip("Volume multiplier of the pickup sound. Keep at 1 for the default volume.")]
+    [Range(0.1f, 5.0f)][SerializeField] float pickupSoundVolume = 1.0f;
+    [SerializeField] AudioMixerGroup mixerGroup;
 
     bool canPickup = false;
 
@@ -23,6 +29,8 @@ public class pickableItemBase : MonoBehaviour, IPickable
     /// </summary>
     public virtual void Pickup()
     {
+        if (pickupSound != null)
+            AudioSourceExtension.PlayClipAtPoint(pickupSound, transform.position, pickupSoundVolume, mixerGroup);
         Destroy(gameObject);
     }
 

@@ -229,7 +229,10 @@ MonoBehaviour:
   requiresPickupConfirmation: 1
   showPrompt: 1
   itemTitle: Rock Wand
-  itemDescription: Stone age, but sophisticated.
+  itemDescription: Got that Stone Age spirit.
+  pickupSound: {fileID: 0}
+  pickupSoundVolume: 1
+  mixerGroup: {fileID: -2675556089199335731, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
   weapon: {fileID: 11400000, guid: 7fa4b58851c4b6e46bcf8ef0277a2700, type: 2}
 --- !u!114 &1932707767987739117
 MonoBehaviour:

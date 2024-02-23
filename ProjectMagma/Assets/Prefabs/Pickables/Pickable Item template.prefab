@@ -145,6 +145,9 @@ MonoBehaviour:
   showPrompt: 1
   itemTitle: 
   itemDescription: 
+  pickupSound: {fileID: 0}
+  pickupSoundVolume: 1
+  mixerGroup: {fileID: -2675556089199335731, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
 --- !u!114 &2855919532048462190
 MonoBehaviour:
   m_ObjectHideFlags: 0

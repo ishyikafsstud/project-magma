@@ -9,6 +9,6 @@ public class weaponPickup : pickableItemBase
     public override void Pickup()
     {
         gameManager.instance.playerScript.pickupWeapon(weapon);
-        Destroy(gameObject);
+        base.Pickup();
     }
 }

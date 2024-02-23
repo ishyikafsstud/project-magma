@@ -230,6 +230,9 @@ MonoBehaviour:
   showPrompt: 1
   itemTitle: Ice Wand
   itemDescription: Freeze your foes to death.
+  pickupSound: {fileID: 0}
+  pickupSoundVolume: 1
+  mixerGroup: {fileID: -2675556089199335731, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
   weapon: {fileID: 11400000, guid: 76e01bf8dc4ac044c896672548c983c8, type: 2}
 --- !u!114 &3368927119170041465
 MonoBehaviour:

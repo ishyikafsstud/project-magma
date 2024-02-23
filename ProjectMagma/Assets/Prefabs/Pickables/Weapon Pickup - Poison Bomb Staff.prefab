@@ -230,6 +230,9 @@ MonoBehaviour:
   showPrompt: 1
   itemTitle: Poison Bomb Wand
   itemDescription: Sticky bombs with area damage? Please.
+  pickupSound: {fileID: 0}
+  pickupSoundVolume: 1
+  mixerGroup: {fileID: -2675556089199335731, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
   weapon: {fileID: 11400000, guid: 00d4c2be82dff4c4b8e76a1159c1b70f, type: 2}
 --- !u!114 &473973170388903865
 MonoBehaviour:
