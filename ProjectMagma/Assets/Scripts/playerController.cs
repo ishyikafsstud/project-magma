@@ -348,6 +348,12 @@ public class playerController : MonoBehaviour, IDamage
             }
             Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
         }
+        else
+        {
+            Vector3 viewportCenter = new Vector3(0.5f, 0.5f, shootDist);
+            Vector3 raycastEndPos = Camera.main.ViewportToWorldPoint(viewportCenter) + Camera.main.transform.forward * shootDist;
+            Instantiate(weaponList[selectedWeapon].hitEffect, raycastEndPos, weaponList[selectedWeapon].hitEffect.transform.rotation);
+        }
     }
 
     // will possibly need aditional setup. not in use yet.
