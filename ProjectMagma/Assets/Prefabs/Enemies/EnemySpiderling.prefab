@@ -1827,7 +1827,7 @@ MonoBehaviour:
   HP: 8
   restoredHealthValue: 2
   isMinion: 0
-  canDropLoot: 1
+  canDropLoot: 0
   countDeath: 1
   detectionRange: 40
   fieldOfView: 45
