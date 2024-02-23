@@ -294,9 +294,12 @@ public abstract class saveSystem : MonoBehaviour
         List<LevelIdEnum> unlockedLevels = new List<LevelIdEnum>();
 
         // Get the unlocked levels
-        for (LevelIdEnum levelId = LevelIdEnum.Level1; levelId < LevelIdEnum.LAST_LEVEL; levelId++)
+        for (LevelIdEnum levelId = LevelIdEnum.Level1; levelId <= LevelIdEnum.LAST_LEVEL; levelId++)
         {
             bool levelUnlocked = PlayerPrefs.GetInt(GetLevelPrefix(levelId) + levelUnlockedKeySuffix, 0) == 1;
+            // Level 1 should always be unlocked
+            if (levelId == LevelIdEnum.Level1)
+                levelUnlocked = true;
 
             if (levelUnlocked)
                 unlockedLevels.Add(levelId);

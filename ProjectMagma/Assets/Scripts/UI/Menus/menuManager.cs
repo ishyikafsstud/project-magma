@@ -26,8 +26,6 @@ public class menuManager : MonoBehaviour
     [SerializeField] float closeWindowDelay;
     public float CloseWindowDelay { get { return closeWindowDelay; } }
 
-    [Header("---- Message ----")]
-    [SerializeField] GameObject SaveMessagePrefab;
 
     private void Start()
     {
@@ -38,7 +36,7 @@ public class menuManager : MonoBehaviour
         {
             buttonFunctionsComponent.ToggleWindowDelay = toggleWindowDelay;
             buttonFunctionsComponent.CloseWindowDelay = closeWindowDelay;
-        }    
+        }
     }
 
     public void IsWebGLBuild()
@@ -66,15 +64,39 @@ public class menuManager : MonoBehaviour
         LoadLevel(mainMenu);
     }
 
+    /// <summary>
+    /// Load the furthest level the player has unlocked.
+    /// </summary>
     public void ContinueGame()
     {
-        //Add save system code here to resume where player left off
         //Debug.Log("Button Test: Continue Button Presssed.");
+        List<gameManager.LevelIdEnum> unlockedLevels = saveSystem.GetUnlockedLevels();
+
+        switch(unlockedLevels.Count)
+        {
+            case 2:
+                LoadLevelTwo();
+                break;
+            case 3:
+                LoadLevelThree();
+                break;
+            case 4:
+                LoadLevelFour();
+                break;
+            case 5:
+                LoadLevelFive();
+                break;
+            case 1:
+            default:
+                LoadLevelOne();
+                break;
+        }
     }
 
     public void StartNewGame()
     {
-        StartCoroutine(LoadSceneWithDelay(alphaShowcaseLevel, transitionDelay));
+        StartCoroutine(LoadSceneWithDelay(levelOne, transitionDelay));
+        saveSystem.ResetLevelProgression();
     }
 
     // Need to implement code so that Level select buttons stay disabled until the player completes that level

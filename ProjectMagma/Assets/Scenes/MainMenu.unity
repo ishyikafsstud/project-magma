@@ -132,11 +132,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 93377959}
+  - component: {fileID: 93377960}
+  - component: {fileID: 93377961}
   - component: {fileID: 93377958}
   - component: {fileID: 93377957}
   - component: {fileID: 93377956}
-  - component: {fileID: 93377960}
-  - component: {fileID: 93377961}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -248,6 +248,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc03594f1f0faa458c02cdbf59347e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelSelectionButtons:
+  - {fileID: 1429084126}
+  - {fileID: 1927996805}
+  - {fileID: 1539851099}
+  - {fileID: 848871597}
+  - {fileID: 2005490929}
+  continueButton: {fileID: 1770688366}
 --- !u!114 &93377961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7807,6 +7814,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1770688369}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 145158387}
+        m_TargetAssemblyTypeName: menuManager, Assembly-CSharp
+        m_MethodName: ContinueGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
