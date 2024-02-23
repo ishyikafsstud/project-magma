@@ -10,8 +10,11 @@ public class moveOnActivate : MonoBehaviour, IActivate
     [SerializeField] Vector3 moveByDistance;
     [Tooltip("How long the animation takes.")]
     [SerializeField] float timeToReachTarget = 1.0f;
+    [Tooltip("If activated again, should it reverse its movement?")]
+    [SerializeField] bool reverseOnReactivate = false;
 
     bool isMoving;
+    bool isAtOriginPosition;
     Vector3 startPosition;
     Vector3 endPosition;
     float progress;
@@ -21,8 +24,8 @@ public class moveOnActivate : MonoBehaviour, IActivate
         enabled = false;
 
         startPosition = transform.position;
-        endPosition = startPosition + moveByDistance;
         progress = 0.0f;
+        isAtOriginPosition = true;
 
         if (activateOnStart)
             StartCoroutine(Activate());
@@ -30,7 +33,7 @@ public class moveOnActivate : MonoBehaviour, IActivate
 
     void Update()
     {
-        progress += Time.deltaTime/timeToReachTarget;
+        progress += Time.deltaTime / timeToReachTarget;
         transform.position = Vector3.Lerp(startPosition, endPosition, progress);
 
         if (progress >= 1.0f)
@@ -40,7 +43,16 @@ public class moveOnActivate : MonoBehaviour, IActivate
     public IEnumerator Activate()
     {
         startPosition = transform.position;
-        endPosition = startPosition + moveByDistance;
+        if (!reverseOnReactivate || isAtOriginPosition)
+        {
+            endPosition = startPosition + moveByDistance;
+            isAtOriginPosition = false;
+        }
+        else
+        {
+            endPosition = startPosition - moveByDistance;
+            isAtOriginPosition = true;
+        }
         progress = 0.0f;
         enabled = true;
 

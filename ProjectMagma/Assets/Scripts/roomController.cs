@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class roomController : MonoBehaviour
 {
-    public GameObject[] barriers;
+    [Tooltip("Objects activated by this room controller. They must have a script that inherits from IActivate.")]
+    public GameObject[] activatedObjects;
 
     [SerializeField] bool unlockDoorsOnStart;
     [SerializeField] bool unlockDoorsOnPlayerLeave;
@@ -36,18 +37,13 @@ public class roomController : MonoBehaviour
     public void LockDoors()
     {
         doorsLocked = true;
-        if (barriers.Length > 0)
+        if (activatedObjects.Length > 0)
         {
-            foreach (GameObject barrier in barriers)
+            foreach (GameObject obj in activatedObjects)
             {
-                if (barrier != null)
+                if (obj != null && obj.GetComponent<IActivate>() != null)
                 {
-                    if (barrier.GetComponent<ILockable>() != null)
-                    {
-                        barrier.GetComponent<ILockable>().Lock();
-                    }
-                    else
-                        barrier.GetComponent<Animator>().SetTrigger("Door Locked");
+                    StartCoroutine(obj.GetComponent<IActivate>().Activate());
                 }
             }
         }
@@ -56,18 +52,13 @@ public class roomController : MonoBehaviour
     public void UnlockDoors()
     {
         doorsLocked = false;
-        if (barriers.Length > 0)
+        if (activatedObjects.Length > 0)
         {
-            foreach (GameObject barrier in barriers)
+            foreach (GameObject obj in activatedObjects)
             {
-                if (barrier != null)
+                if (obj != null && obj.GetComponent<IActivate>() != null)
                 {
-                    if (barrier.GetComponent<ILockable>() != null)
-                    {
-                        barrier.GetComponent<ILockable>().Unlock();
-                    }
-                    else
-                        barrier.GetComponent<Animator>().SetTrigger("Door Open");
+                    StartCoroutine(obj.GetComponent<IActivate>().Activate());
                 }
             }
         }
@@ -75,7 +66,6 @@ public class roomController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.CompareTag("Player"))
         {
             //Debug.Log("Trigger entered: " + other.name);
