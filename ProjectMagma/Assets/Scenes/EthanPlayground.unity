@@ -2321,20 +2321,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon Pickup - Electric Staff
       objectReference: {fileID: 0}
-    - target: {fileID: 4825827102073411876, guid: 24a7ada550efa5a449ab965ff50084c0, type: 3}
-      propertyPath: staffVFX
-      value: 
-      objectReference: {fileID: 7131401309302262213}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24a7ada550efa5a449ab965ff50084c0, type: 3}
---- !u!1 &7131401309302262213 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4780684504879937051, guid: 24a7ada550efa5a449ab965ff50084c0, type: 3}
-  m_PrefabInstance: {fileID: 5120378027902936944}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8500803140692578413
 PrefabInstance:
   m_ObjectHideFlags: 0
