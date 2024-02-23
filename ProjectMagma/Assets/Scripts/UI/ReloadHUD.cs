@@ -10,27 +10,33 @@ public class ReloadHUD : MonoBehaviour
     float cooldownTimer = 0.0f;
     bool isCooldown = false;
 
+    private void Start()
+    {
+        cooldownCircle.fillAmount = 1.0f;
+    }
+
     public void Reload(float rate)
     {
         if (!isCooldown)
         {
             shootRate = rate;
-            cooldownTimer = shootRate;
+            cooldownTimer = 0;
             isCooldown = true;
+            //GetComponent<Image>().enabled = true;
         }
     }
     void Update()
     {
         if (isCooldown)
         {
-            cooldownTimer -= Time.deltaTime;
+            cooldownTimer += Time.deltaTime;
 
             cooldownCircle.fillAmount = cooldownTimer / shootRate;
 
-            if (cooldownTimer <= 0.0f)
+            if (cooldownTimer >= shootRate)
             {
                 isCooldown = false;
-                cooldownCircle.fillAmount = 0.0f;
+                //GetComponent<Image>().enabled = false;
             }
         }
     }
