@@ -178,10 +178,10 @@ public class playerController : MonoBehaviour, IDamage
                 StartCoroutine(AltAttack());
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                dropWeapon(selectedWeapon);
-            }
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    dropWeapon(selectedWeapon);
+            //}
         }
 
         RegenEnergy();
