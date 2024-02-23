@@ -46,8 +46,6 @@ public class gameManager : MonoBehaviour
     [SerializeField] bool spawnAmbushOnKeyPicked = true;
     [Tooltip("For how long the screen flashes red on player hurt.")]
     [SerializeField] float hurtFlashDuration = 0.1f;
-    [Tooltip("For how long the screen flashes green on player healed.")]
-    [SerializeField] float healedFlashDuration = 0.15f;
 
     [Header("---- UI elements ----")]
     [SerializeField] GameObject menuActive;
@@ -79,7 +77,6 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI playerEnergybarText;
     [SerializeField] Image playerEnergybarBG;
     [SerializeField] GameObject playerDamageScreenFlash;
-    [SerializeField] GameObject playerHealedScreenFlash;
     [SerializeField] GameObject healedIcons;
     public ReloadHUD reloadHUD;
 
@@ -152,7 +149,8 @@ public class gameManager : MonoBehaviour
 
     private void PlayerScript_Healed()
     {
-        StartCoroutine(FlashGreenScreen());
+        healedIcons.GetComponent<Animator>().SetTrigger("Healed");
+        playerDamageScreenFlash.SetActive(false);
     }
 
     private void PlayerScript_Hurt()
@@ -162,23 +160,11 @@ public class gameManager : MonoBehaviour
 
     IEnumerator FlashRedScreen()
     {
-        //playerHealedScreenFlash.SetActive(false); // Stop flashing green
         playerDamageScreenFlash.SetActive(true); // Flash red
 
         yield return new WaitForSeconds(hurtFlashDuration);
         
         playerDamageScreenFlash.SetActive(false);
-    }
-
-    IEnumerator FlashGreenScreen()
-    {
-        playerDamageScreenFlash.SetActive(false); // Stop flashing red
-        //playerHealedScreenFlash.SetActive(true); // Flash green
-        healedIcons.GetComponent<Animator>().SetTrigger("Healed");
-
-        yield return new WaitForSeconds(healedFlashDuration);
-
-        playerHealedScreenFlash.SetActive(false);
     }
 
     private void PlayerScript_WeaponSwitched(weaponStats weapon)
