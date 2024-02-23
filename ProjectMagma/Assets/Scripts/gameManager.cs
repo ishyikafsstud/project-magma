@@ -73,13 +73,14 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI enemyCountText;
 
-    public Image playerHealthbar;
-    public TextMeshProUGUI playerHealthbarText;
-    public Image playerEnergybar;
-    public TextMeshProUGUI playerEnergybarText;
-    public Image playerEnergybarBG;
-    public GameObject playerDamageScreenFlash;
-    public GameObject playerHealedScreenFlash;
+    [SerializeField] Image playerHealthbar;
+    [SerializeField] TextMeshProUGUI playerHealthbarText;
+    [SerializeField] Image playerEnergybar;
+    [SerializeField] TextMeshProUGUI playerEnergybarText;
+    [SerializeField] Image playerEnergybarBG;
+    [SerializeField] GameObject playerDamageScreenFlash;
+    [SerializeField] GameObject playerHealedScreenFlash;
+    [SerializeField] GameObject healedIcons;
     public ReloadHUD reloadHUD;
 
     [Header("---- Prefabs ----")]
@@ -161,7 +162,7 @@ public class gameManager : MonoBehaviour
 
     IEnumerator FlashRedScreen()
     {
-        playerHealedScreenFlash.SetActive(false); // Stop flashing green
+        //playerHealedScreenFlash.SetActive(false); // Stop flashing green
         playerDamageScreenFlash.SetActive(true); // Flash red
 
         yield return new WaitForSeconds(hurtFlashDuration);
@@ -172,7 +173,8 @@ public class gameManager : MonoBehaviour
     IEnumerator FlashGreenScreen()
     {
         playerDamageScreenFlash.SetActive(false); // Stop flashing red
-        playerHealedScreenFlash.SetActive(true); // Flash green
+        //playerHealedScreenFlash.SetActive(true); // Flash green
+        healedIcons.GetComponent<Animator>().SetTrigger("Healed");
 
         yield return new WaitForSeconds(healedFlashDuration);
 
