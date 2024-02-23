@@ -196,14 +196,15 @@ public class gameManager : MonoBehaviour
 
     void LoadLevelStartData()
     {
-        saveSystem.ResetLevelProgression();
         LevelSaveData levelData = saveSystem.LoadLevelData(levelId);
 
         weaponStats firstWeapon = levelData.startWeapons[0] != -1 ? helper.weaponList[(levelData.startWeapons[0])] : null;
         weaponStats secondWeapon = levelData.startWeapons[1] != -1 ? helper.weaponList[(levelData.startWeapons[1])] : null;
+        int selectedWeapon = levelData.startWeaponSelected;
 
         playerScript.pickupWeapon(firstWeapon);
         playerScript.pickupWeapon(secondWeapon);
+        playerScript.EquipWeaponFromSlot(selectedWeapon);
     }
 
     IEnumerator Start()

@@ -40,17 +40,19 @@ public abstract class saveSystem : MonoBehaviour
     private static string levelUnlockedKeySuffix = "_UNLOCKED";
     private static string levelStartWeapon1KeySuffix = "_STARTWEAPON_1";
     private static string levelStartWeapon2KeySuffix = "_STARTWEAPON_2";
+    private static string levelStartWeaponSelectedKeySuffix = "_STARTWEAPON_SELECTEDINDEX";
     private static string levelCompletedKeySuffix = "_COMPLETED";
     private static string levelAmbushDefeatedKeySuffix = "_AMBUSHDEFEATED";
     private static string levelEndWeapon1KeySuffix = "_ENDWEAPON_1";
     private static string levelEndWeapon2KeySuffix = "_ENDWEAPON_2";
+    private static string levelEndWeaponSelectedKeySuffix = "_ENDWEAPON_SELECTEDINDEX";
 
     public delegate void EventHandler();
     public static event EventHandler SaveFileUpdated;
 
     public delegate void NumericSettingCallback(float value);
     public static event NumericSettingCallback MouseSensitivitySet;
-    
+
     public delegate void BoolSettingCallback(bool value);
     public static event BoolSettingCallback TiltSet;
     public static event BoolSettingCallback InvertYSet;
@@ -92,7 +94,7 @@ public abstract class saveSystem : MonoBehaviour
             default:
                 break;
         }
-        
+
         PlayerPrefs.Save();
         SaveFileUpdated?.Invoke();
     }
@@ -191,6 +193,7 @@ public abstract class saveSystem : MonoBehaviour
         // Remember end weapons
         PlayerPrefs.SetInt(levelPrefix + levelEndWeapon1KeySuffix, playerWeapons.Count >= 1 ? (int)playerWeapons[0].wandType : -1);
         PlayerPrefs.SetInt(levelPrefix + levelEndWeapon2KeySuffix, playerWeapons.Count >= 2 ? (int)playerWeapons[1].wandType : -1);
+        PlayerPrefs.SetInt(levelPrefix + levelEndWeaponSelectedKeySuffix, player.SelectedWeapon);
         // Ambush defeated
         PlayerPrefs.SetInt(levelPrefix + levelAmbushDefeatedKeySuffix, gameManagerInst.IsAmbushRewardPicked ? 1 : 0);
 
@@ -207,6 +210,7 @@ public abstract class saveSystem : MonoBehaviour
             // Set start weapons
             PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeapon1KeySuffix, playerWeapons.Count >= 1 ? (int)playerWeapons[0].wandType : -1);
             PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeapon2KeySuffix, playerWeapons.Count >= 2 ? (int)playerWeapons[1].wandType : -1);
+            PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeaponSelectedKeySuffix, player.SelectedWeapon);
         }
 
         PlayerPrefs.Save();
@@ -224,9 +228,11 @@ public abstract class saveSystem : MonoBehaviour
         levelData.isUnlocked = PlayerPrefs.GetInt(levelPrefix + levelUnlockedKeySuffix, 0) == 1 ? true : false;
         levelData.startWeapons.Add(PlayerPrefs.GetInt(levelPrefix + levelStartWeapon1KeySuffix, -1));
         levelData.startWeapons.Add(PlayerPrefs.GetInt(levelPrefix + levelStartWeapon2KeySuffix, -1));
+        levelData.startWeaponSelected = (PlayerPrefs.GetInt(levelPrefix + levelStartWeaponSelectedKeySuffix, 0));
         levelData.isCompleted = PlayerPrefs.GetInt(levelPrefix + levelCompletedKeySuffix, 0) == 1 ? true : false;
         levelData.endWeapons.Add(PlayerPrefs.GetInt(levelPrefix + levelEndWeapon1KeySuffix, -1));
         levelData.endWeapons.Add(PlayerPrefs.GetInt(levelPrefix + levelEndWeapon1KeySuffix, -1));
+        levelData.startWeaponSelected = (PlayerPrefs.GetInt(levelPrefix + levelEndWeaponSelectedKeySuffix, 0));
         levelData.isAmbushDefeated = PlayerPrefs.GetInt(levelPrefix + levelAmbushDefeatedKeySuffix, 0) == 1 ? true : false;
 
         return levelData;
@@ -310,8 +316,10 @@ public struct LevelSaveData
 
     public bool isUnlocked;
     public List<int> startWeapons;
+    public int startWeaponSelected;
     public bool isCompleted;
     public List<int> endWeapons;
+    public int endWeaponSelected;
     public bool isAmbushDefeated;
 }
 

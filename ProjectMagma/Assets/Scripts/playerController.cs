@@ -77,6 +77,7 @@ public class playerController : MonoBehaviour, IDamage
     private float currentSpeed;
     private float walkToSprintSpeedRatio;
     private int selectedWeapon;
+    public int SelectedWeapon { get => selectedWeapon; }
     private bool isShooting;
     private bool isAltActive;
     
@@ -522,6 +523,15 @@ public class playerController : MonoBehaviour, IDamage
             selectedWeapon--;
             changeWeapon();
         }
+    }
+
+    public void EquipWeaponFromSlot(int slot)
+    {
+        if (weaponList.Count == 0)
+            return;
+
+        selectedWeapon = Mathf.Clamp(slot, 0, weaponList.Count - 1);
+        changeWeapon();
     }
 
     void changeWeapon()
