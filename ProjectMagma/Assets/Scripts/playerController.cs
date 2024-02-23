@@ -60,7 +60,7 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("----- Audio -----")]
     [SerializeField] entitySoundManager soundManager;
-    [SerializeField] inventorySoundManager interactionSoundManager;
+    [SerializeField] inventorySoundManager inventorySoundManager;
     [Tooltip("The SFX of the weapon that is in player's hands. Sound clip updates automatically on player pickup.")]
     [SerializeField] AudioSource weaponAudioSource;
 
@@ -544,24 +544,29 @@ public class playerController : MonoBehaviour, IDamage
     {
         weaponStats currentWeapon = weaponList[selectedWeapon];
         
+        // Set weapon stats
         shootDamage = weaponList[selectedWeapon].shootDamage;
         shootDist = weaponList[selectedWeapon].shootDist;
         shootRate = weaponList[selectedWeapon].shootRate;
         energyCostPerShot = weaponList[selectedWeapon].energyCostPerShot;
 
+        // Update weapon mesh
         MeshFilter weaponMeshFilter = currentWeapon.model.GetComponentInChildren<MeshFilter>();
         weaponPosition.GetComponent<MeshFilter>().sharedMesh = weaponMeshFilter.sharedMesh;
-
         MeshRenderer weaponMeshRenderer = currentWeapon.model.GetComponentInChildren<MeshRenderer>();
         weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponMeshRenderer.sharedMaterial;
 
+        // Update wand VFX
         if (currentVFX != null)
         {
             Destroy(currentVFX);
         }
-
         currentVFX = Instantiate(currentWeapon.staffVFX, vfxPosition.transform.position, vfxPosition.transform.rotation);
         currentVFX.transform.parent = vfxPosition.transform;
+
+        // Extra
+        WeaponSwitched?.Invoke(weaponList[selectedWeapon]);
+        inventorySoundManager.PlayWeaponSwitched();
     }
 
     public void pickupWeapon(weaponStats weapon)
@@ -577,31 +582,35 @@ public class playerController : MonoBehaviour, IDamage
         {
             dropWeapon(selectedWeapon);
             newWeaponIndex = selectedWeapon;
+            inventorySoundManager.PlayWeaponSwitched();
         }
 
         weaponList.Insert(newWeaponIndex, weapon);
 
+        // Set weapon stats
         shootDamage = weapon.shootDamage;
         shootDist = weapon.shootDist;
         shootRate = weapon.shootRate;
         energyCostPerShot = weapon.energyCostPerShot;
 
+        // Update weapon mesh
         MeshFilter weaponMeshFilter = weapon.model.GetComponentInChildren<MeshFilter>();
         weaponPosition.GetComponent<MeshFilter>().sharedMesh = weaponMeshFilter.sharedMesh;
-
         MeshRenderer weaponMeshRenderer = weapon.model.GetComponentInChildren<MeshRenderer>();
         weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponMeshRenderer.sharedMaterial;
 
+        // Update wand VFX
         if (currentVFX != null)
         {
             Destroy(currentVFX);
         }
-
         currentVFX = Instantiate(weapon.staffVFX, vfxPosition.transform.position, vfxPosition.transform.rotation);
         currentVFX.transform.parent = vfxPosition.transform;
 
+        // Extra
         selectedWeapon = newWeaponIndex;
         WeaponSwitched?.Invoke(weaponList[selectedWeapon]);
+        inventorySoundManager.PlayWeaponPicked();
     }
 
     void dropWeapon(int weaponIndex)

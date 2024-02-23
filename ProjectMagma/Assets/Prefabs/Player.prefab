@@ -78,8 +78,8 @@ MonoBehaviour:
   energyRegenRate: 27
   energyIncreasePerAmbush: 20
   damageFlashDuration: 0.1
-  soundManager: {fileID: 0}
-  interactionSoundManager: {fileID: 2460997528409475652}
+  soundManager: {fileID: 977183303583806689}
+  inventorySoundManager: {fileID: 2460997528409475652}
   weaponAudioSource: {fileID: 8436475894874250393}
 --- !u!82 &8436475894874250393
 AudioSource:
@@ -894,6 +894,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+--- !u!114 &977183303583806689 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8032331065347500116, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+  m_PrefabInstance: {fileID: 7131227369419922613}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 403b3c67ec382424ab13630495b0558b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4659744721115325455 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2476285594536638650, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
