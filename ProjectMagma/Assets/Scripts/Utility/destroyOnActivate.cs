@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class destroyOnActivate : MonoBehaviour, IActivate
 {
+    [SerializeField] bool activateOnStart = false;
+
     [Tooltip("Delay in seconds before destroying.")]
     [SerializeField] float delay = 0.0f;
+
+    void Start()
+    {
+        if (activateOnStart)
+            StartCoroutine(Activate());
+    }
 
     public IEnumerator Activate()
     {

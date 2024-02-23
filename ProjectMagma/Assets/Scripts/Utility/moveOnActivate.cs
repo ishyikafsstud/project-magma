@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class moveOnActivate : MonoBehaviour, IActivate
 {
+    [SerializeField] bool activateOnStart = false;
+
     [Tooltip("How much to move by in each direction.")]
     [SerializeField] Vector3 moveByDistance;
     [Tooltip("How long the animation takes.")]
@@ -21,6 +23,9 @@ public class moveOnActivate : MonoBehaviour, IActivate
         startPosition = transform.position;
         endPosition = startPosition + moveByDistance;
         progress = 0.0f;
+
+        if (activateOnStart)
+            StartCoroutine(Activate());
     }
 
     void Update()
