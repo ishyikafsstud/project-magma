@@ -46,6 +46,7 @@ public class playerController : MonoBehaviour, IDamage
 
     [SerializeField] GameObject weaponPosition;
     [SerializeField] GameObject shootPosition;
+    [SerializeField] GameObject vfxPosition;
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
@@ -63,6 +64,7 @@ public class playerController : MonoBehaviour, IDamage
     [Tooltip("The SFX of the weapon that is in player's hands. Sound clip updates automatically on player pickup.")]
     [SerializeField] AudioSource weaponAudioSource;
 
+    private GameObject currentVFX;
     private float energyOriginal;
     private float energyRegenerated;
     private float healthOriginal;
@@ -536,6 +538,14 @@ public class playerController : MonoBehaviour, IDamage
 
         MeshRenderer weaponMeshRenderer = currentWeapon.model.GetComponentInChildren<MeshRenderer>();
         weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponMeshRenderer.sharedMaterial;
+
+        if (currentVFX != null)
+        {
+            Destroy(currentVFX);
+        }
+
+        currentVFX = Instantiate(currentWeapon.staffVFX, vfxPosition.transform.position, vfxPosition.transform.rotation);
+        currentVFX.transform.parent = vfxPosition.transform;
     }
 
     public void pickupWeapon(weaponStats weapon)
@@ -566,6 +576,14 @@ public class playerController : MonoBehaviour, IDamage
         MeshRenderer weaponMeshRenderer = weapon.model.GetComponentInChildren<MeshRenderer>();
         weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponMeshRenderer.sharedMaterial;
 
+        if (currentVFX != null)
+        {
+            Destroy(currentVFX);
+        }
+
+        currentVFX = Instantiate(weapon.staffVFX, vfxPosition.transform.position, vfxPosition.transform.rotation);
+        currentVFX.transform.parent = vfxPosition.transform;
+
         selectedWeapon = newWeaponIndex;
         WeaponSwitched?.Invoke(weaponList[selectedWeapon]);
     }
@@ -586,6 +604,11 @@ public class playerController : MonoBehaviour, IDamage
         }
 
         weaponList.RemoveAt(weaponIndex);
+
+        if (currentVFX != null)
+        {
+            Destroy(currentVFX);
+        }
 
         // Drop offset will change once button to pickup wands is implemented.
         // For now, the wand drops behind the player so that the player doesnt keep colliding with it

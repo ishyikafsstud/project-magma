@@ -13,6 +13,7 @@ TagManager:
   - SoundtrackManager
   - MenuManager
   - QuitButton
+  - StaffVFX
   layers:
   - Default
   - TransparentFX

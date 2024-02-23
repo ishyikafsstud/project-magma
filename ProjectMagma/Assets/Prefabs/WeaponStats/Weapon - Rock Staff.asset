@@ -26,6 +26,7 @@ MonoBehaviour:
   weaponType: 1
   wandType: 1
   projectilePrefab: {fileID: 2072507092477366156, guid: 41f1e435029b87a4b82839ae05af9366, type: 3}
+  staffVFX: {fileID: 994496427834818306, guid: 85cf08537ef93dd4187712862b5d9549, type: 3}
   model: {fileID: 8405929037854289750, guid: cbafcf6263d95194cbf0605a59a97b2f, type: 3}
   hitEffect: {fileID: 484368387861551534, guid: f02eb3dcb10b97040b70a834b701461a, type: 3}
   shootSound: {fileID: 8300000, guid: 8ba929caff5caa14c9fbb86c741c0be9, type: 3}
