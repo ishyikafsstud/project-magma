@@ -325,8 +325,15 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     public void takeDamage(int amount)
     {
+        if (isDead)
+            return;
+        
         StartCoroutine(flashRed());
+
         Health -= amount;
+
+        soundManager?.PlayHurt();
+
         // Trigger the enemy to follow player.
         // It is safe because the only way for the enemy to receive damage right now is to be attacked by the player.
         spotPlayer();
@@ -398,6 +405,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     {
         if (isDead)
             return;
+
+        soundManager.PlayDeathSpatial(transform.position);
 
         isDead = true;
         agent.enabled = false;

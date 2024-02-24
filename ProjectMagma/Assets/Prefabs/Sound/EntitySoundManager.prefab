@@ -56,6 +56,7 @@ MonoBehaviour:
   barkSFX: {fileID: 2890603874032560156}
   attackStartSFX: {fileID: 921687272057687191}
   attackMiddleSFX: {fileID: 1100729734795960032}
+  deathSoundVolumeMultiplier: 1
 --- !u!82 &3605668025904060708
 AudioSource:
   m_ObjectHideFlags: 0

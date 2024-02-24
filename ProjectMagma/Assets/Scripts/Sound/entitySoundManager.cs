@@ -12,6 +12,9 @@ public class entitySoundManager : soundManagerBase
     [SerializeField] AudioSource attackStartSFX;
     [SerializeField] AudioSource attackMiddleSFX;
 
+    [Header("---- Extra settings ----")]
+    [SerializeField] float deathSoundVolumeMultiplier = 1.0f;
+
     public void PlayHurt(float minPitch = 0.9f, float maxPitch = 1.1f)
     {
         PlaySound(hurtSFX, minPitch, maxPitch);
@@ -20,14 +23,23 @@ public class entitySoundManager : soundManagerBase
     {
         PlaySound(jumpSFX, minPitch, maxPitch);
     }
+    
     public void PlayDeath(float minPitch = 0.9f, float maxPitch = 1.1f)
     {
         PlaySound(deathSFX, minPitch, maxPitch);
     }
+
+    public void PlayDeathSpatial(Vector3 pos)
+    {
+        ExtensionMethods.AudioSourceExtension.PlayClipAtPoint(deathSFX.clip,
+            pos, deathSoundVolumeMultiplier, deathSFX.outputAudioMixerGroup);
+    }
+
     public void PlayAttackStart(float minPitch = 0.9f, float maxPitch = 1.1f)
     {
         PlaySound(attackStartSFX, minPitch, maxPitch);
     }
+    
     public void PlayAttackMiddle(float minPitch = 0.9f, float maxPitch = 1.1f)
     {
         PlaySound(attackMiddleSFX, minPitch, maxPitch);

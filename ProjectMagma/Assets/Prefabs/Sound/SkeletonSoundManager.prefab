@@ -74,7 +74,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7942651935283425153, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 0.976
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032331065347500116, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: deathSoundVolumeMultiplier
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
