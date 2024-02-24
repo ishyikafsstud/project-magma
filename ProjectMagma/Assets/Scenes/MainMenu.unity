@@ -36836,10 +36836,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Controls Window
       objectReference: {fileID: 0}
-    - target: {fileID: 6476350344379001902, guid: 0acbf459701ec9f41b8fe2e1b6693f36, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8346659504222295776, guid: 0acbf459701ec9f41b8fe2e1b6693f36, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
