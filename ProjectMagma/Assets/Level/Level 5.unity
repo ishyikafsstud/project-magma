@@ -2051,6 +2051,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.07356889
       objectReference: {fileID: 0}
+    - target: {fileID: 423386405957255738, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 877286823614681617, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.94773185
@@ -2777,10 +2781,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7842337427435224851, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
@@ -5596,10 +5596,6 @@ PrefabInstance:
       propertyPath: countDeath
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5012835652415111784, guid: f027186b3b106d44f8a283b75cb29af6, type: 3}
-      propertyPath: canDropLoot
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5331191828365259758, guid: f027186b3b106d44f8a283b75cb29af6, type: 3}
       propertyPath: m_Name
       value: EnemySummoner
@@ -7944,6 +7940,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1480052352}
     m_Modifications:
+    - target: {fileID: 423386405957255738, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2719968998503626013, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_Name
       value: EnemySkeleton (5)
@@ -7998,10 +7998,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8088894609976139161, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
@@ -11173,6 +11169,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1480052352}
     m_Modifications:
+    - target: {fileID: 423386405957255738, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2719968998503626013, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_Name
       value: EnemySkeleton (3)
@@ -11219,10 +11219,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -11380,10 +11376,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2062517292711689769, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2062517292711689769, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -12604,6 +12596,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.07356889
       objectReference: {fileID: 0}
+    - target: {fileID: 423386405957255738, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 877286823614681617, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.94773185
@@ -13338,10 +13334,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7842337427435224851, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
@@ -16595,6 +16587,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1480052352}
     m_Modifications:
+    - target: {fileID: 423386405957255738, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2719968998503626013, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_Name
       value: EnemySkeleton (4)
@@ -16649,10 +16645,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -17910,6 +17902,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.07356889
       objectReference: {fileID: 0}
+    - target: {fileID: 423386405957255738, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 877286823614681617, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.94773185
@@ -18636,10 +18632,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7842337427435224851, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
@@ -35144,6 +35136,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1480052352}
     m_Modifications:
+    - target: {fileID: 423386405957255738, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2719968998503626013, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_Name
       value: EnemySkeleton
@@ -35190,10 +35186,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -39297,10 +39289,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2062517292711689769, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2062517292711689769, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -48492,6 +48480,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.07356889
       objectReference: {fileID: 0}
+    - target: {fileID: 423386405957255738, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 877286823614681617, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.94773185
@@ -49218,10 +49210,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7842337427435224851, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
@@ -56544,10 +56532,6 @@ PrefabInstance:
       propertyPath: countDeath
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2062517292711689769, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
-      propertyPath: canDropLoot
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -57987,6 +57971,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1480052352}
     m_Modifications:
+    - target: {fileID: 423386405957255738, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2719968998503626013, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_Name
       value: EnemySkeleton (1)
@@ -58033,10 +58021,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -64034,6 +64018,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1480052352}
     m_Modifications:
+    - target: {fileID: 423386405957255738, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2719968998503626013, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: m_Name
       value: EnemySkeleton (2)
@@ -64080,10 +64068,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471971595025210789, guid: 8c2fdd8d1ed3e764ab76f3b0eb109ef3, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -68036,10 +68020,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2062517292711689769, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
       propertyPath: countDeath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2062517292711689769, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
-      propertyPath: canDropLoot
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2080126916055617332, guid: f5d16ae81a7754e429927dd1dbd0a0f5, type: 3}
