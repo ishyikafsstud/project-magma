@@ -490,7 +490,7 @@ public class playerController : MonoBehaviour, IDamage
     void RegenEnergy()
     {
         // Calculate the base energy regenerated based on speed
-        float baseEnergyRegenerated = Mathf.Clamp(((currentSpeed / sprintSpeed) + (verticalVelocity.y / jumpStrength)) * energyRegenRate, energyRegenRate, 0);
+        float baseEnergyRegenerated = Mathf.Clamp((currentSpeed / sprintSpeed) * energyRegenRate, 0, energyRegenRate);
 
         // Adjust energy regeneration if sprinting
         float adjustedEnergyRegenerated = sprinting ? baseEnergyRegenerated * 2f : baseEnergyRegenerated;
