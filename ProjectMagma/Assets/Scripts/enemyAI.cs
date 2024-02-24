@@ -421,6 +421,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     {
         if (isDead)
         {
+            OnDeath();
+
             // If it's the last enemy
             if (shouldDropLoot)
             {
@@ -437,9 +439,9 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
                     gameManager.instance.SpawnAmbushReward(lootPos);
                 }
 
-                OnDeath();
-                Destroy(gameObject);
             }
+
+            Destroy(gameObject);
         }
     }
 
