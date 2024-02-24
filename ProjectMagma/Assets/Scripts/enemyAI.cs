@@ -23,7 +23,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [SerializeField] Collider primaryCollider;
 
     [Header("---- Stats ----")]
-    [Range(1, 20)][SerializeField] protected float HP;
+    [Range(1, 50)][SerializeField] protected float HP;
     [SerializeField] public int restoredHealthValue;
     [Tooltip("Whether the character is summoned by a spawner enemy.\nMinions do not count toward kills.")]
     [SerializeField] bool isMinion;
