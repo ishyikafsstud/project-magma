@@ -79,6 +79,8 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject playerDamageScreenFlash;
     [SerializeField] GameObject healedIcons;
     [SerializeField] GameObject[] weaponSlots;
+    [Tooltip("Parent group of all weapon-related things: energy bar, weapon inventory UI, reload HUD, etc.")]
+    [SerializeField] GameObject weaponHUD;
     public ReloadHUD reloadHUD;
 
     [Header("---- Prefabs ----")]
@@ -170,9 +172,7 @@ public class gameManager : MonoBehaviour
 
     private void PlayerScript_WeaponSwitched(weaponStats weapon)
     {
-        playerEnergybar.gameObject.SetActive(weapon != null);
-        playerEnergybarBG.gameObject.SetActive(weapon != null);
-        reloadHUD.gameObject.SetActive(weapon != null);
+        weaponHUD.gameObject.SetActive(weapon);
 
         // Ideally the weapon UI icon should be updated only once in a separate WeaponPicked event
         // method, but due to the lack of one, it is done here
