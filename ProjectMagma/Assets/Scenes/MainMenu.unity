@@ -11735,7 +11735,7 @@ Animator:
   m_GameObject: {fileID: 1349151656109839}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a58154c350c4ccf47a6cdad03a8dca1a, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6e092ad3d6b50a14bac692ea833c646a, type: 2}
+  m_Controller: {fileID: 9100000, guid: c03c4a99f9495ca4e90982d87973e066, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -26333,6 +26333,9 @@ MonoBehaviour:
   showPrompt: 1
   itemTitle: Fire Wand
   itemDescription: I am on fire!
+  pickupSound: {fileID: 0}
+  pickupSoundVolume: 1
+  mixerGroup: {fileID: 0}
   weapon: {fileID: 11400000, guid: 4fd9b4fca0cac9a4e98c8862e295143d, type: 2}
 --- !u!33 &1649765542891933627
 MeshFilter:
@@ -36395,6 +36398,9 @@ MonoBehaviour:
   showPrompt: 1
   itemTitle: Thunder Wand
   itemDescription: Feel yourself a Zeus.
+  pickupSound: {fileID: 0}
+  pickupSoundVolume: 1
+  mixerGroup: {fileID: 0}
   weapon: {fileID: 11400000, guid: db0821c9aeaf395448665233bbbcbf3c, type: 2}
 --- !u!23 &5251413121779742254
 MeshRenderer:
