@@ -318,6 +318,19 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         }
     }
 
+    bool canSeePlayerForAttack()
+    {
+        RaycastHit hit;
+        // Collision layers: Default, Player, Enemy
+        int layerMask = (1 << 0) | (1 << 3) | (1 << 6);
+        if (Physics.Raycast(transform.position, distanceToPlayer, out hit, attackRange, layerMask))
+        {
+            return (hit.collider.CompareTag("Player") && angleToPlayer <= fieldOfViewAttack);
+        }
+
+        return false;
+    }
+
     public void Push(Vector3 direction, float force)
     {
         transform.Translate(direction * force * Time.deltaTime, Space.World);
@@ -456,9 +469,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     protected virtual bool CanAttack()
     {
-        return distanceToPlayer.magnitude <= attackRange
-            && !isAttacking
-            && angleToPlayer < fieldOfViewAttack;
+        return !isAttacking && canSeePlayerForAttack();
         //&& enemyManager.instance.attackingEnemiesCount <= enemyManager.instance.maxAttackingEnemies;
     }
 
