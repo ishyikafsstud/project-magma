@@ -232,7 +232,7 @@ public abstract class saveSystem : MonoBehaviour
         levelData.isCompleted = PlayerPrefs.GetInt(levelPrefix + levelCompletedKeySuffix, 0) == 1 ? true : false;
         levelData.endWeapons.Add(PlayerPrefs.GetInt(levelPrefix + levelEndWeapon1KeySuffix, -1));
         levelData.endWeapons.Add(PlayerPrefs.GetInt(levelPrefix + levelEndWeapon1KeySuffix, -1));
-        levelData.startWeaponSelected = (PlayerPrefs.GetInt(levelPrefix + levelEndWeaponSelectedKeySuffix, 0));
+        levelData.endWeaponSelected = (PlayerPrefs.GetInt(levelPrefix + levelEndWeaponSelectedKeySuffix, 0));
         levelData.isAmbushDefeated = PlayerPrefs.GetInt(levelPrefix + levelAmbushDefeatedKeySuffix, 0) == 1 ? true : false;
 
         return levelData;

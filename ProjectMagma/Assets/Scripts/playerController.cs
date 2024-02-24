@@ -77,7 +77,14 @@ public class playerController : MonoBehaviour, IDamage
     private float currentSpeed;
     private float walkToSprintSpeedRatio;
     private int selectedWeapon;
-    public int SelectedWeapon { get => selectedWeapon; }
+    public int SelectedWeapon 
+    { 
+        get => weaponList.Count > 0 ? selectedWeapon : -1; 
+    }
+    public weaponStats SelectedWeaponStats
+    { 
+        get => weaponList.Count > 0 ? weaponList[selectedWeapon] : null;
+    }
     private bool isShooting;
     private bool isAltActive;
     
@@ -574,7 +581,7 @@ public class playerController : MonoBehaviour, IDamage
         if (weapon == null)
             return;
 
-        int newWeaponIndex = Mathf.Max(weaponList.Count - 1, 0);
+        int newWeaponIndex = Mathf.Clamp(weaponList.Count, 0, 1);
 
         // If the inventory is full, drop the current selected weapon and remember to insert the new weapon in
         // place of the dropped weapon
@@ -641,7 +648,5 @@ public class playerController : MonoBehaviour, IDamage
         Vector3 dropPosition = transform.position + transform.forward * dropDistance;
 
         Instantiate(correctWandItem, dropPosition, Quaternion.identity);
-
-        WeaponSwitched?.Invoke(null);
     }
 }

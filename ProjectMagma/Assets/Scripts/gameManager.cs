@@ -78,6 +78,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] Image playerEnergybarBG;
     [SerializeField] GameObject playerDamageScreenFlash;
     [SerializeField] GameObject healedIcons;
+    [SerializeField] GameObject[] weaponSlots;
     public ReloadHUD reloadHUD;
 
     [Header("---- Prefabs ----")]
@@ -172,6 +173,22 @@ public class gameManager : MonoBehaviour
         playerEnergybar.gameObject.SetActive(weapon != null);
         playerEnergybarBG.gameObject.SetActive(weapon != null);
         reloadHUD.gameObject.SetActive(weapon != null);
+
+        // Ideally the weapon UI icon should be updated only once in a separate WeaponPicked event
+        // method, but due to the lack of one, it is done here
+        if (playerScript.SelectedWeaponStats != null)
+        {
+            // Update slot icons
+            for (int i = 0; i < playerScript.GetWeaponList().Count; i++)
+                weaponSlots[i].GetComponent<WeaponSlotScript>().FillSlot(playerScript.GetWeaponList()[i].Icon);
+
+            // Reflect selection in UI
+            for (int i = 0; i < weaponSlots.Length; i++)
+            {
+                weaponSlots[i].GetComponent<WeaponSlotScript>().Select(playerScript.SelectedWeapon == i);
+            }
+        }
+
     }
 
     void LoadGeneralSettings()
@@ -198,6 +215,9 @@ public class gameManager : MonoBehaviour
 
     IEnumerator Start()
     {
+        // Force update the weapon selection UI
+        PlayerScript_WeaponSwitched(playerScript.SelectedWeaponStats);
+
         UpdateEnemyCountText();
         ShowHint("Good Luck!");
 
