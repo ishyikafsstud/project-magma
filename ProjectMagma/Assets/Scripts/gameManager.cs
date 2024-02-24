@@ -172,7 +172,7 @@ public class gameManager : MonoBehaviour
 
     private void PlayerScript_WeaponSwitched(weaponStats weapon)
     {
-        weaponHUD.gameObject.SetActive(weapon);
+        //weaponHUD.gameObject.SetActive(playerScript.GetWeaponList().Count > 0);
 
         // Ideally the weapon UI icon should be updated only once in a separate WeaponPicked event
         // method, but due to the lack of one, it is done here
