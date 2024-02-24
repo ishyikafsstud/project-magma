@@ -167,7 +167,7 @@ public class gameManager : MonoBehaviour
         playerDamageScreenFlash.SetActive(true); // Flash red
 
         yield return new WaitForSeconds(hurtFlashDuration);
-        
+
         playerDamageScreenFlash.SetActive(false);
     }
 
@@ -232,7 +232,7 @@ public class gameManager : MonoBehaviour
 
         if (spawnAmbushOnKeyPicked)
         {
-            
+
         }
 
         yield return new WaitForFixedUpdate();
@@ -372,9 +372,16 @@ public class gameManager : MonoBehaviour
 
         OnKeyPicked?.Invoke();
 
-        if (spawnAmbushOnKeyPicked && !wasAmbushTriggered)
+        if (spawnAmbushOnKeyPicked)
         {
-            AmbushStarted?.Invoke();
+            if (!wasAmbushTriggered)
+            {
+                AmbushStarted?.Invoke();
+            }
+        }
+        else
+        {
+            ShowHint("No ambush!\nProceed to the portal");
         }
     }
 
