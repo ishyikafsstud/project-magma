@@ -47,15 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionDelay: 0.65
   mainMenu: MainMenu
-  levelOne: Level1Placeholder
-  levelTwo: Level2Placeholder
-  levelThree: Level3Placeholder
-  levelFour: Level4Placeholder
-  levelFive: Level5Placeholder
+  levelOne: Level 1
+  levelTwo: Level 2
+  levelThree: Level 3
+  levelFour: Level 4
+  levelFive: Level 5
   alphaShowcaseLevel: AlphaShowcaseLevel
   toggleWindowDelay: 0.1
   closeWindowDelay: 0.1
-  SaveMessagePrefab: {fileID: 2217115807174399207, guid: dcae51e6f90e0b14c851f22fa155b3b5, type: 3}
 --- !u!114 &8110892053870997928
 MonoBehaviour:
   m_ObjectHideFlags: 0
