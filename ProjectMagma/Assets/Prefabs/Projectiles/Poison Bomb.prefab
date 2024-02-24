@@ -57,7 +57,7 @@ MonoBehaviour:
   destroyTime: 5
   type: 3
   explosionEffect: {fileID: 4535006216103734310, guid: f31bb244721a1e642a5c455823b3da9b, type: 3}
-  explosionDelay: 3
+  explosionDelay: 1.5
   explosionRadius: 7
   explosionDamage: 7
 --- !u!33 &132806691935206121

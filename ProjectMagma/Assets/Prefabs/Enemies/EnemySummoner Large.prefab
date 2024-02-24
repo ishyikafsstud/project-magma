@@ -2373,7 +2373,7 @@ MonoBehaviour:
   lootPosition: {fileID: 2550481946255390605}
   enemyUI: {fileID: 6287257593246888490}
   primaryCollider: {fileID: 7254979400411685522}
-  HP: 20
+  HP: 35
   restoredHealthValue: 10
   isMinion: 0
   canDropLoot: 1

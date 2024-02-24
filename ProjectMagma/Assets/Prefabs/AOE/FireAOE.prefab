@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  cooldown: 0.33
+  cooldown: 0.25
 --- !u!198 &2260964295642823632
 ParticleSystem:
   m_ObjectHideFlags: 0

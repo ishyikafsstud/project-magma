@@ -648,7 +648,7 @@ MonoBehaviour:
   enemyUI: {fileID: 1485194551714496848}
   primaryCollider: {fileID: 1042730078472761704}
   HP: 20
-  restoredHealthValue: 5
+  restoredHealthValue: 3
   isMinion: 0
   canDropLoot: 1
   countDeath: 1
@@ -658,7 +658,7 @@ MonoBehaviour:
   faceTargetSpeed: 8
   damageFlashLength: 0.1
   animSpeedTransition: 8
-  attackDamage: 5
+  attackDamage: 3
   attackRate: 0.5
   attackRange: 3
   projectile: {fileID: 0}

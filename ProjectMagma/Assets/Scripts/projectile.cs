@@ -24,7 +24,7 @@ public class projectile : MonoBehaviour
 
     [Header("---- Bomb/AOE Projectile Settings ---- ")]
     [SerializeField] GameObject explosionEffect;
-    [SerializeField] int explosionDelay;
+    [Range(0.1f, 5.0f)][SerializeField] float explosionDelay;
     [SerializeField] int explosionRadius;
     [SerializeField] int explosionDamage;
 

@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2324110343507679693}
   altAttackCollider: {fileID: 4527473754651348832}
-  health: 20
+  health: 30
   isInvincible: 0
   energy: 100
   hasInfiniteEnergy: 0
