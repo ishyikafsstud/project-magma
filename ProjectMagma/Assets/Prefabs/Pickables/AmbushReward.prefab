@@ -135,8 +135,8 @@ MonoBehaviour:
   showPrompt: 1
   itemTitle: Stone of Souls
   itemDescription: Permanently increases max energy
-  pickupSound: {fileID: 0}
-  pickupSoundVolume: 1
+  pickupSound: {fileID: 8300000, guid: 8802d113b97ba2d498029a03a721ed0c, type: 3}
+  pickupSoundVolume: 2.27
   mixerGroup: {fileID: -2675556089199335731, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
 --- !u!114 &6589437577483612445
 MonoBehaviour:

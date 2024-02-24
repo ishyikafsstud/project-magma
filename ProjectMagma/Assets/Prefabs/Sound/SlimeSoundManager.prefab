@@ -8,9 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 921687272057687191, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1a7fd925362d0884bb00f1a74b99c301, type: 3}
     - target: {fileID: 1500943126807432163, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: m_Name
-      value: EntitySoundManager
+      value: SlimeSoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506536595223517005, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d1b2cc0fd7d91f1418375b924ec85e39, type: 3}
+    - target: {fileID: 1506536595223517005, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2476285594536638650, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51,6 +63,18 @@ PrefabInstance:
     - target: {fileID: 2476285594536638650, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3605668025904060708, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 858efbcaa8379d646ba2cc820dfc9922, type: 3}
+    - target: {fileID: 3605668025904060708, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942651935283425153, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
