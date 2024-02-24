@@ -1,3 +1,4 @@
+using ExtensionMethods;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -297,6 +298,7 @@ public class playerController : MonoBehaviour, IDamage
         else
             currentSpeed = walkSpeed;
     }
+    
     public void takeDamage(int amount)
     {
         if (!isInvincible)
@@ -646,11 +648,12 @@ public class playerController : MonoBehaviour, IDamage
             Destroy(currentVFX);
         }
 
-        // Drop offset will change once button to pickup wands is implemented.
         // For now, the wand drops behind the player so that the player doesnt keep colliding with it
-        int dropDistance = -2;
+        float dropDistance = 0.5f;
         Vector3 dropPosition = transform.position + transform.forward * dropDistance;
 
         Instantiate(correctWandItem, dropPosition, Quaternion.identity);
+        AudioSourceExtension.PlayClipAtPoint(inventorySoundManager.WeaponDroppedSFX, dropPosition,
+            1.0f, inventorySoundManager.MixerGroup);
     }
 }
