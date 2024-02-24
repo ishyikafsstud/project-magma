@@ -11,7 +11,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] CharacterController controller;
 
     public Collider altAttackCollider;
-    
+
     [Header("----- Primary Stats -----")]
     [Tooltip("Do not directly access private health - use the public Health property instead.")]
     [SerializeField] float health;
@@ -81,17 +81,17 @@ public class playerController : MonoBehaviour, IDamage
     private float currentSpeed;
     private float walkToSprintSpeedRatio;
     private int selectedWeapon;
-    public int SelectedWeapon 
-    { 
-        get => weaponList.Count > 0 ? selectedWeapon : -1; 
+    public int SelectedWeapon
+    {
+        get => weaponList.Count > 0 ? selectedWeapon : -1;
     }
     public weaponStats SelectedWeaponStats
-    { 
+    {
         get => weaponList.Count > 0 ? weaponList[selectedWeapon] : null;
     }
     private bool isShooting;
     private bool isAltActive;
-    
+
     public delegate void PlayerAction();
     public event PlayerAction SpawnedEvent;
     public event PlayerAction Hurt;
@@ -233,7 +233,7 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(horMotion);
 
         // Call tiltCamera to handle camera tilt based on horizontal motion
-        if(canTilt)
+        if (canTilt)
         {
             tiltCamera(horMotionDirection);
         }
@@ -276,7 +276,7 @@ public class playerController : MonoBehaviour, IDamage
     public void EnableTilt(bool enable)
     {
         canTilt = enable;
-        if(!canTilt)
+        if (!canTilt)
         {
             cameraTiltAnchor.localRotation = Quaternion.identity;
         }
@@ -297,7 +297,7 @@ public class playerController : MonoBehaviour, IDamage
         else
             currentSpeed = walkSpeed;
     }
-    
+
     public void takeDamage(int amount)
     {
         if (!isInvincible)
@@ -543,19 +543,19 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    public void EquipWeaponFromSlot(int slot)
+    public void EquipWeaponFromSlot(int slot, bool playSound = true)
     {
         if (weaponList.Count == 0)
             return;
 
         selectedWeapon = Mathf.Clamp(slot, 0, weaponList.Count - 1);
-        changeWeapon();
+        changeWeapon(playSound);
     }
 
-    void changeWeapon()
+    void changeWeapon(bool playSound = true)
     {
         weaponStats currentWeapon = weaponList[selectedWeapon];
-        
+
         // Set weapon stats
         shootDamage = weaponList[selectedWeapon].shootDamage;
         shootDist = weaponList[selectedWeapon].shootDist;
@@ -578,10 +578,11 @@ public class playerController : MonoBehaviour, IDamage
 
         // Extra
         WeaponSwitched?.Invoke(weaponList[selectedWeapon]);
-        inventorySoundManager.PlayWeaponSwitched();
+        if (playSound)
+            inventorySoundManager.PlayWeaponSwitched();
     }
 
-    public void pickupWeapon(weaponStats weapon)
+    public void pickupWeapon(weaponStats weapon, bool playSound = true)
     {
         if (weapon == null)
             return;
@@ -622,7 +623,8 @@ public class playerController : MonoBehaviour, IDamage
         // Extra
         selectedWeapon = newWeaponIndex;
         WeaponSwitched?.Invoke(weaponList[selectedWeapon]);
-        inventorySoundManager.PlayWeaponPicked();
+        if (playSound)
+            inventorySoundManager.PlayWeaponPicked();
     }
 
     void dropWeapon(int weaponIndex)

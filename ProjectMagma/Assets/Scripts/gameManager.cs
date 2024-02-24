@@ -209,9 +209,9 @@ public class gameManager : MonoBehaviour
         weaponStats secondWeapon = levelData.startWeapons[1] != -1 ? helper.weaponList[(levelData.startWeapons[1])] : null;
         int selectedWeapon = levelData.startWeaponSelected;
 
-        playerScript.pickupWeapon(firstWeapon);
-        playerScript.pickupWeapon(secondWeapon);
-        playerScript.EquipWeaponFromSlot(selectedWeapon);
+        playerScript.pickupWeapon(firstWeapon, false);
+        playerScript.pickupWeapon(secondWeapon, false);
+        playerScript.EquipWeaponFromSlot(selectedWeapon, false);
     }
 
     IEnumerator Start()
