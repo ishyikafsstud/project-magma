@@ -26,19 +26,19 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Level/AlphaShowcaseLevel.unity
     guid: f98f644a847022b4484c24917969facc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Level/PlaceholderLevels/Level1Placeholder.unity
     guid: f520c8a8d794c3e499357dee84fdf28a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Level/PlaceholderLevels/Level2Placeholder.unity
     guid: 55907dbf70b063f4da5b740e45d8b5fb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Level/PlaceholderLevels/Level3Placeholder.unity
     guid: 12d39ffdd2ee0bf41b0a77ae2c31b6d7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Level/PlaceholderLevels/Level4Placeholder.unity
     guid: c0145ed4c28f1c8419e6aeb9285accfa
-  - enabled: 1
+  - enabled: 0
     path: Assets/Level/PlaceholderLevels/Level5Placeholder.unity
     guid: 99bef7ba13d197142952a5850a3fc1f6
   - enabled: 0
