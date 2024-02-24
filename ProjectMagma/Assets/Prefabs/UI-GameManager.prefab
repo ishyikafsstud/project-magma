@@ -6910,11 +6910,11 @@ MonoBehaviour:
   - {fileID: 5691132463705070838, guid: 137233839c41a55469bdcfd367a1b1f6, type: 3}
   - {fileID: 3597905204787829428, guid: f189ea45f850e82438d01db42d1d4179, type: 3}
   levelNames:
-  - Level1Placeholder
-  - Level2Placeholder
-  - Level3Placeholder
-  - Level4Placeholder
-  - Level5Placeholder
+  - Level 1
+  - Level 2
+  - Level 3
+  - Level 4
+  - Level 5
 --- !u!1 &4341723088179500024
 GameObject:
   m_ObjectHideFlags: 0
