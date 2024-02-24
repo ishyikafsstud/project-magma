@@ -218,7 +218,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338917909320548506}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -340,7 +340,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 956263941036255764}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VFX Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,8 @@ GameObject:
   - component: {fileID: 6770688324060024256}
   - component: {fileID: 58026362219354731}
   - component: {fileID: 4062158401363671384}
-  m_Layer: 0
+  - component: {fileID: 3109277246500103559}
+  m_Layer: 11
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -478,6 +479,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8654237444469196953}
   m_Enabled: 1
+--- !u!114 &3109277246500103559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8654237444469196953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19df7312ea36f164d97722cbe4b9dfef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.1
+  shakeIntensity: 0.01
 --- !u!1001 &4158838405109053115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -493,6 +508,10 @@ PrefabInstance:
     - target: {fileID: 1212406257651636249, guid: 39a57ca25aa9ac9418129236bb0b7e10, type: 3}
       propertyPath: m_Name
       value: Shoot Position
+      objectReference: {fileID: 0}
+    - target: {fileID: 1212406257651636249, guid: 39a57ca25aa9ac9418129236bb0b7e10, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1988486285709869731, guid: 39a57ca25aa9ac9418129236bb0b7e10, type: 3}
       propertyPath: m_LocalPosition.x
@@ -565,6 +584,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundtrackManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1807853413920663935, guid: ba677af2dcd6ffb47b4257db2e74af3b, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 8339368241449098087, guid: ba677af2dcd6ffb47b4257db2e74af3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -626,6 +649,10 @@ PrefabInstance:
     - target: {fileID: 1500943126807432163, guid: ba58c074b8c53004a932bd04a3b0600e, type: 3}
       propertyPath: m_Name
       value: InventorySoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1500943126807432163, guid: ba58c074b8c53004a932bd04a3b0600e, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2476285594536638650, guid: ba58c074b8c53004a932bd04a3b0600e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -703,6 +730,10 @@ PrefabInstance:
     - target: {fileID: 3530487434920885555, guid: 98ba86548ddcd664e9df1d008a5c8f97, type: 3}
       propertyPath: m_Name
       value: Torch
+      objectReference: {fileID: 0}
+    - target: {fileID: 3530487434920885555, guid: 98ba86548ddcd664e9df1d008a5c8f97, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3530487434920885555, guid: 98ba86548ddcd664e9df1d008a5c8f97, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -789,6 +820,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4777504214439148958, guid: 98ba86548ddcd664e9df1d008a5c8f97, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4777504214439148958, guid: 98ba86548ddcd664e9df1d008a5c8f97, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -836,6 +871,10 @@ PrefabInstance:
     - target: {fileID: 1500943126807432163, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: m_Name
       value: EntitySoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1500943126807432163, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1506536595223517005, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: m_audioClip
@@ -914,6 +953,10 @@ PrefabInstance:
     - target: {fileID: 1212406257651636249, guid: 39a57ca25aa9ac9418129236bb0b7e10, type: 3}
       propertyPath: m_Name
       value: Weapon Position
+      objectReference: {fileID: 0}
+    - target: {fileID: 1212406257651636249, guid: 39a57ca25aa9ac9418129236bb0b7e10, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1988486285709869731, guid: 39a57ca25aa9ac9418129236bb0b7e10, type: 3}
       propertyPath: m_LocalPosition.x

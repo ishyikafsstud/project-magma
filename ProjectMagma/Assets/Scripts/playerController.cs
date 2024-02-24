@@ -271,6 +271,25 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    public void ShakeCamera()
+    {
+        float shakeAmount = 0.5f;
+        float shakeDuration = 0.5f;
+        Quaternion origCameraRot = Camera.main.transform.localRotation;
+        if (shakeDuration > 0)
+        {
+            Quaternion shakeRotation = Quaternion.Euler(UnityEngine.Random.insideUnitSphere * shakeAmount);
+            Camera.main.transform.localRotation = origCameraRot * shakeRotation;
+
+            shakeDuration -= Time.deltaTime;
+        }
+        else
+        {
+            // Return the camera to its original position using lerp
+            Camera.main.transform.localRotation = Quaternion.Lerp(Camera.main.transform.localRotation, origCameraRot, Time.deltaTime * 5f);
+        }
+    }
+
     void jump()
     {
         verticalVelocity.y = jumpStrength;
@@ -297,6 +316,10 @@ public class playerController : MonoBehaviour, IDamage
         {
             die();
         }
+
+        cameraShake cameraShake = Camera.main.GetComponent<cameraShake>();
+        cameraShake.Shake();
+
         soundManager?.PlayHurt();
     }
 
