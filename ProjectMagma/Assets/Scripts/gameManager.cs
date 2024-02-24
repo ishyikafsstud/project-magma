@@ -122,6 +122,7 @@ public class gameManager : MonoBehaviour
     public static event EventHandler AmbushRewardPickedEvent;
 
     bool wasAmbushTriggered;
+    public bool WasAmbushTriggered { get => wasAmbushTriggered; }
 
 
     void Awake()

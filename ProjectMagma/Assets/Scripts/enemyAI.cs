@@ -435,7 +435,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
                     gameManager.instance.SpawnKey(lootPos);
                 }
                 // if the key was already dropped then the died enemy was the last ambush enemy, so drop the ambush reward
-                else if (!gameManager.instance.IsAmbushRewardDropped)
+                else if (gameManager.instance.WasAmbushTriggered && !gameManager.instance.IsAmbushRewardDropped)
                 {
                     gameManager.instance.SpawnAmbushReward(lootPos);
                 }
