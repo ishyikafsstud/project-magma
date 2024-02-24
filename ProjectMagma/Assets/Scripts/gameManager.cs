@@ -412,13 +412,19 @@ public class gameManager : MonoBehaviour
         gameManager.instance.ShowHint("Enemy Dropped Ambush Reward");
     }
 
-    public void ambushRewardPicked()
+    /// <summary>
+    /// Trigger ambush reward pickup events.
+    /// </summary>
+    /// <param name="isEarnedAmbushReward">Whether the reward was for an ambush. Should be false for secret items</param>
+    public void ambushRewardPicked(bool isEarnedAmbushReward = true)
     {
-        IsAmbushRewardPicked = true;
-
         playerScript.ApplyAmbushDefeatPowerup(1);
-
-        AmbushRewardPickedEvent?.Invoke();
+     
+        if (isEarnedAmbushReward)
+        {
+            IsAmbushRewardPicked = true;
+            AmbushRewardPickedEvent?.Invoke();
+        }
     }
 
     #region UI functionality

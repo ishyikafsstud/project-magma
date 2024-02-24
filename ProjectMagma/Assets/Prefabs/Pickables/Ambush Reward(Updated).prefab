@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7478180586341276833}
-  - component: {fileID: 1430232095377188616}
-  - component: {fileID: 1072889496491086649}
   - component: {fileID: 5998235761102542701}
   - component: {fileID: 1775900838773312721}
+  - component: {fileID: 1430232095377188616}
+  - component: {fileID: 1072889496491086649}
   - component: {fileID: 8675849550346800109}
   m_Layer: 0
   m_Name: Ambush Reward(Updated)
@@ -38,6 +38,41 @@ Transform:
   - {fileID: 2374807300398766411}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5998235761102542701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2611548423482209773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5aa2b5685c96184e99d52fe202603c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiresPickupConfirmation: 1
+  showPrompt: 1
+  itemTitle: Stone of Souls
+  itemDescription: Permanently increases max energy
+  pickupSound: {fileID: 8300000, guid: 10f541c69a37fa14c91c1d6d2d03133a, type: 3}
+  pickupSoundVolume: 3.03
+  mixerGroup: {fileID: -2675556089199335731, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
+  isEarnedAmbushReward: 1
+--- !u!114 &1775900838773312721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2611548423482209773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aad3340a6b7b98c41aba590b7da0dbdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 50
+  bounceHeight: 0.1
+  bounceFrequency: 1
 --- !u!33 &1430232095377188616
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -88,40 +123,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5998235761102542701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2611548423482209773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5aa2b5685c96184e99d52fe202603c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  requiresPickupConfirmation: 1
-  showPrompt: 1
-  itemTitle: Stone of Souls
-  itemDescription: Permanently increases max energy
-  pickupSound: {fileID: 8300000, guid: 10f541c69a37fa14c91c1d6d2d03133a, type: 3}
-  pickupSoundVolume: 3.03
-  mixerGroup: {fileID: -2675556089199335731, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
---- !u!114 &1775900838773312721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2611548423482209773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aad3340a6b7b98c41aba590b7da0dbdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 50
-  bounceHeight: 0.1
-  bounceFrequency: 1
 --- !u!135 &8675849550346800109
 SphereCollider:
   m_ObjectHideFlags: 0
