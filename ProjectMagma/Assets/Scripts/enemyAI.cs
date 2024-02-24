@@ -39,7 +39,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
     [Tooltip("The angle that sets enemy field of view (not attacking).")]
-    [Range(0, 90)][SerializeField] protected float fieldOfView = 45;
+    [Range(0, 180)][SerializeField] protected float fieldOfView = 45;
     [Tooltip("The angle that sets enemy field of view (for attacking).")]
     [Range(0, 90)][SerializeField] protected float fieldOfViewAttack = 25;
     [SerializeField] float faceTargetSpeed = 6;

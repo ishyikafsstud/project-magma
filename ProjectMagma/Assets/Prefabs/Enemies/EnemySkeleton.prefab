@@ -653,7 +653,7 @@ MonoBehaviour:
   canDropLoot: 1
   countDeath: 1
   detectionRange: 40
-  fieldOfView: 45
+  fieldOfView: 180
   fieldOfViewAttack: 25
   faceTargetSpeed: 8
   damageFlashLength: 0.1

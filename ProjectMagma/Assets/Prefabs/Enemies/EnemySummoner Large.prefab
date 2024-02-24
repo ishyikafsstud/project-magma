@@ -2341,7 +2341,7 @@ Transform:
   m_GameObject: {fileID: 5331191828365259758}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.830486, y: 0.00000047683716, z: -4.5902553}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2373,13 +2373,13 @@ MonoBehaviour:
   lootPosition: {fileID: 2550481946255390605}
   enemyUI: {fileID: 6287257593246888490}
   primaryCollider: {fileID: 7254979400411685522}
-  HP: 35
+  HP: 40
   restoredHealthValue: 10
   isMinion: 0
   canDropLoot: 1
   countDeath: 1
   detectionRange: 15
-  fieldOfView: 45
+  fieldOfView: 180
   fieldOfViewAttack: 25
   faceTargetSpeed: 6
   damageFlashLength: 0.1
@@ -2399,7 +2399,7 @@ MonoBehaviour:
   freezeColorMultiplier: 2
   soundManager: {fileID: 4193553059162937202}
   skipDeathAnimation: 0
-  maxAliveMinions: 4
+  maxAliveMinions: 6
   minionPrefab: {fileID: 7323496896376465274, guid: 9653e12a37105df47a05842d9cca1901, type: 3}
   spawnPositions:
   - {fileID: 6527419354351814852}

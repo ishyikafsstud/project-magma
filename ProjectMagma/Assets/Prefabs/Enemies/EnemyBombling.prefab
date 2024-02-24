@@ -1186,7 +1186,7 @@ Transform:
   m_GameObject: {fileID: 3788086484531256829}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.88, y: 0.0000019073486, z: -5.21}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1223,7 +1223,7 @@ MonoBehaviour:
   canDropLoot: 1
   countDeath: 1
   detectionRange: 40
-  fieldOfView: 45
+  fieldOfView: 180
   fieldOfViewAttack: 25
   faceTargetSpeed: 8
   damageFlashLength: 0.1
