@@ -37,7 +37,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float gravityStrength;
     [SerializeField] float maxVerticalSpeed;
 
-    [Header("----- Attack -----")]
+    [Header("----- Primary Attack -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
     /// <summary>
     /// Return read-only version of the weapon list.
@@ -53,6 +53,10 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float energyCostPerShot;
     [SerializeField] float energyRegenRate;
     [SerializeField] float energyIncreasePerAmbush;
+
+    [Header("---- Alternative Attack ----")]
+    [Tooltip("Meant to be toggled as a quick way to enable/disable the feature.")]
+    [SerializeField] bool allowAltAttack = false;
 
     [Header("----- UI -----")]
     [Tooltip("The duration of screen flash upon receiving damage.")]
@@ -181,7 +185,7 @@ public class playerController : MonoBehaviour, IDamage
                 }
             }
             //Right click -alt attack
-            else if (Input.GetButton("Hit") && !isAltActive && !isShooting)
+            else if (allowAltAttack && Input.GetButton("Hit") && !isAltActive && !isShooting)
             {
                 StartCoroutine(AltAttack());
             }

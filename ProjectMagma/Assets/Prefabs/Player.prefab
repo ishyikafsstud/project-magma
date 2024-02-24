@@ -77,6 +77,7 @@ MonoBehaviour:
   energyCostPerShot: 0
   energyRegenRate: 27
   energyIncreasePerAmbush: 20
+  allowAltAttack: 0
   damageFlashDuration: 0.1
   soundManager: {fileID: 0}
   inventorySoundManager: {fileID: 2460997528409475652}
