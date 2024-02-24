@@ -1,4 +1,3 @@
-using ExtensionMethods;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -653,7 +652,6 @@ public class playerController : MonoBehaviour, IDamage
         Vector3 dropPosition = transform.position + transform.forward * dropDistance;
 
         Instantiate(correctWandItem, dropPosition, Quaternion.identity);
-        AudioSourceExtension.PlayClipAtPoint(inventorySoundManager.WeaponDroppedSFX, dropPosition,
-            1.0f, inventorySoundManager.MixerGroup);
+        inventorySoundManager.PlayWeaponDroppedSpatial(dropPosition);
     }
 }

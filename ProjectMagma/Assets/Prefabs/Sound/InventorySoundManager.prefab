@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e6b5cbf6a26f514da69379bfac59980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPickedSFX: {fileID: 3605668025904060708}
   weaponPickedSFX: {fileID: 7942651935283425153}
   weaponSwitchedSFX: {fileID: 1506536595223517005}
+  weaponDroppedSFX: {fileID: 1506536595223517005}
 --- !u!82 &3605668025904060708
 AudioSource:
   m_ObjectHideFlags: 0
