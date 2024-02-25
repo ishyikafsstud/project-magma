@@ -20,7 +20,7 @@ MonoBehaviour:
   hitParticlePrefab: {fileID: 144344, guid: 405880dd9e984424a9ca75edc7c926e7, type: 3}
   particleDuration: 1
   shootDamage: 0
-  shootRate: 1.5
+  shootRate: 1.1
   shootDist: 20
   energyCostPerShot: 35
   weaponType: 1
