@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6503612927974279319}
   - component: {fileID: 6211665760206481880}
   - component: {fileID: 5570001330950858941}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,9 +50,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5570001330950858941}
+  weaponType: 0
+  projectileHitEffect: {fileID: 0}
   damageAmount: 3
   speed: 50
   destroyTime: 5
+  type: 0
+  explosionEffect: {fileID: 0}
+  explosionDelay: 0
+  explosionRadius: 0
+  explosionDamage: 0
 --- !u!96 &9056730131370770645
 TrailRenderer:
   serializedVersion: 3

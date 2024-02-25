@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class projectile : MonoBehaviour
 {
-    [Header("Projectile Settings")]
+    [Header("---- Projectile Settings ----")]
     [SerializeField] Rigidbody rb;
 
     // Reference to the WeaponType enum in weaponStats.cs so we can check if its a projectile
@@ -22,9 +22,9 @@ public class projectile : MonoBehaviour
     [SerializeField] int destroyTime;
     [SerializeField] Types type;
 
-    [Header("StickyBomb Projectile Settings")]
+    [Header("---- Bomb/AOE Projectile Settings ---- ")]
     [SerializeField] GameObject explosionEffect;
-    [SerializeField] int explosionDelay;
+    [Range(0.1f, 5.0f)][SerializeField] float explosionDelay;
     [SerializeField] int explosionRadius;
     [SerializeField] int explosionDamage;
 
@@ -70,11 +70,24 @@ public class projectile : MonoBehaviour
                 StartCoroutine(dmg.ApplyFreeze(1));
             }
         }
-        if (type == Types.Poison)
+
+        switch (type)
         {
-            StickToObject(other);
-            StartCoroutine(ExplosionDelay());
-            return;
+            case Types.Fire:
+                Vector3 aoePos = transform.position;
+                aoePos += Vector3.up * 0.1f; // Raise a little to prevent clipping
+
+                // If hitting an enemy, use their feet position as the fire AOE origin
+                if (other.GetComponent<enemyAI>() != null)
+                    aoePos = other.transform.position;
+
+                Instantiate(explosionEffect, aoePos, Quaternion.identity);
+                break;
+
+            case Types.Poison:
+                StickToObject(other);
+                StartCoroutine(ExplosionDelay());
+                return;
         }
 
         if (weaponType == weaponStats.WeaponTypes.Projectile && projectileHitEffect != null)

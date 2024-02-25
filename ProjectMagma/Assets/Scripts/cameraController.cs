@@ -16,6 +16,19 @@ public class cameraController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        saveSystem.MouseSensitivitySet += SetMouseSensitivity;
+        saveSystem.InvertYSet += SetInvertY;
+    }
+
+    public void SetMouseSensitivity(float value)
+    {
+        sensitivity = (int)value;
+    }
+
+    public void SetInvertY(bool value)
+    {
+        invertY = value;
     }
 
     // Update is called once per frame
@@ -30,16 +43,17 @@ public class cameraController : MonoBehaviour
         if (invertY)
         {
             xRot += mouseY;
-
         }
         else
         {
             xRot -= mouseY;
         }
         // clamp xRot to the x axis
+
         xRot = Mathf.Clamp(xRot, lockVertMin, lockVertMax);
         // rotate on x axis using the camera rotation
         transform.localRotation = Quaternion.Euler(xRot, 0, 0);
+
         // rotate on y axis using the player rotation
         // The parent of the camera is camera handle, so get the parent of the parent to access player
         transform.parent.parent.Rotate(Vector3.up * mouseX);

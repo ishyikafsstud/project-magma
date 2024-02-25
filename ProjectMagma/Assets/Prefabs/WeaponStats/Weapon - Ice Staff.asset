@@ -13,20 +13,22 @@ MonoBehaviour:
   m_Name: Weapon - Ice Staff
   m_EditorClassIdentifier: 
   altRange: 5
-  altDamage: 1
-  altRate: 0.5
+  altDamage: 0
+  altRate: 2
   pushForce: 200
   pushRadius: 10
-  hitParticlePrefab: {fileID: 2060900179291159282, guid: ca6705a3f9070d14d819d179493bcfa0, type: 3}
+  hitParticlePrefab: {fileID: 144344, guid: aa25d3f416a206c46a6e26a5ef0c0ec3, type: 3}
   particleDuration: 1
-  shootDamage: 1
-  shootRate: 0.05
+  shootDamage: 2
+  shootRate: 0.075
   shootDist: 15
-  energyCostPerShot: 4
+  energyCostPerShot: 5
   weaponType: 1
   wandType: 2
   projectilePrefab: {fileID: 4118894386160214544, guid: 3c1b5ab9ecbdd1440bbc8901c7fe1f14, type: 3}
   model: {fileID: 3460309768193795681, guid: d793f96bdc4bd5d4db096181a7ce803a, type: 3}
+  icon: {fileID: 2800000, guid: 38fd038279e77f54ea125b3603f503b4, type: 3}
+  staffVFX: {fileID: 6595855303745450193, guid: aea66db159ef85e47999f535116c62b9, type: 3}
   hitEffect: {fileID: 6523699520211762466, guid: 3710cc30f9fafbb4c85d745dd7bff2b6, type: 3}
   shootSound: {fileID: 8300000, guid: 270fea79a9fa7ac4c828cc2ab5461387, type: 3}
   shootSoundVolume: 1

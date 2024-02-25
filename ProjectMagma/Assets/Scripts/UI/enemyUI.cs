@@ -22,16 +22,19 @@ public class enemyUI : MonoBehaviour
         // Get the parent enemy component
         parentEnemy = transform.parent.gameObject.GetComponent<enemyAI>();
 
+        parentEnemy.HealthChanged += ParentEnemy_HealthChanged;
+        parentEnemy.AlertedEvent += ParentEnemy_AlertedEvent;
+
         EnableHealthBar(false);
     }
 
-    public void UpdateHealthbar(int health, int origHealth)
+    public void ParentEnemy_HealthChanged(float health, float maxHealth)
     {
         // Enable the health bar only when the enemy takes damage for the first time
-        if (!healthBG.IsActive() && health < origHealth)
+        if (!healthBG.IsActive() && health < maxHealth)
             EnableHealthBar(true);
 
-        float healthbarFillAmount = (float)health / origHealth;
+        float healthbarFillAmount = health / maxHealth;
 
         if (healthBar != null)
         {
@@ -49,7 +52,7 @@ public class enemyUI : MonoBehaviour
             healthBar.gameObject.SetActive(isEnabled);
     }
 
-    public void Alerted()
+    void ParentEnemy_AlertedEvent(GameObject enemy)
     {
         if (!exclamationBottom.IsActive())
             EnableExclamationMark(true);

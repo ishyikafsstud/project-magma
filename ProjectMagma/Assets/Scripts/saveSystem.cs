@@ -14,6 +14,7 @@ public abstract class saveSystem : MonoBehaviour
             * SFX volume (int)
             * Music volume (int)
             * UI volume (int)
+            * Mouse sensitivity
             * Tilt enabled/disabled
             
         * Game progression
@@ -30,17 +31,31 @@ public abstract class saveSystem : MonoBehaviour
     private static string sfxVolumeKey = "SFX_VOLUME";
     private static string musicVolumeKey = "MUSIC_VOLUME";
     private static string uiVolumeKey = "UI_VOLUME";
+    private static string mouseSensitivityKey = "MOUSE_SENSITIVITY";
     private static string tiltEnabledKey = "TILT_ENABLED";
+    private static string invertYKey = "INVERT_Y_ENABLED";
 
     private static string GetLevelPrefix(LevelIdEnum levelId)
     { return levelId.ToString().ToUpper(); }
     private static string levelUnlockedKeySuffix = "_UNLOCKED";
     private static string levelStartWeapon1KeySuffix = "_STARTWEAPON_1";
     private static string levelStartWeapon2KeySuffix = "_STARTWEAPON_2";
+    private static string levelStartWeaponSelectedKeySuffix = "_STARTWEAPON_SELECTEDINDEX";
     private static string levelCompletedKeySuffix = "_COMPLETED";
     private static string levelAmbushDefeatedKeySuffix = "_AMBUSHDEFEATED";
     private static string levelEndWeapon1KeySuffix = "_ENDWEAPON_1";
     private static string levelEndWeapon2KeySuffix = "_ENDWEAPON_2";
+    private static string levelEndWeaponSelectedKeySuffix = "_ENDWEAPON_SELECTEDINDEX";
+
+    public delegate void EventHandler();
+    public static event EventHandler SaveFileUpdated;
+
+    public delegate void NumericSettingCallback(float value);
+    public static event NumericSettingCallback MouseSensitivitySet;
+
+    public delegate void BoolSettingCallback(bool value);
+    public static event BoolSettingCallback TiltSet;
+    public static event BoolSettingCallback InvertYSet;
 
     public static void SaveGeneralSettings(GeneralSettingsData generalSettingsData)
     {
@@ -48,9 +63,12 @@ public abstract class saveSystem : MonoBehaviour
         PlayerPrefs.SetFloat(sfxVolumeKey, generalSettingsData.sfxVolume);
         PlayerPrefs.SetFloat(musicVolumeKey, generalSettingsData.musicVolume);
         PlayerPrefs.SetFloat(uiVolumeKey, generalSettingsData.uiVolume);
+
+        PlayerPrefs.SetInt(mouseSensitivityKey, generalSettingsData.mouseSensitivity);
         PlayerPrefs.SetInt(tiltEnabledKey, generalSettingsData.tiltEnabled == true ? 1 : 0);
 
         PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
     }
 
     public static void SaveVolume(string mixerGroup, float volume)
@@ -76,7 +94,9 @@ public abstract class saveSystem : MonoBehaviour
             default:
                 break;
         }
+
         PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
     }
 
     public static void SaveMasterVolume(float volume)
@@ -96,18 +116,39 @@ public abstract class saveSystem : MonoBehaviour
         PlayerPrefs.SetFloat(musicVolumeKey, volume);
         PlayerPrefs.Save();
     }
+
     public static void SaveUiVolume(float volume)
     {
         PlayerPrefs.SetFloat(uiVolumeKey, volume);
         PlayerPrefs.Save();
     }
 
+    public static void SaveSensitivity(int value)
+    {
+        PlayerPrefs.SetInt(mouseSensitivityKey, value);
+        PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
+
+        MouseSensitivitySet?.Invoke(value);
+    }
+
     public static void SaveTilt(bool enabled)
     {
         PlayerPrefs.SetInt(tiltEnabledKey, enabled == true ? 1 : 0);
         PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
+
+        TiltSet?.Invoke(enabled);
     }
 
+    public static void SaveInvertY(bool enabled)
+    {
+        PlayerPrefs.SetInt(invertYKey, enabled == true ? 1 : 0);
+        PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
+
+        InvertYSet?.Invoke(enabled);
+    }
 
     public static GeneralSettingsData LoadGeneralSettings()
     {
@@ -117,10 +158,15 @@ public abstract class saveSystem : MonoBehaviour
         generalSettingsData.sfxVolume = PlayerPrefs.GetFloat(sfxVolumeKey, 1);
         generalSettingsData.musicVolume = PlayerPrefs.GetFloat(musicVolumeKey, 1);
         generalSettingsData.uiVolume = PlayerPrefs.GetFloat(uiVolumeKey, 1);
+
+        generalSettingsData.mouseSensitivity = PlayerPrefs.GetInt(mouseSensitivityKey, 400);
         generalSettingsData.tiltEnabled = PlayerPrefs.GetInt(tiltEnabledKey, 1) == 1 ? true : false;
+        generalSettingsData.invertY = PlayerPrefs.GetInt(invertYKey, 0) == 1 ? true : false;
 
         return generalSettingsData;
     }
+
+    #region Level Progression
 
     /// <summary>
     /// Remember this level as completed, whether the ambush was defeated, and the weapons at the
@@ -147,6 +193,7 @@ public abstract class saveSystem : MonoBehaviour
         // Remember end weapons
         PlayerPrefs.SetInt(levelPrefix + levelEndWeapon1KeySuffix, playerWeapons.Count >= 1 ? (int)playerWeapons[0].wandType : -1);
         PlayerPrefs.SetInt(levelPrefix + levelEndWeapon2KeySuffix, playerWeapons.Count >= 2 ? (int)playerWeapons[1].wandType : -1);
+        PlayerPrefs.SetInt(levelPrefix + levelEndWeaponSelectedKeySuffix, player.SelectedWeapon);
         // Ambush defeated
         PlayerPrefs.SetInt(levelPrefix + levelAmbushDefeatedKeySuffix, gameManagerInst.IsAmbushRewardPicked ? 1 : 0);
 
@@ -163,9 +210,11 @@ public abstract class saveSystem : MonoBehaviour
             // Set start weapons
             PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeapon1KeySuffix, playerWeapons.Count >= 1 ? (int)playerWeapons[0].wandType : -1);
             PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeapon2KeySuffix, playerWeapons.Count >= 2 ? (int)playerWeapons[1].wandType : -1);
+            PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeaponSelectedKeySuffix, player.SelectedWeapon);
         }
 
         PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
     }
 
     public static LevelSaveData LoadLevelData(LevelIdEnum levelId)
@@ -179,9 +228,11 @@ public abstract class saveSystem : MonoBehaviour
         levelData.isUnlocked = PlayerPrefs.GetInt(levelPrefix + levelUnlockedKeySuffix, 0) == 1 ? true : false;
         levelData.startWeapons.Add(PlayerPrefs.GetInt(levelPrefix + levelStartWeapon1KeySuffix, -1));
         levelData.startWeapons.Add(PlayerPrefs.GetInt(levelPrefix + levelStartWeapon2KeySuffix, -1));
+        levelData.startWeaponSelected = (PlayerPrefs.GetInt(levelPrefix + levelStartWeaponSelectedKeySuffix, 0));
         levelData.isCompleted = PlayerPrefs.GetInt(levelPrefix + levelCompletedKeySuffix, 0) == 1 ? true : false;
         levelData.endWeapons.Add(PlayerPrefs.GetInt(levelPrefix + levelEndWeapon1KeySuffix, -1));
         levelData.endWeapons.Add(PlayerPrefs.GetInt(levelPrefix + levelEndWeapon1KeySuffix, -1));
+        levelData.endWeaponSelected = (PlayerPrefs.GetInt(levelPrefix + levelEndWeaponSelectedKeySuffix, 0));
         levelData.isAmbushDefeated = PlayerPrefs.GetInt(levelPrefix + levelAmbushDefeatedKeySuffix, 0) == 1 ? true : false;
 
         return levelData;
@@ -211,6 +262,7 @@ public abstract class saveSystem : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+        SaveFileUpdated?.Invoke();
     }
 
     /// <summary>
@@ -242,9 +294,12 @@ public abstract class saveSystem : MonoBehaviour
         List<LevelIdEnum> unlockedLevels = new List<LevelIdEnum>();
 
         // Get the unlocked levels
-        for (LevelIdEnum levelId = LevelIdEnum.Level1; levelId < LevelIdEnum.LAST_LEVEL; levelId++)
+        for (LevelIdEnum levelId = LevelIdEnum.Level1; levelId <= LevelIdEnum.LAST_LEVEL; levelId++)
         {
             bool levelUnlocked = PlayerPrefs.GetInt(GetLevelPrefix(levelId) + levelUnlockedKeySuffix, 0) == 1;
+            // Level 1 should always be unlocked
+            if (levelId == LevelIdEnum.Level1)
+                levelUnlocked = true;
 
             if (levelUnlocked)
                 unlockedLevels.Add(levelId);
@@ -255,6 +310,7 @@ public abstract class saveSystem : MonoBehaviour
 
         return unlockedLevels;
     }
+    #endregion
 }
 
 public struct LevelSaveData
@@ -263,8 +319,10 @@ public struct LevelSaveData
 
     public bool isUnlocked;
     public List<int> startWeapons;
+    public int startWeaponSelected;
     public bool isCompleted;
     public List<int> endWeapons;
+    public int endWeaponSelected;
     public bool isAmbushDefeated;
 }
 
@@ -275,5 +333,7 @@ public struct GeneralSettingsData
     public float musicVolume;
     public float uiVolume;
 
+    public int mouseSensitivity;
     public bool tiltEnabled;
+    public bool invertY;
 }

@@ -8,6 +8,6 @@ public class portalKey : pickableItemBase
     public override void Pickup()
     {
         gameManager.instance.keyPicked();
-        Destroy(gameObject);
+        base.Pickup();
     }
 }

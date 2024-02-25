@@ -23,7 +23,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [SerializeField] Collider primaryCollider;
 
     [Header("---- Stats ----")]
-    [Range(1, 20)][SerializeField] protected int HP;
+    [Range(1, 50)][SerializeField] protected float HP;
     [SerializeField] public int restoredHealthValue;
     [Tooltip("Whether the character is summoned by a spawner enemy.\nMinions do not count toward kills.")]
     [SerializeField] bool isMinion;
@@ -31,14 +31,15 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [SerializeField] bool canDropLoot = true;
     public bool CanDropLoot { get => canDropLoot; set => canDropLoot = value; }
     [Tooltip("Whether this enemy's death should decrease enemy counter, even if it is not a minion." +
-        "\n Do not set to false unless for debug reasons.")]
+        "\n Do not set to false unless the enemy is not required to be killed to continue the level.")]
     [SerializeField] bool countDeath = true;
+    public bool CountDeath { get => countDeath; set => countDeath = value; }
 
     [Header("---- FOV and animation stats ----")]
     [Tooltip("The maximum distance for spotting the player visually (not attacking).")]
     [SerializeField] protected float detectionRange;
     [Tooltip("The angle that sets enemy field of view (not attacking).")]
-    [Range(0, 90)][SerializeField] protected float fieldOfView = 45;
+    [Range(0, 180)][SerializeField] protected float fieldOfView = 45;
     [Tooltip("The angle that sets enemy field of view (for attacking).")]
     [Range(0, 90)][SerializeField] protected float fieldOfViewAttack = 25;
     [SerializeField] float faceTargetSpeed = 6;
@@ -67,37 +68,67 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     [Header("---- Combat Effects ---")]
     [SerializeField] protected int maxFreezeStack = 5;
+    [Tooltip("The time for one freeze effect stack to pass.")]
+    [SerializeField] float freezeTime = 5.0f;
     [SerializeField] protected float freezeStackStrength = 0.08f;
+    [SerializeField] Color freezeColor = new Color(0f, 1f, 1f, 1f);
+    [SerializeField] int freezeColorMultiplier = 2;
     /// <summary>
     /// Do not access/set this value directly, use CurrentFreezeStack setter.
     /// </summary>
     protected int currentFreezeStack = 0;
 
     [Header("----- Audio -----")]
-    [SerializeField] public soundManager soundManager;
+    [SerializeField] public entitySoundManager soundManager;
 
     [Header("---- Other ----")]
     [SerializeField] bool skipDeathAnimation;
 
-    protected int origHP;
+    protected float healthOriginal;
     protected bool isAttacking;
+
     protected bool playerIsNearby;
     protected bool playerSpotted;
     protected Vector3 distanceToPlayer;
     protected float angleToPlayer;
+
     bool destinationChosen;
     Vector3 startingPos;
     float origSpeed;
     float stoppingDistOrig;
     bool canRotate = true; //For locking enemy rotation 
+
     bool hasBeenAlerted;
+    bool isGlowingHurt;
     bool isDead;
     bool shouldDropLoot;
 
     public delegate void EnemyAction(GameObject enemy);
-
     public event EnemyAction AttackEvent;
+    public event EnemyAction AlertedEvent;
     public event EnemyAction DeathEvent;
+
+    public delegate void StatsUpdate(float value, float maxValue);
+    public event StatsUpdate HealthChanged;
+
+    public float Health
+    {
+        get => HP;
+        set
+        {
+            value = Mathf.Clamp(value, 0, healthOriginal);
+            if (HP != value)
+            {
+                HP = value;
+                HealthChanged?.Invoke(HP, healthOriginal);
+
+                if (HP <= 0)
+                {
+                    die();
+                }
+            }
+        }
+    }
 
     protected virtual void OnAttack()
     {
@@ -117,34 +148,52 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     public bool IsAlerted { get => playerSpotted; }
     public Vector3 GetAlertPosition() { return alertOrigin.transform.position; }
 
-    public int CurrentFreezeStack
+    int CurrentFreezeStack
     {
         get => currentFreezeStack;
         set
         {
-            int actualValue = Mathf.Clamp(value, 0, maxFreezeStack);
-            if (currentFreezeStack == actualValue)
+            // Make sure the new value is within acceptable range
+            int actualNewValue = Mathf.Clamp(value, 0, maxFreezeStack);
+
+            // If the attempted new value is the same as the current value, skip
+            if (currentFreezeStack == actualNewValue)
                 return;
 
-            currentFreezeStack = actualValue;
+            currentFreezeStack = actualNewValue;
 
             UpdateSpeed();
+            UpdateModelColor();
         }
     }
-    public float GetSlowdownEffectStrength()
+
+    bool IsGlowingHurt
+    {
+        get => isGlowingHurt;
+        set
+        {
+            if (isGlowingHurt == value)
+                return;
+
+            isGlowingHurt = value;
+            UpdateModelColor();
+        }
+    }
+
+    public float GetFreezeEffectStrength()
     {
         return currentFreezeStack * freezeStackStrength;
     }
     public float GetSpeedModifier()
     {
-        return Mathf.Max(1.0f - GetSlowdownEffectStrength(), 0);
+        return Mathf.Max(1.0f - GetFreezeEffectStrength(), 0);
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        origHP = HP;
+        healthOriginal = HP;
         origSpeed = agent.speed;
         //enemyManager.instance.EnemySpawned(gameObject, isMinion); // spawners should be responsible for reporting enemies
         stoppingDistOrig = agent.stoppingDistance;
@@ -269,6 +318,19 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         }
     }
 
+    bool canSeePlayerForAttack()
+    {
+        RaycastHit hit;
+        // Collision layers: Default, Player, Enemy
+        int layerMask = (1 << 0) | (1 << 3) | (1 << 6);
+        if (Physics.Raycast(transform.position, distanceToPlayer, out hit, attackRange, layerMask))
+        {
+            return (hit.collider.CompareTag("Player") && angleToPlayer <= fieldOfViewAttack);
+        }
+
+        return false;
+    }
+
     public void Push(Vector3 direction, float force)
     {
         transform.Translate(direction * force * Time.deltaTime, Space.World);
@@ -276,21 +338,18 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     public void takeDamage(int amount)
     {
-        HP -= amount;
+        if (isDead)
+            return;
+        
         StartCoroutine(flashRed());
+
+        Health -= amount;
+
+        soundManager?.PlayHurt();
+
         // Trigger the enemy to follow player.
-        // It is safe because the only way for the enemy to receive damage right now is to be hit by the player.
+        // It is safe because the only way for the enemy to receive damage right now is to be attacked by the player.
         spotPlayer();
-
-        if (enemyUI != null)
-        {
-            enemyUI.GetComponent<enemyUI>().UpdateHealthbar(HP, origHP);
-        }
-
-        if (HP <= 0)
-        {
-            die();
-        }
     }
 
     public IEnumerator ApplyFreeze(int stacks)
@@ -298,9 +357,37 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         int appliedStacks = Mathf.Min(stacks, maxFreezeStack - CurrentFreezeStack);
         CurrentFreezeStack += appliedStacks;
 
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(freezeTime);
 
         CurrentFreezeStack -= appliedStacks;
+
+        yield return null;
+    }
+
+    //this is going to change. this is for test feedback for the player.
+    IEnumerator flashRed()
+    {
+        IsGlowingHurt = true;
+        UpdateModelColor();
+
+        yield return new WaitForSeconds(damageFlashLength);
+
+        IsGlowingHurt = false;
+        UpdateModelColor();
+    }
+
+    void UpdateModelColor()
+    {
+        if (model == null)
+            return;
+
+        if (isGlowingHurt)
+        {
+            model.material.color = Color.red;
+            return;
+        }
+
+        model.material.color = Color.Lerp(Color.white, freezeColor, GetFreezeEffectStrength() * freezeColorMultiplier);
     }
 
     private void spotPlayer()
@@ -320,10 +407,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         {
             playerSpotted = true;
 
-            if (enemyUI != null)
-            {
-                enemyUI.GetComponent<enemyUI>().Alerted();
-            }
+            AlertedEvent?.Invoke(gameObject);
 
             hasBeenAlerted = true;
         }
@@ -335,13 +419,15 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         if (isDead)
             return;
 
+        soundManager.PlayDeathSpatial(transform.position);
+
         isDead = true;
         agent.enabled = false;
         enemyUI.SetActive(false);
         primaryCollider.enabled = false;
 
         enemyManager.instance.EnemyDied(gameObject, isMinion, countDeath);
-        shouldDropLoot = canDropLoot && enemyManager.instance.TotalEnemies == 0;
+        shouldDropLoot = canDropLoot && enemyManager.instance.EnemyCount == 0;
 
         if (!skipDeathAnimation && animator.HasState(0, Animator.StringToHash("Death")))
         {
@@ -358,7 +444,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         if (isDead)
         {
             OnDeath();
-            Destroy(gameObject);
 
             // If it's the last enemy
             if (shouldDropLoot)
@@ -371,38 +456,20 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
                     gameManager.instance.SpawnKey(lootPos);
                 }
                 // if the key was already dropped then the died enemy was the last ambush enemy, so drop the ambush reward
-                else if (!gameManager.instance.IsAmbushRewardDropped)
+                else if (gameManager.instance.WasAmbushTriggered && !gameManager.instance.IsAmbushRewardDropped)
                 {
                     gameManager.instance.SpawnAmbushReward(lootPos);
                 }
+
             }
 
+            Destroy(gameObject);
         }
-
-    }
-
-
-    //this is going to change. this is for test feedback for the player.
-    IEnumerator flashRed()
-    {
-        if (model == null)
-            yield break;
-
-        // Remember the old color
-        Color oldColor = model.material.color;
-
-        // Flash red for some time
-        model.material.color = Color.red;
-        yield return new WaitForSeconds(damageFlashLength);
-
-        model.material.color = oldColor;
     }
 
     protected virtual bool CanAttack()
     {
-        return distanceToPlayer.magnitude <= attackRange
-            && !isAttacking
-            && angleToPlayer < fieldOfViewAttack;
+        return !isAttacking && canSeePlayerForAttack();
         //&& enemyManager.instance.attackingEnemiesCount <= enemyManager.instance.maxAttackingEnemies;
     }
 
@@ -469,7 +536,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     public float GetOriginalHealth()
     {
-        return origHP;
+        return healthOriginal;
     }
 }
 

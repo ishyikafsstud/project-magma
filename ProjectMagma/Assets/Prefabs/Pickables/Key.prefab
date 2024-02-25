@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2354120876669006107}
   - component: {fileID: 6256499827384072285}
   - component: {fileID: 2950313570671072675}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1656223903327431031}
   - component: {fileID: 2855919532048462190}
   - component: {fileID: 2917901672205913923}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,6 +134,9 @@ MonoBehaviour:
   showPrompt: 1
   itemTitle: Activator Stone
   itemDescription: Activates portal, attracts the ambush
+  pickupSound: {fileID: 8300000, guid: 3cb17c58dd21c0e43906b18d5301f14b, type: 3}
+  pickupSoundVolume: 1
+  mixerGroup: {fileID: -2675556089199335731, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
 --- !u!114 &2855919532048462190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,10 +162,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2039
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

@@ -14,6 +14,7 @@ public class weaponStats : ScriptableObject
     [SerializeField] public float pushRadius;
     [SerializeField] public GameObject hitParticlePrefab;
     [SerializeField] public float particleDuration;
+
     [Header("----- Shooting ----")]
     public int shootDamage;
     public float shootRate;
@@ -30,8 +31,14 @@ public class weaponStats : ScriptableObject
     [Tooltip("Prefab of the projectile shot by this weapon. Ignore for raycast-based weapons.")]
     public GameObject projectilePrefab;
 
+    [Header("---- Visuals ----")]
     public GameObject model;
+    [SerializeField] Texture2D icon;
+    public Texture2D Icon { get => icon; }
+    public GameObject staffVFX;
     public ParticleSystem hitEffect;
+
+    [Header("---- Sound ----")]
     public AudioClip shootSound;
     [Range(0, 1)] public float shootSoundVolume;
 

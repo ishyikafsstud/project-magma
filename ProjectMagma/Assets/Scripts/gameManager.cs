@@ -42,8 +42,12 @@ public class gameManager : MonoBehaviour
         return nextLevelOverride.Length == 0 ? helper.GetNextLevelName(levelId) : nextLevelOverride;
     }
 
+    [Header("---- Settings ----")]
+    [SerializeField] bool spawnAmbushOnKeyPicked = true;
+    [Tooltip("For how long the screen flashes red on player hurt.")]
+    [SerializeField] float hurtFlashDuration = 0.1f;
 
-    [Header("---- UI ----")]
+    [Header("---- UI elements ----")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuLevelComplete;
@@ -54,15 +58,30 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemPromptDescription;
     [SerializeField] TextMeshProUGUI itemPromptDirection;
 
+
+    [SerializeField] List<string> pauseMenuTips = new List<string>();
+    [Tooltip("Select to randomize the list of Tips")]
+    public bool randomTips;
+    [SerializeField] TextMeshProUGUI tipsText;
+    private bool tipShown;
+    private int currentTipIndex = 0;
+
     [SerializeField] TextMeshProUGUI hintText;
     [SerializeField] float hintDuration;
 
     [SerializeField] TextMeshProUGUI enemyCountText;
 
-    public Image playerHealthbar;
-    public Image playerEnergybar;
-    public Image playerEnergybarBG;
-    public GameObject playerDamageScreenFlash;
+    [SerializeField] Image playerHealthbar;
+    [SerializeField] TextMeshProUGUI playerHealthbarText;
+    [SerializeField] Image playerEnergybar;
+    [SerializeField] TextMeshProUGUI playerEnergybarText;
+    [SerializeField] Image playerEnergybarBG;
+    [SerializeField] GameObject playerDamageScreenFlash;
+    [SerializeField] GameObject healedIcons;
+    [SerializeField] GameObject[] weaponSlots;
+    [Tooltip("Parent group of all weapon-related things: energy bar, weapon inventory UI, reload HUD, etc.")]
+    [SerializeField] GameObject weaponHUD;
+    public ReloadHUD reloadHUD;
 
     [Header("---- Prefabs ----")]
     [SerializeField] GameObject keyPrefab;
@@ -81,7 +100,6 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameStates defaultGameState;
     private GameStates curGameState;
 
-
     [Header("---- Mouse and Keyboard Menu Controls ----")]
     [Tooltip("Eventsystem will highlight this button first on the Continue Menu.")]
     [SerializeField] private GameObject highlightContinueButton;
@@ -97,9 +115,14 @@ public class gameManager : MonoBehaviour
     public bool IsAmbushRewardDropped { get; private set; }
     public bool IsAmbushRewardPicked { get; private set; }
 
-    public delegate void ItemPicked();
-    public static event ItemPicked OnKeyPicked;
-    public static event ItemPicked AmbushRewardPickedEvent;
+    public delegate void EventHandler();
+    public static event EventHandler OnKeyPicked;
+    public event EventHandler AmbushStarted;
+    public static event EventHandler AmbushRewardDropped;
+    public static event EventHandler AmbushRewardPickedEvent;
+
+    bool wasAmbushTriggered;
+    public bool WasAmbushTriggered { get => wasAmbushTriggered; }
 
 
     void Awake()
@@ -111,9 +134,16 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
 
+        playerScript.HealthChanged += PlayerScript_HealthChanged;
+        playerScript.EnergyChanged += PlayerScript_EnergyChanged;
+        playerScript.WeaponSwitched += PlayerScript_WeaponSwitched;
+
         soundtrackManager = GameObject.FindGameObjectWithTag("SoundtrackManager").GetComponent<SoundtrackManager>();
 
-        playerScript.PlayerSpawnedEvent += OnPlayerSpawned;
+        AmbushStarted += GameManager_AmbushStarted;
+        playerScript.SpawnedEvent += OnPlayerSpawned;
+        playerScript.Hurt += PlayerScript_Hurt;
+        playerScript.Healed += PlayerScript_Healed;
 
         LoadGeneralSettings();
 
@@ -121,27 +151,74 @@ public class gameManager : MonoBehaviour
             LoadLevelStartData();
     }
 
+    private void PlayerScript_Healed()
+    {
+        healedIcons.GetComponent<Animator>().SetTrigger("Healed");
+        playerDamageScreenFlash.SetActive(false);
+    }
+
+    private void PlayerScript_Hurt()
+    {
+        StartCoroutine(FlashRedScreen());
+    }
+
+    IEnumerator FlashRedScreen()
+    {
+        playerDamageScreenFlash.SetActive(true); // Flash red
+
+        yield return new WaitForSeconds(hurtFlashDuration);
+
+        playerDamageScreenFlash.SetActive(false);
+    }
+
+    private void PlayerScript_WeaponSwitched(weaponStats weapon)
+    {
+        //weaponHUD.gameObject.SetActive(playerScript.GetWeaponList().Count > 0);
+
+        // Ideally the weapon UI icon should be updated only once in a separate WeaponPicked event
+        // method, but due to the lack of one, it is done here
+        if (playerScript.SelectedWeaponStats != null)
+        {
+            // Update slot icons
+            for (int i = 0; i < playerScript.GetWeaponList().Count; i++)
+                weaponSlots[i].GetComponent<WeaponSlotScript>().FillSlot(playerScript.GetWeaponList()[i].Icon);
+
+            // Reflect selection in UI
+            for (int i = 0; i < weaponSlots.Length; i++)
+            {
+                weaponSlots[i].GetComponent<WeaponSlotScript>().Select(playerScript.SelectedWeapon == i);
+            }
+        }
+
+    }
+
     void LoadGeneralSettings()
     {
         GeneralSettingsData generalSettingsData = saveSystem.LoadGeneralSettings();
 
         playerScript.EnableTilt(generalSettingsData.tiltEnabled);
+        Camera.main.GetComponent<cameraController>()?.SetMouseSensitivity(generalSettingsData.mouseSensitivity);
+        Camera.main.GetComponent<cameraController>()?.SetInvertY(generalSettingsData.invertY);
     }
 
     void LoadLevelStartData()
     {
-        saveSystem.ResetLevelProgression();
         LevelSaveData levelData = saveSystem.LoadLevelData(levelId);
 
         weaponStats firstWeapon = levelData.startWeapons[0] != -1 ? helper.weaponList[(levelData.startWeapons[0])] : null;
         weaponStats secondWeapon = levelData.startWeapons[1] != -1 ? helper.weaponList[(levelData.startWeapons[1])] : null;
+        int selectedWeapon = levelData.startWeaponSelected;
 
-        playerScript.pickupWeapon(firstWeapon);
-        playerScript.pickupWeapon(secondWeapon);
+        playerScript.pickupWeapon(firstWeapon, false);
+        playerScript.pickupWeapon(secondWeapon, false);
+        playerScript.EquipWeaponFromSlot(selectedWeapon, false);
     }
 
     IEnumerator Start()
     {
+        // Force update the weapon selection UI
+        PlayerScript_WeaponSwitched(playerScript.SelectedWeaponStats);
+
         UpdateEnemyCountText();
         ShowHint("Good Luck!");
 
@@ -151,6 +228,11 @@ public class gameManager : MonoBehaviour
         {
             player.transform.position = playerSpawnPosition.transform.position;
             player.transform.rotation = playerSpawnPosition.transform.rotation;
+        }
+
+        if (spawnAmbushOnKeyPicked)
+        {
+
         }
 
         yield return new WaitForFixedUpdate();
@@ -175,7 +257,7 @@ public class gameManager : MonoBehaviour
     void Update()
     {
         // If ESC button is pressed and nothing is currently in the active menu
-        if (Input.GetButtonDown("Cancel") && menuActive == null)
+        if (Input.GetButtonDown("Cancel") || Input.GetButtonDown("Pause") && menuActive == null)
         {
             // call pause function
             statePaused();
@@ -185,17 +267,24 @@ public class gameManager : MonoBehaviour
             menuActive.SetActive(isPaused);
         }
     }
+
     public void EnterGameState(GameStates newState)
     {
         curGameState = newState;
         //Debug.Log("Entered " + newState + " state.");
 
-        soundtrackManager.GetComponent<SoundtrackManager>().PlayGameStateMusic(curGameState);
+        soundtrackManager.PlayGameStateMusic(curGameState);
     }
 
     public void statePaused()
     {
         isPaused = true;
+
+        if (!randomTips)
+            DisplayTipInOrder();
+        else
+            DisplayRandomTip();
+
         // Stop all time based Actions from happening in the background
         Time.timeScale = 0.0f;
         // Make Cursor Visible
@@ -215,6 +304,8 @@ public class gameManager : MonoBehaviour
     public void stateUnpaused()
     {
         isPaused = false;
+
+        tipShown = false;
         // Resumes time based actions 
         Time.timeScale = 1.0f;
         // Hides Cursor
@@ -279,20 +370,30 @@ public class gameManager : MonoBehaviour
     {
         IsKeyPicked = true;
 
-        if (OnKeyPicked != null)
-        {
-            EnterGameState(GameStates.Ambush);
-            OnKeyPicked();
-        }
+        OnKeyPicked?.Invoke();
 
-        //ShowHint("Key Collected\nEscape");
-
-        if (enemyManager.instance.ambushSpawner != null)
+        if (spawnAmbushOnKeyPicked)
         {
-            EnterGameState(GameStates.Ambush);
-            enemyManager.instance.ambushSpawner.gameObject.SetActive(true);
-            enemyManager.instance.ambushSpawner.StartAmbush();
+            if (!wasAmbushTriggered)
+            {
+                AmbushStarted?.Invoke();
+            }
         }
+        else
+        {
+            ShowHint("No ambush!\nProceed to the portal");
+        }
+    }
+
+    private void GameManager_AmbushStarted()
+    {
+        wasAmbushTriggered = true;
+        EnterGameState(GameStates.Ambush);
+        ShowHint("Ambush!\nYou Collected The Key\nEscape though the portal\n or kill them all");
+
+        // Backward compatibility code
+        enemyManager.instance.ambushSpawner?.gameObject.SetActive(true);
+        enemyManager.instance.ambushSpawner?.StartAmbush();
     }
 
     /// <summary>
@@ -302,6 +403,8 @@ public class gameManager : MonoBehaviour
     public void SpawnAmbushReward(Vector3 pos)
     {
         IsAmbushRewardDropped = true;
+        AmbushRewardDropped?.Invoke();
+
         EnterGameState(GameStates.AmbushDefeated);
         if (ambushRewardPrefab != null)
             Instantiate(ambushRewardPrefab, pos, Quaternion.identity);
@@ -309,13 +412,32 @@ public class gameManager : MonoBehaviour
         gameManager.instance.ShowHint("Enemy Dropped Ambush Reward");
     }
 
-    public void ambushRewardPicked()
+    /// <summary>
+    /// Trigger ambush reward pickup events.
+    /// </summary>
+    /// <param name="isEarnedAmbushReward">Whether the reward was for an ambush. Should be false for secret items</param>
+    public void ambushRewardPicked(bool isEarnedAmbushReward = true)
     {
-        IsAmbushRewardPicked = true;
-
         playerScript.ApplyAmbushDefeatPowerup(1);
+     
+        if (isEarnedAmbushReward)
+        {
+            IsAmbushRewardPicked = true;
+            AmbushRewardPickedEvent?.Invoke();
+        }
+    }
 
-        AmbushRewardPickedEvent?.Invoke();
+    #region UI functionality
+    void PlayerScript_HealthChanged(float value, float maxValue)
+    {
+        playerHealthbar.fillAmount = value / maxValue;
+        playerHealthbarText.text = $"{((int)value).ToString()} / {maxValue.ToString()}";
+    }
+
+    void PlayerScript_EnergyChanged(float value, float maxValue)
+    {
+        playerEnergybar.fillAmount = value / maxValue;
+        playerEnergybarText.text = $"{((int)value).ToString()}\n\n / \n\n{maxValue.ToString()}";
     }
 
     public void UpdateEnemyCountText()
@@ -368,4 +490,28 @@ public class gameManager : MonoBehaviour
         itemPromptDescription.gameObject.SetActive(false);
         itemPromptDirection.gameObject.SetActive(false);
     }
+
+    // ----- Display Tips in a Random Order -----
+    public void DisplayRandomTip()
+    {
+        if (pauseMenuTips.Count > 0 && tipsText != null && !tipShown)
+        {
+            string randomTip = pauseMenuTips[Random.Range(0, pauseMenuTips.Count)];
+            tipsText.text = randomTip;
+
+            tipShown = true;
+        }
+    }
+    // ----- Display Tips in Order -----
+    public void DisplayTipInOrder()
+    {
+        if (pauseMenuTips.Count > 0 && tipsText != null && !tipShown)
+        {
+            tipsText.text = pauseMenuTips[currentTipIndex];
+            currentTipIndex = (currentTipIndex + 1) % pauseMenuTips.Count;
+
+            tipShown = true;
+        }
+    }
+    #endregion
 }

@@ -15,14 +15,12 @@ public class enemyManager : MonoBehaviour
     /// A list of all enemies (including minions).
     /// </summary>
     List<GameObject> enemies;
-    /// <summary>
-    /// Ambush spawner game object
-    /// </summary>
+    [Tooltip("DEPRECATED. Preserved only for backward compatibility purposes.")]
     public GameObject ambushSpawnerObject;
     /// <summary>
     /// AmbushSpawner script
     /// </summary>
-    public AmbushSpawner ambushSpawner;
+    public AmbushSpawnerDeprecated ambushSpawner;
     /// <summary>
     /// Queue to hold enemies currently attacking.
     /// </summary>
@@ -86,7 +84,7 @@ public class enemyManager : MonoBehaviour
         if (ambushSpawnerObject != null)
         {
             // Gets the AmbushSpawner component
-            ambushSpawner = ambushSpawnerObject.GetComponent<AmbushSpawner>();
+            ambushSpawner = ambushSpawnerObject.GetComponent<AmbushSpawnerDeprecated>();
 
             // Checks if the AmbushSpawner component is found before setting it to inactive
             if (ambushSpawner != null)
@@ -145,7 +143,6 @@ public class enemyManager : MonoBehaviour
         {
             int restoredHealthValue = enemy.GetComponent<enemyAI>().restoredHealthValue;
             playerController.Heal(restoredHealthValue);
-            playerController.updatePlayerUI();
         }
     }
 

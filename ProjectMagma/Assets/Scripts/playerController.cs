@@ -9,14 +9,15 @@ public class playerController : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
     [SerializeField] CharacterController controller;
-    
+
     public Collider altAttackCollider;
-    
-    [Header("----- Player Health -----")]
+
+    [Header("----- Primary Stats -----")]
     [Tooltip("Do not directly access private health - use the public Health property instead.")]
     [SerializeField] float health;
     //[SerializeField] float healthRegenRate;
     [SerializeField] bool isInvincible;
+    [SerializeField] float energy;
     [SerializeField] bool hasInfiniteEnergy;
 
     [Header("----- Walking & Running -----")]
@@ -36,7 +37,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float gravityStrength;
     [SerializeField] float maxVerticalSpeed;
 
-    [Header("----- Shooting -----")]
+    [Header("----- Primary Attack -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
     /// <summary>
     /// Return read-only version of the weapon list.
@@ -45,22 +46,29 @@ public class playerController : MonoBehaviour, IDamage
 
     [SerializeField] GameObject weaponPosition;
     [SerializeField] GameObject shootPosition;
+    [SerializeField] GameObject vfxPosition;
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
-    [SerializeField] float energy;
     [SerializeField] float energyCostPerShot;
     [SerializeField] float energyRegenRate;
     [SerializeField] float energyIncreasePerAmbush;
+
+    [Header("---- Alternative Attack ----")]
+    [Tooltip("Meant to be toggled as a quick way to enable/disable the feature.")]
+    [SerializeField] bool allowAltAttack = false;
 
     [Header("----- UI -----")]
     [Tooltip("The duration of screen flash upon receiving damage.")]
     [SerializeField] float damageFlashDuration;
 
     [Header("----- Audio -----")]
-    [SerializeField] soundManager soundManager;
+    [SerializeField] entitySoundManager soundManager;
+    [SerializeField] inventorySoundManager inventorySoundManager;
+    [Tooltip("The SFX of the weapon that is in player's hands. Sound clip updates automatically on player pickup.")]
     [SerializeField] AudioSource weaponAudioSource;
 
+    private GameObject currentVFX;
     private float energyOriginal;
     private float energyRegenerated;
     private float healthOriginal;
@@ -73,18 +81,56 @@ public class playerController : MonoBehaviour, IDamage
     private float currentSpeed;
     private float walkToSprintSpeedRatio;
     private int selectedWeapon;
+    public int SelectedWeapon
+    {
+        get => weaponList.Count > 0 ? selectedWeapon : -1;
+    }
+    public weaponStats SelectedWeaponStats
+    {
+        get => weaponList.Count > 0 ? weaponList[selectedWeapon] : null;
+    }
     private bool isShooting;
-    //private bool isAltActive;
-    
+    private bool isAltActive;
+
+    public delegate void PlayerAction();
+    public event PlayerAction SpawnedEvent;
+    public event PlayerAction Hurt;
+    public event PlayerAction Healed;
+
+    public delegate void WeaponAction(weaponStats weapon);
+    public event WeaponAction WeaponSwitched;
+
+    public delegate void StatsUpdate(float value, float maxValue);
+    public event StatsUpdate EnergyChanged;
+    public event StatsUpdate HealthChanged;
 
     public float Health
     {
         get => health;
-        set => health = Mathf.Clamp(value, 0, healthOriginal);
+        set
+        {
+            value = Mathf.Clamp(value, 0, healthOriginal);
+            if (health != value)
+            {
+                health = value;
+                HealthChanged?.Invoke(health, healthOriginal);
+            }
+        }
+    }
+    public float Energy
+    {
+        get => energy;
+        set
+        {
+            value = Mathf.Clamp(value, 0, energyOriginal);
+            if (energy != value)
+            {
+                energy = value;
+                EnergyChanged?.Invoke(energy, energyOriginal);
+            }
+        }
     }
 
-    public delegate void PlayerAction();
-    public event PlayerAction PlayerSpawnedEvent;
 
     /// <summary>
     /// Apply ambush defeat reward powerup.
@@ -93,6 +139,7 @@ public class playerController : MonoBehaviour, IDamage
     public void ApplyAmbushDefeatPowerup(int stacks = 1)
     {
         energyOriginal += energyIncreasePerAmbush * stacks;
+        EnergyChanged?.Invoke(Energy, energyOriginal);
     }
 
     // Start is called before the first frame update
@@ -103,9 +150,14 @@ public class playerController : MonoBehaviour, IDamage
         currentSpeed = walkSpeed;
         walkToSprintSpeedRatio = walkSpeed / sprintSpeed;
 
-        PlayerSpawnedEvent?.Invoke();
-        
-        updatePlayerUI();
+        saveSystem.TiltSet += EnableTilt;
+
+        SpawnedEvent?.Invoke();
+        HealthChanged?.Invoke(health, healthOriginal); // Force-update all listeners
+        EnergyChanged?.Invoke(energy, energyOriginal); // Force-update all listeners
+        // Force-update all listeners with the currently selected weapon
+        WeaponSwitched?.Invoke(weaponList.Count > 0 ? weaponList[selectedWeapon] : null);
+
         //respawn();
     }
 
@@ -125,23 +177,23 @@ public class playerController : MonoBehaviour, IDamage
             // Left Click - ranged attack
             if (Input.GetButton("Shoot") && weaponList.Count > 0 && !isShooting)
             {
-                if (energy >= energyCostPerShot)
+                if (Energy >= energyCostPerShot)
                     StartCoroutine(Shoot());
                 else
                 {
                     gameManager.instance.ShowHint("Not enough energy to shoot \nKeep Moving!");
                 }
             }
-            ////Right click -alt attack
-            //else if (Input.GetButton("Hit") && !isAltActive && !isShooting)
-            //{
-            //    StartCoroutine(AltAttack());
-            //}
-
-            if (Input.GetKeyDown(KeyCode.X))
+            //Right click -alt attack
+            else if (allowAltAttack && Input.GetButton("Hit") && !isAltActive && !isShooting)
             {
-                dropWeapon(selectedWeapon);
+                StartCoroutine(AltAttack());
             }
+
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    dropWeapon(selectedWeapon);
+            //}
         }
 
         RegenEnergy();
@@ -181,7 +233,7 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(horMotion);
 
         // Call tiltCamera to handle camera tilt based on horizontal motion
-        if(canTilt)
+        if (canTilt)
         {
             tiltCamera(horMotionDirection);
         }
@@ -224,7 +276,7 @@ public class playerController : MonoBehaviour, IDamage
     public void EnableTilt(bool enable)
     {
         canTilt = enable;
-        if(!canTilt)
+        if (!canTilt)
         {
             cameraTiltAnchor.localRotation = Quaternion.identity;
         }
@@ -245,14 +297,13 @@ public class playerController : MonoBehaviour, IDamage
         else
             currentSpeed = walkSpeed;
     }
+
     public void takeDamage(int amount)
     {
         if (!isInvincible)
             Health -= amount;
 
-        updatePlayerUI();
-
-        StartCoroutine(flashDamageOnScreen());
+        Hurt?.Invoke();
 
         if (Health <= 0)
         {
@@ -287,6 +338,8 @@ public class playerController : MonoBehaviour, IDamage
                 break;
         }
 
+        gameManager.instance.reloadHUD.Reload(shootRate);
+
         yield return new WaitForSeconds(shootRate);
 
         isShooting = false;
@@ -306,6 +359,12 @@ public class playerController : MonoBehaviour, IDamage
                 damagedBody.takeDamage(shootDamage);
             }
             Instantiate(weaponList[selectedWeapon].hitEffect, hit.point, weaponList[selectedWeapon].hitEffect.transform.rotation);
+        }
+        else
+        {
+            Vector3 viewportCenter = new Vector3(0.5f, 0.5f, shootDist);
+            Vector3 raycastEndPos = Camera.main.ViewportToWorldPoint(viewportCenter) + Camera.main.transform.forward * shootDist;
+            Instantiate(weaponList[selectedWeapon].hitEffect, raycastEndPos, weaponList[selectedWeapon].hitEffect.transform.rotation);
         }
     }
 
@@ -331,7 +390,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             yield break;
         }
-        //isAltActive = true;
+        isAltActive = true;
         altAttackCollider.enabled = true;
 
         RaycastHit hit;
@@ -355,10 +414,26 @@ public class playerController : MonoBehaviour, IDamage
                 }
             }
         }
+        else
+        {
+            // If the raycast doesn't hit anything,this calculates a point based on the ray's direction and length
+            Vector3 rayDirection = Camera.main.transform.forward;
+            Vector3 rayEndPoint = Camera.main.transform.position + (rayDirection * weaponList[selectedWeapon].altRange);
+            // Applys damage and push force to all enemies within the calculated range
+            Collider[] colliders = Physics.OverlapSphere(rayEndPoint, weaponList[selectedWeapon].pushRadius, layerMask);
+            foreach (Collider collider in colliders)
+            {
+                ApplyDamageAndPush(collider);
+            }
+            // Spawns hit particles at the calculated point
+            SpawnHitParticles(rayEndPoint);
+        }
         // Delay between hits
+        Debug.Log("Waiting for " + weaponList[selectedWeapon].altRate + " seconds");
         yield return new WaitForSeconds(weaponList[selectedWeapon].altRate);
-        
-        //isAltActive = false;
+        Debug.Log("Delay completed");
+
+        isAltActive = false;
         altAttackCollider.enabled = false;
     }
     void ApplyDamageAndPush(Collider collider)
@@ -401,12 +476,12 @@ public class playerController : MonoBehaviour, IDamage
     public void Heal(int value)
     {
         Health += value;
+        Healed?.Invoke();
     }
 
     void useEnergy(float amount)
     {
-        energy -= amount;
-        updatePlayerUI();
+        Energy -= amount;
     }
 
     /// <summary>
@@ -415,19 +490,17 @@ public class playerController : MonoBehaviour, IDamage
     void RegenEnergy()
     {
         // Calculate the base energy regenerated based on speed
-        float baseEnergyRegenerated = Mathf.Clamp(((currentSpeed / sprintSpeed) + (verticalVelocity.y / jumpStrength)) * energyRegenRate, energyRegenRate, 0);
+        float baseEnergyRegenerated = Mathf.Clamp((currentSpeed / sprintSpeed) * energyRegenRate, 0, energyRegenRate);
 
         // Adjust energy regeneration if sprinting
         float adjustedEnergyRegenerated = sprinting ? baseEnergyRegenerated * 2f : baseEnergyRegenerated;
 
         if (currentSpeed > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
         {
-            energy += adjustedEnergyRegenerated * Time.deltaTime;
-            energy = Mathf.Clamp(energy, 0, energyOriginal);
+            Energy += adjustedEnergyRegenerated * Time.deltaTime;
         }
-        updatePlayerUI();
-
     }
+
     void die()
     {
         gameManager.instance.scenarioPlayerLoses();
@@ -446,28 +519,9 @@ public class playerController : MonoBehaviour, IDamage
     //    controller.enabled = true;
     //}
 
-    public void updatePlayerUI()
-    {
-        //health bar update
-        gameManager.instance.playerHealthbar.fillAmount = (float)health / healthOriginal;
-        if (energyOriginal > 0.0f)
-            //energy bar update
-            gameManager.instance.playerEnergybar.fillAmount = (float)energy / energyOriginal;
-
-        gameManager.instance.playerEnergybar.gameObject.SetActive(weaponList.Count > 0);
-        gameManager.instance.playerEnergybarBG.gameObject.SetActive(weaponList.Count > 0);
-    }
-
-    IEnumerator flashDamageOnScreen()
-    {
-        gameManager.instance.playerDamageScreenFlash.SetActive(true);
-        yield return new WaitForSeconds(damageFlashDuration);
-        gameManager.instance.playerDamageScreenFlash.SetActive(false);
-    }
-
     public float GetHealth()
     {
-        return health;
+        return Health;
     }
 
     public float GetOriginalHealth()
@@ -489,25 +543,51 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    void changeWeapon()
+    public void EquipWeaponFromSlot(int slot, bool playSound = true)
+    {
+        if (weaponList.Count == 0)
+            return;
+
+        selectedWeapon = Mathf.Clamp(slot, 0, weaponList.Count - 1);
+        changeWeapon(playSound);
+    }
+
+    void changeWeapon(bool playSound = true)
     {
         weaponStats currentWeapon = weaponList[selectedWeapon];
-        
+
+        // Set weapon stats
         shootDamage = weaponList[selectedWeapon].shootDamage;
         shootDist = weaponList[selectedWeapon].shootDist;
         shootRate = weaponList[selectedWeapon].shootRate;
         energyCostPerShot = weaponList[selectedWeapon].energyCostPerShot;
-        
-        weaponPosition.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
-        weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponList[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        // Update weapon mesh
+        MeshFilter weaponMeshFilter = currentWeapon.model.GetComponentInChildren<MeshFilter>();
+        weaponPosition.GetComponent<MeshFilter>().sharedMesh = weaponMeshFilter.sharedMesh;
+        MeshRenderer weaponMeshRenderer = currentWeapon.model.GetComponentInChildren<MeshRenderer>();
+        weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponMeshRenderer.sharedMaterial;
+
+        // Update wand VFX
+        if (currentVFX != null)
+        {
+            Destroy(currentVFX);
+        }
+        currentVFX = Instantiate(currentWeapon.staffVFX, vfxPosition.transform.position, vfxPosition.transform.rotation);
+        currentVFX.transform.parent = vfxPosition.transform;
+
+        // Extra
+        WeaponSwitched?.Invoke(weaponList[selectedWeapon]);
+        if (playSound)
+            inventorySoundManager.PlayWeaponSwitched();
     }
 
-    public void pickupWeapon(weaponStats weapon)
+    public void pickupWeapon(weaponStats weapon, bool playSound = true)
     {
         if (weapon == null)
             return;
 
-        int newWeaponIndex = Mathf.Max(weaponList.Count - 1, 0);
+        int newWeaponIndex = Mathf.Clamp(weaponList.Count, 0, 1);
 
         // If the inventory is full, drop the current selected weapon and remember to insert the new weapon in
         // place of the dropped weapon
@@ -515,19 +595,36 @@ public class playerController : MonoBehaviour, IDamage
         {
             dropWeapon(selectedWeapon);
             newWeaponIndex = selectedWeapon;
+            inventorySoundManager.PlayWeaponSwitched();
         }
 
         weaponList.Insert(newWeaponIndex, weapon);
 
+        // Set weapon stats
         shootDamage = weapon.shootDamage;
         shootDist = weapon.shootDist;
         shootRate = weapon.shootRate;
         energyCostPerShot = weapon.energyCostPerShot;
 
-        weaponPosition.GetComponent<MeshFilter>().sharedMesh = weapon.model.GetComponent<MeshFilter>().sharedMesh;
-        weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weapon.model.GetComponent<MeshRenderer>().sharedMaterial;
+        // Update weapon mesh
+        MeshFilter weaponMeshFilter = weapon.model.GetComponentInChildren<MeshFilter>();
+        weaponPosition.GetComponent<MeshFilter>().sharedMesh = weaponMeshFilter.sharedMesh;
+        MeshRenderer weaponMeshRenderer = weapon.model.GetComponentInChildren<MeshRenderer>();
+        weaponPosition.GetComponent<MeshRenderer>().sharedMaterial = weaponMeshRenderer.sharedMaterial;
 
+        // Update wand VFX
+        if (currentVFX != null)
+        {
+            Destroy(currentVFX);
+        }
+        currentVFX = Instantiate(weapon.staffVFX, vfxPosition.transform.position, vfxPosition.transform.rotation);
+        currentVFX.transform.parent = vfxPosition.transform;
+
+        // Extra
         selectedWeapon = newWeaponIndex;
+        WeaponSwitched?.Invoke(weaponList[selectedWeapon]);
+        if (playSound)
+            inventorySoundManager.PlayWeaponPicked();
     }
 
     void dropWeapon(int weaponIndex)
@@ -547,13 +644,16 @@ public class playerController : MonoBehaviour, IDamage
 
         weaponList.RemoveAt(weaponIndex);
 
-        // Drop offset will change once button to pickup wands is implemented.
+        if (currentVFX != null)
+        {
+            Destroy(currentVFX);
+        }
+
         // For now, the wand drops behind the player so that the player doesnt keep colliding with it
-        int dropDistance = -2;
+        float dropDistance = 0.5f;
         Vector3 dropPosition = transform.position + transform.forward * dropDistance;
 
         Instantiate(correctWandItem, dropPosition, Quaternion.identity);
-
-        updatePlayerUI();
+        inventorySoundManager.PlayWeaponDroppedSpatial(dropPosition);
     }
 }
