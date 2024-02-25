@@ -121,7 +121,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4016929526146827147}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.080213726
+  m_Size: 0.06040072
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -491,7 +491,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1695.5525}
+  m_SizeDelta: {x: 0, y: 2300.2424}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1477514378892851076
 CanvasRenderer:
@@ -564,7 +564,9 @@ MonoBehaviour:
     by Anthousai from freesound.org\r\nItem Received: by spookymodem from freesound.org\r\n\r\n-
     UI SFX -\r\nPapercrackle1: by IsakIzzy on freesound.org\r\nPapercrackle1: by
     IsakIzzy on freesound.org\r\nButton Pressed: by Jofae on freesound.org\r\nButton
-    Push: by earth_cord on freesound.org\r\nClick Tick 2: by malle99 on freesound.org"
+    Push: by earth_cord on freesound.org\r\nClick Tick 2: by malle99 on freesound.org\n\n-
+    Branding -\nWonderLocked Game Icon by Ethan Brunswick\nMidnightEagles Logo by
+    Ethan Brunswick"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -591,8 +593,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21
-  m_fontSizeBase: 21
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1223,7 +1225,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7865175243731112633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.9197863}
+  m_AnchorMin: {x: 0, y: 0.9395993}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
