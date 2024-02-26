@@ -19179,6 +19179,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bench_Wooden_01
       objectReference: {fileID: 0}
+    - target: {fileID: 146742, guid: b8f3e8c6f9dc4b0cb6f7ee0bec988dcb, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 146742, guid: b8f3e8c6f9dc4b0cb6f7ee0bec988dcb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 89
+      objectReference: {fileID: 0}
     - target: {fileID: 446742, guid: b8f3e8c6f9dc4b0cb6f7ee0bec988dcb, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -57937,7 +57945,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6398340788609389468, guid: 3a66c42a512a26e4ea569da706e2a6a0, type: 3}
       propertyPath: m_Name
-      value: PortalSpot
+      value: PortalSpot-Finish
       objectReference: {fileID: 0}
     - target: {fileID: 7817196077441803420, guid: 3a66c42a512a26e4ea569da706e2a6a0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60912,7 +60920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &1868398594
 Light:
   m_ObjectHideFlags: 0
