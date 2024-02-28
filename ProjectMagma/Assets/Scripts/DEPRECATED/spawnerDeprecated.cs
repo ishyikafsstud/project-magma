@@ -45,7 +45,7 @@ public class spawnerDeprecated : MonoBehaviour
         
         GameObject enemy = Instantiate(objectToSpawn, spawnPos[arrayPos].transform.position, spawnPos[arrayPos].transform.rotation);
         enemyManager.instance.EnemySpawned(enemy, false); // Report about enemy spawning
-        enemy.GetComponent<enemyAI>().SetCanRoam(canEnemiesRoam);
+        enemy.GetComponent<enemyAI>().CanRoam = canEnemiesRoam;
         spawnCount++;
         
         yield return new WaitForSeconds(timeBetweenSpawns);
