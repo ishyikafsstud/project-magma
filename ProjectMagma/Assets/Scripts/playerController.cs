@@ -531,6 +531,16 @@ public class playerController : MonoBehaviour, IDamage
 
     void selectWeapon()
     {
+        // Switch weapons using number keys
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            EquipWeaponFromSlot(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            EquipWeaponFromSlot(1);
+        }
+
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < weaponList.Count - 1)
         {
             selectedWeapon++;
