@@ -562,12 +562,12 @@ MonoBehaviour:
     Teleport: by oldestmillennial from freesound.org\r\nError_04: by distillerystudio
     from freesound.org\r\nWarpDrive_02: by LittleRobotSoundFactory from freesound.org\r\nhit
     - wooden & metallic - dropping a hoe on the base of its handle - single hit 04:
-    by Anthousai from freesound.org\r\nItem Received: by spookymodem from freesound.org\r\n\r\n-
-    UI SFX -\r\nPapercrackle1: by IsakIzzy on freesound.org\r\nPapercrackle1: by
-    IsakIzzy on freesound.org\r\nButton Pressed: by Jofae on freesound.org\r\nButton
-    Push: by earth_cord on freesound.org\r\nClick Tick 2: by malle99 on freesound.org\n\n-
-    Branding -\nWonderLocked Game Icon by Ethan Brunswick\nMidnightEagles Logo by
-    Ethan Brunswick"
+    by Anthousai from freesound.org\r\nItem Received: by spookymodem from freesound.org\r\nship_interior:
+    by nathan45100 from freesound.org\n\r\n- UI SFX -\r\nPapercrackle1: by IsakIzzy
+    on freesound.org\r\nPapercrackle1: by IsakIzzy on freesound.org\r\nButton Pressed:
+    by Jofae on freesound.org\r\nButton Push: by earth_cord on freesound.org\r\nClick
+    Tick 2: by malle99 on freesound.org\n\n- Branding -\nWonderLocked Game Icon by
+    Ethan Brunswick\nMidnightEagles Logo by Ethan Brunswick"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
