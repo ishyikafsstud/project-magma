@@ -98,6 +98,13 @@ public class enemySpawner : MonoBehaviour, IActivate
                 enemyAI enemyScript = enemy.GetComponent<enemyAI>();
                 enemyScript.SetCanRoam(canEnemiesRoam);
                 enemyScript.CountDeath = requiredToKill;
+                
+                // Ambush spawner-specific
+                if (isAmbushSpawner)
+                {
+                    // Make ambush enemies aware of the player
+                    enemyScript.BecomeAlerted(gameManager.instance.player.transform.position);
+                }
 
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
