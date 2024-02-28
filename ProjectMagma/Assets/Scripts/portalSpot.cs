@@ -15,6 +15,9 @@ public class portalSpot : MonoBehaviour, ILockable
     [Tooltip("Whether the portal should be activated on start (false by default).")]
     [SerializeField] bool activateOnStart;
 
+    [SerializeField] AudioSource portalActivatedSFX;
+    [SerializeField] AudioSource portalSFX;
+
     bool isLocked;
 
     // Start is called before the first frame update
@@ -51,6 +54,8 @@ public class portalSpot : MonoBehaviour, ILockable
 
     public void Unlock()
     {
+        portalActivatedSFX.Play();
+        portalSFX.PlayDelayed(4f);
         portal.SetActive(true);
         spotLight.enabled = true;
     }
