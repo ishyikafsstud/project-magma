@@ -96,7 +96,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     Vector3 startingPos;
     float origSpeed;
     float stoppingDistOrig;
-    bool canRotate = true; //For locking enemy rotation 
 
     bool hasBeenAlerted;
     bool isGlowingHurt;
@@ -217,9 +216,11 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         {
             if (playerSpotted)
             {
-                ChasePlayer();
-
-                // If player is within the attack range and unless already attacking, attack him
+                if (!isAttacking)
+                {
+                    ChasePlayer();
+                }
+                
                 if (CanAttack())
                 {
                     Attack();
@@ -233,15 +234,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
             }
         }
 
-        if (isAttacking && !canRotate)
-        {
-            // Lock the enemy's rotation during attack
-            agent.updateRotation = false;
-        }
-        else
-        {
-            agent.updateRotation = true;
-        }
+        // Lock the enemy rotation during attack
+        agent.updateRotation = !isAttacking;
 
         if (animator != null)
         {
@@ -289,14 +283,16 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     void ChasePlayer()
     {
+        // Run after player
         agent.SetDestination(gameManager.instance.player.transform.position);
-        if (agent.remainingDistance < agent.stoppingDistance && canRotate)
+
+        // Continue facing player even if they are within the stopping distance
+        if (agent.remainingDistance < agent.stoppingDistance)
             faceTarget();
     }
 
     void faceTarget()
     {
-        if (!canRotate) return;
         Quaternion rot = Quaternion.LookRotation(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, faceTargetSpeed * Time.deltaTime);
     }
@@ -340,7 +336,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     {
         if (isDead)
             return;
-        
+
         StartCoroutine(flashRed());
 
         Health -= amount;
@@ -469,6 +465,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     protected virtual bool CanAttack()
     {
+        // If player is within the attack range and unless already attacking, attack him
         return !isAttacking && canSeePlayerForAttack();
         //&& enemyManager.instance.attackingEnemiesCount <= enemyManager.instance.maxAttackingEnemies;
     }
@@ -481,7 +478,12 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     {
         soundManager?.PlayAttackStart();
         isAttacking = true;
-        canRotate = false; // lock rotation when attacking
+
+        // Make the enemy stand while attacking
+        agent.SetDestination(transform.position);
+        // Lock rotation on navigation agent
+        agent.updateRotation = false;
+
         animator.SetTrigger("AttackTrigger");
         //enemyManager.instance.attackingEnemiesCount++;
     }
@@ -507,8 +509,12 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     protected virtual void AttackAnimationEnd()
     {
         isAttacking = false;
-        canRotate = true;
+
+        // Unlock rotation on navigation agent
+        agent.updateRotation = true;
+        
         animator.ResetTrigger("AttackTrigger");
+
         //enemyManager.instance.attackingEnemiesCount--;
         //yield return new WaitForSeconds(attackRate);
     }
