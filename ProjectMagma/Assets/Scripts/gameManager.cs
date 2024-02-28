@@ -292,9 +292,9 @@ public class gameManager : MonoBehaviour
         // Confine Cursor to Pause window boundaries
         Cursor.lockState = CursorLockMode.Confined;
 
-        // TODO: should it really be here?
-        //stop all coroutines
-        StopAllCoroutines();
+        //// TODO: should it really be here?
+        ////stop all coroutines
+        //StopAllCoroutines();
 
         soundtrackManager.PauseMusic();
 
