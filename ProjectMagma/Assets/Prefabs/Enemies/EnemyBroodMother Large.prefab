@@ -9034,7 +9034,7 @@ Transform:
   m_GameObject: {fileID: 7970485652721397328}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.546, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -10536,6 +10536,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 72288419570795938}
     m_Modifications:
+    - target: {fileID: 921687272057687191, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 24b48c270fd2af84682a442a4f39e345, type: 3}
+    - target: {fileID: 1100729734795960032, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 40aaa5913cecd3c4cb1e7f74b19520ac, type: 3}
     - target: {fileID: 35479987151606883, guid: b839dcca11d2137498143506dd0473e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -10580,14 +10588,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpiderSoundManager
       objectReference: {fileID: 0}
-    - target: {fileID: 921687272057687191, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 24b48c270fd2af84682a442a4f39e345, type: 3}
-    - target: {fileID: 1100729734795960032, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 40aaa5913cecd3c4cb1e7f74b19520ac, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

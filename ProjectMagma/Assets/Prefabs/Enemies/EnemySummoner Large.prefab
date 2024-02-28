@@ -2370,7 +2370,7 @@ MonoBehaviour:
   animator: {fileID: 453375409591852883}
   attackOrigin: {fileID: 0}
   alertOrigin: {fileID: 3198184785932751378}
-  lootPosition: {fileID: 2550481946255390605}
+  lootPosition: {fileID: 3779500206684132294}
   enemyUI: {fileID: 6287257593246888490}
   primaryCollider: {fileID: 7254979400411685522}
   HP: 40
