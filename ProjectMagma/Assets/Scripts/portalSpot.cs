@@ -55,7 +55,7 @@ public class portalSpot : MonoBehaviour, ILockable
     public void Unlock()
     {
         portalActivatedSFX.Play();
-        portalSFX.PlayDelayed(4f);
+        portalSFX.Play();
         portal.SetActive(true);
         spotLight.enabled = true;
     }
