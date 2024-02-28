@@ -75,7 +75,7 @@ MonoBehaviour:
   shootRate: 0
   shootDist: 0
   energyCostPerShot: 0
-  energyRegenRate: 27
+  energyRegenRate: 15
   energyIncreasePerAmbush: 20
   allowAltAttack: 0
   damageFlashDuration: 0.1
