@@ -1232,7 +1232,7 @@ MonoBehaviour:
   attackRate: 0.3
   attackRange: 3
   projectile: {fileID: 0}
-  canRoam: 1
+  canRoam: 0
   roamDist: 5
   roamPauseTimeMin: 3
   roamPauseTimeMax: 6

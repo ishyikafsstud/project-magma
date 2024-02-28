@@ -96,7 +96,12 @@ public class enemySpawner : MonoBehaviour, IActivate
 
                 // Integrate other settings
                 enemyAI enemyScript = enemy.GetComponent<enemyAI>();
-                enemyScript.SetCanRoam(canEnemiesRoam);
+                /* Enemies can roam only if:
+                 * 1. The spawner is not an ambush spawner
+                 * 2. The enemy is allowed to roam in general
+                 * 3. This spawner allows enemies to roam if they can
+                 */
+                enemyScript.CanRoam = !isAmbushSpawner && enemyScript.CanRoam && canEnemiesRoam;
                 enemyScript.CountDeath = requiredToKill;
                 
                 // Ambush spawner-specific

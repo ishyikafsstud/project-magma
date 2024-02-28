@@ -60,6 +60,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     [Header("---- Roaming ----")]
     [SerializeField] bool canRoam = true;
+    public bool CanRoam { get => canRoam; set => canRoam = value; }
     [SerializeField] int roamDist = 10;
     [Tooltip("The minimum time before starting to roam again.")]
     [Range(0, 60)][SerializeField] int roamPauseTimeMin = 3;
@@ -242,11 +243,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
             float targetAnimSpeed = agent.velocity.normalized.magnitude;
             animator.SetFloat("Speed", Mathf.Lerp(animator.GetFloat("Speed"), targetAnimSpeed, animSpeedTransition * Time.deltaTime));
         }
-    }
-
-    public void SetCanRoam(bool canRoam)
-    {
-        this.canRoam = canRoam;
     }
 
     /// <summary>

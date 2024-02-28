@@ -767,7 +767,7 @@ MonoBehaviour:
   attackRate: 1
   attackRange: 16
   projectile: {fileID: 752510304586747584, guid: 5d165a330d22a4b429efb1fd67eeb24d, type: 3}
-  canRoam: 1
+  canRoam: 0
   roamDist: 5
   roamPauseTimeMin: 3
   roamPauseTimeMax: 6
