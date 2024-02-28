@@ -222,8 +222,8 @@ public class playerController : MonoBehaviour, IDamage
             enableSprint(false);
 
         // Get horizontal movement direction
-        horMotionDirection = Input.GetAxisRaw("Horizontal") * transform.right
-             + Input.GetAxisRaw("Vertical") * transform.forward;
+        horMotionDirection = Input.GetAxis("Horizontal") * transform.right
+             + Input.GetAxis("Vertical") * transform.forward;
         horMotionDirection.Normalize(); // so that diagonal motion is not faster than straight motion
 
         // Calculate horizontal motion
