@@ -216,9 +216,6 @@ public class gameManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        // Force update the weapon selection UI
-        PlayerScript_WeaponSwitched(playerScript.SelectedWeaponStats);
-
         UpdateEnemyCountText();
         ShowHint("Good Luck!");
 
@@ -245,6 +242,8 @@ public class gameManager : MonoBehaviour
     /// </summary>
     void LateStart()
     {
+        // Force update the weapon selection UI
+        PlayerScript_WeaponSwitched(playerScript.SelectedWeaponStats);
     }
 
     void OnPlayerSpawned()
