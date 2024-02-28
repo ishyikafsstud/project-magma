@@ -38,11 +38,13 @@ public abstract class saveSystem : MonoBehaviour
     private static string GetLevelPrefix(LevelIdEnum levelId)
     { return levelId.ToString().ToUpper(); }
     private static string levelUnlockedKeySuffix = "_UNLOCKED";
+    private static string levelStartAppliedPowerupsKeySuffix = "_START_POWERUPSPICKED";
     private static string levelStartWeapon1KeySuffix = "_STARTWEAPON_1";
     private static string levelStartWeapon2KeySuffix = "_STARTWEAPON_2";
     private static string levelStartWeaponSelectedKeySuffix = "_STARTWEAPON_SELECTEDINDEX";
     private static string levelCompletedKeySuffix = "_COMPLETED";
     private static string levelAmbushDefeatedKeySuffix = "_AMBUSHDEFEATED";
+    private static string levelEndAppliedPowerupsKeySuffix = "_END_POWERUPSPICKED";
     private static string levelEndWeapon1KeySuffix = "_ENDWEAPON_1";
     private static string levelEndWeapon2KeySuffix = "_ENDWEAPON_2";
     private static string levelEndWeaponSelectedKeySuffix = "_ENDWEAPON_SELECTEDINDEX";
@@ -196,6 +198,8 @@ public abstract class saveSystem : MonoBehaviour
         PlayerPrefs.SetInt(levelPrefix + levelEndWeaponSelectedKeySuffix, player.SelectedWeapon);
         // Ambush defeated
         PlayerPrefs.SetInt(levelPrefix + levelAmbushDefeatedKeySuffix, gameManagerInst.IsAmbushRewardPicked ? 1 : 0);
+        // How many powerups were collected in total by level completion
+        PlayerPrefs.SetInt(levelPrefix + levelEndAppliedPowerupsKeySuffix, gameManagerInst.playerScript.PowerupsApplied);
 
 
         // If it is not the last level, then unlock the next level + set the starting weapons for it
@@ -211,6 +215,9 @@ public abstract class saveSystem : MonoBehaviour
             PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeapon1KeySuffix, playerWeapons.Count >= 1 ? (int)playerWeapons[0].wandType : -1);
             PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeapon2KeySuffix, playerWeapons.Count >= 2 ? (int)playerWeapons[1].wandType : -1);
             PlayerPrefs.SetInt(nextLevelPrefix + levelStartWeaponSelectedKeySuffix, player.SelectedWeapon);
+
+            // How many powerups were collected in total by level completion
+            PlayerPrefs.SetInt(nextLevelPrefix + levelStartAppliedPowerupsKeySuffix, gameManagerInst.playerScript.PowerupsApplied);
         }
 
         PlayerPrefs.Save();
@@ -284,6 +291,17 @@ public abstract class saveSystem : MonoBehaviour
         return ambushesDefeated;
     }
 
+    /// <summary>
+    /// Get the number of powerups applied by the start of the specified level.
+    /// <para>Useful for when loading a new level and updating player stats.</para>
+    /// </summary>
+    /// <param name=""></param>
+    /// <returns></returns>
+    public static int GetPowerupsCountOnLevelStart(LevelIdEnum levelId)
+    {
+        return PlayerPrefs.GetInt(GetLevelPrefix(levelId) + levelStartAppliedPowerupsKeySuffix, 0);
+    }
+
     public static bool IsLevelUnlocked(LevelIdEnum levelId)
     {
         return PlayerPrefs.GetInt(GetLevelPrefix(levelId) + levelUnlockedKeySuffix) == 1;
@@ -318,12 +336,15 @@ public struct LevelSaveData
     public LevelIdEnum levelId;
 
     public bool isUnlocked;
+    public bool isCompleted;
+    public bool isAmbushDefeated;
+
     public List<int> startWeapons;
     public int startWeaponSelected;
-    public bool isCompleted;
     public List<int> endWeapons;
     public int endWeaponSelected;
-    public bool isAmbushDefeated;
+
+    public int powerupsApplied;
 }
 
 public struct GeneralSettingsData

@@ -68,10 +68,12 @@ public class playerController : MonoBehaviour, IDamage
     [Tooltip("The SFX of the weapon that is in player's hands. Sound clip updates automatically on player pickup.")]
     [SerializeField] AudioSource weaponAudioSource;
 
-    private GameObject currentVFX;
+
+    private int powerupsApplied;
     private float energyOriginal;
     private float energyRegenerated;
     private float healthOriginal;
+
     private Vector3 horMotionDirection;
     private Vector3 verticalVelocity;
     private float currentTiltAngle;
@@ -80,7 +82,10 @@ public class playerController : MonoBehaviour, IDamage
     private bool sprinting;
     private float currentSpeed;
     private float walkToSprintSpeedRatio;
+    
+    private GameObject currentVFX;
     private int selectedWeapon;
+
     public int SelectedWeapon
     {
         get => weaponList.Count > 0 ? selectedWeapon : -1;
@@ -130,6 +135,7 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
     }
+    public int PowerupsApplied { get => powerupsApplied; }
 
 
     /// <summary>
@@ -138,8 +144,11 @@ public class playerController : MonoBehaviour, IDamage
     /// <param name="stacks">How many stacks of the powerup to apply.</param>
     public void ApplyAmbushDefeatPowerup(int stacks = 1)
     {
-        energyOriginal += energyIncreasePerAmbush * stacks;
-        EnergyChanged?.Invoke(Energy, energyOriginal);
+        powerupsApplied += stacks;
+        float energyIncrease = energyIncreasePerAmbush * stacks;
+
+        energyOriginal += energyIncrease;
+        Energy += energyIncrease;
     }
 
     // Start is called before the first frame update

@@ -249,8 +249,8 @@ public class gameManager : MonoBehaviour
 
     void OnPlayerSpawned()
     {
-        int ambushesDefeated = saveSystem.CountAmbushesDefeated(levelId);
-        playerScript.ApplyAmbushDefeatPowerup(ambushesDefeated);
+        int powerupsApplied = saveSystem.GetPowerupsCountOnLevelStart(levelId);
+        playerScript.ApplyAmbushDefeatPowerup(powerupsApplied);
     }
 
     // Update is called once per frame
