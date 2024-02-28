@@ -133,7 +133,7 @@ MonoBehaviour:
   requiresPickupConfirmation: 1
   showPrompt: 1
   itemTitle: Activator Stone
-  itemDescription: Activates portal, attracts the ambush
+  itemDescription: Activates portal, may also attract an ambush
   pickupSound: {fileID: 8300000, guid: 3cb17c58dd21c0e43906b18d5301f14b, type: 3}
   pickupSoundVolume: 1
   mixerGroup: {fileID: -2675556089199335731, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
