@@ -2190,7 +2190,7 @@ MonoBehaviour:
   attackRange: 7
   projectile: {fileID: 0}
   canRoam: 0
-  roamDist: 10
+  roamDist: 5
   roamPauseTimeMin: 3
   roamPauseTimeMax: 6
   maxFreezeStack: 5
@@ -10536,14 +10536,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 72288419570795938}
     m_Modifications:
-    - target: {fileID: 921687272057687191, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 24b48c270fd2af84682a442a4f39e345, type: 3}
-    - target: {fileID: 1100729734795960032, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 40aaa5913cecd3c4cb1e7f74b19520ac, type: 3}
     - target: {fileID: 35479987151606883, guid: b839dcca11d2137498143506dd0473e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -10588,6 +10580,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpiderSoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 921687272057687191, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 24b48c270fd2af84682a442a4f39e345, type: 3}
+    - target: {fileID: 1100729734795960032, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 40aaa5913cecd3c4cb1e7f74b19520ac, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -430,7 +430,7 @@ MonoBehaviour:
   attackRange: 3
   projectile: {fileID: 0}
   canRoam: 1
-  roamDist: 1
+  roamDist: 5
   roamPauseTimeMin: 3
   roamPauseTimeMax: 6
   maxFreezeStack: 5
