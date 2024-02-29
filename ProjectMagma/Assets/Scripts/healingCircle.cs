@@ -5,7 +5,6 @@ using UnityEngine;
 public class healingCircle : MonoBehaviour
 {
     [SerializeField] int healingRate;// Healing rate per second
-    public playerController playerController;
     private bool isHealing = false;
 
     private void Update()
@@ -14,25 +13,25 @@ public class healingCircle : MonoBehaviour
         {
             if (gameManager.instance.player != null)
             {
-
-                if (playerController == null)
-                {
-                    playerController = gameManager.instance.playerScript;
-                }
-
                 // Heal the player over time
                 int healingAmount = Mathf.RoundToInt(healingRate * Time.deltaTime);
-                playerController.Heal(healingAmount);
+                gameManager.instance.playerScript.Heal(healingAmount);
             }
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        isHealing = true;
+        if (other.CompareTag("Player"))
+        {
+            isHealing = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        isHealing = false;
+        if (other.CompareTag("Player"))
+        {
+            isHealing = false;
+        }
     }
 }
