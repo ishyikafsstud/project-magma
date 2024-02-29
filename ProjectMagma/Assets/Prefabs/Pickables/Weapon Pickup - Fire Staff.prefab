@@ -228,7 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiresPickupConfirmation: 1
   showPrompt: 1
-  itemTitle: Siphon Wand
+  itemTitle: Wither Wand
   itemDescription: Withers enemies in an area over time.
   pickupSound: {fileID: 0}
   pickupSoundVolume: 1
