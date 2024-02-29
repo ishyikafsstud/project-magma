@@ -15210,6 +15210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portal: {fileID: 4256626896483498}
+  portalCollider: {fileID: 5247568005803461170}
   reminderTriggerCollider: {fileID: 5689031957759510314}
   spotLight: {fileID: 867552230284125544}
   activateOnStart: 0

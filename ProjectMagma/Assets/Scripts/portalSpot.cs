@@ -7,6 +7,8 @@ public class portalSpot : MonoBehaviour, ILockable
 {
     [Tooltip("The portal itself, with the VFX and portal passing functionality.")]
     [SerializeField] GameObject portal;
+    [Tooltip("The collider of the portal that triggers level completion.")]
+    [SerializeField] Collider portalCollider;
     [Tooltip("The collider of the \"go find the activator stone\" reminder.")]
     [SerializeField] BoxCollider reminderTriggerCollider;
     [SerializeField] Light spotLight;
@@ -65,7 +67,8 @@ public class portalSpot : MonoBehaviour, ILockable
     /// </summary>
     void EnablePortalTrigger()
     {
-        portal.GetComponent<BoxCollider>().enabled = true;
+        if (portalCollider != null)
+            portalCollider.enabled = true;
     }
 
     /// <summary>
@@ -73,7 +76,8 @@ public class portalSpot : MonoBehaviour, ILockable
     /// </summary>
     void DisablePortalTrigger()
     {
-        portal.GetComponent<BoxCollider>().enabled = false;
+        if (portalCollider != null)
+            portalCollider.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
