@@ -331,7 +331,7 @@ public class playerController : MonoBehaviour, IDamage
         isShooting = true;
 
         weaponAudioSource.PlayOneShot(weaponList[selectedWeapon].shootSound);
-        soundManager?.PlayAttackStart();
+        //soundManager?.PlayAttackStart();
 
         if (!hasInfiniteEnergy)
             useEnergy(energyCostPerShot);
