@@ -22,7 +22,7 @@ MonoBehaviour:
   shootDamage: 2
   shootRate: 0.075
   shootDist: 15
-  energyCostPerShot: 5
+  energyCostPerShot: 8
   weaponType: 1
   wandType: 2
   projectilePrefab: {fileID: 4118894386160214544, guid: 3c1b5ab9ecbdd1440bbc8901c7fe1f14, type: 3}
