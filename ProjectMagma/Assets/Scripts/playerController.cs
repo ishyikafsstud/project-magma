@@ -175,7 +175,7 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         processMovement();
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.green);
+        //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.green);
 
         if (!gameManager.instance.isPaused)
         {
