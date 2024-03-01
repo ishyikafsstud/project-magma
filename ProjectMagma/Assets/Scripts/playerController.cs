@@ -76,6 +76,7 @@ public class playerController : MonoBehaviour, IDamage
 
     private Vector3 horMotionDirection;
     private Vector3 verticalVelocity;
+    private Vector3 lastHorizontalPosition;
     private float currentTiltAngle;
     private bool isGrounded;
     private int jumpCount;
@@ -204,9 +205,6 @@ public class playerController : MonoBehaviour, IDamage
             //    dropWeapon(selectedWeapon);
             //}
         }
-
-        RegenEnergy();
-        //healthRegenOnMovement();
     }
 
     void processMovement()
@@ -246,6 +244,20 @@ public class playerController : MonoBehaviour, IDamage
         {
             tiltCamera(horMotionDirection);
         }
+
+        // Calculate the new horizontal position without regard to Y
+        Vector3 newHorizontalPosition = new Vector3(transform.position.x, 0f, transform.position.z);
+        
+        // Regenerate energy based on the distance traveled since the last frame
+        //
+        // The change in distance does not need to be multiplied by deltaTime because this method is called every
+        // frame, thus the difference between the old horizontal position and the new one is already one frame apart.
+        // However, sprintSpeed is a distance the player can traverse while sprinting in a SECOND, NOT a FRAME,
+        // so we need to multiply it by deltaTime to calculate maximum speed in one frame.
+        RegenEnergy(Vector3.Distance(lastHorizontalPosition, newHorizontalPosition), sprintSpeed * Time.deltaTime);
+
+        // Remember new horizontal position
+        lastHorizontalPosition = newHorizontalPosition;
 
         // Handle jumping
         if (Input.GetButtonDown("Jump") & jumpCount < jumpMaxNumber)
@@ -494,19 +506,28 @@ public class playerController : MonoBehaviour, IDamage
     }
 
     /// <summary>
-    /// Energy Regen when moving 
+    /// Regenerate energy based on the traveled distance, in relation to the maximum distance that
+    /// could have been traveled.
     /// </summary>
-    void RegenEnergy()
+    /// <param name="distanceTraveled">Actual traveled distance.</param>
+    /// <param name="maxDistanceTravel">Maximum distance that could've been traveled in this time (likely sprint speed).</param>
+    void RegenEnergy(float distanceTraveled, float maxDistanceTravel)
     {
-        // Calculate the base energy regenerated based on speed
-        float baseEnergyRegenerated = Mathf.Clamp((currentSpeed / sprintSpeed) * energyRegenRate, 0, energyRegenRate);
-
-        // Adjust energy regeneration if sprinting
-        float adjustedEnergyRegenerated = sprinting ? baseEnergyRegenerated * 2f : baseEnergyRegenerated;
+        // Calculate the energy regenerated based on distance traveled relative to max possible
+        // travel distance.
+        //
+        // We don't have to check if sprinting to adjust the value because maxDistanceTravel is
+        // already calculated based on the sprint speed.
+        // However, we have to multiply the relation by deltaTime because energy regeneration rate
+        // is given as a max regeneration rate per second.
+        float energyRegenerated = Mathf.Clamp((distanceTraveled / maxDistanceTravel) * energyRegenRate, 0, energyRegenRate)
+            * Time.deltaTime;
+        //Debug.Log($"Player velocity this frame: {distanceTraveled};\tMax speed this frame: {maxDistanceTravel}.\t" +
+        //    $"Energy regenerated this frame: {energyRegenerated}");
 
         if (currentSpeed > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
         {
-            Energy += adjustedEnergyRegenerated * Time.deltaTime;
+           Energy += energyRegenerated;
         }
     }
 
