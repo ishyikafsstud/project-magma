@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.09007763, g: 0.2817827, b: 0.48599333, a: 1}
+  m_IndirectSpecularColor: {r: 0.090077855, g: 0.28178278, b: 0.4859934, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -20566,8 +20566,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.9952126, y: 7.5677023, z: 40.622593}
-  m_Center: {x: -1.9976063, y: 3.2838511, z: 0.84192085}
+  m_Size: {x: 4.6017227, y: 7.5677023, z: 40.622593}
+  m_Center: {x: -2.1943512, y: 3.2838511, z: 0.84192085}
 --- !u!4 &483543692
 Transform:
   m_ObjectHideFlags: 0
@@ -46710,8 +46710,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.59169, y: 7.5677023, z: 7.8525047}
-  m_Center: {x: -6.5802307, y: 3.2838511, z: 0.95435905}
+  m_Size: {x: 12.189713, y: 7.5677023, z: 7.8525047}
+  m_Center: {x: -6.630478, y: 3.2838511, z: 0.95435905}
 --- !u!1001 &1030347261
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50181,8 +50181,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.9952126, y: 7.5677023, z: 32.109055}
-  m_Center: {x: -1.9976063, y: 3.2838511, z: -3.4148464}
+  m_Size: {x: 4.4655695, y: 7.5677023, z: 32.109055}
+  m_Center: {x: -1.7327845, y: 3.2838511, z: -3.4148464}
 --- !u!4 &1110504580
 Transform:
   m_ObjectHideFlags: 0
@@ -56146,8 +56146,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.9466286, y: 7.5677023, z: 22.921486}
-  m_Center: {x: 0.9984951, y: 3.2838511, z: 5.6798744}
+  m_Size: {x: 2.5678787, y: 7.5677023, z: 22.921486}
+  m_Center: {x: 0.8091202, y: 3.2838511, z: 5.6798744}
 --- !u!1 &1243651878
 GameObject:
   m_ObjectHideFlags: 0
@@ -79413,8 +79413,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.9952126, y: 7.5677023, z: 40.622593}
-  m_Center: {x: -1.9976063, y: 3.2838511, z: 0.84192085}
+  m_Size: {x: 4.812813, y: 7.5677023, z: 40.622593}
+  m_Center: {x: -2.0888062, y: 3.2838511, z: 0.84192085}
 --- !u!4 &1769549521
 Transform:
   m_ObjectHideFlags: 0
@@ -94685,8 +94685,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.9952126, y: 7.5677023, z: 28.004112}
-  m_Center: {x: -1.9976063, y: 3.2838511, z: -5.7665977}
+  m_Size: {x: 4.9952126, y: 7.5677023, z: 27.525322}
+  m_Center: {x: -1.9976063, y: 3.2838511, z: -6.005993}
 --- !u!4 &2075641867
 Transform:
   m_ObjectHideFlags: 0
