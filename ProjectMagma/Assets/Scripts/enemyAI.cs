@@ -379,11 +379,12 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
             if (isGlowingHurt)
             {
                 model.material.color = Color.red;
-                return;
             }
             else
+            {
                 // Determine how blue the enemy must look based on the freeze effect strength
                 model.material.color = Color.Lerp(Color.white, freezeColor, GetFreezeEffectStrength() * freezeColorMultiplier);
+            }
         }
     }
 
