@@ -88,6 +88,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     protected float healthOriginal;
     protected bool isAttacking;
+    bool diedAfterAmbushStarted;
 
     protected bool playerIsNearby;
     protected bool playerSpotted;
@@ -425,6 +426,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
         enemyManager.instance.EnemyDied(gameObject, isMinion, countDeath);
         shouldDropLoot = canDropLoot && enemyManager.instance.EnemyCount == 0;
+        diedAfterAmbushStarted = gameManager.instance.WasAmbushTriggered;
 
         if (!skipDeathAnimation && animator.HasState(0, Animator.StringToHash("Death")))
         {
@@ -453,7 +455,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
                     gameManager.instance.SpawnKey(lootPos);
                 }
                 // if the key was already dropped then the died enemy was the last ambush enemy, so drop the ambush reward
-                else if (gameManager.instance.WasAmbushTriggered && !gameManager.instance.IsAmbushRewardDropped)
+                else if (diedAfterAmbushStarted && gameManager.instance.WasAmbushTriggered && !gameManager.instance.IsAmbushRewardDropped)
                 {
                     gameManager.instance.SpawnAmbushReward(lootPos);
                 }
