@@ -22,6 +22,9 @@ public class pickableItemBase : MonoBehaviour, IPickable
 
     bool canPickup = false;
 
+    protected virtual void Start()
+    {
+    }
 
     /// <summary>
     /// Pickup the item.

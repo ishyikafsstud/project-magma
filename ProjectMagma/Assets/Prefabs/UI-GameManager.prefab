@@ -6923,8 +6923,6 @@ MonoBehaviour:
   itemPromptDescription: {fileID: 6393852331527951294}
   itemPromptDirection: {fileID: 5335821446037591543}
   pauseMenuTips:
-  - Out of energy? Use your melee attack to push the enemies back and make some room
-    for yourself
   - Move to restore your energy levels
   - Try different combinations of wands to suit your playstyle
   - Kill enemies to restore your health

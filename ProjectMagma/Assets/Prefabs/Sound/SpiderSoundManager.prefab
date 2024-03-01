@@ -9,21 +9,45 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 921687272057687191, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: MaxDistance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 921687272057687191, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: dfbb2582c4359d4429b99a67a7194b41, type: 3}
+    - target: {fileID: 921687272057687191, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: rolloffMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100729734795960032, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: MaxDistance
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 1100729734795960032, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: d1678f42b5904784e8551a961f33f006, type: 3}
+    - target: {fileID: 1100729734795960032, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: rolloffMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1500943126807432163, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: m_Name
       value: SpiderSoundManager
       objectReference: {fileID: 0}
     - target: {fileID: 1506536595223517005, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: MaxDistance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506536595223517005, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: eb9bf0aaf1dfdf64794a07fabd4b7e99, type: 3}
+    - target: {fileID: 1506536595223517005, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: rolloffMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1506536595223517005, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 1
@@ -68,13 +92,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2890603874032560156, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: MaxDistance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2890603874032560156, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: rolloffMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2890603874032560156, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3605668025904060708, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: MaxDistance
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3605668025904060708, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: f141aebd5e8c3de459faaeb06b8f618c, type: 3}
     - target: {fileID: 3605668025904060708, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: rolloffMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3605668025904060708, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942651935283425153, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: MaxDistance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942651935283425153, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
+      propertyPath: rolloffMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7942651935283425153, guid: 8b8a049c502328b4f93069af087e850d, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value

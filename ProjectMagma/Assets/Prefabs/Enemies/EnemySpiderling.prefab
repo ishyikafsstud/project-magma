@@ -1817,6 +1817,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 3492030534389578635}
+  models:
+  - {fileID: 3492030534389578635}
   agent: {fileID: 842866990892619886}
   animator: {fileID: 5075116170499481387}
   attackOrigin: {fileID: 6644790164650188877}
@@ -1839,7 +1841,7 @@ MonoBehaviour:
   attackRate: 0.3
   attackRange: 3
   projectile: {fileID: 0}
-  canRoam: 1
+  canRoam: 0
   roamDist: 5
   roamPauseTimeMin: 3
   roamPauseTimeMax: 6

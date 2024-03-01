@@ -19,10 +19,10 @@ MonoBehaviour:
   pushRadius: 10
   hitParticlePrefab: {fileID: 144344, guid: aa25d3f416a206c46a6e26a5ef0c0ec3, type: 3}
   particleDuration: 1
-  shootDamage: 4
+  shootDamage: 2
   shootRate: 0.1
   shootDist: 25
-  energyCostPerShot: 5
+  energyCostPerShot: 4.5
   weaponType: 0
   wandType: 0
   projectilePrefab: {fileID: 0}

@@ -68,19 +68,25 @@ public class playerController : MonoBehaviour, IDamage
     [Tooltip("The SFX of the weapon that is in player's hands. Sound clip updates automatically on player pickup.")]
     [SerializeField] AudioSource weaponAudioSource;
 
-    private GameObject currentVFX;
+
+    private int powerupsApplied;
     private float energyOriginal;
     private float energyRegenerated;
     private float healthOriginal;
+
     private Vector3 horMotionDirection;
     private Vector3 verticalVelocity;
+    private Vector3 lastHorizontalPosition;
     private float currentTiltAngle;
     private bool isGrounded;
     private int jumpCount;
     private bool sprinting;
     private float currentSpeed;
     private float walkToSprintSpeedRatio;
+
+    private GameObject currentVFX;
     private int selectedWeapon;
+
     public int SelectedWeapon
     {
         get => weaponList.Count > 0 ? selectedWeapon : -1;
@@ -130,6 +136,7 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
     }
+    public int PowerupsApplied { get => powerupsApplied; }
 
 
     /// <summary>
@@ -138,8 +145,11 @@ public class playerController : MonoBehaviour, IDamage
     /// <param name="stacks">How many stacks of the powerup to apply.</param>
     public void ApplyAmbushDefeatPowerup(int stacks = 1)
     {
-        energyOriginal += energyIncreasePerAmbush * stacks;
-        EnergyChanged?.Invoke(Energy, energyOriginal);
+        powerupsApplied += stacks;
+        float energyIncrease = energyIncreasePerAmbush * stacks;
+
+        energyOriginal += energyIncrease;
+        Energy += energyIncrease;
     }
 
     // Start is called before the first frame update
@@ -165,7 +175,7 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         processMovement();
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.green);
+        //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.green);
 
         if (!gameManager.instance.isPaused)
         {
@@ -195,9 +205,6 @@ public class playerController : MonoBehaviour, IDamage
             //    dropWeapon(selectedWeapon);
             //}
         }
-
-        RegenEnergy();
-        //healthRegenOnMovement();
     }
 
     void processMovement()
@@ -237,6 +244,20 @@ public class playerController : MonoBehaviour, IDamage
         {
             tiltCamera(horMotionDirection);
         }
+
+        // Calculate the new horizontal position without regard to Y
+        Vector3 newHorizontalPosition = new Vector3(transform.position.x, 0f, transform.position.z);
+
+        // Regenerate energy based on the distance traveled since the last frame
+        //
+        // The change in distance does not need to be multiplied by deltaTime because this method is called every
+        // frame, thus the difference between the old horizontal position and the new one is already one frame apart.
+        // However, sprintSpeed is a distance the player can traverse while sprinting in a SECOND, NOT a FRAME,
+        // so we need to multiply it by deltaTime to calculate maximum speed in one frame.
+        RegenEnergy(Vector3.Distance(lastHorizontalPosition, newHorizontalPosition), sprintSpeed * Time.deltaTime);
+
+        // Remember new horizontal position
+        lastHorizontalPosition = newHorizontalPosition;
 
         // Handle jumping
         if (Input.GetButtonDown("Jump") & jumpCount < jumpMaxNumber)
@@ -322,7 +343,7 @@ public class playerController : MonoBehaviour, IDamage
         isShooting = true;
 
         weaponAudioSource.PlayOneShot(weaponList[selectedWeapon].shootSound);
-        soundManager?.PlayAttackStart();
+        //soundManager?.PlayAttackStart();
 
         if (!hasInfiniteEnergy)
             useEnergy(energyCostPerShot);
@@ -473,7 +494,7 @@ public class playerController : MonoBehaviour, IDamage
     //    updatePlayerUI();
     //}
 
-    public void Heal(int value)
+    public void Heal(float value)
     {
         Health += value;
         Healed?.Invoke();
@@ -485,19 +506,29 @@ public class playerController : MonoBehaviour, IDamage
     }
 
     /// <summary>
-    /// Energy Regen when moving 
+    /// Regenerate energy based on the traveled distance, in relation to the maximum distance that
+    /// could have been traveled.
     /// </summary>
-    void RegenEnergy()
+    /// <param name="distanceTraveled">Actual traveled distance.</param>
+    /// <param name="maxDistanceTravel">Maximum distance that could've been traveled in this time (likely sprint speed).</param>
+    void RegenEnergy(float distanceTraveled, float maxDistanceTravel)
     {
-        // Calculate the base energy regenerated based on speed
-        float baseEnergyRegenerated = Mathf.Clamp((currentSpeed / sprintSpeed) * energyRegenRate, 0, energyRegenRate);
+        // Calculate the energy regenerated based on distance traveled relative to max possible
+        // travel distance.
+        //
+        // We don't have to check if sprinting to adjust the value because maxDistanceTravel is
+        // already calculated based on the sprint speed.
+        // However, we have to multiply the relation by deltaTime because energy regeneration rate
+        // is given as a max regeneration rate per second.
+        float energyRegenerated = Mathf.Clamp((distanceTraveled / maxDistanceTravel) * energyRegenRate, 0, energyRegenRate)
+            * Time.deltaTime;
+        //Debug.Log($"Player velocity this frame: {distanceTraveled};\tMax speed this frame: {maxDistanceTravel}.\t" +
+        //    $"Energy regenerated this frame: {energyRegenerated}");
 
-        // Adjust energy regeneration if sprinting
-        float adjustedEnergyRegenerated = sprinting ? baseEnergyRegenerated * 2f : baseEnergyRegenerated;
-
-        if (currentSpeed > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
+        // Ensure energyRegenerated is not NaN
+        if (!float.IsNaN(energyRegenerated))
         {
-            Energy += adjustedEnergyRegenerated * Time.deltaTime;
+            Energy += energyRegenerated;
         }
     }
 
@@ -531,6 +562,22 @@ public class playerController : MonoBehaviour, IDamage
 
     void selectWeapon()
     {
+        // Switch weapons using number keys
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (weaponList.Count > 0 && selectedWeapon != 0)
+            {
+                EquipWeaponFromSlot(0);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (weaponList.Count > 1 && selectedWeapon != 1)
+            {
+                EquipWeaponFromSlot(1);
+            }
+        }
+
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < weaponList.Count - 1)
         {
             selectedWeapon++;

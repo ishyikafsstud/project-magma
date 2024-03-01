@@ -9,7 +9,8 @@ using UnityEngine.UIElements;
 public class enemyAI : MonoBehaviour, IDamage, IPushable
 {
     [Header("----- Components -----")]
-    [SerializeField] Renderer model;
+    [Tooltip("Models of the enemy that need to change color on hurt, freeze, etc.")]
+    [SerializeField] Renderer[] models;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator animator;
     [Tooltip("The position for projectile spawning or melee attack raycast origin.")]
@@ -23,7 +24,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     [SerializeField] Collider primaryCollider;
 
     [Header("---- Stats ----")]
-    [Range(1, 50)][SerializeField] protected float HP;
+    [Range(1, 100)][SerializeField] protected float HP;
     [SerializeField] public int restoredHealthValue;
     [Tooltip("Whether the character is summoned by a spawner enemy.\nMinions do not count toward kills.")]
     [SerializeField] bool isMinion;
@@ -60,6 +61,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     [Header("---- Roaming ----")]
     [SerializeField] bool canRoam = true;
+    public bool CanRoam { get => canRoam; set => canRoam = value; }
     [SerializeField] int roamDist = 10;
     [Tooltip("The minimum time before starting to roam again.")]
     [Range(0, 60)][SerializeField] int roamPauseTimeMin = 3;
@@ -86,6 +88,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     protected float healthOriginal;
     protected bool isAttacking;
+    bool diedAfterAmbushStarted;
 
     protected bool playerIsNearby;
     protected bool playerSpotted;
@@ -96,7 +99,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     Vector3 startingPos;
     float origSpeed;
     float stoppingDistOrig;
-    bool canRotate = true; //For locking enemy rotation 
 
     bool hasBeenAlerted;
     bool isGlowingHurt;
@@ -217,9 +219,11 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         {
             if (playerSpotted)
             {
-                ChasePlayer();
+                if (!isAttacking)
+                {
+                    ChasePlayer();
+                }
 
-                // If player is within the attack range and unless already attacking, attack him
                 if (CanAttack())
                 {
                     Attack();
@@ -233,26 +237,14 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
             }
         }
 
-        if (isAttacking && !canRotate)
-        {
-            // Lock the enemy's rotation during attack
-            agent.updateRotation = false;
-        }
-        else
-        {
-            agent.updateRotation = true;
-        }
+        // Lock the enemy rotation during attack
+        agent.updateRotation = !isAttacking;
 
         if (animator != null)
         {
             float targetAnimSpeed = agent.velocity.normalized.magnitude;
             animator.SetFloat("Speed", Mathf.Lerp(animator.GetFloat("Speed"), targetAnimSpeed, animSpeedTransition * Time.deltaTime));
         }
-    }
-
-    public void SetCanRoam(bool canRoam)
-    {
-        this.canRoam = canRoam;
     }
 
     /// <summary>
@@ -289,14 +281,16 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     void ChasePlayer()
     {
+        // Run after player
         agent.SetDestination(gameManager.instance.player.transform.position);
-        if (agent.remainingDistance < agent.stoppingDistance && canRotate)
+
+        // Continue facing player even if they are within the stopping distance
+        if (agent.remainingDistance < agent.stoppingDistance)
             faceTarget();
     }
 
     void faceTarget()
     {
-        if (!canRotate) return;
         Quaternion rot = Quaternion.LookRotation(new Vector3(distanceToPlayer.x, 0, distanceToPlayer.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, faceTargetSpeed * Time.deltaTime);
     }
@@ -340,7 +334,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     {
         if (isDead)
             return;
-        
+
         StartCoroutine(flashRed());
 
         Health -= amount;
@@ -360,8 +354,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         yield return new WaitForSeconds(freezeTime);
 
         CurrentFreezeStack -= appliedStacks;
-
-        yield return null;
     }
 
     //this is going to change. this is for test feedback for the player.
@@ -378,16 +370,23 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     void UpdateModelColor()
     {
-        if (model == null)
-            return;
-
-        if (isGlowingHurt)
+        // Go through every model in the models array to ensure every specified model changes its color
+        foreach (Renderer model in models)
         {
-            model.material.color = Color.red;
-            return;
-        }
+            if (model == null)
+                return;
 
-        model.material.color = Color.Lerp(Color.white, freezeColor, GetFreezeEffectStrength() * freezeColorMultiplier);
+            // If the enemy is supposed to flash because he was hurt, make the color of it red
+            if (isGlowingHurt)
+            {
+                model.material.color = Color.red;
+            }
+            else
+            {
+                // Determine how blue the enemy must look based on the freeze effect strength
+                model.material.color = Color.Lerp(Color.white, freezeColor, GetFreezeEffectStrength() * freezeColorMultiplier);
+            }
+        }
     }
 
     private void spotPlayer()
@@ -411,7 +410,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
             hasBeenAlerted = true;
         }
-        //model.material.color = Color.red; // DEBUG PURPOSES - to see who got alerted
     }
 
     public void die()
@@ -428,6 +426,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
         enemyManager.instance.EnemyDied(gameObject, isMinion, countDeath);
         shouldDropLoot = canDropLoot && enemyManager.instance.EnemyCount == 0;
+        diedAfterAmbushStarted = gameManager.instance.WasAmbushTriggered;
 
         if (!skipDeathAnimation && animator.HasState(0, Animator.StringToHash("Death")))
         {
@@ -456,7 +455,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
                     gameManager.instance.SpawnKey(lootPos);
                 }
                 // if the key was already dropped then the died enemy was the last ambush enemy, so drop the ambush reward
-                else if (gameManager.instance.WasAmbushTriggered && !gameManager.instance.IsAmbushRewardDropped)
+                else if (diedAfterAmbushStarted && gameManager.instance.WasAmbushTriggered && !gameManager.instance.IsAmbushRewardDropped)
                 {
                     gameManager.instance.SpawnAmbushReward(lootPos);
                 }
@@ -469,6 +468,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     protected virtual bool CanAttack()
     {
+        // If player is within the attack range and unless already attacking, attack him
         return !isAttacking && canSeePlayerForAttack();
         //&& enemyManager.instance.attackingEnemiesCount <= enemyManager.instance.maxAttackingEnemies;
     }
@@ -481,7 +481,12 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     {
         soundManager?.PlayAttackStart();
         isAttacking = true;
-        canRotate = false; // lock rotation when attacking
+
+        // Make the enemy stand while attacking
+        agent.SetDestination(transform.position);
+        // Lock rotation on navigation agent
+        agent.updateRotation = false;
+
         animator.SetTrigger("AttackTrigger");
         //enemyManager.instance.attackingEnemiesCount++;
     }
@@ -507,8 +512,12 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
     protected virtual void AttackAnimationEnd()
     {
         isAttacking = false;
-        canRotate = true;
+
+        // Unlock rotation on navigation agent
+        agent.updateRotation = true;
+
         animator.ResetTrigger("AttackTrigger");
+
         //enemyManager.instance.attackingEnemiesCount--;
         //yield return new WaitForSeconds(attackRate);
     }

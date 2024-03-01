@@ -2167,6 +2167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 4046021810319007492}
+  models:
+  - {fileID: 4046021810319007492}
   agent: {fileID: 938128767474468129}
   animator: {fileID: 5419979265419903573}
   attackOrigin: {fileID: 3247302712215356669}
@@ -2174,8 +2176,8 @@ MonoBehaviour:
   lootPosition: {fileID: 3087540497652778804}
   enemyUI: {fileID: 3478104716916680543}
   primaryCollider: {fileID: 3762471424270734250}
-  HP: 35
-  restoredHealthValue: 5
+  HP: 50
+  restoredHealthValue: 4
   isMinion: 0
   canDropLoot: 1
   countDeath: 1
@@ -2190,7 +2192,7 @@ MonoBehaviour:
   attackRange: 7
   projectile: {fileID: 0}
   canRoam: 0
-  roamDist: 10
+  roamDist: 5
   roamPauseTimeMin: 3
   roamPauseTimeMax: 6
   maxFreezeStack: 5
@@ -9034,7 +9036,7 @@ Transform:
   m_GameObject: {fileID: 7970485652721397328}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.546, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []

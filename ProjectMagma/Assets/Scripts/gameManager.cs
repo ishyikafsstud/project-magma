@@ -120,6 +120,8 @@ public class gameManager : MonoBehaviour
     public event EventHandler AmbushStarted;
     public static event EventHandler AmbushRewardDropped;
     public static event EventHandler AmbushRewardPickedEvent;
+    public static event EventHandler GamePausedEvent;
+    public static event EventHandler GameUnPausedEvent;
 
     bool wasAmbushTriggered;
     public bool WasAmbushTriggered { get => wasAmbushTriggered; }
@@ -216,9 +218,6 @@ public class gameManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        // Force update the weapon selection UI
-        PlayerScript_WeaponSwitched(playerScript.SelectedWeaponStats);
-
         UpdateEnemyCountText();
         ShowHint("Good Luck!");
 
@@ -245,19 +244,21 @@ public class gameManager : MonoBehaviour
     /// </summary>
     void LateStart()
     {
+        // Force update the weapon selection UI
+        PlayerScript_WeaponSwitched(playerScript.SelectedWeaponStats);
     }
 
     void OnPlayerSpawned()
     {
-        int ambushesDefeated = saveSystem.CountAmbushesDefeated(levelId);
-        playerScript.ApplyAmbushDefeatPowerup(ambushesDefeated);
+        int powerupsApplied = saveSystem.GetPowerupsCountOnLevelStart(levelId);
+        playerScript.ApplyAmbushDefeatPowerup(powerupsApplied);
     }
 
     // Update is called once per frame
     void Update()
     {
         // If ESC button is pressed and nothing is currently in the active menu
-        if (Input.GetButtonDown("Cancel") || Input.GetButtonDown("Pause") && menuActive == null)
+        if (menuActive == null && (Input.GetButtonDown("Cancel") || Input.GetButtonDown("Pause")))
         {
             // call pause function
             statePaused();
@@ -279,11 +280,8 @@ public class gameManager : MonoBehaviour
     public void statePaused()
     {
         isPaused = true;
-
-        if (!randomTips)
-            DisplayTipInOrder();
-        else
-            DisplayRandomTip();
+        // Inform anyone who is subscribed to game paused event
+        GamePausedEvent?.Invoke();
 
         // Stop all time based Actions from happening in the background
         Time.timeScale = 0.0f;
@@ -292,18 +290,22 @@ public class gameManager : MonoBehaviour
         // Confine Cursor to Pause window boundaries
         Cursor.lockState = CursorLockMode.Confined;
 
-        // TODO: should it really be here?
-        //stop all coroutines
-        StopAllCoroutines();
+        // Show a new tip in the pause menu
+        if (!randomTips)
+            DisplayTipInOrder();
+        else
+            DisplayRandomTip();
 
         soundtrackManager.PauseMusic();
 
-        // Event System Highlights/Selects button to enable keyboard controls on menu
+        // Event System highlights/selects button to enable keyboard controls on menu
         EventSystem.current.SetSelectedGameObject(highlightPauseButton);
     }
     public void stateUnpaused()
     {
         isPaused = false;
+
+        GameUnPausedEvent?.Invoke();
 
         tipShown = false;
         // Resumes time based actions 
@@ -473,6 +475,7 @@ public class gameManager : MonoBehaviour
     {
         hintText.gameObject.SetActive(false);
     }
+
     public void ShowItemPrompt(string title, string description)
     {
         itemPromptTitle.text = title;
@@ -491,7 +494,9 @@ public class gameManager : MonoBehaviour
         itemPromptDirection.gameObject.SetActive(false);
     }
 
-    // ----- Display Tips in a Random Order -----
+    /// <summary>
+    /// Display Tips in a random order.
+    /// </summary>
     public void DisplayRandomTip()
     {
         if (pauseMenuTips.Count > 0 && tipsText != null && !tipShown)
@@ -502,7 +507,9 @@ public class gameManager : MonoBehaviour
             tipShown = true;
         }
     }
-    // ----- Display Tips in Order -----
+    /// <summary>
+    /// Display tips in order.
+    /// </summary>
     public void DisplayTipInOrder()
     {
         if (pauseMenuTips.Count > 0 && tipsText != null && !tipShown)

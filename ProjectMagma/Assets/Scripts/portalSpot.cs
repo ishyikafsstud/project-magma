@@ -7,6 +7,8 @@ public class portalSpot : MonoBehaviour, ILockable
 {
     [Tooltip("The portal itself, with the VFX and portal passing functionality.")]
     [SerializeField] GameObject portal;
+    [Tooltip("The collider of the portal that triggers level completion.")]
+    [SerializeField] Collider portalCollider;
     [Tooltip("The collider of the \"go find the activator stone\" reminder.")]
     [SerializeField] BoxCollider reminderTriggerCollider;
     [SerializeField] Light spotLight;
@@ -14,6 +16,9 @@ public class portalSpot : MonoBehaviour, ILockable
     [Header("---- Settings ----")]
     [Tooltip("Whether the portal should be activated on start (false by default).")]
     [SerializeField] bool activateOnStart;
+
+    [SerializeField] AudioSource portalActivatedSFX;
+    [SerializeField] AudioSource portalSFX;
 
     bool isLocked;
 
@@ -27,11 +32,27 @@ public class portalSpot : MonoBehaviour, ILockable
 
         gameManager.AmbushRewardDropped += DisablePortalTrigger;
         gameManager.AmbushRewardPickedEvent += EnablePortalTrigger;
+        gameManager.GamePausedEvent += PausePortalSFX;
+        gameManager.GameUnPausedEvent += UnPausePortalSFX;
+    }
+
+    private void PausePortalSFX()
+    {
+        portalSFX.Pause();
+        portalActivatedSFX?.Pause();
+    }
+
+    private void UnPausePortalSFX()
+    {
+        portalSFX?.UnPause();
+        portalActivatedSFX?.UnPause();
     }
 
     private void OnDisable()
     {
         gameManager.OnKeyPicked -= Unlock;
+        gameManager.GamePausedEvent -= PausePortalSFX;
+        gameManager.GameUnPausedEvent -= UnPausePortalSFX;
     }
 
     public void SetLock(bool lockValue)
@@ -51,6 +72,8 @@ public class portalSpot : MonoBehaviour, ILockable
 
     public void Unlock()
     {
+        portalActivatedSFX.Play();
+        portalSFX.PlayDelayed(5.5f);
         portal.SetActive(true);
         spotLight.enabled = true;
     }
@@ -60,7 +83,8 @@ public class portalSpot : MonoBehaviour, ILockable
     /// </summary>
     void EnablePortalTrigger()
     {
-        portal.GetComponent<BoxCollider>().enabled = true;
+        if (portalCollider != null)
+            portalCollider.enabled = true;
     }
 
     /// <summary>
@@ -68,7 +92,8 @@ public class portalSpot : MonoBehaviour, ILockable
     /// </summary>
     void DisablePortalTrigger()
     {
-        portal.GetComponent<BoxCollider>().enabled = false;
+        if (portalCollider != null)
+            portalCollider.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -78,7 +103,7 @@ public class portalSpot : MonoBehaviour, ILockable
             {
                 StartCoroutine(gameManager.instance.ShowHint("Can't proceed: find the activator stone!", 10.0f));
             }
-            else if (gameManager.instance.IsKeyPicked && !gameManager.instance.IsAmbushRewardPicked)
+            else if (gameManager.instance.IsAmbushRewardDropped && !gameManager.instance.IsAmbushRewardPicked)
             {
                 StartCoroutine(gameManager.instance.ShowHint("Can't proceed: pick up the ambush reward!", 10.0f));
             }

@@ -2167,6 +2167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 4046021810319007492}
+  models:
+  - {fileID: 4046021810319007492}
   agent: {fileID: 938128767474468129}
   animator: {fileID: 5419979265419903573}
   attackOrigin: {fileID: 3247302712215356669}
@@ -2175,7 +2177,7 @@ MonoBehaviour:
   enemyUI: {fileID: 3478104716916680543}
   primaryCollider: {fileID: 3762471424270734250}
   HP: 25
-  restoredHealthValue: 4
+  restoredHealthValue: 2
   isMinion: 0
   canDropLoot: 1
   countDeath: 1
@@ -2190,7 +2192,7 @@ MonoBehaviour:
   attackRange: 3
   projectile: {fileID: 0}
   canRoam: 0
-  roamDist: 10
+  roamDist: 5
   roamPauseTimeMin: 3
   roamPauseTimeMax: 6
   maxFreezeStack: 5
