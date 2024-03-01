@@ -2175,7 +2175,7 @@ MonoBehaviour:
   enemyUI: {fileID: 3478104716916680543}
   primaryCollider: {fileID: 3762471424270734250}
   HP: 50
-  restoredHealthValue: 5
+  restoredHealthValue: 4
   isMinion: 0
   canDropLoot: 1
   countDeath: 1
