@@ -19747,7 +19747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c2e7d01a8ce85429b6d7e9b1fb49db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healingRate: 27
+  healingRate: 3
 --- !u!198 &7419139691326504314
 ParticleSystem:
   m_ObjectHideFlags: 0
