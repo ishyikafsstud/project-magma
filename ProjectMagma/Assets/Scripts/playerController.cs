@@ -83,7 +83,7 @@ public class playerController : MonoBehaviour, IDamage
     private bool sprinting;
     private float currentSpeed;
     private float walkToSprintSpeedRatio;
-    
+
     private GameObject currentVFX;
     private int selectedWeapon;
 
@@ -247,7 +247,7 @@ public class playerController : MonoBehaviour, IDamage
 
         // Calculate the new horizontal position without regard to Y
         Vector3 newHorizontalPosition = new Vector3(transform.position.x, 0f, transform.position.z);
-        
+
         // Regenerate energy based on the distance traveled since the last frame
         //
         // The change in distance does not need to be multiplied by deltaTime because this method is called every
@@ -525,9 +525,10 @@ public class playerController : MonoBehaviour, IDamage
         //Debug.Log($"Player velocity this frame: {distanceTraveled};\tMax speed this frame: {maxDistanceTravel}.\t" +
         //    $"Energy regenerated this frame: {energyRegenerated}");
 
-        if (currentSpeed > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
+        // Ensure energyRegenerated is not NaN
+        if (!float.IsNaN(energyRegenerated))
         {
-           Energy += energyRegenerated;
+            Energy += energyRegenerated;
         }
     }
 
