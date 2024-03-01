@@ -407,6 +407,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 8714060483185446284}
+  models:
+  - {fileID: 8714060483185446284}
   agent: {fileID: 8468652042664824877}
   animator: {fileID: 5141618466626957924}
   attackOrigin: {fileID: 7793414643401397554}

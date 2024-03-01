@@ -2366,6 +2366,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 2738620036386251034}
+  models:
+  - {fileID: 2738620036386251034}
+  - {fileID: 6449272339515688877}
+  - {fileID: 3001351374693910058}
+  - {fileID: 2752979186284303141}
+  - {fileID: 1400277998161358567}
+  - {fileID: 6020035955398484861}
   agent: {fileID: 2456937230158250957}
   animator: {fileID: 453375409591852883}
   attackOrigin: {fileID: 0}

@@ -640,6 +640,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 430443201119338661}
+  models:
+  - {fileID: 430443201119338661}
+  - {fileID: 5284998029214146939}
   agent: {fileID: 2029370887770342471}
   animator: {fileID: 2040736154835555191}
   attackOrigin: {fileID: 8765020890692318376}

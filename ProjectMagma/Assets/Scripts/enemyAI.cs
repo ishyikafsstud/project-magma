@@ -9,7 +9,8 @@ using UnityEngine.UIElements;
 public class enemyAI : MonoBehaviour, IDamage, IPushable
 {
     [Header("----- Components -----")]
-    [SerializeField] Renderer model;
+    [Tooltip("Models of the enemy that need to change color on hurt, freeze, etc.")]
+    [SerializeField] Renderer[] models;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator animator;
     [Tooltip("The position for projectile spawning or melee attack raycast origin.")]
@@ -221,7 +222,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
                 {
                     ChasePlayer();
                 }
-                
+
                 if (CanAttack())
                 {
                     Attack();
@@ -370,16 +371,22 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
     void UpdateModelColor()
     {
-        if (model == null)
-            return;
-
-        if (isGlowingHurt)
+        // Go through every model in the models array to ensure every specified model changes its color
+        foreach (Renderer model in models)
         {
-            model.material.color = Color.red;
-            return;
-        }
+            if (model == null)
+                return;
 
-        model.material.color = Color.Lerp(Color.white, freezeColor, GetFreezeEffectStrength() * freezeColorMultiplier);
+            // If the enemy is supposed to flash because he was hurt, make the color of it red
+            if (isGlowingHurt)
+            {
+                model.material.color = Color.red;
+                return;
+            }
+
+            // Determine how blue the enemy must look based on the freeze effect strength
+            model.material.color = Color.Lerp(Color.white, freezeColor, GetFreezeEffectStrength() * freezeColorMultiplier);
+        }
     }
 
     private void spotPlayer()
@@ -403,7 +410,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
             hasBeenAlerted = true;
         }
-        //model.material.color = Color.red; // DEBUG PURPOSES - to see who got alerted
     }
 
     public void die()
@@ -508,7 +514,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
 
         // Unlock rotation on navigation agent
         agent.updateRotation = true;
-        
+
         animator.ResetTrigger("AttackTrigger");
 
         //enemyManager.instance.attackingEnemiesCount--;
