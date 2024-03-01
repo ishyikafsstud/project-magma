@@ -16,6 +16,7 @@ public class contiuousDamageOnContact : MonoBehaviour
         if (entity != null)
             entity.GetComponent<IDamage>().takeDamage(damage);
 
+        // Wait for cooldown before trying to damage again
         yield return new WaitForSeconds(cooldown);
 
         // If the entity is still within the AOE
