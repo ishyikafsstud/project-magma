@@ -50749,21 +50749,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1762417948}
     m_Modifications:
-    - target: {fileID: 4241700232341509197, guid: f6cd1459237b5db4d867541b2e07f2d7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4935653162822591750, guid: 3a66c42a512a26e4ea569da706e2a6a0, type: 3}
       propertyPath: activateOnStart
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8367992595475507149, guid: f6cd1459237b5db4d867541b2e07f2d7, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7068942285459157883, guid: f6cd1459237b5db4d867541b2e07f2d7, type: 3}
-      propertyPath: m_Name
-      value: PortalSpot-LevelStart
+    - target: {fileID: 4241700232341509197, guid: f6cd1459237b5db4d867541b2e07f2d7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6246166025684747387, guid: f6cd1459237b5db4d867541b2e07f2d7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50803,6 +50795,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6246166025684747387, guid: f6cd1459237b5db4d867541b2e07f2d7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7068942285459157883, guid: f6cd1459237b5db4d867541b2e07f2d7, type: 3}
+      propertyPath: m_Name
+      value: PortalSpot-LevelStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 8367992595475507149, guid: f6cd1459237b5db4d867541b2e07f2d7, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -60998,7 +60998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateOnStart: 0
   moveByDistance: {x: 0, y: -5, z: 0}
-  timeToReachTarget: 1
+  timeToReachTarget: 0.75
   reverseOnReactivate: 1
 --- !u!1001 &1836940851
 PrefabInstance:
@@ -64445,7 +64445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateOnStart: 0
   moveByDistance: {x: 0, y: -5, z: 0}
-  timeToReachTarget: 1
+  timeToReachTarget: 0.75
   reverseOnReactivate: 1
 --- !u!1001 &1955263277
 PrefabInstance:
