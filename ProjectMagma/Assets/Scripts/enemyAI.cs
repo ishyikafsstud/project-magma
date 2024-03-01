@@ -353,8 +353,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPushable
         yield return new WaitForSeconds(freezeTime);
 
         CurrentFreezeStack -= appliedStacks;
-
-        yield return null;
     }
 
     //this is going to change. this is for test feedback for the player.

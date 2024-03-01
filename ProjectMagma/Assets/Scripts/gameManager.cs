@@ -280,11 +280,6 @@ public class gameManager : MonoBehaviour
     public void statePaused()
     {
         isPaused = true;
-
-        if (!randomTips)
-            DisplayTipInOrder();
-        else
-            DisplayRandomTip();
         // Inform anyone who is subscribed to game paused event
         GamePausedEvent?.Invoke();
 
@@ -295,13 +290,15 @@ public class gameManager : MonoBehaviour
         // Confine Cursor to Pause window boundaries
         Cursor.lockState = CursorLockMode.Confined;
 
-        //// TODO: should it really be here?
-        ////stop all coroutines
-        //StopAllCoroutines();
+        // Show a new tip in the pause menu
+        if (!randomTips)
+            DisplayTipInOrder();
+        else
+            DisplayRandomTip();
 
         soundtrackManager.PauseMusic();
 
-        // Event System Highlights/Selects button to enable keyboard controls on menu
+        // Event System highlights/selects button to enable keyboard controls on menu
         EventSystem.current.SetSelectedGameObject(highlightPauseButton);
     }
     public void stateUnpaused()
@@ -478,6 +475,7 @@ public class gameManager : MonoBehaviour
     {
         hintText.gameObject.SetActive(false);
     }
+
     public void ShowItemPrompt(string title, string description)
     {
         itemPromptTitle.text = title;
@@ -496,7 +494,9 @@ public class gameManager : MonoBehaviour
         itemPromptDirection.gameObject.SetActive(false);
     }
 
-    // ----- Display Tips in a Random Order -----
+    /// <summary>
+    /// Display Tips in a random order.
+    /// </summary>
     public void DisplayRandomTip()
     {
         if (pauseMenuTips.Count > 0 && tipsText != null && !tipShown)
@@ -507,7 +507,9 @@ public class gameManager : MonoBehaviour
             tipShown = true;
         }
     }
-    // ----- Display Tips in Order -----
+    /// <summary>
+    /// Display tips in order.
+    /// </summary>
     public void DisplayTipInOrder()
     {
         if (pauseMenuTips.Count > 0 && tipsText != null && !tipShown)

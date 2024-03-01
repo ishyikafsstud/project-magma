@@ -103,7 +103,7 @@ public class portalSpot : MonoBehaviour, ILockable
             {
                 StartCoroutine(gameManager.instance.ShowHint("Can't proceed: find the activator stone!", 10.0f));
             }
-            else if (gameManager.instance.IsKeyPicked && !gameManager.instance.IsAmbushRewardPicked)
+            else if (gameManager.instance.IsAmbushRewardDropped && !gameManager.instance.IsAmbushRewardPicked)
             {
                 StartCoroutine(gameManager.instance.ShowHint("Can't proceed: pick up the ambush reward!", 10.0f));
             }
