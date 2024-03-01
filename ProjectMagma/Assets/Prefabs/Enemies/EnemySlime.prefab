@@ -406,7 +406,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854031a5bb144e243828df2406710221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 8714060483185446284}
   models:
   - {fileID: 8714060483185446284}
   agent: {fileID: 8468652042664824877}
@@ -429,7 +428,7 @@ MonoBehaviour:
   animSpeedTransition: 8
   attackDamage: 1
   attackRate: 0.5
-  attackRange: 3
+  attackRange: 2.5
   projectile: {fileID: 0}
   canRoam: 0
   roamDist: 5
@@ -479,7 +478,7 @@ NavMeshAgent:
   m_Acceleration: 4
   avoidancePriority: 50
   m_AngularSpeed: 800
-  m_StoppingDistance: 3
+  m_StoppingDistance: 2.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
