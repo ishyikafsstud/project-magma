@@ -4955,6 +4955,7 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: b79abe45ee4b4424ca9f1e854fb9e763, type: 3}
   pickupSoundVolume: 5
   mixerGroup: {fileID: -2675556089199335731, guid: bf6bda5b9a9b9b6408514563e5169e0c, type: 2}
+  noiseSource: {fileID: -2574788468960193125}
 --- !u!114 &2835564997492611964
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -120,6 +120,8 @@ public class gameManager : MonoBehaviour
     public event EventHandler AmbushStarted;
     public static event EventHandler AmbushRewardDropped;
     public static event EventHandler AmbushRewardPickedEvent;
+    public static event EventHandler GamePausedEvent;
+    public static event EventHandler GameUnPausedEvent;
 
     bool wasAmbushTriggered;
     public bool WasAmbushTriggered { get => wasAmbushTriggered; }
@@ -283,6 +285,8 @@ public class gameManager : MonoBehaviour
             DisplayTipInOrder();
         else
             DisplayRandomTip();
+        // Inform anyone who is subscribed to game paused event
+        GamePausedEvent?.Invoke();
 
         // Stop all time based Actions from happening in the background
         Time.timeScale = 0.0f;
@@ -303,6 +307,8 @@ public class gameManager : MonoBehaviour
     public void stateUnpaused()
     {
         isPaused = false;
+
+        GameUnPausedEvent?.Invoke();
 
         tipShown = false;
         // Resumes time based actions 

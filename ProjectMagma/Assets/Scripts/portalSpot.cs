@@ -32,11 +32,27 @@ public class portalSpot : MonoBehaviour, ILockable
 
         gameManager.AmbushRewardDropped += DisablePortalTrigger;
         gameManager.AmbushRewardPickedEvent += EnablePortalTrigger;
+        gameManager.GamePausedEvent += PausePortalSFX;
+        gameManager.GameUnPausedEvent += UnPausePortalSFX;
+    }
+
+    private void PausePortalSFX()
+    {
+        portalSFX.Pause();
+        portalActivatedSFX?.Pause();
+    }
+
+    private void UnPausePortalSFX()
+    {
+        portalSFX?.UnPause();
+        portalActivatedSFX?.UnPause();
     }
 
     private void OnDisable()
     {
         gameManager.OnKeyPicked -= Unlock;
+        gameManager.GamePausedEvent -= PausePortalSFX;
+        gameManager.GameUnPausedEvent -= UnPausePortalSFX;
     }
 
     public void SetLock(bool lockValue)
