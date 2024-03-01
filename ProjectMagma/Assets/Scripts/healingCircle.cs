@@ -14,7 +14,7 @@ public class healingCircle : MonoBehaviour
             if (gameManager.instance.player != null)
             {
                 // Heal the player over time
-                int healingAmount = Mathf.RoundToInt(healingRate * Time.deltaTime);
+                float healingAmount = healingRate * Time.deltaTime;
                 gameManager.instance.playerScript.Heal(healingAmount);
             }
         }

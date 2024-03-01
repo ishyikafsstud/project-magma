@@ -473,7 +473,7 @@ public class playerController : MonoBehaviour, IDamage
     //    updatePlayerUI();
     //}
 
-    public void Heal(int value)
+    public void Heal(float value)
     {
         Health += value;
         Healed?.Invoke();
